@@ -66,4 +66,42 @@
     .Cuerpo-Error{
         padding: 0 7vh 0 7vh;
     }
-  } 
+  }
+  
+  .btn-Volver {
+    display: inline-block;
+    height: 40px;
+    padding: 5px 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 1s ease;
+    position: relative;
+    border-radius: 5px;
+    z-index: 0;
+    border: 2px solid #B08D59 !important;
+    background-color: #F0E5D8 !important;
+    color: #B08D59 !important;
+    white-space: nowrap;
+}
+
+.btn-Volver:hover {
+    color: #F0E5D8 !important;
+}
+
+.btn-Volver:hover::after {
+    width: 100%;
+
+}
+
+.btn-Volver::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    transition: all 1s ease;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 100%;
+
+    background: #B08D59 !important;
+}  
