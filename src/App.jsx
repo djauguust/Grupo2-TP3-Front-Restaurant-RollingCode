@@ -1,11 +1,14 @@
 import { useState } from 'react'
+import Rutes from './routes/Rutes'
 
 function App() {
 
 
   return (
     <>
-      <h1>Configurar Cuenta</h1>
+      <main>
+        <Rutes />
+      </main>
     </>
   )
 }
