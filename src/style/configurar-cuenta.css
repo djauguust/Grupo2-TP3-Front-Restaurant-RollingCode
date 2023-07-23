@@ -1,34 +1,23 @@
-
-
 /* Resolución para Pantallas de Ordenador */
 @media (min-width: 913px) {
     .Contenedor-Cuerpo{
         padding: 5vh 35vh 15vh 35vh;
     }
-    
-    .Contenedor-Form{
-        padding: 3vh 15vh 0 15vh;
-    }
-    
   }
 
-
+/* Resolución para Pantallas de Tablet */
 @media (min-width: 768px) and (max-width: 912px) {
-    h1{
-        font-size: 7vh !important;
-    }
-    h3{
-        font-size: 4vh !important;
-    }
-    .Imagen-Fondo{
-        height: 90vh;
-        background-size: 120%;
-        background-repeat: no-repeat;
-    }
-    .Cuerpo-Error{
-        padding: 0 7vh 0 7vh;
+    .Contenedor-Cuerpo{
+        padding: 5vh 3vh 5vh 3vh;
     }
   }  
+
+/* Resolución para Pantallas de Celulares */  
+@media (max-width: 767px) {
+    .Contenedor-Cuerpo{
+        padding: 5vh 3vh 8vh 2vh;
+    }
+  }
 
   .btn-Volver {
     display: inline-block;

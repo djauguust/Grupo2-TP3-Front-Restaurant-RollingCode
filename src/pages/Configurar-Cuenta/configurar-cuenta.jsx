@@ -11,7 +11,7 @@ const configurarCuenta = () => {
     </div>
     <h3></h3>
     <Container>
-        <div className='Contenedor-Form'>    
+        <div className='Contenedor-Form d-flex justify-content-center mt-3'>    
         <Form>
         <Stack gap={2}>
             <Form.Group>
@@ -31,7 +31,7 @@ const configurarCuenta = () => {
                 <Form.Control />
             </Form.Group>
         </Stack>
-            <Button className='btn-Volver mt-3'>Volver al Inicio</Button>
+            <Button className='btn-Volver mt-3'>Guardar Cambios</Button>
         </Form>
         </div>
     </Container>
