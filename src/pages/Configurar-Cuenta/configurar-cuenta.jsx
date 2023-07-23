@@ -49,6 +49,20 @@ const configurarCuenta = () => {
         RepetirContraseña : ""
     }
 
+    const formik = useFormik({
+        initialValues: valoresIniciales,
+        validationSchema : esquemaConfigurarCuenta,
+        validateOnChange: true,
+        validateOnBlur: true,
+        onSubmit: async (values) => {
+            try {
+                
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    })
+
   return (
     <>
     <div className='Contenedor-Cuerpo'>
@@ -58,26 +72,82 @@ const configurarCuenta = () => {
     <h3></h3>
     <Container>
         <div className='Contenedor-Form d-flex justify-content-center mt-3'>    
-        <Form>
+        <Form onSubmit={formik.handleSubmit} noValidate>
         <Stack gap={2}>
             <Form.Group>
                 <Form.Label>Nombre :</Form.Label>
-                <Form.Control />
+                <Form.Control type='text' placeholder='Ej: Lucas' id='Nombre'
+                {...formik.getFieldProps("Nombre")}
+                className={clsx(
+                    "form-control",{
+                        "is-invalid" : formik.touched.Nombre && formik.errors.Nombre
+                    },{
+                        "is-valid" : formik.touched.Nombre && !formik.errors.Nombre
+                    }
+                )}
+                />
+                {formik.touched.Nombre && formik.errors.Nombre && (
+                <div>
+                    <span role="alert" className="text-danger">{formik.errors.Nombre}</span>
+                </div>
+                )}
             </Form.Group>
             <Form.Group>
                 <Form.Label>Apellido :</Form.Label>
-                <Form.Control />
+                <Form.Control type='text' placeholder='Ej: Yudi' id='Apellido'
+                {...formik.getFieldProps("Apellido")}
+                className={clsx(
+                    "form-control",{
+                        "is-invalid" : formik.touched.Apellido && formik.errors.Apellido
+                    },{
+                        "is-valid" : formik.touched.Apellido && !formik.errors.Apellido
+                    }
+                )}
+                />
+                {formik.touched.Apellido && formik.errors.Apellido && (
+                <div>
+                    <span role="alert" className="text-danger">{formik.errors.Apellido}</span>
+                </div>
+                )}
             </Form.Group>
             <Form.Group>
                 <Form.Label>Email :</Form.Label>
-                <Form.Control />
+                <Form.Control type='email' placeholder='Ej: yudilucas@gmail.com' id='Email'
+                {...formik.getFieldProps("Email")}
+                className={clsx(
+                    "form-control",{
+                        "is-invalid" : formik.touched.Email && formik.errors.Email
+                    },{
+                        "is-valid" : formik.touched.Email && !formik.errors.Email
+                    }
+                )}
+                />
+                {formik.touched.Email && formik.errors.Email && (
+                <div>
+                    <span role="alert" className="text-danger">{formik.errors.Email}</span>
+                </div>
+                )}
             </Form.Group>
             <Form.Group>
-                <Form.Label>Contraseña   :</Form.Label>
-                <Form.Control />
+                <Form.Label>Contraseña :</Form.Label>
+                <Form.Control type='text' placeholder='Ej: Lucas1234' id='Contraseña'
+                {...formik.getFieldProps("Contraseña")}
+                className={clsx(
+                    "form-control",{
+                        "is-invalid" : formik.touched.Contraseña && formik.errors.Contraseña
+                    },{
+                        "is-valid" : formik.touched.Contraseña && !formik.errors.Contraseña
+                    }
+                )}
+                />
+                {formik.touched.Contraseña && formik.errors.Contraseña && (
+                <div className='Div-Contraseña'>
+                    <span role="alert" className="text-danger">{formik.errors.Contraseña}</span>
+                </div>
+                )}
             </Form.Group>
         </Stack>
-            <Button className='btn-Volver mt-3'>Guardar Cambios</Button>
+            <Button className='btn-Volver mt-3' type='sumbit'>Guardar Cambios</Button>
         </Form>
         </div>
     </Container>
