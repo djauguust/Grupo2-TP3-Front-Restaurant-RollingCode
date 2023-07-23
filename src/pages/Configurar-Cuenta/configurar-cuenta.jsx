@@ -11,6 +11,7 @@ const configurarCuenta = () => {
     const email = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
     const contraseña= /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/
 
+    /*Esquema de Yup para el formulario*/ 
     const esquemaConfigurarCuenta = Yup.object().shape({
         Nombre: Yup.string()
         .required("El Nombre es Requerido")
@@ -38,6 +39,15 @@ const configurarCuenta = () => {
         .required("Debe ingresar la contraseña nuevamente")
         .oneOf([Yup.ref('Contraseña')],'Las contraseñas deben de coincidir')
     })
+
+    /*Valores iniciales de los input */
+    const valoresIniciales = {
+        Nombre : "",
+        Apellido : "",
+        Email : "",
+        Contraseña : "",
+        RepetirContraseña : ""
+    }
 
   return (
     <>
