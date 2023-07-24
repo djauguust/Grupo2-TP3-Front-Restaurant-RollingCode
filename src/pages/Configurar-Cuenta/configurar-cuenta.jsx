@@ -1,11 +1,31 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Button, Container, Form, Stack } from 'react-bootstrap'
 import "../../style/configurar-cuenta.css"
 import {useFormik} from "formik";
 import * as Yup from "yup" ;
 import clsx from "clsx";
+import { useParams } from 'react-router-dom';
 
 const configurarCuenta = () => {
+
+    const {id} = useParams()
+    console.log(id);
+    const URLProductos=import.meta.env.VITE_API_USUARIOS
+
+    useEffect(() => {
+        async function traerUsuarios() {
+            try {
+                const res = await fetch(`${URLProductos}/${id}`)
+                const Producto = await res.json()
+                console.log(Producto);
+               
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        traerUsuarios()
+    },[])
+
 
     const soloLetras= /^[a-zA-Z ]+$/
     const email = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/

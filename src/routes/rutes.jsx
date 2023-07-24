@@ -9,6 +9,7 @@ const Rutes = () => {
     <Routes>
         <Route path='/' element={<Home />}/>
         <Route path='/Configurar-Cuenta' element={<ConfigurarCuenta />} />
+        <Route path="/Configurar-Cuenta/:id" element={<ConfigurarCuenta />} />
     </Routes>
     </>
   )
