@@ -18,7 +18,13 @@ const configurarCuenta = () => {
                 const res = await fetch(`${URLProductos}/${id}`)
                 const Producto = await res.json()
                 console.log(Producto);
-               
+ 
+
+                formik.setFieldValue('Nombre', Producto.Nombre);
+                formik.setFieldValue('Apellido', Producto.Apellido);
+                formik.setFieldValue('Email', Producto.Email);
+                formik.setFieldValue('Contraseña', Producto.Contraseña);
+                
             } catch (error) {
                 console.log(error);
             }
