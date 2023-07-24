@@ -10,20 +10,20 @@ const configurarCuenta = () => {
 
     const {id} = useParams()
     console.log(id);
-    const URLProductos=import.meta.env.VITE_API_USUARIOS
+    const URLUsuarios=import.meta.env.VITE_API_USUARIOS
 
     useEffect(() => {
         async function traerUsuarios() {
             try {
-                const res = await fetch(`${URLProductos}/${id}`)
-                const Producto = await res.json()
-                console.log(Producto);
+                const res = await fetch(`${URLUsuarios}/${id}`)
+                const Usuario = await res.json()
+                console.log(Usuario);
  
 
-                formik.setFieldValue('Nombre', Producto.Nombre);
-                formik.setFieldValue('Apellido', Producto.Apellido);
-                formik.setFieldValue('Email', Producto.Email);
-                formik.setFieldValue('Contraseña', Producto.Contraseña);
+                formik.setFieldValue('Nombre', Usuario.Nombre);
+                formik.setFieldValue('Apellido', Usuario.Apellido);
+                formik.setFieldValue('Email', Usuario.Email);
+                formik.setFieldValue('Contraseña', Usuario.Contraseña);
                 
             } catch (error) {
                 console.log(error);
