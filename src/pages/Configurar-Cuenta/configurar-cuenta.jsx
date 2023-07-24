@@ -17,13 +17,15 @@ const configurarCuenta = () => {
             try {
                 const res = await fetch(`${URLUsuarios}/${id}`)
                 const Usuario = await res.json()
-                console.log(Usuario);
- 
+                const NombreUsuario = Usuario.Nombre || '';
+                const ApellidoUsuario = Usuario.Apellido || '';
+                const EmailUsuario = Usuario.Email || '';
+                const ContraseñaUsuario = Usuario.Contraseña || '';
 
-                formik.setFieldValue('Nombre', Usuario.Nombre);
-                formik.setFieldValue('Apellido', Usuario.Apellido);
-                formik.setFieldValue('Email', Usuario.Email);
-                formik.setFieldValue('Contraseña', Usuario.Contraseña);
+                formik.setFieldValue('Nombre', NombreUsuario);
+                formik.setFieldValue('Apellido', ApellidoUsuario);
+                formik.setFieldValue('Email', EmailUsuario);
+                formik.setFieldValue('Contraseña', ContraseñaUsuario);
                 
             } catch (error) {
                 console.log(error);
