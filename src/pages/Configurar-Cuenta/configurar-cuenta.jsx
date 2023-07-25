@@ -1,39 +1,46 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Button, Container, Form, Stack } from 'react-bootstrap'
 import "../../style/configurar-cuenta.css"
 import {useFormik} from "formik";
 import * as Yup from "yup" ;
 import clsx from "clsx";
+import { UsuariosContext } from '../../context/context';
 import { useParams } from 'react-router-dom';
 
-const configurarCuenta = () => {
 
+
+const configurarCuenta = () => {
+    
+    
+    const {TraerUsuarios, setUserId, datosUsuarios} = useContext(UsuariosContext)
+    
     const {id} = useParams()
-    console.log(id);
-    const URLUsuarios=import.meta.env.VITE_API_USUARIOS
 
     useEffect(() => {
-        async function traerUsuarios() {
-            try {
-                const res = await fetch(`${URLUsuarios}/${id}`)
-                const Usuario = await res.json()
-                const NombreUsuario = Usuario.Nombre || '';
-                const ApellidoUsuario = Usuario.Apellido || '';
-                const EmailUsuario = Usuario.Email || '';
-                const ContraseñaUsuario = Usuario.Contraseña || '';
+        setUserId(id)
+    },[setUserId, id])
+    TraerUsuarios()
 
-                formik.setFieldValue('Nombre', NombreUsuario);
-                formik.setFieldValue('Apellido', ApellidoUsuario);
-                formik.setFieldValue('Email', EmailUsuario);
-                formik.setFieldValue('Contraseña', ContraseñaUsuario);
-                
+    useEffect(() => {
+        async function mostrarValores () {
+            try {
+                const Usuario = await datosUsuarios
+                console.log(Usuario);
+                if (Usuario && Usuario.Nombre && Usuario.Apellido && Usuario.Email && Usuario.Contraseña) {
+                    formik.setFieldValue('Nombre', Usuario.Nombre);
+                    formik.setFieldValue('Apellido', Usuario.Apellido);
+                    formik.setFieldValue('Email', Usuario.Email);
+                    formik.setFieldValue('Contraseña', Usuario.Contraseña);
+                  }
             } catch (error) {
-                console.log(error);
+               console.log(error); 
             }
         }
-        traerUsuarios()
-    },[])
+        mostrarValores()
+    },[datosUsuarios])
 
+
+    
 
     const soloLetras= /^[a-zA-Z ]+$/
     const email = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
