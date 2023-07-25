@@ -18,7 +18,7 @@ const ACercaDeNosotros = () => {
               style={{ 
                 width: "18rem",
                 marginTop: "3rem"
-                }} className="about-card">
+                }} className="about-card shadow-lg">
               <Image
                 className="about-img"
                 src="https://cdn-icons-png.flaticon.com/512/2815/2815428.png"
@@ -50,7 +50,7 @@ const ACercaDeNosotros = () => {
               style={{ 
                 width: "18rem",
                 marginTop: "3rem"
-                }} className="about-card">
+                }} className="about-card shadow-lg">
               <Image
                 className="about-img"
                 src="https://cdn-icons-png.flaticon.com/512/2815/2815428.png"
@@ -82,7 +82,7 @@ const ACercaDeNosotros = () => {
               style={{ 
                 width: "18rem",
                 marginTop: "3rem"
-                }} className="about-card">
+                }} className="about-card shadow-lg">
               <Image
                 className="about-img"
                 src="https://cdn-icons-png.flaticon.com/512/2815/2815428.png"
@@ -116,7 +116,7 @@ const ACercaDeNosotros = () => {
               style={{ 
                 width: "18rem",
                 marginTop: "3rem"
-                }} className="about-card">
+                }} className="about-card shadow-lg">
               <Image
                 className="about-img"
                 src="https://cdn-icons-png.flaticon.com/512/2815/2815428.png"
@@ -148,7 +148,7 @@ const ACercaDeNosotros = () => {
               style={{ 
                 width: "18rem",
                 marginTop: "3rem"
-                }} className="about-card">
+                }} className="about-card shadow-lg">
               <Image
                 className="about-img"
                 src="https://cdn-icons-png.flaticon.com/512/2815/2815428.png"
@@ -180,7 +180,7 @@ const ACercaDeNosotros = () => {
               style={{ 
                 width: "18rem",
                 marginTop: "3rem"
-                }} className="about-card">
+                }} className="about-card shadow-lg">
               <Image
                 className="about-img"
                 src="https://cdn-icons-png.flaticon.com/512/2815/2815428.png"
