@@ -6,6 +6,7 @@ import * as Yup from "yup" ;
 import clsx from "clsx";
 import { UsuariosContext } from '../../context/context';
 import { useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 
 
@@ -15,6 +16,8 @@ const configurarCuenta = () => {
     const {TraerUsuarios, setUserId, datosUsuarios} = useContext(UsuariosContext)
     
     const {id} = useParams()
+    
+    const URLUsuarios=import.meta.env.VITE_API_USUARIOS
 
     useEffect(() => {
         setUserId(id)
@@ -39,10 +42,8 @@ const configurarCuenta = () => {
         mostrarValores()
     },[datosUsuarios])
 
-
-    
-
-    const soloLetras= /^[a-zA-Z ]+$/
+    /*Expresiones para validar*/ 
+    const soloLetras= /^[a-zA-Z ]+$/ 
     const email = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
     const contraseña= /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/
 
@@ -68,11 +69,8 @@ const configurarCuenta = () => {
 
         Contraseña: Yup.string()
         .required("La contraseña es requerida")
-        .matches(contraseña,"La contraseña debe de contener entre 8 y 16 carácteres, al menos un dígito, al menos una minuscula y al menos una mayuscula"),
+        .matches(contraseña,"La contraseña debe de contener entre 8 y 16 carácteres, al menos un dígito, al menos una minuscula y al menos una mayuscula")
 
-        RepetirContraseña:Yup.string()
-        .required("Debe ingresar la contraseña nuevamente")
-        .oneOf([Yup.ref('Contraseña')],'Las contraseñas deben de coincidir')
     })
 
     /*Valores iniciales de los input */
@@ -80,18 +78,54 @@ const configurarCuenta = () => {
         Nombre : "",
         Apellido : "",
         Email : "",
-        Contraseña : "",
-        RepetirContraseña : ""
+        Contraseña : ""
     }
-
+    
+    /*Validacion de todo el formulario y acciones para cuando este listo para enviarse */
     const formik = useFormik({
         initialValues: valoresIniciales,
         validationSchema : esquemaConfigurarCuenta,
         validateOnChange: true,
         validateOnBlur: true,
-        onSubmit: async (values) => {
+        onSubmit:  (values) => {
             try {
-                
+
+                Swal.fire({
+                    title: 'Realizaste todos los cambios?',
+                    text: "No te Preocupes puedes realizar los cambios que desees luego",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si estoy seguro',
+                    cancelButtonText: 'Cancelar'
+                  }).then(async (result) => {
+                    if (result.isConfirmed) {
+                      Swal.fire(
+                        'Usuario Modificado',
+                        'Los cambios que hiciste fueron implementados',
+                        'success'
+                      )
+                      const usuarioActualizado ={
+                        Nombre: values.Nombre,
+                        Apellido: '$' + values.Apellido,
+                        Email: values.Email,
+                        Contraseña: values.Contraseña
+                    }
+                    try {
+                        const res = await fetch(`${URLUsuarios}/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type" : "application/json"
+                            },
+                            body : JSON.stringify(usuarioActualizado)
+                        });
+                        console.log(res);
+                    } catch (error) {
+                        console.log(error);
+                    }
+                    }
+                  })
             } catch (error) {
                 console.log(error);
             }
@@ -182,7 +216,7 @@ const configurarCuenta = () => {
                 )}
             </Form.Group>
         </Stack>
-            <Button className='btn-Volver mt-3' type='sumbit'>Guardar Cambios</Button>
+        <Button className='btn-Volver mt-3' type='submit'>Guardar Cambios</Button>
         </Form>
         </div>
     </Container>

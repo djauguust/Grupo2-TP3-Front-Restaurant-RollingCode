@@ -19,6 +19,7 @@
     }
   }
 
+/*Estilos para el Boton*/
   .btn-Volver {
     display: inline-block;
     height: 40px;
@@ -57,6 +58,7 @@
     background: #B08D59 !important;
 }  
 
+/*Controla el tamaño del texto de error para que no se alargue el input*/
 .Div-Contraseña{
     max-width: 231px;
 }

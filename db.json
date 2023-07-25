@@ -1,11 +1,18 @@
 {
-    "Usuarios": [
-        {
-            "Nombre": "Lucas",
-            "Apellido": "Yudi",
-            "Email": "yudilucas@gmail.com",
-            "Contraseña": "Lucas1234",
-            "id": 1
-        }
-    ]
+  "Usuarios": [
+    {
+      "Nombre": "LucasActualizado",
+      "Apellido": "Yudi",
+      "Email": "yudilucas@gmail.com",
+      "Contraseña": "Lucas1234",
+      "id": 1
+    },
+    {
+      "Nombre": "Agustin",
+      "Apellido": "$Yudisegundo",
+      "Email": "lucasyudi@gmail.com",
+      "Contraseña": "Yudi1234",
+      "id": 2
+    }
+  ]
 }
