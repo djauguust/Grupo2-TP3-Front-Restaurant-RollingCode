@@ -108,7 +108,7 @@ const configurarCuenta = () => {
                       )
                       const usuarioActualizado ={
                         Nombre: values.Nombre,
-                        Apellido: '$' + values.Apellido,
+                        Apellido: values.Apellido,
                         Email: values.Email,
                         Contraseña: values.Contraseña
                     }
@@ -216,7 +216,7 @@ const configurarCuenta = () => {
                 )}
             </Form.Group>
         </Stack>
-        <Button className='btn-Volver mt-3' type='submit'>Guardar Cambios</Button>
+        <Button className='btn-Volver mt-3 ' type='submit'>Guardar Cambios</Button>
         </Form>
         </div>
     </Container>
