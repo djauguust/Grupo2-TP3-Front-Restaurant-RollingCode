@@ -140,7 +140,6 @@ const configurarCuenta = () => {
     <div className='text-center'>
         <h1>Cambia los datos de tu cuenta :</h1>
     </div>
-    <h3></h3>
     <Container>
         <div className='Contenedor-Form d-flex justify-content-center mt-3'>    
         <Form onSubmit={formik.handleSubmit} noValidate>
