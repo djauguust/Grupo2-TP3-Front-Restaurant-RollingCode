@@ -37,6 +37,9 @@
         flex-direction: column;
         align-items: center;
     }
+    .Contenedor-Cambiar-Contraseña{
+        padding: 4vh;
+    }
   }
 
 /*Estilos para el Boton*/
