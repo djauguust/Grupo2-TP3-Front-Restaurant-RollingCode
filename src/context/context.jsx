@@ -8,8 +8,10 @@ export const UsuariosProvider = ({children}) => {
     const [userId, setUserId] = useState("");
     const [datosUsuarios, setDatosUsuarios] = useState("")
 
+ 
 
     const URLUsuarios=import.meta.env.VITE_API_USUARIOS
+    
     
     const TraerUsuarios = () => {
         
@@ -44,7 +46,8 @@ export const UsuariosProvider = ({children}) => {
     const pasarDatos = {
         TraerUsuarios,
         setUserId,
-        datosUsuarios
+        datosUsuarios,
+        userId
     }
 
   return (

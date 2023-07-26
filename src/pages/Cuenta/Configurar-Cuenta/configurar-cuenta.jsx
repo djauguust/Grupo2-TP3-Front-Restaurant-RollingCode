@@ -1,18 +1,19 @@
 import React, { useContext, useEffect } from 'react'
 import { Button, Container, Form, Stack } from 'react-bootstrap'
-import "../../style/configurar-cuenta.css"
+import "../../../style/configurar-cuenta.css"
 import {useFormik} from "formik";
 import * as Yup from "yup" ;
 import clsx from "clsx";
-import { UsuariosContext } from '../../context/context';
-import { useParams } from 'react-router-dom';
+import { UsuariosContext } from '../../../context/context';
+import { useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 
 
 const configurarCuenta = () => {
     
-    
+    const navigate = useNavigate()
+
     const {TraerUsuarios, setUserId, datosUsuarios} = useContext(UsuariosContext)
     
     const {id} = useParams()
@@ -124,6 +125,7 @@ const configurarCuenta = () => {
                     } catch (error) {
                         console.log(error);
                     }
+                    navigate(`/Cuenta/${id}`)
                     }
                   })
             } catch (error) {
