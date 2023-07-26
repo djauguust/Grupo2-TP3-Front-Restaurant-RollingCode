@@ -17,6 +17,26 @@
     .Contenedor-Cuerpo{
         padding: 5vh 3vh 8vh 2vh;
     }
+    .ContenedorPerfil{
+        display: flex;
+        flex-direction: column;
+    }
+    .ContenedorCambiarUsuario-Contraseña{
+        border-top: none !important;
+        border-right: none !important;
+        min-height: auto !important;
+        display: flex;
+        justify-content: space-evenly;
+    }
+    .boton-seleccionado{
+        border-right: 4px solid #B08D59 !important;
+         border: 4px solid #B08D59; 
+    }
+    .Contenedor-Datos{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
   }
 
 /*Estilos para el Boton*/
@@ -62,3 +82,34 @@
 .Div-Contraseña{
     max-width: 231px;
 }
+
+.ContenedorPerfil{
+    display: flex;
+}
+
+.ContenedorCambiarUsuario-Contraseña{
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    min-height: 80vh;
+}
+
+.boton-seleccionado{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #B08D59;
+    height: 40px;
+    background-color: #F0E5D8;
+    border-right: 1vh solid #B08D59;
+    transition: 0.5s;
+}
+
+.boton-desSeleccionado{
+    display: flex;
+    align-items: center;
+
+    height: 40px;
+    transition: 0.5s;
+}
+  

@@ -1,10 +1,11 @@
 import React from 'react'
 import { Container, Stack, Form } from 'react-bootstrap'
-
+import "../../../style/configurar-cuenta.css"
 
 const configurarContraseña = () => {
   return (
     <>
+    <div className='Contenedor-Cambiar-Contraseña'>
     <div>
         <h1>Cambiar Contraseña</h1>
     </div>
@@ -28,6 +29,7 @@ const configurarContraseña = () => {
             </Form>
         </div>
     </Container>
+    </div>
     </>
   )
 }

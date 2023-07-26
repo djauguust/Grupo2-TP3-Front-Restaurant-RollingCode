@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { UsuariosContext } from '../../../context/context'
 import ConfigurarContraseña from '../Configurar-Cuenta/configurar-contraseña'
+import { Row, Stack } from 'react-bootstrap'
 
 const datosCuenta = () => {
 
@@ -14,15 +15,18 @@ const datosCuenta = () => {
     TraerUsuarios()
 
     let [mostrarDatos, setMostrarDatos] = useState(true)
+    let [mostrarContraseña, setMostrarContraseña] = useState(false)
     
     const MostrarDatos = () =>{
         setMostrarDatos(true)
+        setMostrarContraseña(false)
         console.log("Funciona");
         
     }
 
     const MostrarContraseña = () =>{
         setMostrarDatos(false)
+        setMostrarContraseña(true)
         console.log("Funciona contraseña");
     }
 
@@ -31,12 +35,13 @@ const datosCuenta = () => {
     <div>
         <h1>Mi Perfil</h1>
     </div>
-    <div>
-        <p onClick={MostrarDatos}>Datos de Usuario</p>
-        <p onClick={MostrarContraseña}>Cambiar Contraseña</p>
+    <div className='ContenedorPerfil'>
+    <div className='ContenedorCambiarUsuario-Contraseña'>
+        <p onClick={MostrarDatos} className={`mt-3 ${mostrarDatos ? 'boton-seleccionado' : 'boton-desSeleccionado'}`}>Datos de Usuario</p>
+        <p onClick={MostrarContraseña} className={`mt-3 ${mostrarContraseña ? 'boton-seleccionado' : 'boton-desSeleccionado'}`}>Cambiar Contraseña</p>
     </div>
     {mostrarDatos === true ? (   
-    <div>
+    <div className='Contenedor-Datos'>
         <div>
             <h3>Imagen</h3>
         </div>
@@ -51,6 +56,7 @@ const datosCuenta = () => {
     ):(
         <ConfigurarContraseña />
     )}
+    </div>
     </>
   )
 }
