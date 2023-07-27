@@ -5,12 +5,15 @@ import {useFormik} from "formik";
 import * as Yup from "yup" ;
 import clsx from "clsx";
 import { UsuariosContext } from '../../../context/context';
+import Swal from 'sweetalert2';
+import { useParams } from 'react-router';
 
 const configurarContraseña = () => {
 
     const {datosUsuarios} = useContext(UsuariosContext)
     const contraseñaActual = datosUsuarios.Contraseña
-    
+    const {id} = useParams()
+    const URLUsuarios=import.meta.env.VITE_API_USUARIOS
 
     const contraseña= /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/
 
@@ -24,7 +27,7 @@ const configurarContraseña = () => {
         .matches(contraseña,"La contraseña debe de contener entre 8 y 16 carácteres, al menos un dígito, al menos una minuscula y al menos una mayuscula"),
 
         ConfirmarContraseña: Yup.string()
-        .required("La contraseña es requerida")
+        .required("Repetir la contraseña es requerido")
         .oneOf([Yup.ref('Contraseña')],'Las contraseñas deben de coincidir')
     })
 
@@ -58,13 +61,23 @@ const configurarContraseña = () => {
                         'Los cambios que hiciste fueron implementados',
                         'success'
                       )
-                      /*
-                      const usuarioActualizado ={
-                        Nombre: values.Nombre,
-                        Apellido: values.Apellido,
-                        Email: values.Email,
+                      const ContraseñaActualizada ={
+                        ...datosUsuarios,
                         Contraseña: values.Contraseña
-                    }*/
+                    }
+
+                    try {
+                        const res = await fetch(`${URLUsuarios}/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type" : "application/json"
+                            },
+                            body : JSON.stringify(ContraseñaActualizada)
+                        });
+                        console.log(res);
+                    } catch (error) {
+                        console.log(error);
+                    }
 
                     }
                   })
@@ -87,7 +100,7 @@ const configurarContraseña = () => {
                 <Stack gap={2}>
                     <Form.Group>
                         <Form.Label>Ingrese su contraseña actual :</Form.Label>
-                        <Form.Control type='text' placeholder='Ingrese su contraseña mas reciente' id='ContraseñaActual'
+                        <Form.Control type='text' placeholder='Contraseña Actual' id='ContraseñaActual'
                         {...formik.getFieldProps("ContraseñaActual")}
                         className={clsx(
                             "form-control",{
@@ -105,7 +118,7 @@ const configurarContraseña = () => {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Ingrese su nueva contraseña :</Form.Label>
-                        <Form.Control type='text' placeholder='Ingrese la contraseña que usara' id='Contraseña' 
+                        <Form.Control type='text' placeholder='Contraseña Nueva' id='Contraseña' 
                         {...formik.getFieldProps("Contraseña")}
                         className={clsx(
                             "form-control",{
@@ -123,7 +136,7 @@ const configurarContraseña = () => {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Ingrese nuevamente su nueva contraseña :</Form.Label>
-                        <Form.Control type='text' placeholder='Ingrese nuevamente la nueva contraseña' id='ConfirmarContraseña' 
+                        <Form.Control type='text' placeholder='Repetir Nueva Contraseña' id='ConfirmarContraseña' 
                         {...formik.getFieldProps("ConfirmarContraseña")}
                         className={clsx(
                             "form-control",{
@@ -135,7 +148,7 @@ const configurarContraseña = () => {
                         />
                         {formik.touched.ConfirmarContraseña && formik.errors.ConfirmarContraseña && (
                             <div className='Div-Contraseña'>
-                                <span role="alert" className="text-danger">{formik.errors.Contraseña}</span>
+                                <span role="alert" className="text-danger">{formik.errors.ConfirmarContraseña}</span>
                             </div>
                         )}
                     </Form.Group>
