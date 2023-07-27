@@ -40,7 +40,8 @@ const datosCuenta = () => {
         <p onClick={MostrarDatos} className={`mt-3 ${mostrarDatos ? 'boton-seleccionado' : 'boton-desSeleccionado'}`}>Datos de Usuario</p>
         <p onClick={MostrarContraseña} className={`mt-3 ${mostrarContraseña ? 'boton-seleccionado' : 'boton-desSeleccionado'}`}>Cambiar Contraseña</p>
     </div>
-    {mostrarDatos === true ? (   
+    {mostrarDatos === true ? (
+    <div className='Contenedor-Para-Centrar'>
     <div className='Contenedor-Datos'>
         <div>
             <h3>Imagen</h3>
@@ -52,6 +53,7 @@ const datosCuenta = () => {
             
         </div>
         <Link className='btn-Volver' to={`/Configurar-Cuenta/${id}`}>Editar Perfil</Link>
+    </div>
     </div>
     ):(
         <ConfigurarContraseña />
