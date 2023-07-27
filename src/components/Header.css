@@ -1,0 +1,27 @@
+.custom-navbar .botones{
+    border-bottom: 3px solid white;
+}
+
+.custom-navbar .botones:hover{
+    border-bottom: 3px solid #B08D59;
+}
+
+.custom-navbar .boton-reserva{
+    background-color: black;
+
+}
+
+.custom-navbar .boton-reserva:hover{
+    background-color: #B08D59;
+}
+
+@media (max-width: 768px ){
+    .custom-navbar .botones:hover{
+        border-bottom: none;
+    }
+    .custom-navbar .botones{
+        border-bottom: 3px solid white;
+    }
+}
+
+
