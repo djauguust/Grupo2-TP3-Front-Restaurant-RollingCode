@@ -1,0 +1,24 @@
+.container{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.header{
+    grid-column: 1/3;
+}
+
+.parrafo{
+    grid-column: 1/3;
+}
+
+.mapa{
+    grid-column: 1/2;
+}
+
+.formContacto{
+    grid-column: 1/2;
+}
+
+.footer{
+    grid-column: 1/3;
+}
