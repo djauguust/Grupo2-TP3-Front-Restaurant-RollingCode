@@ -10,10 +10,12 @@ import { useParams } from 'react-router';
 
 const configurarContraseña = () => {
 
-    const {datosUsuarios} = useContext(UsuariosContext)
+    const {datosUsuarios, pasarStates} = useContext(UsuariosContext)
     const contraseñaActual = datosUsuarios.Contraseña
     const {id} = useParams()
     const URLUsuarios=import.meta.env.VITE_API_USUARIOS
+
+    const { setMostrarDatos, setMostrarContraseña, setMostrarConfigurarPerfil } = pasarStates;
 
     const contraseña= /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/
 
@@ -78,6 +80,10 @@ const configurarContraseña = () => {
                     } catch (error) {
                         console.log(error);
                     }
+
+                        setMostrarDatos(true)
+                        setMostrarConfigurarPerfil(false)
+                        setMostrarContraseña(false)
 
                     }
                   })

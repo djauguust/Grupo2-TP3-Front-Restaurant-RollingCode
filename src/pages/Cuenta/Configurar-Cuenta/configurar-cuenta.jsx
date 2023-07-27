@@ -14,8 +14,10 @@ const configurarCuenta = () => {
     
     const navigate = useNavigate()
 
-    const {TraerUsuarios, setUserId, datosUsuarios} = useContext(UsuariosContext)
+    const {TraerUsuarios, setUserId, datosUsuarios, pasarStates} = useContext(UsuariosContext)
     
+    const { setMostrarDatos, setMostrarContraseña, setMostrarConfigurarPerfil } = pasarStates;
+
     const {id} = useParams()
     
     const URLUsuarios=import.meta.env.VITE_API_USUARIOS
@@ -125,6 +127,9 @@ const configurarCuenta = () => {
                     } catch (error) {
                         console.log(error);
                     }
+                    setMostrarDatos(true)
+                    setMostrarConfigurarPerfil(false)
+                    setMostrarContraseña(false)
                     navigate(`/Cuenta/${id}`)
                     }
                   })
