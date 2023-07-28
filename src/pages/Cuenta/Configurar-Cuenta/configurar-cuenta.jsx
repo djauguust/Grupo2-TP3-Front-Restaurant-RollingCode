@@ -12,31 +12,25 @@ import Swal from 'sweetalert2';
 
 const configurarCuenta = () => {
     
-    const navigate = useNavigate()
 
-    const {TraerUsuarios, setUserId, datosUsuarios, pasarStates} = useContext(UsuariosContext)
+
+    const {datosUsuarios, pasarStates, TraerUsuarios} = useContext(UsuariosContext)
     
     const { setMostrarDatos, setMostrarContraseña, setMostrarConfigurarPerfil } = pasarStates;
 
     const {id} = useParams()
-    
-    const URLUsuarios=import.meta.env.VITE_API_USUARIOS
 
-    useEffect(() => {
-        setUserId(id)
-    },[setUserId, id])
-    TraerUsuarios()
+
+    const URLUsuarios=import.meta.env.VITE_API_USUARIOS
 
     useEffect(() => {
         async function mostrarValores () {
             try {
                 const Usuario = await datosUsuarios
-                console.log(Usuario);
-                if (Usuario && Usuario.Nombre && Usuario.Apellido && Usuario.Email && Usuario.Contraseña) {
+                if (Usuario && Usuario.Nombre && Usuario.Apellido && Usuario.Email) {
                     formik.setFieldValue('Nombre', Usuario.Nombre);
                     formik.setFieldValue('Apellido', Usuario.Apellido);
                     formik.setFieldValue('Email', Usuario.Email);
-                    formik.setFieldValue('Contraseña', Usuario.Contraseña);
                   }
             } catch (error) {
                console.log(error); 
@@ -68,20 +62,14 @@ const configurarCuenta = () => {
         .required("El email es requerido")
         .matches(email,"Ingrese un formato de email correcto")
         .min(16,"Ingrese un email mayor a 16 carácteres")
-        .max(40,"Ingrese un email menor a 40 carácteres"),
-
-        Contraseña: Yup.string()
-        .required("La contraseña es requerida")
-        .matches(contraseña,"La contraseña debe de contener entre 8 y 16 carácteres, al menos un dígito, al menos una minuscula y al menos una mayuscula")
-
+        .max(40,"Ingrese un email menor a 40 carácteres")
     })
 
     /*Valores iniciales de los input */
     const valoresIniciales = {
         Nombre : "",
         Apellido : "",
-        Email : "",
-        Contraseña : ""
+        Email : ""
     }
     
     /*Validacion de todo el formulario y acciones para cuando este listo para enviarse */
@@ -113,7 +101,7 @@ const configurarCuenta = () => {
                         Nombre: values.Nombre,
                         Apellido: values.Apellido,
                         Email: values.Email,
-                        Contraseña: values.Contraseña
+                        Contraseña: datosUsuarios.Contraseña
                     }
                     try {
                         const res = await fetch(`${URLUsuarios}/${id}`, {
@@ -130,8 +118,9 @@ const configurarCuenta = () => {
                     setMostrarDatos(true)
                     setMostrarConfigurarPerfil(false)
                     setMostrarContraseña(false)
-                    navigate(`/Cuenta/${id}`)
+                    TraerUsuarios()
                     }
+
                   })
             } catch (error) {
                 console.log(error);
@@ -141,7 +130,7 @@ const configurarCuenta = () => {
 
   return (
     <>
-    <div className='Contenedor-Cuerpo'>
+    <div className='Contenedor-Cuerpo mb-4'>
     <div className='text-center'>
         <h1>Cambia los datos de tu cuenta :</h1>
     </div>
@@ -200,24 +189,6 @@ const configurarCuenta = () => {
                 {formik.touched.Email && formik.errors.Email && (
                 <div>
                     <span role="alert" className="text-danger">{formik.errors.Email}</span>
-                </div>
-                )}
-            </Form.Group>
-            <Form.Group>
-                <Form.Label>Contraseña :</Form.Label>
-                <Form.Control type='text' placeholder='Ej: Lucas1234' id='Contraseña'
-                {...formik.getFieldProps("Contraseña")}
-                className={clsx(
-                    "form-control",{
-                        "is-invalid" : formik.touched.Contraseña && formik.errors.Contraseña
-                    },{
-                        "is-valid" : formik.touched.Contraseña && !formik.errors.Contraseña
-                    }
-                )}
-                />
-                {formik.touched.Contraseña && formik.errors.Contraseña && (
-                <div className='Div-Contraseña'>
-                    <span role="alert" className="text-danger">{formik.errors.Contraseña}</span>
                 </div>
                 )}
             </Form.Group>

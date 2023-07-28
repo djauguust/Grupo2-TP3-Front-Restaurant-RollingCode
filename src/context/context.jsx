@@ -14,11 +14,10 @@ export const UsuariosProvider = ({children}) => {
 
     const URLUsuarios=import.meta.env.VITE_API_USUARIOS
     
+
     
-    const TraerUsuarios = () => {
+    const TraerUsuarios = async () => {
         
-        useEffect(() => {
-            async function traerUsuarios() {
                 try {
                     const id = userId
                     const res = await fetch(`${URLUsuarios}/${id}`)
@@ -40,9 +39,6 @@ export const UsuariosProvider = ({children}) => {
                 } catch (error) {
                     console.log(error);
                 }
-            }
-            traerUsuarios()
-        },[userId])
     }
 
     const pasarStates = {

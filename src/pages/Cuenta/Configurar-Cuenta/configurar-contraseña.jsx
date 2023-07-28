@@ -10,7 +10,7 @@ import { useParams } from 'react-router';
 
 const configurarContraseña = () => {
 
-    const {datosUsuarios, pasarStates} = useContext(UsuariosContext)
+    const {datosUsuarios, pasarStates, TraerUsuarios} = useContext(UsuariosContext)
     const contraseñaActual = datosUsuarios.Contraseña
     const {id} = useParams()
     const URLUsuarios=import.meta.env.VITE_API_USUARIOS
@@ -84,7 +84,7 @@ const configurarContraseña = () => {
                         setMostrarDatos(true)
                         setMostrarConfigurarPerfil(false)
                         setMostrarContraseña(false)
-
+                        TraerUsuarios()
                     }
                   })
             } catch (error) {
@@ -96,7 +96,7 @@ const configurarContraseña = () => {
 
   return (
     <>
-    <div className='Contenedor-Cambiar-Contraseña'>
+    <div className='Contenedor-Cambiar-Contraseña mb-4'>
     <div>
         <h1>Cambiar Contraseña</h1>
     </div>

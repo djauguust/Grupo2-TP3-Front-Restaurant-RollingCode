@@ -7,19 +7,24 @@ import ConfigurarCuenta from '../Configurar-Cuenta/configurar-cuenta'
 
 const datosCuenta = () => {
 
-    const {TraerUsuarios, datosUsuarios, setUserId, pasarStates} = useContext(UsuariosContext)
+    const {TraerUsuarios, datosUsuarios, setUserId, pasarStates, userId} = useContext(UsuariosContext)
     const {id} = useParams()
     useEffect(() => {
-        setUserId(id)
-    },[setUserId, id])
+        setUserId(id);
+
+      }, [setUserId, id]);
     
-    TraerUsuarios()
-
-
     const { mostrarDatos, setMostrarDatos } = pasarStates;
     const { mostrarContraseña, setMostrarContraseña } = pasarStates;
     const { mostrarConfigurarPerfil, setMostrarConfigurarPerfil } = pasarStates;
 
+    console.log(datosUsuarios);
+
+    useEffect(() => {
+          // Solo cargar datos del usuario cuando datosUsuarios está disponible y contiene la contraseña
+          TraerUsuarios(); // Cargamos los datos del usuario cada vez que el ID de usuario cambia
+        
+      }, [userId]);
 
 
     const MostrarDatos = () =>{
@@ -42,6 +47,8 @@ const datosCuenta = () => {
         setMostrarContraseña(false)
         setMostrarDatos(false)
     }
+
+    
 
   return (
     <>
