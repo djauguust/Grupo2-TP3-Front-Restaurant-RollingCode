@@ -19,3 +19,8 @@
 .about-img:hover{
   transform: scale(1.1);
 }
+.about-col{
+  display: flex;
+  justify-content: center;
+  
+}

@@ -4,7 +4,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
-import "./aCercaDeNosotros.css"
+import "./aCercaDeNosotros.css";
 
 const ACercaDeNosotros = () => {
   return (
@@ -14,12 +14,14 @@ const ACercaDeNosotros = () => {
 
       <Container>
         <Row>
-          <Col>
-            <Card 
-              style={{ 
+          <Col className="about-col" xs={12} lg={4}>
+            <Card
+              style={{
                 width: "18rem",
-                marginTop: "3rem"
-                }} className="about-card shadow-lg">
+                marginTop: "3rem",
+              }}
+              className="about-card shadow-lg"
+            >
               <Image
                 className="about-img"
                 src="https://cdn-icons-png.flaticon.com/512/2815/2815428.png"
@@ -46,12 +48,14 @@ const ACercaDeNosotros = () => {
               </Card.Body>
             </Card>
           </Col>
-          <Col>
-            <Card 
-              style={{ 
+          <Col className="about-col" xs={12} lg={4}>
+            <Card
+              style={{
                 width: "18rem",
-                marginTop: "3rem"
-                }} className="about-card shadow-lg">
+                marginTop: "3rem",
+              }}
+              className="about-card shadow-lg"
+            >
               <Image
                 className="about-img"
                 src="https://cdn-icons-png.flaticon.com/512/2815/2815428.png"
@@ -78,12 +82,14 @@ const ACercaDeNosotros = () => {
               </Card.Body>
             </Card>
           </Col>
-          <Col>
-            <Card 
-              style={{ 
+          <Col className="about-col" xs={12} lg={4}>
+            <Card
+              style={{
                 width: "18rem",
-                marginTop: "3rem"
-                }} className="about-card shadow-lg">
+                marginTop: "3rem",
+              }}
+              className="about-card shadow-lg"
+            >
               <Image
                 className="about-img"
                 src="https://cdn-icons-png.flaticon.com/512/2815/2815428.png"
@@ -112,12 +118,14 @@ const ACercaDeNosotros = () => {
           </Col>
         </Row>
         <Row>
-        <Col>
-            <Card 
-              style={{ 
+          <Col className="about-col" xs={12} lg={4}>
+            <Card
+              style={{
                 width: "18rem",
-                marginTop: "3rem"
-                }} className="about-card shadow-lg">
+                marginTop: "3rem",
+              }}
+              className="about-card shadow-lg"
+            >
               <Image
                 className="about-img"
                 src="https://cdn-icons-png.flaticon.com/512/2815/2815428.png"
@@ -144,12 +152,14 @@ const ACercaDeNosotros = () => {
               </Card.Body>
             </Card>
           </Col>
-          <Col>
-            <Card 
-              style={{ 
+          <Col className="about-col" xs={12} lg={4}>
+            <Card
+              style={{
                 width: "18rem",
-                marginTop: "3rem"
-                }} className="about-card shadow-lg">
+                marginTop: "3rem",
+              }}
+              className="about-card shadow-lg"
+            >
               <Image
                 className="about-img"
                 src="https://cdn-icons-png.flaticon.com/512/2815/2815428.png"
@@ -176,12 +186,14 @@ const ACercaDeNosotros = () => {
               </Card.Body>
             </Card>
           </Col>
-          <Col>
-            <Card 
-              style={{ 
+          <Col className="about-col" xs={12} lg={4}>
+            <Card
+              style={{
                 width: "18rem",
-                marginTop: "3rem"
-                }} className="about-card shadow-lg">
+                marginTop: "3rem",
+              }}
+              className="about-card shadow-lg"
+            >
               <Image
                 className="about-img"
                 src="https://cdn-icons-png.flaticon.com/512/2815/2815428.png"
