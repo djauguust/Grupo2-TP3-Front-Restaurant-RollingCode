@@ -53,6 +53,10 @@ const datosCuenta = () => {
     <div className='ContenedorCambiarUsuario-Contraseña'>
         <p onClick={MostrarDatos} className={`mt-3 ${mostrarDatos ? 'boton-seleccionado' : 'boton-desSeleccionado'}`}>Datos de Usuario</p>
         <p onClick={MostrarContraseña} className={`mt-3 ${mostrarContraseña ? 'boton-seleccionado' : 'boton-desSeleccionado'}`}>Cambiar Contraseña</p>
+        {mostrarConfigurarPerfil === true && 
+            <p className={`mt-3 ${mostrarConfigurarPerfil ? 'boton-seleccionado' : 'boton-desSeleccionado'}`} >Cambiar Datos</p>
+
+        }
     </div>
     {mostrarDatos === true && (
     <div className='Contenedor-Para-Centrar'>

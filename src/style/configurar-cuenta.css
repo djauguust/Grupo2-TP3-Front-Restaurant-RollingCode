@@ -1,15 +1,11 @@
 /* Resolución para Pantallas de Ordenador */
 @media (min-width: 913px) {
-    .Contenedor-Cuerpo{
-        padding: 5vh 35vh 15vh 35vh;
-    }
+    
   }
 
 /* Resolución para Pantallas de Tablet */
 @media (min-width: 768px) and (max-width: 912px) {
-    .Contenedor-Cuerpo{
-        padding: 5vh 3vh 5vh 3vh;
-    }
+    
     .Contenedor-Datos{
         min-width: 30vh !important;
     }
@@ -20,9 +16,7 @@
 
 /* Resolución para Pantallas de Celulares */  
 @media (max-width: 767px) {
-    .Contenedor-Cuerpo{
-        padding: 5vh 3vh 8vh 2vh;
-    }
+    
     .ContenedorPerfil{
         display: flex;
         flex-direction: column;
@@ -55,8 +49,11 @@
     .Contenedor-Para-Centrar{
         display: flex;
         justify-content: center !important;
-        margin-top: 5vh;
-        margin-bottom: 5vh;
+        margin: 5vh 0 5vh 0vh !important;
+
+    }
+    .Contenedor-Cuerpo{
+        margin: 3vh 0 3vh 0vh !important;
     }
   }
 
@@ -151,5 +148,9 @@
 }
 
 .Contenedor-Cambiar-Contraseña{
+    margin-left: 5vh;
+}
+
+.Contenedor-Cuerpo{
     margin-left: 5vh;
 }
