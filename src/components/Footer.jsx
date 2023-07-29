@@ -9,7 +9,7 @@ const Footer = () => {
       <Container fluid className="footer">
         <Row className="text-center">
           <Col sm = {12} lg = {3}>
-            <img src="public\Dom_António__1_-removebg-preview.png" height="80%" width="80%" alt="" />
+            <img src="public\Dom_António__2_-removebg-preview.png" height="80%" width="80%" alt="" />
           </Col>
           <Col sm = {12} lg = {3} className="fw-bold fs-5 mt-3">
             <img src="public\World_50Best_Rest_2023_Logo-removebg-preview.png" alt="" height="180px" />

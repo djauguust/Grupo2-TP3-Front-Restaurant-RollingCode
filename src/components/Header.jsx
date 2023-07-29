@@ -14,7 +14,7 @@ const Header = () => {
           <Navbar.Brand href="#home" className='ms-4'>
             <img
               alt=""
-              src="public\logo nuevo.png"
+              src="public\logo-sin-fondo.png"
               width="100"
               height="100"
               className="d-inline-block align-top m-0"
