@@ -76,7 +76,6 @@ const configurarContraseña = () => {
                             },
                             body : JSON.stringify(ContraseñaActualizada)
                         });
-                        console.log(res);
                     } catch (error) {
                         console.log(error);
                     }

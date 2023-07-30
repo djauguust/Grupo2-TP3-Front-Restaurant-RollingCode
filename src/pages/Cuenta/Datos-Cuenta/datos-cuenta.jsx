@@ -13,33 +13,28 @@ const datosCuenta = () => {
         setUserId(id);
 
       }, [setUserId, id]);
-    
+      
+
     const { mostrarDatos, setMostrarDatos } = pasarStates;
     const { mostrarContraseña, setMostrarContraseña } = pasarStates;
     const { mostrarConfigurarPerfil, setMostrarConfigurarPerfil } = pasarStates;
 
-    console.log(datosUsuarios);
 
-    useEffect(() => {
-          // Solo cargar datos del usuario cuando datosUsuarios está disponible y contiene la contraseña
-          TraerUsuarios(); // Cargamos los datos del usuario cada vez que el ID de usuario cambia
-        
-      }, [userId]);
+    {datosUsuarios === "" && (
+        TraerUsuarios() // Cargamos los datos del usuario cada vez que el ID de usuario cambia
+    )}
 
 
     const MostrarDatos = () =>{
         setMostrarDatos(true)
         setMostrarContraseña(false)
         setMostrarConfigurarPerfil(false)
-        console.log("Funciona");
-        
     }
 
     const MostrarContraseña = () =>{
         setMostrarContraseña(true)
         setMostrarDatos(false)
         setMostrarConfigurarPerfil(false)
-        console.log("Funciona contraseña");
     }
 
     const MostrarConfigurarPerfil = () => {
@@ -65,7 +60,7 @@ const datosCuenta = () => {
 
         }
     </div>
-    {mostrarDatos === true && (
+    {mostrarDatos === true && datosUsuarios !== "" && (
     <div className='Contenedor-Para-Centrar'>
     <div className='Contenedor-Datos'>
         <div>

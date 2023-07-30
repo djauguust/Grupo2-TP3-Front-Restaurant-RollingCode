@@ -111,7 +111,7 @@ const configurarCuenta = () => {
                             },
                             body : JSON.stringify(usuarioActualizado)
                         });
-                        console.log(res);
+
                     } catch (error) {
                         console.log(error);
                     }
