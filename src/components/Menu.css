@@ -1,0 +1,13 @@
+.contenedor-tabs{
+    display: flex;
+  align-items: center;
+    flex-direction: column;
+    background-color: #F0E5D8;
+    width: 50vw;
+    margin: 0 auto;
+}
+
+.tab-title{
+  color: black;
+  font-weight: bolder;
+}

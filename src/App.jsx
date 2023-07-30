@@ -4,6 +4,7 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Reviews from './components/Reviews';
+import Menu from './components/Menu';
 
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
     <>
       <Header />
       <CarruselPrincipal />
+      <Menu/>
       <Reviews/>
       <Footer />
     </>
