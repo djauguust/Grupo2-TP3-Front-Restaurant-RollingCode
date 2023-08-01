@@ -23,6 +23,7 @@ const configurarCuenta = () => {
 
     const URLUsuarios=import.meta.env.VITE_API_USUARIOS
 
+    //Funcion para setear los valores en los inputs cada vez que datos usuarios se cambie
     useEffect(() => {
         async function mostrarValores () {
             try {
@@ -39,12 +40,12 @@ const configurarCuenta = () => {
         mostrarValores()
     },[datosUsuarios])
 
-    /*Expresiones para validar*/ 
+    //Expresiones para validar 
     const soloLetras= /^[a-zA-Z ]+$/ 
     const email = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
     const contraseña= /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/
 
-    /*Esquema de Yup para el formulario*/ 
+    //Esquema de Yup para el formulario 
     const esquemaConfigurarCuenta = Yup.object().shape({
         Nombre: Yup.string()
         .required("El Nombre es Requerido")
@@ -65,14 +66,14 @@ const configurarCuenta = () => {
         .max(40,"Ingrese un email menor a 40 carácteres")
     })
 
-    /*Valores iniciales de los input */
+    //Valores iniciales de los input
     const valoresIniciales = {
         Nombre : "",
         Apellido : "",
         Email : ""
     }
     
-    /*Validacion de todo el formulario y acciones para cuando este listo para enviarse */
+    //Validacion de todo el formulario y acciones para cuando este listo para enviarse
     const formik = useFormik({
         initialValues: valoresIniciales,
         validationSchema : esquemaConfigurarCuenta,
@@ -80,7 +81,7 @@ const configurarCuenta = () => {
         validateOnBlur: true,
         onSubmit:  (values) => {
             try {
-
+                //Alert de sweetalert para confirmar
                 Swal.fire({
                     title: 'Realizaste todos los cambios?',
                     text: "No te Preocupes puedes realizar los cambios que desees luego",
@@ -97,6 +98,7 @@ const configurarCuenta = () => {
                         'Los cambios que hiciste fueron implementados',
                         'success'
                       )
+                      //Guarda los valores del formulario
                       const usuarioActualizado ={
                         Nombre: values.Nombre,
                         Apellido: values.Apellido,
@@ -104,6 +106,7 @@ const configurarCuenta = () => {
                         Contraseña: datosUsuarios.Contraseña
                     }
                     try {
+                        //Solicitud para editar el usuario
                         const res = await fetch(`${URLUsuarios}/${id}`, {
                             method: "PUT",
                             headers: {
@@ -115,6 +118,7 @@ const configurarCuenta = () => {
                     } catch (error) {
                         console.log(error);
                     }
+                    //Funciones para volver a mostrar los datos y TraerUsuarios para actualizar todo
                     setMostrarDatos(true)
                     setMostrarConfigurarPerfil(false)
                     setMostrarContraseña(false)

@@ -8,35 +8,36 @@ import ConfigurarCuenta from '../Configurar-Cuenta/configurar-cuenta'
 const datosCuenta = () => {
 
     const {TraerUsuarios, datosUsuarios, setUserId, pasarStates, userId} = useContext(UsuariosContext)
+    //Guardamos el id 
     const {id} = useParams()
     useEffect(() => {
+        //Setea el valor de id para poder usarlo en el context
         setUserId(id);
-
       }, [setUserId, id]);
       
-
-    const { mostrarDatos, setMostrarDatos } = pasarStates;
-    const { mostrarContraseña, setMostrarContraseña } = pasarStates;
-    const { mostrarConfigurarPerfil, setMostrarConfigurarPerfil } = pasarStates;
+    //Desetruscturo pasarStates para traer todos los useStates de context
+    const { mostrarDatos, setMostrarDatos, mostrarContraseña, setMostrarContraseña, mostrarConfigurarPerfil, setMostrarConfigurarPerfil } = pasarStates;
 
 
     {datosUsuarios === "" && (
         TraerUsuarios() // Cargamos los datos del usuario cada vez que el ID de usuario cambia
     )}
 
-
+    //Funcion para mostrar el contenedor de los datos
     const MostrarDatos = () =>{
         setMostrarDatos(true)
         setMostrarContraseña(false)
         setMostrarConfigurarPerfil(false)
     }
 
+    //Funcion para mostrar el contenedor para cambiar de contraseña
     const MostrarContraseña = () =>{
         setMostrarContraseña(true)
         setMostrarDatos(false)
         setMostrarConfigurarPerfil(false)
     }
 
+    //Funcion para mostrar el contenedor para configurar el perfil
     const MostrarConfigurarPerfil = () => {
         setMostrarConfigurarPerfil(true)
         setMostrarContraseña(false)
@@ -53,6 +54,7 @@ const datosCuenta = () => {
     
     <div className='ContenedorPerfil'>
     <div className='ContenedorCambiarUsuario-Contraseña'>
+        {/*Links para acceder a las distintas secciones */}
         <p onClick={MostrarDatos} className={`mt-3 ${mostrarDatos ? 'boton-seleccionado' : 'boton-desSeleccionado'}`}>Datos de Usuario</p>
         <p onClick={MostrarContraseña} className={`mt-3 ${mostrarContraseña ? 'boton-seleccionado' : 'boton-desSeleccionado'}`}>Cambiar Contraseña</p>
         {mostrarConfigurarPerfil === true && 
@@ -60,6 +62,7 @@ const datosCuenta = () => {
 
         }
     </div>
+    {/*Expresion CondicionaL que muestra los datos si mostrarDatos es true */}
     {mostrarDatos === true && datosUsuarios !== "" && (
     <div className='Contenedor-Para-Centrar'>
     <div className='Contenedor-Datos'>
@@ -76,9 +79,11 @@ const datosCuenta = () => {
     </div>
     </div>
     )}
+    {/*Expresion CondicionaL que muestra el contenedor para cambiar la contraseña si mostrarContraseña es true */}
     {mostrarContraseña === true && 
         <ConfigurarContraseña  />
     }
+    {/*Expresion CondicionaL que muestra el contenedor para cambiar los datos si mostrarConfigurarPerfil es true */}
     {mostrarConfigurarPerfil === true && 
         <ConfigurarCuenta />
     }

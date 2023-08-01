@@ -17,8 +17,10 @@ const configurarContraseña = () => {
 
     const { setMostrarDatos, setMostrarContraseña, setMostrarConfigurarPerfil } = pasarStates;
 
+    //Expresiones para validar
     const contraseña= /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/
 
+    //Esquema de Yup para el formulario 
     const esquemaConfigurarContraseña = Yup.object().shape({
         ContraseñaActual: Yup.string()
         .required("Su contraseña actual es requerida")
@@ -33,12 +35,14 @@ const configurarContraseña = () => {
         .oneOf([Yup.ref('Contraseña')],'Las contraseñas deben de coincidir')
     })
 
+    //Valores iniciales de los input
     const valoresIniciales = {
         ContraseñaActual : "",
         Contraseña : "",
         ConfirmarContraseña : ""
     }
 
+    //Validacion de todo el formulario y acciones para cuando este listo para enviarse
     const formik = useFormik({
         initialValues: valoresIniciales,
         validationSchema : esquemaConfigurarContraseña,
@@ -46,7 +50,7 @@ const configurarContraseña = () => {
         validateOnBlur: true,
         onSubmit:  (values) => {
             try {
-
+                //Alert de sweetalert para confirmar
                 Swal.fire({
                     title: 'Realizaste todos los cambios?',
                     text: "No te Preocupes puedes realizar los cambios que desees luego",
@@ -63,12 +67,14 @@ const configurarContraseña = () => {
                         'Los cambios que hiciste fueron implementados',
                         'success'
                       )
+                    //Guarda los valores del formulario
                       const ContraseñaActualizada ={
                         ...datosUsuarios,
                         Contraseña: values.Contraseña
                     }
 
                     try {
+                        //Solicitud para editar el usuario
                         const res = await fetch(`${URLUsuarios}/${id}`, {
                             method: "PUT",
                             headers: {
@@ -79,7 +85,7 @@ const configurarContraseña = () => {
                     } catch (error) {
                         console.log(error);
                     }
-
+                    //Funciones para volver a mostrar los datos y TraerUsuarios para actualizar todo
                         setMostrarDatos(true)
                         setMostrarConfigurarPerfil(false)
                         setMostrarContraseña(false)
