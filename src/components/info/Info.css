@@ -1,0 +1,13 @@
+section{
+    width: 65%;
+    margin: 0 auto;
+}
+
+.titulo-custom {
+    color: #B08D59;
+}
+
+.info-custom{
+    background-image: url("../public/el-mercado.jpg") ;
+    height: 900px;
+}

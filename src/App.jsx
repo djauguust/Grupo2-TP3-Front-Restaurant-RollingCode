@@ -1,10 +1,11 @@
 
-import CarruselPrincipal from './components/CarruselPrincipal';
-import Footer from './components/Footer';
-import Header from './components/Header';
+import CarruselPrincipal from './components/carrusel/CarruselPrincipal';
+import Footer from './components/footer/Footer';
+import Header from './components/navbar/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Reviews from './components/Reviews';
-import Menu from './components/Menu';
+import Reviews from './components/reseñas/Reviews';
+import Menu from './components/menu/Menu';
+import Info from './components/info/Info';
 
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
     <>
       <Header />
       <CarruselPrincipal />
+      <Info/>
       <Menu/>
       <Reviews/>
       <Footer />
