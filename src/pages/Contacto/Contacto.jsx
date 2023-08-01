@@ -23,14 +23,15 @@ const Contacto = () =>{
                     ¡Tu satisfacción es nuestra prioridad! Si tienes alguna pregunta, inquietud o necesitas asistencia para hacer una reserva, no dudes en contactarnos. Nuestro equipo estará encantado de ayudarte en todo lo que necesites para que disfrutes de una experiencia inolvidable en nuestro restaurante.
                 </h5>
 
-                <div className={`p-5 ${style.mapa}`}>
-                    <Mapa/>
-                </div>
 
                 <div className={`p-5 ${style.formContacto}`}>
                     <Formulario/>
                 </div>
 
+                <div className={`p-5 ${style.mapa}`}>
+                    <Mapa/>
+                </div>
+                
                 <div className={style.footer}>
                     <Footer/>
                 </div>
