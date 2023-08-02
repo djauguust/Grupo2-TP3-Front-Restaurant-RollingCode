@@ -1,10 +1,11 @@
 import React from 'react'
 import Carousel from "react-bootstrap/Carousel";
+import "./CarruselPrincipal.css";
 
 const CarruselPrincipal = () => {
   return (
     <>
- <Carousel fade>
+ <Carousel fade className='carrusel-custom'>
       <Carousel.Item>
         <img
           src="https://live.staticflickr.com/65535/53071095588_b67e43d795_k.jpg"

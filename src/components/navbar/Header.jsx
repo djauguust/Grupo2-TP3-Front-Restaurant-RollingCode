@@ -6,7 +6,7 @@ import "./Header.css";
 const Header = () => {
   return (
     <>
-      <Navbar expand="lg" className="custom-navbar">
+      <Navbar fixed="top" expand="lg" className="custom-navbar bg-white">
         <Navbar.Brand href="#home" className="ms-4">
           <img
             alt=""

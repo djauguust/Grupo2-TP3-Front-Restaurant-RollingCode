@@ -7,11 +7,10 @@ import Reviews from './components/reseñas/Reviews';
 import Menu from './components/menu/Menu';
 import Info from './components/info/Info';
 
-
 function App() {
   return (
     <>
-      <Header />
+      <Header/>
       <CarruselPrincipal />
       <Info/>
       <Menu/>

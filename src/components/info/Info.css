@@ -5,9 +5,45 @@ section{
 
 .titulo-custom {
     color: #B08D59;
+    font-weight: bolder;
 }
 
 .info-custom{
     background-image: url("../public/el-mercado.jpg") ;
-    height: 900px;
+    background-size: cover;
+    height: 600px;
+    display: flex;
+    align-items: center; 
+}
+
+.cartel-custom{
+    height: 500px;
+    width: 500px;
+    background-color: white;
+    background-color: rgba(255, 255, 255, 0.9);
+    margin-left: 100px;
+    text-align: center;
+}
+
+.info-dorado{
+    color: #B08D59;
+    font-weight: bolder;
+}
+
+.info-negra{
+    font-weight: bolder;
+}
+
+.boton-reserva-custom{
+    background-color: black;
+    color: white;
+    display: inline-block;
+    border: 8px solid black;
+    margin-top: 15px;
+}
+
+.boton-reserva-custom:hover{
+    background-color: #B08D59;
+    border: 8px solid #B08D59;
+
 }
