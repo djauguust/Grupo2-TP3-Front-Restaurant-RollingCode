@@ -7,10 +7,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Form from "react-bootstrap/Form";
-import Button from 'react-bootstrap/Button';
+import InputGroup from "react-bootstrap/InputGroup";
+import Button from "react-bootstrap/Button";
+import es from "date-fns/locale/es"
+import {addDays, setHours, setMinutes} from "date-fns"
 
 function Reservas() {
-  const [startDate, setStartDate] = useState(new Date());
+  const fechaActual = new Date();
+  const [startDate, setStartDate] = useState(fechaActual);
 
   return (
     <>
@@ -19,17 +23,15 @@ function Reservas() {
           width: "100%",
           height: "400px",
           display: "flex",
+          flexDirection: "column",
           justifyContent: "center",
-          alignItems: "center",
         }}
       >
-        <Container>
-          <Row>
-            <Col>
-              <Image src="holder.js/171x180" thumbnail />
-            </Col>
-          </Row>
-
+        <Row>
+          <Col>
+            <Image src="holder.js/171x180" thumbnail />
+          </Col>
+        </Row>
           <Row>
             <Col>
               <h1>Reserva tu mesa</h1>
@@ -38,28 +40,44 @@ function Reservas() {
               <button>Registrate!</button>
             </Col>
           </Row>
+        <Container>
 
           <Row>
-            <Col md={4}>
-              <Form.Group className="mb-3">
-                <Form.Select>
-                  <option>1 Persona</option>
-                  <option>2 Personas</option>
-                  <option>3 Personas</option>
-                </Form.Select>
-              </Form.Group>
-            </Col>
-            <Col>
-              <ReactDatePicker
-                selected={startDate}
-                onChange={(date) => {
-                  setStartDate(date);
-                }}
-              />
-            </Col>
-            <Col>
-             <Button type="submit">Submit</Button>
-            </Col>
+            <Form.Group className="mb-3">
+              <Row>
+                <Col>
+                  <Form.Select>
+                    <option>1 Persona</option>
+                    <option>2 Personas</option>
+                    <option>3 Personas</option>
+                  </Form.Select>
+                </Col>
+
+                <Col>
+                  <ReactDatePicker
+                    selected={startDate}
+                    onChange={(date) => {
+                      setStartDate(date);
+                    }}
+                    dateFormat={"dd/MM/yyyy"}
+                    minDate={fechaActual}
+                    filterDate={(date) => date.getDay() !== 1}
+                    isClearable
+                  />
+                </Col>
+
+                <Col>
+                    <input
+                      type="time"
+                      className="form-control"
+                      aria-describedby="basic-addon1"
+                    ></input>
+                </Col>
+                <Col>
+                  <Button type="submit">Submit</Button>
+                </Col>
+              </Row>
+            </Form.Group>
           </Row>
         </Container>
       </main>
