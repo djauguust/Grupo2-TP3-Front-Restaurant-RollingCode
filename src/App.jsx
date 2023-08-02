@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Reviews from './components/reseñas/Reviews';
 import Menu from './components/menu/Menu';
 import Info from './components/info/Info';
+import Galeria from './components/galeria/Galeria';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Info/>
       <Menu/>
       <Reviews/>
+      <Galeria/>
       <Footer />
     </>
   );

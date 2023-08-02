@@ -1,0 +1,44 @@
+.body-galeria{
+    background-color: black;
+    font-size: 3rem;
+}
+
+.grid-item{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #03afff;
+    border-radius: 4px;
+    transition: transform 0.3s ease-in-out;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.grid-item:hover{
+    filter: opacity(0.9);
+    transform: scale(1.04);
+}
+
+.grid-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px,1fr));
+    grid-auto-rows: minmax(200px,auto);
+    gap: 20px;
+    padding: 20px;
+    grid-auto-flow: dense;
+}
+
+.wide{
+    grid-column: span 2;
+}
+
+.tall{
+    grid-row: span 2;
+}
+.img-1{
+    background: url("https://live.staticflickr.com/65535/53089577110_19c7c24c81_c.jpg");
+}
+.img-2{
+    background: url("https://live.staticflickr.com/65535/53089359329_12510fa21f_c.jpg");
+}
