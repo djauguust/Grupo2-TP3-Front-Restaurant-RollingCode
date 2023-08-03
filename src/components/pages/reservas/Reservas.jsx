@@ -10,10 +10,14 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const Reservas = () => {
   let actualDate = new Date();
   // console.log(actualDate)
+
+  const [startDate, setStartDate] = useState(new Date())
 
   //Formik
   let initialValues = {
@@ -82,20 +86,18 @@ const Reservas = () => {
                       <option>3 Personas</option>
                     </Form.Select>
                   </Col>
-                  {/* 
+                  
                 <Col>
-                  {/* <ReactDatePicker
+                  <ReactDatePicker
                     name="reservationDate"
                     selected={startDate}
                     dateFormat={"dd/MM/yyyy"}
-                    minDate={fechaActual}
+                    // minDate={}
                     filterDate={(date) => date.getDay() !== 1}
                     isClearable
                     onChange={(date)=>setStartDate(date)}
-                    
-
                   /> 
-                </Col> */}
+                </Col> 
 
                   <Col xs={"12"} md={"10"} lg={3} className="pb-2">
                     <input
