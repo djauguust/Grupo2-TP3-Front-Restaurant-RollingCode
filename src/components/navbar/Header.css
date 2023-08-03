@@ -31,9 +31,9 @@
 }
 
 
-@media (max-width: 300px ){
+@media (max-width: 350px ){
   .logo-custom{
-    width: 200px;
+    width: 180px;
   }
 }
 
