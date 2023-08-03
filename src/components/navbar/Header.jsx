@@ -13,13 +13,13 @@ const Header = () => {
             src="public\Diseño sin título.png"
             width=""
             height="80"
-            className="d-inline-block align-top m-0"
+            className="d-inline-block align-top m-0 logo-custom"
           />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse
           id="basic-navbar-nav"
-          className="justify-content-center"
+          className="justify-content-center collapse-custom"
         >
           <Nav className="ml-auto mb-2 mb-lg-0">
             <Nav.Link href="#home" className="text-dark m-2 botones">
@@ -39,7 +39,7 @@ const Header = () => {
             </Nav.Link>
             {/* NavDropdown... */}
           </Nav>
-          <Nav style={{ display: "block", left: "50px", position: "relative"}}>
+          <Nav style={{ display: "block", left: "50px", position: "relative" }} className="botones-izquierda">
             <Nav.Link className="text-dark">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

@@ -47,3 +47,10 @@ section{
     border: 8px solid #B08D59;
 
 }
+
+
+@media (max-width: 1000px ){
+    .cartel-custom{
+        margin: 0 auto;
+    }
+}

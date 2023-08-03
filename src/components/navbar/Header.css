@@ -18,13 +18,28 @@
     background-color: #B08D59;
 }
 
-@media (max-width: 768px ){
+@media (max-width: 1000px ){
     .custom-navbar .botones:hover{
         border-bottom: none;
     }
     .custom-navbar .botones{
         border-bottom: 3px solid white;
     }
+    .collapse-custom{
+        background-color: white;
+    }
 }
 
+
+@media (max-width: 300px ){
+  .logo-custom{
+    width: 200px;
+  }
+}
+
+@media (max-width: 1100px){
+    .botones-izquierda{
+        left: 10px !important;
+    }
+}
 
