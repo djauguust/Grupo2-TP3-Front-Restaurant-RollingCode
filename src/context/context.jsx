@@ -14,14 +14,12 @@ export const UsuariosProvider = ({children}) => {
 
     const URLUsuarios=import.meta.env.VITE_API_USUARIOS
     
-
-    
+    //Funcion para traer los datos de un solo usuario dependiendo del ID
     const TraerUsuarios = async () => {
         
                 try {
                     const id = userId
                     const res = await fetch(`${URLUsuarios}/${id}`)
-
                     const Usuario = await res.json()
                     const NombreUsuario = Usuario.Nombre || '';
                     const ApellidoUsuario = Usuario.Apellido || '';

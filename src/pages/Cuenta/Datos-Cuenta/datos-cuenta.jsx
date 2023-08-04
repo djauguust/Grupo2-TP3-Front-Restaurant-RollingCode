@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { UsuariosContext } from '../../../context/context'
 import ConfigurarContraseña from '../Configurar-Cuenta/configurar-contraseña'
-import { Row, Stack } from 'react-bootstrap'
+import { Col, Row, Stack } from 'react-bootstrap'
 import ConfigurarCuenta from '../Configurar-Cuenta/configurar-cuenta'
 
 const datosCuenta = () => {
@@ -57,9 +57,8 @@ const datosCuenta = () => {
         {/*Links para acceder a las distintas secciones */}
         <p onClick={MostrarDatos} className={`mt-3 ${mostrarDatos ? 'boton-seleccionado' : 'boton-desSeleccionado'}`}>Datos de Usuario</p>
         <p onClick={MostrarContraseña} className={`mt-3 ${mostrarContraseña ? 'boton-seleccionado' : 'boton-desSeleccionado'}`}>Cambiar Contraseña</p>
-        {mostrarConfigurarPerfil === true && 
-            <p className={`mt-3 ${mostrarConfigurarPerfil ? 'boton-seleccionado' : 'boton-desSeleccionado'}`} >Cambiar Datos</p>
-
+        {mostrarConfigurarPerfil === true &&
+                <p className={`mt-3 ${mostrarConfigurarPerfil ? 'boton-seleccionado' : 'boton-desSeleccionado'}`} >Cambiar Datos</p> 
         }
     </div>
     {/*Expresion CondicionaL que muestra los datos si mostrarDatos es true */}

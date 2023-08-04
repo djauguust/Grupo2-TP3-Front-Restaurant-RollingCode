@@ -26,6 +26,7 @@
         border-right: none !important;
         min-height: auto !important;
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-evenly;
         box-shadow: 0 0 4px 3px rgba(0, 0, 0, 0.2) !important;
     }

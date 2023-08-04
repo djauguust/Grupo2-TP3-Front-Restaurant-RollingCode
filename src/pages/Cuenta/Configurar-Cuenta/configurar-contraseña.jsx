@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { Container, Stack, Form, Button } from 'react-bootstrap'
 import "../../../style/configurar-cuenta.css"
 import {useFormik} from "formik";
@@ -10,12 +10,26 @@ import { useParams } from 'react-router';
 
 const configurarContraseña = () => {
 
+    //Uso ref para referirme a los 3 Form.Control para guardarlos en una constante
+    const CambiarTipo = useRef(null);
+    const CambiarTipo2 = useRef(null);
+    const CambiarTipo3 = useRef(null);
+
     const {datosUsuarios, pasarStates, TraerUsuarios} = useContext(UsuariosContext)
+    //Guardo el valor de contraseña en una constante
     const contraseñaActual = datosUsuarios.Contraseña
     const {id} = useParams()
     const URLUsuarios=import.meta.env.VITE_API_USUARIOS
-
+    //Desestructuro pasarStates
     const { setMostrarDatos, setMostrarContraseña, setMostrarConfigurarPerfil } = pasarStates;
+
+    //Funcion para cambiar el type de los input a password por mas que se borren desde inspeccionar
+    function cambiarTipo () {
+        CambiarTipo.current.setAttribute('type', 'password');
+        CambiarTipo2.current.setAttribute('type', 'password');
+        CambiarTipo3.current.setAttribute('type', 'password');
+      };
+    
 
     //Expresiones para validar
     const contraseña= /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/
@@ -49,6 +63,7 @@ const configurarContraseña = () => {
         validateOnChange: true,
         validateOnBlur: true,
         onSubmit:  (values) => {
+
             try {
                 //Alert de sweetalert para confirmar
                 Swal.fire({
@@ -111,7 +126,7 @@ const configurarContraseña = () => {
                 <Stack gap={2}>
                     <Form.Group>
                         <Form.Label>Ingrese su contraseña actual :</Form.Label>
-                        <Form.Control type='text' placeholder='Contraseña Actual' id='ContraseñaActual'
+                        <Form.Control type="password" placeholder='Contraseña Actual' id='ContraseñaActual' onInput={cambiarTipo} ref={CambiarTipo}
                         {...formik.getFieldProps("ContraseñaActual")}
                         className={clsx(
                             "form-control",{
@@ -129,7 +144,7 @@ const configurarContraseña = () => {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Ingrese su nueva contraseña :</Form.Label>
-                        <Form.Control type='text' placeholder='Contraseña Nueva' id='Contraseña' 
+                        <Form.Control type='password' placeholder='Contraseña Nueva' id='Contraseña' onInput={cambiarTipo} ref={CambiarTipo2}
                         {...formik.getFieldProps("Contraseña")}
                         className={clsx(
                             "form-control",{
@@ -147,7 +162,7 @@ const configurarContraseña = () => {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Ingrese nuevamente su nueva contraseña :</Form.Label>
-                        <Form.Control type='text' placeholder='Repetir Nueva Contraseña' id='ConfirmarContraseña' 
+                        <Form.Control type='password' placeholder='Repetir Nueva Contraseña' id='ConfirmarContraseña' onInput={cambiarTipo} ref={CambiarTipo3}
                         {...formik.getFieldProps("ConfirmarContraseña")}
                         className={clsx(
                             "form-control",{
