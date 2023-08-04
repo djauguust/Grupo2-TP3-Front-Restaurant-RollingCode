@@ -1,6 +1,5 @@
 .body-galeria{
     background-color: black;
-    font-size: 3rem;
 }
 
 .grid-item{
@@ -51,3 +50,37 @@
         grid-row: span 2;
     }
 }
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    z-index: 999;
+  }
+  
+  .modal-content {
+    max-width: 60%;
+    max-height: 60%;
+    position: relative;
+  }
+  
+  .img-ampliada {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 200;
+  }
+  
+  .boton-cerrado {
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+    position: absolute;
+    top: 10px; /* Ajusta el valor para posicionar el botón verticalmente */
+    right: 200px; /* Ajusta el valor para posicionar el botón horizontalmente */
+  }

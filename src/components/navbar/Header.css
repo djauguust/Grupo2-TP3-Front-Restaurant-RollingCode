@@ -1,5 +1,6 @@
 .custom-navbar{
     height: 110px;
+    z-index: 100 !important;
 }
 .custom-navbar .botones{
     border-bottom: 3px solid white;
