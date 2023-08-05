@@ -7,7 +7,6 @@ const Galeria = () => {
 
   const seleccionarImagen = (urlImagen) => {
     setImagenSeleccionada(urlImagen);
-    console.log(imagenSeleccionada);
   };
 
   const cerrarImagen = () => {
@@ -106,7 +105,7 @@ const Galeria = () => {
         </div>
         {imagenSeleccionada && (
           <div className="modal">
-            <Button className="boton-cerrado" variant="danger" onClick={cerrarImagen}>
+            <Button className="boton-cerrado" variant="light" onClick={cerrarImagen}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="25"
