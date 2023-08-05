@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <>
       <Navbar fixed="top" expand="lg" className="custom-navbar bg-white">
-        <Navbar.Brand href="#home" className="ms-4">
+        <Navbar.Brand href="/" className="ms-4">
           <img
             alt=""
             src="public\Diseño sin título.png"
@@ -22,16 +22,16 @@ const Header = () => {
           className="justify-content-center collapse-custom"
         >
           <Nav className="ml-auto mb-2 mb-lg-0">
-            <Nav.Link href="#home" className="text-dark m-2 botones">
+            <Nav.Link href="/" className="text-dark m-2 botones">
               INICIO
             </Nav.Link>
-            <Nav.Link href="#link" className="text-dark m-2 botones">
+            <Nav.Link href="/acercadenosotros" className="text-dark m-2 botones">
               QUIENES SOMOS
             </Nav.Link>
             <Nav.Link href="#link" className="text-dark m-2 botones">
               GALERIA
             </Nav.Link>
-            <Nav.Link href="#link" className="text-dark m-2 botones">
+            <Nav.Link href="contacto" className="text-dark m-2 botones">
               CONTACTO
             </Nav.Link>
             <Nav.Link href="#link" className=" text-light m-2 boton-reserva">

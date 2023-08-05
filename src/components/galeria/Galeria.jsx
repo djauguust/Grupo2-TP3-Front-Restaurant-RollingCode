@@ -16,7 +16,7 @@ const Galeria = () => {
   return (
     <>
       <body className="body-galeria">
-        <h2 className="text-center text-light">Galeria</h2>
+        <h2 className="text-center text-light"><br></br>GALERIA</h2>
         <div className="grid-container">
           <div
             className="grid-item img-1"

@@ -4,7 +4,7 @@ import "./Reviews.css";
 const Reviews = () => {
   return (
     <>
-      <h1 className="titulo font-weight-bold mt-4">Reseñas</h1>
+      <h1 className="titulo font-weight-bold mt-4">RESEÑAS</h1>
       <div className="cuerpo">
         <div className="contenedor">
           <div className="carta">

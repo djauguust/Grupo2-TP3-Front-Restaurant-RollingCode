@@ -11,7 +11,7 @@ const Menu = () => {
     <>
       <div className="custom-menu">
         <div className="contenedor-tabs mt-4">
-          <h2 className="text-center">Menu</h2>
+          <h2 className="text-center mt-4">Menu</h2>
           <Tabs
             defaultActiveKey="Pastas"
             id="uncontrolled-tab-example"
