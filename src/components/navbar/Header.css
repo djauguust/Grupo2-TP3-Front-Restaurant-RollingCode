@@ -44,3 +44,6 @@
     }
 }
 
+.boton-izq-custom:hover{
+    transform: scale(1.04);
+}

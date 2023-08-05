@@ -2,6 +2,7 @@ import React from "react";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import "./Header.css";
+import {Link} from "react-router-dom";
 
 const Header = () => {
   return (
@@ -22,25 +23,24 @@ const Header = () => {
           className="justify-content-center collapse-custom"
         >
           <Nav className="ml-auto mb-2 mb-lg-0">
-            <Nav.Link href="/" className="text-dark m-2 botones">
+            <Nav.Link as={Link} to="/" className="Nav.Link text-dark m-2 botones">
               INICIO
             </Nav.Link>
-            <Nav.Link href="/acercadenosotros" className="text-dark m-2 botones">
+            <Nav.Link as={Link} to="/acercadenosotros" className="text-dark m-2 botones">
               QUIENES SOMOS
             </Nav.Link>
-            <Nav.Link href="#link" className="text-dark m-2 botones">
+            <Nav.Link as={Link} to="/galeria" className="text-dark m-2 botones">
               GALERIA
             </Nav.Link>
-            <Nav.Link href="contacto" className="text-dark m-2 botones">
+            <Nav.Link as={Link} to="/contacto" className="text-dark m-2 botones">
               CONTACTO
             </Nav.Link>
-            <Nav.Link href="#link" className=" text-light m-2 boton-reserva">
+            <Nav.Link as={Link} to="/reservas" className=" text-light m-2 boton-reserva">
               HAZ TU RESERVA
             </Nav.Link>
-            {/* NavDropdown... */}
           </Nav>
           <Nav style={{ display: "block", left: "50px", position: "relative" }} className="botones-izquierda">
-            <Nav.Link className="text-dark">
+            <Nav.Link className="text-dark boton-izq-custom" as={Link} to="/login">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -57,7 +57,7 @@ const Header = () => {
               </svg>{" "}
               Iniciar Sesion
             </Nav.Link>
-            <Nav.Link className="text-dark">
+            <Nav.Link target="_blank" href="https://www.google.com/maps/place/Olga+Cossettini+750,+Buenos+Aires/@-34.6111001,-58.3780726,13.75z/data=!4m6!3m5!1s0x95a3352ec57d549b:0x5341533dfe791f9f!8m2!3d-34.6067233!4d-58.3638578!16s%2Fg%2F11fk3r6bhk?entry=ttu" className="text-dark boton-izq-custom">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -71,7 +71,7 @@ const Header = () => {
               </svg>{" "}
               Ubicacion
             </Nav.Link>
-            <Nav.Link className="text-dark">
+            <Nav.Link className="text-dark boton-izq-custom">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"

@@ -1,7 +1,6 @@
 import React from "react";
 import "./Info.css";
-import Nav from "react-bootstrap/Nav";
-
+import {Link} from "react-router-dom";
 const Info = () => {
   return (
     <>
@@ -39,9 +38,9 @@ const Info = () => {
           <p className="d-inline-block info-dorado ms-2 text-end">
             Olga Cossettini 750, CABA, Buenos Aires.
           </p>
-          <div className="boton-reserva-custom">
+          <Link className="boton-reserva-custom" to="/reservas">
             HAZ TU RESERVA
-          </div>
+          </Link>
         </div>
       </div>
     </>

@@ -40,6 +40,7 @@ section{
     display: inline-block;
     border: 8px solid black;
     margin-top: 15px;
+    text-decoration: none;
 }
 
 .boton-reserva-custom:hover{

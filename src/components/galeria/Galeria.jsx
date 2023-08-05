@@ -15,8 +15,10 @@ const Galeria = () => {
 
   return (
     <>
-      <body className="body-galeria">
-        <h2 className="text-center text-light"><br></br>GALERIA</h2>
+      <body className="body-galeria container">
+        <h2 className="text-center titulo">
+          <br></br>Galeria
+        </h2>
         <div className="grid-container">
           <div
             className="grid-item img-1"
@@ -105,7 +107,11 @@ const Galeria = () => {
         </div>
         {imagenSeleccionada && (
           <div className="modal">
-            <Button className="boton-cerrado" variant="light" onClick={cerrarImagen}>
+            <Button
+              className="boton-cerrado"
+              variant="light"
+              onClick={cerrarImagen}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="25"
