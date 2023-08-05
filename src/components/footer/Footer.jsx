@@ -17,14 +17,6 @@ const Footer = () => {
               className="img-custom"
             />
           </Col>
-          <Col sm={12} lg={3} className="fw-bold fs-5 mt-3">
-            <img
-              src="public\World_50Best_Rest_2023_Logo-removebg-preview.png"
-              alt=""
-              height="180px"
-            />
-          </Col>
-
           <Col sm={12} lg={3} className="mt-3">
             Desarrollado por:
             <br></br>
@@ -53,7 +45,7 @@ const Footer = () => {
               <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
               <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
             </svg>
-            Ubicacion
+            Gral Paz 576, San Miguel de Tucuman
             <br></br>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -70,6 +62,7 @@ const Footer = () => {
             </svg>
             0381 578-3030
           </Col>
+
           <Col lg={3}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -103,6 +96,13 @@ const Footer = () => {
             >
               <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
             </svg>
+          </Col>
+          <Col sm={12} lg={3} className="fw-bold fs-5 mt-3">
+            <img
+              src="public\World_50Best_Rest_2023_Logo-removebg-preview.png"
+              alt=""
+              height="180px"
+            />
           </Col>
         </Row>
       </Container>
