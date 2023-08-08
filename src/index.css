@@ -151,15 +151,16 @@ button {
 .img__btn {
   overflow: hidden;
   z-index: 2;
-   position: relative;
-   width: 100px;
-   height: 36px;
-   margin: 0 auto;
-   background: transparent;
-   color: #fff;
-   text-transform: uppercase;
-   font-size: 15px;
-   cursor: pointer;
+  position: relative;
+  bottom: 20vh;
+  width: 120px;
+  height: 36px;
+  margin: 0 auto;
+  background: transparent;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 15px;
+  cursor: pointer;
 }
 
 .img__btn:after {
@@ -237,6 +238,7 @@ input {
 .submit {
   margin-top: 40px;
   margin-bottom: 20px;
+  
   background: #B08D59;
   text-transform: uppercase;
 }
