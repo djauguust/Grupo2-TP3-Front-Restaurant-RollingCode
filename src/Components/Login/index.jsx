@@ -7,6 +7,7 @@ const Login = () => {
   const [name, setName] = useState('');
   const [isSignIn, setIsSignIn] = useState(true);
   const [isSignUp, setIsSignUp] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const handleSignInClick = () => {
     console.log('Sign In clicked');
