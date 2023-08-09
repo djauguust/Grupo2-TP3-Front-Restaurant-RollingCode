@@ -18,7 +18,7 @@ const Reservas = () => {
   const handleTime = (time) => {
     setStartTime(time);
   }
-  console.log(startTime);
+  // console.log(startTime);
     const convertToNumericTime = (time) => {
       const hours = time.getHours();
       const minutes = time.getMinutes();
@@ -26,8 +26,7 @@ const Reservas = () => {
     };
     const filterTime = (time) => {
       const hours = new Date(time).getHours();
-      return hours < 0 || hours > 6;
-    };
+      return hours >=7 && hours <= 19 }
 
     //Formik
     const initialValues = {
