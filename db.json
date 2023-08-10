@@ -1,0 +1,9 @@
+{
+    "Reservas" : [
+        {
+            "Fecha" : "10/08/2023",
+            "CantidadDePersonas" : "2",
+            "Hora" : "15:00"
+        }
+    ]
+}

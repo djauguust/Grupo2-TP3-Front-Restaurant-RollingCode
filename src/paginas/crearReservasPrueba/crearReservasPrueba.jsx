@@ -9,14 +9,14 @@ import { format } from "date-fns";
 
 
 const crearReservasPrueba = () => {
-  const [startDate, setStartDate] = useState(new Date());
+
 
   const esquema = Yup.object().shape({
-    selectedDate: Yup.date().required("Fecha es requerida"),
+    FechaReserva: Yup.date().required("Fecha es requerida"),
   });
 
   const valoresIniciales = {
-    selectedDate: null,
+    FechaReserva: null,
   };
   
   const formik = useFormik({
@@ -25,10 +25,10 @@ const crearReservasPrueba = () => {
     validateOnChange: true,
     validateOnBlur: true,
     onSubmit: (values) => {
-      {/*const fechaFormateada = format(values.FechaReserva, "dd/MM/yyyy", {
+      const fechaFormateada = format(values.FechaReserva, "dd/MM/yyyy", {
         locale: es,
-      });*/}
-      console.log(values);
+      })
+      console.log(fechaFormateada);
     },
   });
 
@@ -36,11 +36,11 @@ const crearReservasPrueba = () => {
     <>
       <Form onSubmit={formik.handleSubmit} noValidate>
       <DatePicker
-        selected={formik.values.selectedDate}
-        onChange={(date) => formik.setFieldValue("selectedDate", date)}
+        selected={formik.values.FechaReserva}
+        onChange={(date) => formik.setFieldValue("FechaReserva", date)}
       />
-      {formik.errors.selectedDate && formik.touched.selectedDate ? (
-        <div>{formik.errors.selectedDate}</div>
+      {formik.errors.FechaReserva && formik.touched.FechaReserva ? (
+        <div>{formik.errors.FechaReserva}</div>
       ) : null}
       <Button type="submit">Enviar</Button>
     </Form>
