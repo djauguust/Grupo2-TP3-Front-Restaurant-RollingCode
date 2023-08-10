@@ -4,6 +4,8 @@ import { useFormik, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./reserva.css";
 
 const Reservas = () => {
   // Calendario
@@ -17,11 +19,11 @@ const Reservas = () => {
     nextDay.setDate(day.getDate() + 1);
     return nextDay;
   };
-  const filterMaxDay = ()=>{
-    const limitDate = new Date()
-    limitDate.setMonth(day.getMonth() + 1)
-    return limitDate
-  }
+  const filterMaxDay = () => {
+    const limitDate = new Date();
+    limitDate.setMonth(day.getMonth() + 1);
+    return limitDate;
+  };
 
   //Hora
   const [startTime, setStartTime] = useState(day);
@@ -39,7 +41,7 @@ const Reservas = () => {
     return hours >= 7 && hours <= 22;
   };
 
-  //Formik
+  //Formik y yup
   const initialValues = {
     time: convertToNumericTime(startTime),
     date: startDate,
@@ -71,21 +73,53 @@ const Reservas = () => {
 
   return (
     <>
-      <main
-        style={{
-          height: "500px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Container>
+      <main className="reservation-main">
+        <Container className="reservation-container">
           <Row>
-            <Col>
-              <Form onSubmit={handleSubmit}>
-                <Form.Group controlId="time">
-                  <Form.Label>Hora</Form.Label>
+            <Form
+              onSubmit={handleSubmit}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height:'400px'
+              }}
+            >
+              <Col md={4}>
+                <Form.Group controlId="people">
+                  <Form.Control
+                    className="inputReservation"
+                    placeholder="N° de Personas"
+                    type="number"
+                    onChange={handleChange}
+                    value={values.people}
+                    required
+                    min={1}
+                    max={10}
+                  />
+                </Form.Group>
+              </Col>
+
+              <Col md={4}>
+                <Form.Group controlId="date">
                   <DatePicker
+                    className="inputReservation"
+                    selected={startDate}
+                    onChange={handleDate}
+                    minDate={filterMinDay()}
+                    maxDate={filterMaxDay()}
+                    dateFormat="dd/MM/yyyy"
+                    filterDate={(date) => date.getDay() !== 1}
+                    value={values.date}
+                    required
+                  />
+                </Form.Group>
+              </Col>
+
+              <Col md={4}>
+                <Form.Group controlId="time">
+                  <DatePicker
+                    className="inputReservation"
                     selected={startTime}
                     onChange={handleTime}
                     showTimeSelect
@@ -98,39 +132,18 @@ const Reservas = () => {
                     required
                   />
                 </Form.Group>
-
-                <Form.Group controlId="date">
-                  <Form.Label>Fecha</Form.Label>
-                  <DatePicker
-                    selected={startDate}
-                    onChange={handleDate}
-                    minDate={filterMinDay()}
-                    maxDate={filterMaxDay()}
-                    dateFormat="dd/MM/yyyy"
-                    filterDate={(date) => date.getDay() !== 1}
-                    value={values.date}
-                    required
-                  />
-                </Form.Group>
-
-                <Form.Group controlId="people">
-                  <Form.Label>Cantidad de personas</Form.Label>
-                  <Form.Control
-                    type="number"
-                    onChange={handleChange}
-                    value={values.people}
-                    required
-                    min={1}
-                    max={10}
-                    
-                  />
-                </Form.Group>
-
-                <Button variant="primary" type="submit">
-                  Solicitar Reserva
+              </Col>
+              <Col>
+                <Button
+                  variant="primary"
+                  type="submit"
+                  className="inputReservation m-3"
+                  
+                >
+                  Reserva
                 </Button>
-              </Form>
-            </Col>
+              </Col>
+            </Form>
           </Row>
         </Container>
       </main>
