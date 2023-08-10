@@ -120,6 +120,9 @@ const Reservas = () => {
                     onChange={handleChange}
                     value={values.people}
                     required
+                    min={1}
+                    max={10}
+                    
                   />
                 </Form.Group>
 
