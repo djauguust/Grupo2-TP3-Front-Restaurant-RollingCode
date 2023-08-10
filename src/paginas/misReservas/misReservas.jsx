@@ -8,18 +8,22 @@ import ModalReservas from "./ModalReservas/modalReservas";
 const misReservas = () => {
 
 
-  const { TraerReservas, Reservas } = useContext(ReservasContexto);
+  const { TraerReservas, Reservas, selectedReservaId, setSelectedReservaId } = useContext(ReservasContexto);
+
+
   {
     Reservas === undefined && TraerReservas();
   }
 
   const [showModal, setShowModal] = useState(false);
 
-  const handleShowModal = () => {
+  const handleShowModal = (reservaId) => {
+    setSelectedReservaId(reservaId);
     setShowModal(true);
   };
 
   const handleCloseModal = () => {
+    setSelectedReservaId("");
     setShowModal(false);
   };
 
@@ -34,10 +38,10 @@ const misReservas = () => {
           <Row>
           {Reservas &&
             Reservas.map((Reserva) => (
-              <ContenedorReservas onShowModal={handleShowModal} key={Reserva.id} />
-            ))}
+              <ContenedorReservas onShowModal={handleShowModal} key={Reserva.id} Reserva={Reserva} />
+              ))}
           </Row>
-              <ModalReservas showModal={showModal} onCloseModal={handleCloseModal} />
+              <ModalReservas showModal={showModal} selectedReservaId={selectedReservaId} onCloseModal={handleCloseModal} />
         </Container>
       </div>
     </>
