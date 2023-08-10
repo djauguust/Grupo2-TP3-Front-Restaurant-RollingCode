@@ -17,6 +17,11 @@ const Reservas = () => {
     nextDay.setDate(day.getDate() + 1);
     return nextDay;
   };
+  const filterMaxDay = ()=>{
+    const limitDate = new Date()
+    limitDate.setMonth(day.getMonth() + 1)
+    return limitDate
+  }
 
   //Hora
   const [startTime, setStartTime] = useState(day);
@@ -100,6 +105,7 @@ const Reservas = () => {
                     selected={startDate}
                     onChange={handleDate}
                     minDate={filterMinDay()}
+                    maxDate={filterMaxDay()}
                     dateFormat="dd/MM/yyyy"
                     filterDate={(date) => date.getDay() !== 1}
                     value={values.date}
@@ -118,7 +124,7 @@ const Reservas = () => {
                 </Form.Group>
 
                 <Button variant="primary" type="submit">
-                  Enviar
+                  Solicitar Reserva
                 </Button>
               </Form>
             </Col>
