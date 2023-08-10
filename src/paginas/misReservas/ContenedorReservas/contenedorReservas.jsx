@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Col, Stack } from 'react-bootstrap'
 
-const contenedorReservas = () => {
+const contenedorReservas = ({ onShowModal }) => {
   return (
     <>
         <Col xs={12} md={6} lg={6}>
@@ -16,7 +16,7 @@ const contenedorReservas = () => {
                       Cantidad de Personas : 2
                     </h4>
                     <div className="mt-2 d-flex justify-content-around">
-                      <Button>Editar</Button>
+                      <Button onClick={onShowModal}>Editar</Button>
                       <Button>Eliminar</Button>
                     </div>
                   </div>

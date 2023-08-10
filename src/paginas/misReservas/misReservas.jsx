@@ -1,16 +1,28 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button, Col, Container, Row, Stack } from "react-bootstrap";
 import { ReservasContexto } from "../../contexto/contexto";
 import "../../estilos/misReservas.css";
 import ContenedorReservas from "./ContenedorReservas/contenedorReservas";
+import ModalReservas from "./ModalReservas/modalReservas";
 
 const misReservas = () => {
-  const Url = import.meta.env.VITE_API_RESERVAS;
+
 
   const { TraerReservas, Reservas } = useContext(ReservasContexto);
   {
     Reservas === undefined && TraerReservas();
   }
+
+  const [showModal, setShowModal] = useState(false);
+
+  const handleShowModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
 
   return (
     <>
@@ -22,9 +34,10 @@ const misReservas = () => {
           <Row>
           {Reservas &&
             Reservas.map((Reserva) => (
-              <ContenedorReservas />
+              <ContenedorReservas onShowModal={handleShowModal} key={Reserva.id} />
             ))}
           </Row>
+              <ModalReservas showModal={showModal} onCloseModal={handleCloseModal} />
         </Container>
       </div>
     </>
