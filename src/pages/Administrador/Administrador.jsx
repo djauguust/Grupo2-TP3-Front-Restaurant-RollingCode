@@ -1,12 +1,15 @@
 import Header from "../../Components/Header";
 import Footer from "../../Components/Footer";
+import TablaUsuarios from "../../Components/TablaUsuarios";
+import TablaReservas from "../../Components/TablaReservas";
 
 const Admin = () =>{
 
     return(
         <>
             <Header/>
-            <h1>Hola mundo</h1>
+                <TablaUsuarios/>
+                <TablaReservas/>
             <Footer/>
         </>
     )
