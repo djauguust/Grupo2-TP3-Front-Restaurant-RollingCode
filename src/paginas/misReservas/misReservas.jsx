@@ -1,9 +1,14 @@
 import React from 'react'
+    
 
 const misReservas = () => {
   return (
     <>
-        <h1>Mis Reservas</h1>
+        <div className='text-center mt-3'>
+            <h1>Mis Reservas</h1>
+        </div>
+        
+
     </>
   )
 }
