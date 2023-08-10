@@ -46,4 +46,5 @@
 
 .boton-izq-custom:hover{
     transform: scale(1.04);
+    background-color: #B08D59 !important;
 }
