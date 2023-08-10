@@ -14,7 +14,7 @@ export const ReservasProvider = ({children}) => {
             const res = await axios.get(UrlReservas);
             const reservas = await res.data;
             SetReservas(reservas)
-            console.log(res.data);
+
           } catch (error) {
             console.error('Error:', error);
           }
