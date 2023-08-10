@@ -16,20 +16,20 @@ const Contacto = () =>{
                 </div>
 
                 <div className={`text-center ${style.banner}`}>
-                    <h1>CONTACTANOS</h1>
+                    <p>CONTACTANOS</p>
                 </div>
 
-                <h5 className={`mx-5 mt-5 text-center ${style.parrafo}`}>
-                    ¡Tu satisfacción es nuestra prioridad! Si tienes alguna pregunta, inquietud o necesitas asistencia para hacer una reserva, no dudes en contactarnos. Nuestro equipo estará encantado de ayudarte en todo lo que necesites para que disfrutes de una experiencia inolvidable en nuestro restaurante.
-                </h5>
+                <div className={style.container2}>
+                    <h4 className={`mx-5 mt-5 text-center ${style.parrafo}`}>
+                        ¡Tu satisfacción es nuestra prioridad! Si tienes alguna pregunta, inquietud o necesitas asistencia para hacer una reserva, no dudes en contactarnos.
+                    </h4>
+                    <div className={`p-5 ${style.formContacto}`}>
+                        <Formulario/>
+                    </div>
 
-
-                <div className={`p-5 ${style.formContacto}`}>
-                    <Formulario/>
-                </div>
-
-                <div className={`p-5 ${style.mapa}`}>
-                    <Mapa/>
+                    <div className={`p-5 ${style.mapa}`}>
+                        <Mapa/>
+                    </div>
                 </div>
                 
                 <div className={style.footer}>
