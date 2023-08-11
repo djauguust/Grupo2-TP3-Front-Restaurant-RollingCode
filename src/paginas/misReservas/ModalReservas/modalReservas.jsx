@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Button, Form, FormCheck, Modal, Stack } from "react-bootstrap";
 import { ReservasContexto } from "../../../contexto/contexto";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import DatePicker from "react-datepicker";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -13,36 +13,40 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
   const { TraerUnaReserva, Reserva } = useContext(ReservasContexto);
   const [externalChange, setExternalChange] = useState(false);
 
-  useEffect(() => {
+  useEffect( () => {
     if (selectedReservaId && externalChange) {
       TraerUnaReserva();
+      
+      
       setExternalChange(false); // Resetea el valor para evitar más cambios internos
     }
   }, [externalChange, TraerUnaReserva]);
 
+  
+  
   useEffect(() => {
-    if (selectedReservaId) {
-      setExternalChange(true);
-    }
+      if (selectedReservaId) {
+          setExternalChange(true);
+        }
   }, [selectedReservaId]);
-
+  
   console.log(Reserva);
-
+  
   const esquema = Yup.object().shape({
-    FechaReserva: Yup.date().required("Fecha es requerida"),
-
-    Horario: Yup.string().required("La hora es requerida"),
-
-    CantidadDePersonas: Yup.string().required(
+      FechaReserva: Yup.date().required("Fecha es requerida"),
+      
+      Horario: Yup.string().required("La hora es requerida"),
+      
+      CantidadDePersonas: Yup.string().required(
       "La cantidad de personas es requerida"
     ),
   });
 
   const valoresIniciales = {
-    FechaReserva: null,
-    Horario: "",
-    CantidadDePersonas: "",
-  };
+      FechaReserva: null,
+      Horario: "",
+      CantidadDePersonas: "",
+    };
 
   const formik = useFormik({
     initialValues: valoresIniciales,
@@ -51,18 +55,42 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
     validateOnBlur: true,
     onSubmit: (values) => {
       const fechaFormateada = format(values.FechaReserva, "dd/MM/yyyy", {
-        locale: es,
-      });
-
-      const ReservaEditada = {
-        Fecha: fechaFormateada,
-        Hora: values.Horario,
-        CantidadDePersonas: values.CantidadDePersonas,
-      };
-
-      console.log(ReservaEditada);
+          locale: es,
+        });
+        console.log(values.FechaReserva);
+        const ReservaEditada = {
+            Fecha: fechaFormateada,
+            Hora: values.Horario,
+            CantidadDePersonas: values.CantidadDePersonas,
+        };
+        
+        console.log(ReservaEditada);
     },
-  });
+});
+
+const parseCustomDate = (customDate) => {
+    const [day, month, year] = customDate.split("/");
+    const isoDate = `${year}-${month}-${day}`;
+    return parseISO(isoDate);
+};
+
+const EstablecerDatos = async () =>{
+
+    if (Reserva) {
+      const Fecha = await parseCustomDate(Reserva.Fecha) || ""
+        const Hora = await Reserva.Hora || ""
+        const CantidadDePersonas =  await Reserva.CantidadDePersonas || ""
+        formik.setFieldValue("FechaReserva", Fecha)
+        console.log(Fecha);
+        formik.setFieldValue("Horario", Hora)
+        formik.setFieldValue("CantidadDePersonas", CantidadDePersonas)
+    }
+}
+
+useEffect(() => {
+    EstablecerDatos();
+  }, [Reserva]);
+
 
   return (
     <>
