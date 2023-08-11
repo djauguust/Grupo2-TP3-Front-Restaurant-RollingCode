@@ -8,10 +8,20 @@ import * as Yup from "yup";
 import clsx from "clsx";
 import es from "date-fns/locale/es";
 import "react-datepicker/dist/react-datepicker.css";
+import axios from "axios";
 
 const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
   const { TraerUnaReserva, Reserva } = useContext(ReservasContexto);
   const [externalChange, setExternalChange] = useState(false);
+  const [Url,setUrl] = useState()
+
+  const UrlReservas = import.meta.env.VITE_API_RESERVAS
+  if (Reserva) {
+    const id = Reserva.id
+    const UrlReserva = `${UrlReservas}/${id}`
+    
+    console.log(Url);
+}
 
   useEffect( () => {
     if (selectedReservaId && externalChange) {
@@ -29,8 +39,7 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
           setExternalChange(true);
         }
   }, [selectedReservaId]);
-  
-  console.log(Reserva);
+
   
   const esquema = Yup.object().shape({
       FechaReserva: Yup.date().required("Fecha es requerida"),
@@ -57,13 +66,25 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
       const fechaFormateada = format(values.FechaReserva, "dd/MM/yyyy", {
           locale: es,
         });
-        console.log(values.FechaReserva);
+
         const ReservaEditada = {
             Fecha: fechaFormateada,
             Hora: values.Horario,
             CantidadDePersonas: values.CantidadDePersonas,
         };
-        
+
+        if (Reserva) {
+            const id = Reserva.id
+            const UrlReserva = `${UrlReservas}/${id}`
+            
+        axios.put(UrlReserva, ReservaEditada)
+        .then(Response =>{
+            console.log("Reserva Actualizada")
+        })
+        .catch(error =>{
+            console.log(error);
+        })
+        }    
         console.log(ReservaEditada);
     },
 });
@@ -81,7 +102,6 @@ const EstablecerDatos = async () =>{
         const Hora = await Reserva.Hora || ""
         const CantidadDePersonas =  await Reserva.CantidadDePersonas || ""
         formik.setFieldValue("FechaReserva", Fecha)
-        console.log(Fecha);
         formik.setFieldValue("Horario", Hora)
         formik.setFieldValue("CantidadDePersonas", CantidadDePersonas)
     }
