@@ -11,18 +11,15 @@ import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 
 const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
-  const { TraerUnaReserva, Reserva } = useContext(ReservasContexto);
+  //Traer cosas dle context
+  const { TraerUnaReserva, Reserva, setReservaEditada, EditarReserva,ReservaEditada } = useContext(ReservasContexto);
+  //Valor externo para que traer una reserva funcione una vez y no sea un bucle infinito
   const [externalChange, setExternalChange] = useState(false);
-  const [Url,setUrl] = useState()
 
+  //La Url reservas es la del .env 
   const UrlReservas = import.meta.env.VITE_API_RESERVAS
-  if (Reserva) {
-    const id = Reserva.id
-    const UrlReserva = `${UrlReservas}/${id}`
-    
-    console.log(Url);
-}
-
+  
+//UseEffect para que funcione traer una reserva de acuerdo al valor externo
   useEffect( () => {
     if (selectedReservaId && externalChange) {
       TraerUnaReserva();
@@ -33,14 +30,14 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
   }, [externalChange, TraerUnaReserva]);
 
   
-  
+  //UseEffect para el valor externo
   useEffect(() => {
       if (selectedReservaId) {
           setExternalChange(true);
         }
   }, [selectedReservaId]);
 
-  
+  //Esquema simple y sencillo
   const esquema = Yup.object().shape({
       FechaReserva: Yup.date().required("Fecha es requerida"),
       
@@ -51,50 +48,49 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
     ),
   });
 
+  //Valores iniciales
   const valoresIniciales = {
       FechaReserva: null,
       Horario: "",
       CantidadDePersonas: "",
     };
 
+    //Formik para validar
   const formik = useFormik({
     initialValues: valoresIniciales,
     validationSchema: esquema,
     validateOnChange: true,
     validateOnBlur: true,
     onSubmit: (values) => {
+      //Lo mismo para formatear la fecha
       const fechaFormateada = format(values.FechaReserva, "dd/MM/yyyy", {
           locale: es,
         });
 
-        const ReservaEditada = {
+        //Guardar los datos editados
+        const Reserva = {
             Fecha: fechaFormateada,
             Hora: values.Horario,
             CantidadDePersonas: values.CantidadDePersonas,
         };
 
-        if (Reserva) {
-            const id = Reserva.id
-            const UrlReserva = `${UrlReservas}/${id}`
-            
-        axios.put(UrlReserva, ReservaEditada)
-        .then(Response =>{
-            console.log("Reserva Actualizada")
-        })
-        .catch(error =>{
-            console.log(error);
-        })
-        }    
+        //Setear los valores editados en un usesstate para usarlo en el context
+        setReservaEditada(Reserva)
+        //Lamando a la funcion de editar reservas que esta en el context
+        EditarReserva()
+        
         console.log(ReservaEditada);
     },
 });
 
+//Funcion que solo sirve para desformatear la fecha para setear los valores en el form
 const parseCustomDate = (customDate) => {
     const [day, month, year] = customDate.split("/");
     const isoDate = `${year}-${month}-${day}`;
     return parseISO(isoDate);
 };
 
+//Funcion para establecer los datos en los form
 const EstablecerDatos = async () =>{
 
     if (Reserva) {
@@ -107,6 +103,7 @@ const EstablecerDatos = async () =>{
     }
 }
 
+//UseEffect que sirve para establecer los datos
 useEffect(() => {
     EstablecerDatos();
   }, [Reserva]);
@@ -114,6 +111,7 @@ useEffect(() => {
 
   return (
     <>
+    {/*Estructura del modal*/ }
       <Modal show={showModal} onHide={onCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>Edita tu Reserva</Modal.Title>

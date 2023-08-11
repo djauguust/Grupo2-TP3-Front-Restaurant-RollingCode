@@ -5,6 +5,7 @@ import MisReservas from '../paginas/misReservas/misReservas'
 import CrearReservas from '../paginas/crearReservasPrueba/crearReservasPrueba'
 
 const rutas = () => {
+  //Pagina de Rutas
   return (
     <>
         <Routes>

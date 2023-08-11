@@ -2,11 +2,11 @@ import React from 'react'
 import { Button, Col, Stack } from 'react-bootstrap'
 
 const contenedorReservas = ({ onShowModal, Reserva }) => {
-
+//Sirve para parasr el id al modal 
     const clickEditar = () => {
         onShowModal(Reserva.id)
     }
-
+//Todo abajo es el contenido de las reservas, para el diseño
   return (
     <>
         <Col xs={12} md={6} lg={6}>
