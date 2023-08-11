@@ -77,7 +77,18 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
         //Setear los valores editados en un usesstate para usarlo en el context
         setReservaEditada(Reserva)
         //Lamando a la funcion de editar reservas que esta en el context
-        EditarReserva()
+        /* EditarReserva() */
+        const Url = `${UrlReservas}/${selectedReservaId}`;
+              console.log("Reserva es", Reserva);
+              axios.put(Url, Reserva)
+                .then(Response => {
+                  console.log("Reserva Actualizada");
+                  console.log(Reserva)
+                  onCloseModal()
+                })
+                .catch(error => {
+                  console.log(error);
+                });
         
         console.log(ReservaEditada);
     },
