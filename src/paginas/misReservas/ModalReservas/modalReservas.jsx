@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Button, Form, FormCheck, Modal, Stack } from "react-bootstrap";
+import { useContext, useEffect, useState } from "react";
+import { Button, Form, Modal } from "react-bootstrap";
 import { ReservasContexto } from "../../../contexto/contexto";
 import { format, parseISO } from "date-fns";
 import DatePicker from "react-datepicker";
@@ -9,10 +9,11 @@ import clsx from "clsx";
 import es from "date-fns/locale/es";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
+import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
   //Traer cosas dle context
-  const { TraerUnaReserva, Reserva, setReservaEditada, EditarReserva,ReservaEditada, TraerReservas} = useContext(ReservasContexto);
+  const { TraerUnaReserva, Reserva ,ReservaEditada, TraerReservas} = useContext(ReservasContexto);
   //Valor externo para que traer una reserva funcione una vez y no sea un bucle infinito
   const [externalChange, setExternalChange] = useState(false);
 
@@ -23,8 +24,6 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
   useEffect( () => {
     if (selectedReservaId && externalChange) {
       TraerUnaReserva();
-      
-      
       setExternalChange(false); // Resetea el valor para evitar más cambios internos
     }
   }, [externalChange, TraerUnaReserva]);
@@ -74,24 +73,35 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
             CantidadDePersonas: values.CantidadDePersonas,
         };
 
-        //Setear los valores editados en un usesstate para usarlo en el context
-        setReservaEditada(Reserva)
-        //Lamando a la funcion de editar reservas que esta en el context
-        /* EditarReserva() */
-        const Url = `${UrlReservas}/${selectedReservaId}`;
-              console.log("Reserva es", Reserva);
-              axios.put(Url, Reserva)
-                .then(Response => {
-                  console.log("Reserva Actualizada");
-                  console.log(Reserva)
-                  onCloseModal()
-                  TraerReservas()
-                })
-                .catch(error => {
-                  console.log(error);
-                });
+        Swal.fire({
+          title: 'Seguro de que realizo todos los cambios?',
+          text: "No se preocupe si se equivoco, los datos los puede cambiar nuevamente",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Si, estoy seguro!',
+          cancelButtonText: 'No'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            const Url = `${UrlReservas}/${selectedReservaId}`;
+                  axios.put(Url, Reserva)
+                    .then(Response => {
+                      console.log("Reserva Actualizada");
+                      onCloseModal()
+                      TraerReservas()
+                    })
+                    .catch(error => {
+                      console.log(error);
+                    });
+            Swal.fire(
+              'Reserva actualizada con éxito!',
+              'La reserva se realizo exitosamente.',
+              'success'
+            )
+          }
+        })
         
-        console.log(ReservaEditada);
     },
 });
 
