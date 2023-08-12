@@ -12,7 +12,7 @@ import axios from "axios";
 
 const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
   //Traer cosas dle context
-  const { TraerUnaReserva, Reserva, setReservaEditada, EditarReserva,ReservaEditada } = useContext(ReservasContexto);
+  const { TraerUnaReserva, Reserva, setReservaEditada, EditarReserva,ReservaEditada, TraerReservas} = useContext(ReservasContexto);
   //Valor externo para que traer una reserva funcione una vez y no sea un bucle infinito
   const [externalChange, setExternalChange] = useState(false);
 
@@ -85,6 +85,7 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
                   console.log("Reserva Actualizada");
                   console.log(Reserva)
                   onCloseModal()
+                  TraerReservas()
                 })
                 .catch(error => {
                   console.log(error);
@@ -118,6 +119,8 @@ const EstablecerDatos = async () =>{
 useEffect(() => {
     EstablecerDatos();
   }, [Reserva]);
+
+  
 
 
   return (
