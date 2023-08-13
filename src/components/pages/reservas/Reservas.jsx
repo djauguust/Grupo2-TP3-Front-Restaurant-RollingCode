@@ -7,27 +7,35 @@ import "react-datepicker/dist/react-datepicker.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./reserva.css";
 import Image from "react-bootstrap/Image";
+import Card from 'react-bootstrap/Card';
+import axios from "axios";
 
 const Reservas = () => {
   // Calendario
-  let day = new Date();
-  const [startDate, setStartDate] = useState(day);
+  let date = new Date();
+  const [startDate, setStartDate] = useState(date);
   const handleDate = (date) => {
     setStartDate(date);
   };
+
+  const convertDate = (date) => {
+    const isoDateString = date.toISOString();
+    const dateOnly = isoDateString.split("T")[0]; // Obtener la parte de la fecha
+    return dateOnly;
+  };
   const filterMinDay = () => {
     const nextDay = new Date();
-    nextDay.setDate(day.getDate() + 1);
+    nextDay.setDate(date.getDate() + 1);
     return nextDay;
   };
   const filterMaxDay = () => {
     const limitDate = new Date();
-    limitDate.setMonth(day.getMonth() + 1);
+    limitDate.setMonth(date.getMonth() + 1);
     return limitDate;
   };
 
   //Hora
-  const [startTime, setStartTime] = useState(day);
+  const [startTime, setStartTime] = useState(date);
   const handleTime = (time) => {
     setStartTime(time);
   };
@@ -44,15 +52,24 @@ const Reservas = () => {
 
   //Formik y yup
   const initialValues = {
-    time: convertToNumericTime(startTime),
-    date: startDate,
     people: "",
   };
 
-  const sendForm = (values) => {
-    console.log("Hora:", convertToNumericTime(startTime));
-    console.log("Fecha:", startDate);
-    console.log("Cantidad de personas:", values.people);
+  //Post a db
+  const sendForm = async (values) => {
+    try {
+      const formattedDate = convertDate(startDate);
+      const formattedTime = convertToNumericTime(startTime);
+
+      const response = await axios.post("http://localhost:3000/reservas", {
+        time: formattedTime,
+        date: formattedDate,
+        people: values.people,
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const { handleChange, handleSubmit, values } = useFormik({
@@ -61,8 +78,6 @@ const Reservas = () => {
     validateOnBlur: true,
 
     validationSchema: Yup.object({
-      time: Yup.number().required("La hora es requerida"),
-      date: Yup.date().required("La fecha es requerida"),
       people: Yup.number()
         .typeError("La cantidad de personas debe ser un número")
         .required("La cantidad de personas es requerida")
@@ -78,17 +93,17 @@ const Reservas = () => {
         <Container className="reservation-container">
           <div className="small-box">
             <Row>
-            <Col xs={6} md={4}>
+              <Col xs={6} md={4}>
                 <Image
-                  style={{width:'60xp',height:'60px'}}
+                  style={{ width: "60xp", height: "60px" }}
                   src="https://trello.com/1/cards/64b73c636625809102489870/attachments/64c047b08259f586953a21f3/download/logo_nuevo.png"
                   rounded
                 />
+                <Card.Link href="#">Registrarse</Card.Link>
               </Col>
             </Row>
 
             <Row>
-              
               <Form
                 onSubmit={handleSubmit}
                 style={{
@@ -123,7 +138,7 @@ const Reservas = () => {
                       maxDate={filterMaxDay()}
                       dateFormat="dd/MM/yyyy"
                       filterDate={(date) => date.getDay() !== 1}
-                      value={values.date}
+                      // value={values.date}
                       required
                     />
                   </Form.Group>
