@@ -9,6 +9,12 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Dropdown from "react-bootstrap/Dropdown";
+import { changeLanguage } from "i18next";
+import  i18n  from "i18next";
+
+import { useTranslation, initReactI18next } from "react-i18next";
+
+
 
 const Header = () => {
   const { logout } = useContext(UsuariosContext);
@@ -19,6 +25,9 @@ const Header = () => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+
+  const { t } = useTranslation(); 
 
   return (
     <>
@@ -43,31 +52,31 @@ const Header = () => {
               to="/"
               className="Nav.Link text-dark m-2 botones"
             >
-              INICIO
+              {t('inicio')}
             </Nav.Link>
             <Nav.Link
               as={Link}
               to="/acercadenosotros"
               className="text-dark m-2 botones"
             >
-              QUIENES SOMOS
+              {t('nosotros')}
             </Nav.Link>
             <Nav.Link as={Link} to="/galeria" className="text-dark m-2 botones">
-              GALERIA
+            {t('galeria')}
             </Nav.Link>
             <Nav.Link
               as={Link}
               to="/contacto"
               className="text-dark m-2 botones"
             >
-              CONTACTO
+              {t('contacto')}
             </Nav.Link>
             <Nav.Link
               as={Link}
               to="/reservas"
               className=" text-light m-2 boton-reserva"
             >
-              HAZ TU RESERVA
+              {t('reserva')}
             </Nav.Link>
           </Nav>
           <Nav
@@ -169,7 +178,7 @@ const Header = () => {
                     d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
                   />
                 </svg>{" "}
-                Iniciar Sesion
+                {t('login')}
               </Nav.Link>
             )}
             <Nav.Link
@@ -188,7 +197,7 @@ const Header = () => {
                 <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
                 <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
               </svg>{" "}
-              Ubicacion
+              {t('ubicacion')}
             </Nav.Link>
             <Dropdown>
               <Dropdown.Toggle className="text-dark boton-izq-custom" variant="primary-outline"  id="dropdown-basic">
@@ -202,12 +211,12 @@ const Header = () => {
                 >
                   <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0ZM2.04 4.326c.325 1.329 2.532 2.54 3.717 3.19.48.263.793.434.743.484-.08.08-.162.158-.242.234-.416.396-.787.749-.758 1.266.035.634.618.824 1.214 1.017.577.188 1.168.38 1.286.983.082.417-.075.988-.22 1.52-.215.782-.406 1.48.22 1.48 1.5-.5 3.798-3.186 4-5 .138-1.243-2-2-3.5-2.5-.478-.16-.755.081-.99.284-.172.15-.322.279-.51.216-.445-.148-2.5-2-1.5-2.5.78-.39.952-.171 1.227.182.078.099.163.208.273.318.609.304.662-.132.723-.633.039-.322.081-.671.277-.867.434-.434 1.265-.791 2.028-1.12.712-.306 1.365-.587 1.579-.88A7 7 0 1 1 2.04 4.327Z" />
                 </svg>{" "}
-                Idioma
+                {t('idioma')}
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">Español</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Ingles</Dropdown.Item>
+                <Dropdown.Item  onClick={() => i18n.changeLanguage('es')}>Español</Dropdown.Item>
+                <Dropdown.Item onClick={() => i18n.changeLanguage('en')}>Ingles</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </Nav>

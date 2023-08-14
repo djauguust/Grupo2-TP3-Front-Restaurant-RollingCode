@@ -1,28 +1,24 @@
 import React from "react";
 import "./Info.css";
 import {Link} from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
 const Info = () => {
+  const { t } = useTranslation(); 
+
   return (
     <>
       <section className="mt-4 mb-4 text-center">
         <h3 className="titulo-custom">Don Luigi</h3>
         <p>
-          Bienvenido a nuestro sofisticado rincón italiano en el corazón de
-          Puerto Madero, Buenos Aires. En nuestro restaurante, deleitarás tus
-          sentidos con una auténtica experiencia gastronómica italiana. Descubre
-          la diversidad de sabores que ofrecemos, desde exquisitas pastas y
-          pizzas artesanales hasta selectos vinos y deliciosos postres. Nuestro
-          acogedor ambiente moderno te invita a disfrutar de momentos
-          inolvidables con tus seres queridos. ¡Sumérgete en la cultura
-          culinaria de Italia y déjate cautivar por nuestro sabor único y
-          distinguido
+         {t('descripcion')}
         </p>
       </section>
       <div className="info-custom">
         <div className="cartel-custom">
-          <h3 className="text-center mt-3">Informacion</h3>
+          <h3 className="text-center mt-3">{t('Welcome to React')}</h3>
           <hr />
-          <p className="d-inline-block info-negra ms-2">Martes a Domingo </p>
+          <p className="d-inline-block info-negra ms-2">{t('dias')} </p>
           <p className="d-inline-block info-dorado ms-2">11:30 am - 12:00 pm</p>
           <hr />
           <p className="d-inline-block info-negra ms-2">Whatsapp</p>
@@ -34,12 +30,12 @@ const Info = () => {
           </p>
           <hr />
           <div></div>
-          <p className="d-inline-block info-negra ms-2">Direccion</p>
+          <p className="d-inline-block info-negra ms-2">{t('direccion')}</p>
           <p className="d-inline-block info-dorado ms-2 text-end">
             Olga Cossettini 750, CABA, Buenos Aires.
           </p>
           <Link className="boton-reserva-custom" to="/reservas">
-            HAZ TU RESERVA
+            {t('reserva')}
           </Link>
         </div>
       </div>

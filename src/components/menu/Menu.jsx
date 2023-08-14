@@ -5,8 +5,13 @@ import "./Menu.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { useTranslation } from "react-i18next";
 
 const Menu = () => {
+
+  const { t } = useTranslation(); 
+
+  
   return (
     <>
       <div className="custom-menu">
@@ -19,47 +24,43 @@ const Menu = () => {
           >
             <Tab
               eventKey="Pastas"
-              title={<span className="tab-title">Pastas</span>}
+              title={<span className="tab-title">{t('pastas')}</span>}
             >
               <h3 className="text-center">SPAGHETTI ALLA BOLOGNESE</h3>
               <p className="text-center">
-                Exquisito Spaghetti con salsa bolognesa, carne de res y hierbas
-                aromáticas
+              {t('descripcionSpageti')}
               </p>
               <h4 className="text-center">$1650</h4>
               <hr />
               <h3 className="text-center">RAVIOLI ALLA CARBONARA</h3>
               <p className="text-center">
-                Ravioles con cremosa salsa carbonara y panceta crujiente.
+              {t('descripcionRavioles')}
               </p>
               <h4 className="text-center">$1800</h4>
-              <p className="text-center">Ricota | Verdura | Queso</p>
+              <p className="text-center">{t('opcionesRavioles')}</p>
               <hr />
               <h3 className="text-center">CANNELLONI DI POLLO</h3>
               <p className="text-center">
                 {" "}
-                Canelones de pollo y verdura, gratinados con queso y bañados en
-                una suave salsa.
+                {t('descripcionCanelones')}
               </p>
               <h4 className="text-center">$1900</h4>
               <hr />
               <h3 className="text-center">LASAGNE DI CARNE</h3>
               <p className="text-center">
                 {" "}
-                Lasaña de carne con capas de pasta, sabroso ragú y gratinado
-                queso derretido.
+                {t('descripcionLasagna')}
               </p>
               <h4 className="text-center">$2000</h4>
             </Tab>
             <Tab
               eventKey="Pizzas"
-              title={<span className="tab-title">Pizzas</span>}
+              title={<span className="tab-title">{t('pizzas')}</span>}
             >
               <h3 className="text-center">MARGHERITA</h3>
               <p className="text-center">
                 {" "}
-                Con tomate maduro, mozzarella fresca, albahaca fragante y un
-                toque de aceite de oliva.
+                {t('pizza1')}
               </p>
               <h4 className="text-center">$2200</h4>
               <hr />
@@ -67,8 +68,7 @@ const Menu = () => {
               <h3 className="text-center">MARINARA</h3>
               <p className="text-center">
                 {" "}
-                Con salsa de tomate, ajo, orégano y aceitunas, evocando la
-                esencia mediterránea.
+                {t('pizza2')}
               </p>
               <h4 className="text-center">$1900</h4>
               <hr />
@@ -76,8 +76,7 @@ const Menu = () => {
               <h3 className="text-center">QUATTRO FORMAGGI</h3>
               <p className="text-center">
                 {" "}
-                Con cuatro quesos diferentes: mozzarella, gorgonzola, parmesano
-                y provolone.
+                {t('pizza3')}
               </p>
               <h4 className="text-center">$2500</h4>
               <hr />
@@ -85,16 +84,15 @@ const Menu = () => {
               <h3 className="text-center">NAPOLETANA</h3>
               <p className="text-center">
                 {" "}
-                De estilo napolitano, con tomate, mozzarella de búfala, albahaca
-                y aceite de oliva.
+                {t('pizza4')}
               </p>
               <h4 className="text-center">$2300</h4>
             </Tab>
             <Tab
               eventKey="Bebidas"
-              title={<span className="tab-title">Bebidas</span>}
+              title={<span className="tab-title">{t('bebidas')}</span>}
             >
-              <h2 className="text-center">VINOS</h2>
+              <h2 className="text-center">{t('vino')}</h2>
               <Container>
                 <Row>
                   <Col>
@@ -126,7 +124,7 @@ const Menu = () => {
                   </Col>
                 </Row>
               </Container>
-              <h3 className="text-center">GASEOSAS</h3>
+              <h3 className="text-center">{t('gaseosas')}</h3>
               <p className="text-center">350cc</p>
               <p className="text-center">COCA-COLA | FANTA | SPRITE</p>
               <h5 className="text-center">$500</h5>
@@ -134,14 +132,14 @@ const Menu = () => {
             </Tab>
             <Tab
               eventKey="Postres"
-              title={<span className="tab-title">Postres</span>}
+              title={<span className="tab-title">{t('postres')}</span>}
             >
               <h3 className="text-center">TIRAMISÚ</h3>
               <h5 className="text-center">$800</h5>
               <hr />
               <h3 className="text-center">GELATO</h3>
               <h5 className="text-center">$650</h5>
-              <p>Vainilla | Chocolate | Frutilla</p>
+              <p>{t('opcionesHelado')}</p>
               <hr />
               <h3 className="text-center">CANNOLI</h3>
               <h5 className="text-center">$600</h5>

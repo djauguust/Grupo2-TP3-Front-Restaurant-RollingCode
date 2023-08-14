@@ -1,8 +1,12 @@
 import "./Galeria.css";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
+import { useTranslation } from "react-i18next";
 
 const Galeria = () => {
+
+  const { t } = useTranslation();
+
   const [imagenSeleccionada, setImagenSeleccionada] = useState(null);
 
   const seleccionarImagen = (urlImagen) => {
@@ -17,7 +21,7 @@ const Galeria = () => {
     <>
       <body className="body-galeria container">
         <h2 className="text-center titulo">
-          <br></br>Galeria
+          <br></br>{t('galeria')}
         </h2>
         <div className="grid-container">
           <div

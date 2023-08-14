@@ -1,10 +1,15 @@
 import React from "react";
 import "./Reviews.css";
+import { useTranslation } from "react-i18next";
 
 const Reviews = () => {
+
+  const { t } = useTranslation(); 
+
+
   return (
     <>
-      <h1 className="titulo font-weight-bold mt-4">RESEÑAS</h1>
+      <h1 className="titulo font-weight-bold mt-4">{t('reseñas')}</h1>
       <div className="cuerpo">
         <div className="contenedor">
           <div className="carta">
@@ -14,9 +19,7 @@ const Reviews = () => {
             <div className="content">
               <h3>Donato De Santis</h3>
               <p>
-                "Experiencia gastronómica italiana excepcional: auténticos
-                sabores, servicio impecable y ambiente acogedor. ¡Delicia para
-                los sentidos!"
+                {t('reseña1')}
               </p>
             </div>
           </div>
@@ -27,8 +30,7 @@ const Reviews = () => {
             <div className="content">
               <h3>Gordon Ramsay</h3>
               <p>
-                "Una auténtica joya italiana: deliciosos platos, encantador
-                ambiente y servicio excepcional. ¡Una visita obligada!"
+              {t('reseña2')}
               </p>
             </div>
           </div>
@@ -39,8 +41,7 @@ const Reviews = () => {
             <div className="content">
               <h3>Massimo Bottura</h3>
               <p>
-                "El sabor de Italia en su máximo esplendor: platos exquisitos,
-                ambiente acogedor y atención impecable. Increíble."
+              {t('reseña3')}
               </p>
             </div>
           </div>
