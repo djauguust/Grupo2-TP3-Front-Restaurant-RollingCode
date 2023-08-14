@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import { useFormik, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -7,10 +7,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./reserva.css";
 import Image from "react-bootstrap/Image";
-import Card from 'react-bootstrap/Card';
 import axios from "axios";
+import Card from "react-bootstrap/Card";
 
 const Reservas = () => {
+  //Context
+  // const {isSignUp, usuarios} = useContext()
+
   // Calendario
   let date = new Date();
   const [startDate, setStartDate] = useState(date);
@@ -39,7 +42,6 @@ const Reservas = () => {
   const handleTime = (time) => {
     setStartTime(time);
   };
-  // console.log(startTime);
   const convertToNumericTime = (time) => {
     const hours = time.getHours();
     const minutes = time.getMinutes();
@@ -50,16 +52,28 @@ const Reservas = () => {
     return hours >= 7 && hours <= 22;
   };
 
+  //Funcion para actualizar num de reservas
+  const updateReservation = (user)=>{
+
+  }
+
   //Formik y yup
   const initialValues = {
     people: "",
   };
 
-  //Post a db
+  //Get y Post a db
   const sendForm = async (values) => {
     try {
       const formattedDate = convertDate(startDate);
       const formattedTime = convertToNumericTime(startTime);
+
+
+      //const userReservation = user.reservations
+      //if(userReservation >=2){
+      //   alert(`Has alcanzado el limite de reservas`)
+      //   return
+      // }
 
       const response = await axios.post("http://localhost:3000/reservas", {
         time: formattedTime,
@@ -91,15 +105,16 @@ const Reservas = () => {
     <>
       <main className="reservation-main">
         <Container className="reservation-container">
-          <div className="small-box">
-            <Row>
+            <Row className="d-flex justify-content-between align-items-center">
               <Col xs={6} md={4}>
                 <Image
                   style={{ width: "60xp", height: "60px" }}
                   src="https://trello.com/1/cards/64b73c636625809102489870/attachments/64c047b08259f586953a21f3/download/logo_nuevo.png"
                   rounded
                 />
-                <Card.Link href="#">Registrarse</Card.Link>
+              </Col>
+              <Col xs={6} md={4} className="text-right">
+                <Card.Link href="#">Iniciar Sesion</Card.Link>
               </Col>
             </Row>
 
@@ -172,7 +187,7 @@ const Reservas = () => {
                 </Col>
               </Form>
             </Row>
-          </div>
+
         </Container>
       </main>
     </>
