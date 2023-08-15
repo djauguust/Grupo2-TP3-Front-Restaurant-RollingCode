@@ -149,7 +149,7 @@ const Reservas = () => {
                   <Form.Group controlId="date">
                     <DatePicker
                       className="inputReservation"
-                      selected={startDate}
+                      selected={filterMinDay()}
                       onChange={handleDate}
                       minDate={filterMinDay()}
                       maxDate={filterMaxDay()}
