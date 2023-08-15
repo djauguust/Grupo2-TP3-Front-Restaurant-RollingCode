@@ -38,7 +38,7 @@ const Reservas = () => {
   };
 
   //Hora
-  const [startTime, setStartTime] = useState(date);
+  const [startTime, setStartTime] = useState(null);
   const handleTime = (time) => {
     setStartTime(time);
   };
@@ -104,31 +104,33 @@ const Reservas = () => {
   return (
     <>
       <main className="reservation-main">
-        <Container className="reservation-container">
-            <Row className="d-flex justify-content-between align-items-center">
+        <Container fluid className="reservation-container">
+            <Row className="d-flex justify-content-between align-items-center pb-3">
               <Col xs={6} md={4}>
                 <Image
-                  style={{ width: "60xp", height: "60px" }}
                   src="https://trello.com/1/cards/64b73c636625809102489870/attachments/64c047b08259f586953a21f3/download/logo_nuevo.png"
                   rounded
+                  width={60}
+                  height={60}
+
                 />
               </Col>
               <Col xs={6} md={4} className="text-right">
                 <Card.Link href="#">Iniciar Sesion</Card.Link>
               </Col>
             </Row>
-
-            <Row>
+            
               <Form
                 onSubmit={handleSubmit}
                 style={{
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                  height: "100px",
+                  width:"100%"
                 }}
               >
-                <Col md={4}>
+                <Row>
+                <Col  xs={12} md={3} className="p-0">
                   <Form.Group controlId="people">
                     <Form.Control
                       className="inputReservation"
@@ -143,7 +145,7 @@ const Reservas = () => {
                   </Form.Group>
                 </Col>
 
-                <Col md={4}>
+                <Col  xs={12} md={3} className="p-0">
                   <Form.Group controlId="date">
                     <DatePicker
                       className="inputReservation"
@@ -159,9 +161,10 @@ const Reservas = () => {
                   </Form.Group>
                 </Col>
 
-                <Col md={4}>
+                <Col  xs={12} md={3} className="p-0">
                   <Form.Group controlId="time">
                     <DatePicker
+
                       className="inputReservation"
                       selected={startTime}
                       onChange={handleTime}
@@ -173,20 +176,21 @@ const Reservas = () => {
                       filterTime={filterTime}
                       value={values.time}
                       required
+                      placeholderText="00:00"
                     />
                   </Form.Group>
                 </Col>
-                <Col>
+                <Col  xs={12} md={3} className="p-0">
                   <Button
                     variant="primary"
                     type="submit"
-                    className="inputReservation m-3"
+                    className="inputReservation"
                   >
                     Reserva
                   </Button>
                 </Col>
+                </Row>
               </Form>
-            </Row>
 
         </Container>
       </main>
