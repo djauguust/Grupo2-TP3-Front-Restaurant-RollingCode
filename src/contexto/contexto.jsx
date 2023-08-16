@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useState } from 'react'
 
 export const ReservasContexto = createContext()
 
@@ -12,8 +12,6 @@ export const ReservasProvider = ({children}) => {
     const [Reservas,SetReservas] = useState()
     //Constante para guardar una sola reserva
     const [Reserva,setReserva] = useState()
-    //Constante para guardar la reserva que se edito que estoy trayendo del set dentro del formik de edicion
-    const [ReservaEditada, setReservaEditada] = useState()
     //Constante que guarda el valor del Id para pasarlo al modal
     const [selectedReservaId, setSelectedReservaId] = useState("");
     
@@ -40,36 +38,6 @@ export const ReservasProvider = ({children}) => {
         }
     }
     
-    //Fucnion para editar la reserva, no esta del todo bien hecha porque estaba probando distintas formas para que funcione
-    //Cualquier cosa son libres de editarla como gusten
-    const EditarReserva = async () =>{
-        useEffect(() => {
-            if (ReservaEditada) {
-              const Url = `${UrlReservas}/${selectedReservaId}`;
-              console.log("Reserva es", ReservaEditada);
-              axios.put(Url, ReservaEditada)
-                .then(Response => {
-                  console.log("Reserva Actualizada");
-                })
-                .catch(error => {
-                  console.log(error);
-                });
-            }
-          }, [ReservaEditada]);
-        
-        
-    }
-    
-    //UseEffect para tratar de que agarre el valor cuando este cargado, obviamente no funciona xd
-    useEffect(() => {
-      console.log(ReservaEditada);
-      if (ReservaEditada) {
-        setReservaEditada(ReservaEditada)
-      }
-    }, [])
-    
-
-
 //Constante para pasar todas las cosas del context, luego las simplifico mejor
     const PasarDatos = {
         TraerReservas,
@@ -79,9 +47,7 @@ export const ReservasProvider = ({children}) => {
         setSelectedReservaId,
         TraerUnaReserva,
         Reserva,
-        setReservaEditada,
-        EditarReserva,
-        ReservaEditada
+
     }
 
   return (

@@ -42,6 +42,7 @@ let date = new Date();
         locale: es
       })
       console.log(values);
+      console.log(values.HoraReserva);
       console.log("La fecha formateada es",horaFormateada);
     },
   });
@@ -98,8 +99,6 @@ let date = new Date();
          dateFormat="HH:mm"
          locale={es}
          timeClassName={handleColor}
-         //filterTime={filterTime}
-         //value={values.time}
          placeholderText="Selecciona una hora"
         />
  {formik.errors.HoraReserva && formik.touched.HoraReserva ? (
