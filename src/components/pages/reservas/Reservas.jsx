@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import { useFormik, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -18,8 +18,9 @@ const Reservas = () => {
   let date = new Date();
   const [startDate, setStartDate] = useState(date);
   const handleDate = (date) => {
-    setStartDate(date);
+    setStartDate(date||null);
   };
+
 
   const convertDate = (date) => {
     const isoDateString = date.toISOString();
@@ -28,7 +29,7 @@ const Reservas = () => {
   };
   const filterMinDay = () => {
     const nextDay = new Date();
-    nextDay.setDate(date.getDate() + 1);
+    nextDay.setDate(date.getDate() +1) ;
     return nextDay;
   };
   const filterMaxDay = () => {
@@ -49,13 +50,26 @@ const Reservas = () => {
   };
   const filterTime = (time) => {
     const hours = new Date(time).getHours();
-    return hours >= 7 && hours <= 22;
+    return hours >= 7 && hours <= 22 
   };
 
-  //Funcion para actualizar num de reservas
-  const updateReservation = (user)=>{
+  //useEffect
+  const  [availableData, setAvailabelData] = useState({})
+  useEffect(()=>{
 
-  }
+    if(startDate){
+      axios.get(`http://localhost:3000/reservas?date=${startDate}`)
+      .then(response=>{
+        // setAvailabelData(response.data)
+        console.log("Datos del servidor ",response.data)
+      })
+      .catch(error=>{
+        console.log('Error al obtener disponibilidad: ', error)
+      })
+  
+    }
+
+  }, [startDate])
 
   //Formik y yup
   const initialValues = {
@@ -149,13 +163,13 @@ const Reservas = () => {
                   <Form.Group controlId="date">
                     <DatePicker
                       className="inputReservation"
-                      selected={filterMinDay()}
+                      selected={startDate}
                       onChange={handleDate}
                       minDate={filterMinDay()}
                       maxDate={filterMaxDay()}
                       dateFormat="dd/MM/yyyy"
                       filterDate={(date) => date.getDay() !== 1}
-                      // value={values.date}
+                      placeholderText="00/00/00"
                       required
                     />
                   </Form.Group>
@@ -186,7 +200,7 @@ const Reservas = () => {
                     type="submit"
                     className="inputReservation"
                   >
-                    Reserva
+                    Encontrar mesa
                   </Button>
                 </Col>
                 </Row>
