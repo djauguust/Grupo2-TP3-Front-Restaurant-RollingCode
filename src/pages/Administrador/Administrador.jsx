@@ -8,8 +8,8 @@ const Admin = () =>{
     return(
         <>
             <Header/>
-                <TablaUsuarios/>
-                <TablaReservas/>
+            <TablaReservas/>
+            <TablaUsuarios/>
             <Footer/>
         </>
     )

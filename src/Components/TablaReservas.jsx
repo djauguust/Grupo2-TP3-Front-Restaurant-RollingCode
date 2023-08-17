@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import axios from "axios";
 import { Table, Button } from "react-bootstrap";
+import ModalEditar from "./ModalEditar";
 
 const TablaReservas = () =>{
     const [reservas, setReservas] = useState([]);
@@ -48,8 +49,8 @@ const TablaReservas = () =>{
                                     <td>{reserv.CantidadDePersonas}</td>
                                     <td>{reserv.Hora}</td>
                                     <td>
-                                        <Button className="mx-2">Editar</Button>
-                                        <Button>Eliminar</Button>
+                                        <ModalEditar reserva={reserv} url={URL}/>
+                                        <Button className="mx-2" >Eliminar</Button>
                                     </td>
                                 </tr>
                             </>

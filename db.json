@@ -1,39 +1,42 @@
 {
-    "Reservas": [
-        {
-            "Fecha": "10/08/2023",
-            "CantidadDePersonas": "2",
-            "Hora": "15:00"
-        },
-        {
-            "Fecha": "12/08/2023",
-            "CantidadDePersonas": "4",
-            "Hora": "18:30"
-        },
-        {
-            "Fecha": "15/08/2023",
-            "CantidadDePersonas": "3",
-            "Hora": "20:00"
-        }
-    ],
-    "Usuarios": [
-        {
-            "id" : "1",
-            "Nombre": "Lucas Ybañez",
-            "Email": "lucas@lucas.com",
-            "Contrasena": "1234"
-        },
-        {
-            "id" : "2",
-            "Nombre": "María Rodríguez",
-            "Email": "maria@email.com",
-            "Contrasena": "abcd"
-        },
-        {
-            "id" : "3",
-            "Nombre": "Juan Pérez",
-            "Email": "juan@email.com",
-            "Contrasena": "5678"
-        }
-    ]
+  "Reservas": [
+    {
+      "id": "1",
+      "Fecha": "10/08/2023",
+      "CantidadDePersonas": "2",
+      "Hora": "15:01"
+    },
+    {
+      "id": "2",
+      "Fecha": "12/08/2023",
+      "CantidadDePersonas": "4",
+      "Hora": "18:30"
+    },
+    {
+      "id": "3",
+      "Fecha": "15/08/2023",
+      "CantidadDePersonas": "3",
+      "Hora": "20:00"
+    }
+  ],
+  "Usuarios": [
+    {
+      "id": "1",
+      "Nombre": "Lucas Ybañez",
+      "Email": "lucas@lucas.com",
+      "Contrasena": "1234"
+    },
+    {
+      "id": "2",
+      "Nombre": "María Rodríguez",
+      "Email": "maria@email.com",
+      "Contrasena": "abcd"
+    },
+    {
+      "id": "3",
+      "Nombre": "Juan Pérez",
+      "Email": "juan@email.com",
+      "Contrasena": "5678"
+    }
+  ]
 }
