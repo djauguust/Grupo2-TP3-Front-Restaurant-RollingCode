@@ -9,6 +9,7 @@ const Reviews = () => {
 
   return (
     <>
+    <hr />
       <h1 className="titulo font-weight-bold mt-4">{t('reseñas')}</h1>
       <div className="cuerpo">
         <div className="contenedor">

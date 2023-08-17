@@ -9,14 +9,14 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Dropdown from "react-bootstrap/Dropdown";
-import { changeLanguage } from "i18next";
 import  i18n  from "i18next";
-
+import Form from 'react-bootstrap/Form';
 import { useTranslation, initReactI18next } from "react-i18next";
+import { useEffect } from "react";
 
 
 
-const Header = () => {
+const Header = ( {handleSwitch, theme}) => {
   const { logout } = useContext(UsuariosContext);
 
   const user = JSON.parse(localStorage.getItem("user"));
@@ -29,13 +29,27 @@ const Header = () => {
 
   const { t } = useTranslation(); 
 
+  console.log("theme en header",theme)
+
+  useEffect(() => {
+    if (theme === 'claro') {
+      document.body.style.backgroundColor = 'white';
+      document.body.style.color = 'black';
+
+    } else {
+      document.body.style.backgroundColor = '#191919';
+      document.body.style.color = 'white';
+    }
+  }, [theme]);
+
+
   return (
     <>
-      <Navbar fixed="top" expand="lg" className="custom-navbar bg-white">
+      <Navbar fixed="top" expand="lg" className={theme}>
         <Navbar.Brand href="/" className="ms-4">
           <img
             alt=""
-            src="public\Diseño sin título.png"
+            src="public\Diseño_sin_título-removebg-preview (2).png"
             width=""
             height="80"
             className="d-inline-block align-top m-0 logo-custom"
@@ -50,31 +64,31 @@ const Header = () => {
             <Nav.Link
               as={Link}
               to="/"
-              className="Nav.Link text-dark m-2 botones"
+              className="Nav.Link  m-2 botones"
             >
               {t('inicio')}
             </Nav.Link>
             <Nav.Link
               as={Link}
               to="/acercadenosotros"
-              className="text-dark m-2 botones"
+              className=" m-2 botones"
             >
               {t('nosotros')}
             </Nav.Link>
-            <Nav.Link as={Link} to="/galeria" className="text-dark m-2 botones">
+            <Nav.Link as={Link} to="/galeria" className=" m-2 botones">
             {t('galeria')}
             </Nav.Link>
             <Nav.Link
               as={Link}
               to="/contacto"
-              className="text-dark m-2 botones"
+              className=" m-2 botones"
             >
               {t('contacto')}
             </Nav.Link>
             <Nav.Link
               as={Link}
               to="/reservas"
-              className=" text-light m-2 boton-reserva"
+              className=" m-2 boton-reserva"
             >
               {t('reserva')}
             </Nav.Link>
@@ -160,7 +174,7 @@ const Header = () => {
               </>
             ) : (
               <Nav.Link
-                className="text-dark boton-izq-custom"
+                className="boton-izq-custom"
                 as={Link}
                 to="/login"
               >
@@ -184,7 +198,7 @@ const Header = () => {
             <Nav.Link
               target="_blank"
               href="https://www.google.com/maps/place/Olga+Cossettini+750,+Buenos+Aires/@-34.6111001,-58.3780726,13.75z/data=!4m6!3m5!1s0x95a3352ec57d549b:0x5341533dfe791f9f!8m2!3d-34.6067233!4d-58.3638578!16s%2Fg%2F11fk3r6bhk?entry=ttu"
-              className="text-dark boton-izq-custom"
+              className="boton-izq-custom"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -200,7 +214,7 @@ const Header = () => {
               {t('ubicacion')}
             </Nav.Link>
             <Dropdown>
-              <Dropdown.Toggle className="text-dark boton-izq-custom" variant="primary-outline"  id="dropdown-basic">
+              <Dropdown.Toggle className="boton-izq-custom" variant="primary-outline"  id="dropdown-basic">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -221,6 +235,14 @@ const Header = () => {
             </Dropdown>
           </Nav>
         </Navbar.Collapse>
+        <Form>
+      <Form.Check // prettier-ignore
+        type="switch"
+        id="custom-switch"
+        label=""
+        onChange={handleSwitch}
+      />
+    </Form>
       </Navbar>
     </>
   );

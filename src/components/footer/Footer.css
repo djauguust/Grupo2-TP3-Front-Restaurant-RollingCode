@@ -1,8 +1,11 @@
-.footer {
+.footerclaro {
     background-color: #F0E5D8;
     margin-top: 100px;
 }
-
+.footeroscuro {
+    background-color: red;
+    margin-top: 100px;
+}
 .img-custom{
     object-fit: contain;
 }

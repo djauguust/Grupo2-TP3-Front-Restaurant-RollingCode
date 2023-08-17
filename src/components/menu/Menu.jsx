@@ -7,7 +7,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useTranslation } from "react-i18next";
 
-const Menu = () => {
+const Menu = ({theme}) => {
 
   const { t } = useTranslation(); 
 
@@ -15,7 +15,7 @@ const Menu = () => {
   return (
     <>
       <div className="custom-menu">
-        <div className="contenedor-tabs mt-4">
+        <div className={`contenedor-tabs${theme} mt-4`}>
           <h2 className="text-center mt-4">Menu</h2>
           <Tabs
             defaultActiveKey="Pastas"
@@ -24,7 +24,7 @@ const Menu = () => {
           >
             <Tab
               eventKey="Pastas"
-              title={<span className="tab-title">{t('pastas')}</span>}
+              title={<span className={`tab-title${theme}`}>{t('pastas')}</span>}
             >
               <h3 className="text-center">SPAGHETTI ALLA BOLOGNESE</h3>
               <p className="text-center">
@@ -55,7 +55,7 @@ const Menu = () => {
             </Tab>
             <Tab
               eventKey="Pizzas"
-              title={<span className="tab-title">{t('pizzas')}</span>}
+              title={<span className={`tab-title${theme}`}>{t('pizzas')}</span>}
             >
               <h3 className="text-center">MARGHERITA</h3>
               <p className="text-center">
@@ -90,7 +90,7 @@ const Menu = () => {
             </Tab>
             <Tab
               eventKey="Bebidas"
-              title={<span className="tab-title">{t('bebidas')}</span>}
+              title={<span className={`tab-title${theme}`}>{t('bebidas')}</span>}
             >
               <h2 className="text-center">{t('vino')}</h2>
               <Container>
@@ -132,7 +132,7 @@ const Menu = () => {
             </Tab>
             <Tab
               eventKey="Postres"
-              title={<span className="tab-title">{t('postres')}</span>}
+              title={<span className={`tab-title${theme}`}>{t('postres')}</span>}
             >
               <h3 className="text-center">TIRAMISÚ</h3>
               <h5 className="text-center">$800</h5>

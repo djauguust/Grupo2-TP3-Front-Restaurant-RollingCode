@@ -3,7 +3,7 @@ import "./Info.css";
 import {Link} from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-const Info = () => {
+const Info = ( {theme}) => {
   const { t } = useTranslation(); 
 
   return (
@@ -15,8 +15,8 @@ const Info = () => {
         </p>
       </section>
       <div className="info-custom">
-        <div className="cartel-custom">
-          <h3 className="text-center mt-3">{t('Welcome to React')}</h3>
+        <div className={`cartel-custom${theme}`}>
+          <h3 className="text-center mt-3">{t('informacion')}</h3>
           <hr />
           <p className="d-inline-block info-negra ms-2">{t('dias')} </p>
           <p className="d-inline-block info-dorado ms-2">11:30 am - 12:00 pm</p>

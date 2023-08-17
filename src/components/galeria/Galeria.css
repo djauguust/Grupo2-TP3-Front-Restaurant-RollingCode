@@ -1,10 +1,13 @@
-.body-galeria{
+.body-galeriaclaro{
     background-color: #B08D59;
-    margin-top: 100px;
 }
 
-.titulo{
-    color: black;
+.body-galeriaoscuro{
+    background-color: #191919;
+}
+
+.titulo-galeria{
+    color: white;
 }
 
 .grid-item{

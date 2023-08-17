@@ -16,13 +16,21 @@ section{
     align-items: center; 
 }
 
-.cartel-custom{
+.cartel-customclaro{
     height: 500px;
     width: 500px;
-    background-color: white;
     background-color: rgba(255, 255, 255, 0.9);
     margin-left: 100px;
     text-align: center;
+}
+
+.cartel-customoscuro{
+    height: 500px;
+    width: 500px;
+    background-color: rgba(0, 0, 0, 0.9);
+    margin-left: 100px;
+    text-align: center;
+    color: white;
 }
 
 .info-dorado{
@@ -34,7 +42,16 @@ section{
     font-weight: bolder;
 }
 
-.boton-reserva-custom{
+.cartel-customoscuro .boton-reserva-custom{
+    background-color:  #F0E5D8;
+    color: black;
+    display: inline-block;
+    border: 8px solid  #F0E5D8;
+    margin-top: 15px;
+    text-decoration: none;
+}
+
+.cartel-customclaro .boton-reserva-custom{
     background-color: black;
     color: white;
     display: inline-block;

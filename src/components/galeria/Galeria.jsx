@@ -3,7 +3,7 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import { useTranslation } from "react-i18next";
 
-const Galeria = () => {
+const Galeria = ({theme}) => {
 
   const { t } = useTranslation();
 
@@ -19,8 +19,9 @@ const Galeria = () => {
 
   return (
     <>
-      <body className="body-galeria container">
-        <h2 className="text-center titulo">
+    <hr />
+      <body className={`body-galeria${theme} container`}>
+        <h2 className="text-center titulo-galeria">
           <br></br>{t('galeria')}
         </h2>
         <div className="grid-container">

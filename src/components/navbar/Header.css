@@ -1,22 +1,56 @@
-.custom-navbar{
+.claro{
     height: 110px;
     z-index: 100 !important;
+    background-color: white;
 }
-.custom-navbar .botones{
-    border-bottom: 3px solid white;
+.oscuro{
+    height: 110px;
+    z-index: 100 !important;
+    background-color: #191919;
+}
+.oscuro .botones{
+    border-bottom: 3px solid transparent;
+    color: #B08D59;
+}
+.claro .botones{
+    border-bottom: 3px solid transparent;
+    color: #191919;
 }
 
-.custom-navbar .botones:hover{
+.claro .botones:hover{
     border-bottom: 3px solid #B08D59;
 }
 
-.custom-navbar .boton-reserva{
-    background-color: black;
+.oscuro .botones:hover{
+    border-bottom: 3px solid #B08D59;
+    color: white;
+}
+
+.claro .boton-reserva{
+    background-color: #191919;
+    color: white;
+
+}
+.oscuro .boton-reserva{
+    background-color: #F0E5D8;
+    color: #191919;
 
 }
 
-.custom-navbar .boton-reserva:hover{
+.claro .boton-reserva:hover{
     background-color: #B08D59;
+}
+
+.oscuro .boton-reserva:hover{
+    background-color: #B08D59;
+}
+
+.oscuro .boton-izq-custom{
+    color: white;
+}
+
+.claro .boton-izq-custom{
+    color: black;
 }
 
 @media (max-width: 1000px ){
@@ -26,8 +60,11 @@
     .custom-navbar .botones{
         border-bottom: 3px solid white;
     }
-    .collapse-custom{
+    .claro .collapse-custom{
         background-color: white;
+    }
+    .oscuro .collapse-custom{
+        background-color: black;
     }
 }
 

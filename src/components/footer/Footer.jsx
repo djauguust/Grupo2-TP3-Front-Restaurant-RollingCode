@@ -3,10 +3,12 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "./Footer.css";
 
-const Footer = () => {
+const Footer = ({theme}) => {
+
+  console.log("theme en footer",theme)
   return (
     <>
-      <Container fluid className="footer">
+      <Container fluid className={`footer${theme}`}>
         <Row className="text-center">
           <Col sm={12} lg={3}>
             <img
