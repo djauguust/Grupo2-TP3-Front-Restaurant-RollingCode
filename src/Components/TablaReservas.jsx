@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import axios from "axios";
 import { Table, Button } from "react-bootstrap";
-import ModalEditar from "./ModalEditar";
+import ModalEditar from "./ModalEditarReserva";
 
 const TablaReservas = () =>{
     const [reservas, setReservas] = useState([]);
@@ -27,6 +27,24 @@ const TablaReservas = () =>{
         getReservas();
     }, []);
 
+
+    // Elimina la reserva
+
+    const eliminar = async (id)=>{
+
+        console.log(`${URL}/${id}`)
+    
+        try {
+          const response = await axios.delete(
+            `${URL}/${id}`
+          );
+          alert("Eliminado exitoso");
+          handleClose();
+        } catch (error) {
+          console.error('Error al actualizar la reservación:', error);
+        }
+      }
+
     return(
         <>
             <h2 className="my-3">Reservas</h2>
@@ -50,7 +68,7 @@ const TablaReservas = () =>{
                                     <td>{reserv.Hora}</td>
                                     <td>
                                         <ModalEditar reserva={reserv} url={URL}/>
-                                        <Button className="mx-2" >Eliminar</Button>
+                                        <Button className="mx-2" onClick={() => eliminar(reserv.id)}>Eliminar</Button>
                                     </td>
                                 </tr>
                             </>

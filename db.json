@@ -1,16 +1,10 @@
 {
   "Reservas": [
     {
-      "id": "1",
-      "Fecha": "10/08/2023",
-      "CantidadDePersonas": "2",
-      "Hora": "15:01"
-    },
-    {
       "id": "2",
       "Fecha": "12/08/2023",
       "CantidadDePersonas": "4",
-      "Hora": "18:30"
+      "Hora": "18:31"
     },
     {
       "id": "3",
@@ -21,16 +15,10 @@
   ],
   "Usuarios": [
     {
-      "id": "1",
-      "Nombre": "Lucas Ybañez",
-      "Email": "lucas@lucas.com",
-      "Contrasena": "1234"
-    },
-    {
       "id": "2",
       "Nombre": "María Rodríguez",
       "Email": "maria@email.com",
-      "Contrasena": "abcd"
+      "Contrasena": "abcdef"
     },
     {
       "id": "3",

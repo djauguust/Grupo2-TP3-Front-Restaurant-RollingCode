@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import axios from "axios";
 import { Table, Button } from "react-bootstrap";
+import ModalEditarUsuario from "./ModalEditarUsuario";
 
 const TablaUsuarios = () =>{
     const [usuarios, setUsuarios] = useState([]);
@@ -26,6 +27,22 @@ const TablaUsuarios = () =>{
         getUsuarios();
     }, []);
 
+    // Elimina la reserva
+
+    const eliminar = async (id)=>{
+
+        console.log(`${URL}/${id}`)
+    
+        try {
+          const response = await axios.delete(
+            `${URL}/${id}`
+          );
+          alert("Eliminado exitoso");
+          handleClose();
+        } catch (error) {
+        }
+      }
+
     return(
         <>
             <h2 className="my-3">Usuarios</h2>
@@ -50,8 +67,8 @@ const TablaUsuarios = () =>{
                                     <td>{user.Email}</td>
                                     <td>{user.Contrasena}</td>
                                     <td>
-                                        <Button className="mx-2">Editar</Button>
-                                        <Button>Eliminar</Button>
+                                        <ModalEditarUsuario usuario={user} url={URL}/>
+                                        <Button onClick={() => eliminar(user.id)} className="mx-2">Eliminar</Button>
                                     </td>
                                 </tr>
                             </>

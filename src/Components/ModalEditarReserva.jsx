@@ -43,7 +43,6 @@ function ModalEditar(props) { //Recibe la reserva por props
     } 
   }
 
-  // Elimina la reserva
 
   return (
     <>
