@@ -170,6 +170,11 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
     return time.getHours() > 11 ? "" : "d-none";
   };
 
+  const filterTime = (time) => {
+    const hours = new Date(time).getHours();
+    return hours >= 12 && hours <= 23 
+  };
+
   return (
     <>
       {/*Estructura del modal*/}
@@ -224,6 +229,7 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
                 dateFormat="HH:mm"
                 locale={es}
                 timeClassName={handleColor}
+                filterTime={filterTime}
                 placeholderText="Selecciona una hora"
                 className={clsx(
                   "form-control",
