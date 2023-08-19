@@ -4,7 +4,7 @@
       "id": "2",
       "Fecha": "12/08/2023",
       "CantidadDePersonas": "4",
-      "Hora": "18:31"
+      "Hora": "18:34"
     },
     {
       "id": "3",
@@ -16,10 +16,10 @@
   "Usuarios": [
     {
       "id": "2",
-      "Nombre": "María Rodríguez",
-      "Email": "maria@email.com",
+      "Nombre": "ana",
+      "Email": "maria@ana",
       "Contrasena": "abcdef",
-      "Rol": "admin"
+      "Rol": "administrador"
     },
     {
       "id": "3",

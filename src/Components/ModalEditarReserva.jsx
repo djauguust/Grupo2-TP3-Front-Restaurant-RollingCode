@@ -5,67 +5,54 @@ import { Form } from 'react-bootstrap';
 import axios from 'axios';
 
 import { useFormik } from 'formik';
-import * as Yup from "yup";
+import * as Yup from 'yup';
 import clsx from 'clsx';
 
-function ModalEditar(props) { //Recibe la reserva por props
+function ModalEditar(props) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  // Constantes de la reserva
   const [fecha, setFecha] = useState(props.reserva.Fecha);
   const [cantPersonas, setCantPersonas] = useState(props.reserva.CantidadDePersonas);
   const [hora, setHora] = useState(props.reserva.Hora);
 
-  // Guarda la reserva actualizada
-
   const reservaActualizada = {
-    id : props.reserva.id,
+    id: props.reserva.id,
     Fecha: fecha,
     CantidadDePersonas: cantPersonas,
-    Hora: hora
-  }
-  
-  // Actualiza la reserva
-  const actualizar = async ()=>{
+    Hora: hora,
+  };
 
-    console.log(reservaActualizada)
-    console.log(`${props.url}/${props.reserva.id}`)
-
+  const actualizar = async () => {
     try {
       const response = await axios.put(
         `${props.url}/${props.reserva.id}`,
         reservaActualizada
       );
-      alert("Guardado exitoso");
+      alert('Guardado exitoso');
       handleClose();
     } catch (error) {
       console.error('Error al actualizar la reservación:', error);
-      alert("Error")
-    } 
-  }
+      alert('Error');
+    }
+  };
 
-  // Esquema
   const SingUpSchema = Yup.object().shape({
-    fecha: Yup.string()
-    .required("Debe introducir la fecha")
-    .trim(),
+    fecha: Yup.string().required('Debe introducir la fecha').trim(),
     cantPersonas: Yup.string()
-    .required("Debe introducir una cantidad")
-    .min(1,"Debe introducir al menos una persona")
-    .trim(),
-    hora: Yup.string()
-    .required("Debe introducir un horario")
-    .trim()
+      .required('Debe introducir una cantidad')
+      .min(1, 'Debe introducir al menos una persona')
+      .trim(),
+    hora: Yup.string().required('Debe introducir un horario').trim(),
   });
 
-  const initialValues={
+  const initialValues = {
     fecha: fecha,
     cantPersonas: cantPersonas,
     hora: hora,
-  }
+  };
 
   const formik = useFormik({
     initialValues,
@@ -73,10 +60,24 @@ function ModalEditar(props) { //Recibe la reserva por props
     validateOnChange: true,
     validateOnBlur: true,
     onSubmit: (values) => {
-        console.log("Valores del Formik-->", values);
-    }
+      actualizar();
+    },
   });
 
+  const handleFechaChange = (event) => {
+    setFecha(event.target.value);
+    formik.handleChange(event);
+  };
+
+  const handleCantPersonasChange = (event) => {
+    setCantPersonas(event.target.value);
+    formik.handleChange(event);
+  };
+
+  const handleHoraChange = (event) => {
+    setHora(event.target.value);
+    formik.handleChange(event);
+  };
 
   return (
     <>
@@ -90,94 +91,91 @@ function ModalEditar(props) { //Recibe la reserva por props
         </Modal.Header>
 
         <Form onSubmit={formik.handleSubmit} noValidate>
-        <Modal.Body>
-          
-
-      <Form.Group>
-        <Form.Label>Fecha</Form.Label>
-        <Form.Control
-          type="text"
-          name="fecha"
-
-          //formik
-          id="fecha"
-          {...formik.getFieldProps("fecha")}
-          className= {clsx(
-             "form-control",{
-                 "is-invalid": formik.touched.fecha && formik.errors.fecha
-             }, {
-                 "is-valid": formik.touched.fecha && !formik.errors.fecha
-             }
-          )}
-        />
-        {formik.touched.fecha && formik.errors.fecha && (
-              <div className="text-danger mt-1">
+          <Modal.Body>
+            <Form.Group>
+              <Form.Label>Fecha</Form.Label>
+              <Form.Control
+                type="text"
+                name="fecha"
+                id="fecha"
+                value={fecha}
+                onChange={handleFechaChange}
+                className={clsx(
+                  'form-control',
+                  {
+                    'is-invalid': formik.touched.fecha && formik.errors.fecha,
+                  },
+                  {
+                    'is-valid': formik.touched.fecha && !formik.errors.fecha,
+                  }
+                )}
+              />
+              {formik.touched.fecha && formik.errors.fecha && (
+                <div className="text-danger mt-1">
                   <span role="alert">{formik.errors.fecha}</span>
-              </div>
-        )}
-      </Form.Group>
+                </div>
+              )}
+            </Form.Group>
 
-      <Form.Group controlId="cantidadDePersonas">
-        <Form.Label>Cantidad de Personas</Form.Label>
-        <Form.Control
-          type="number"
-          name="cantidadDePersonas"
-          
-          //formik
-          id="fecha"
-          {...formik.getFieldProps("cantPersonas")}
-          className= {clsx(
-             "form-control",{
-                 "is-invalid": formik.touched.cantPersonas && formik.errors.cantPersonas
-             }, {
-                 "is-valid": formik.touched.cantPersonas && !formik.errors.cantPersonas
-             }
-          )}
-        />
-        {formik.touched.cantPersonas && formik.errors.cantPersonas && (
-              <div className="text-danger mt-1">
+            <Form.Group>
+              <Form.Label>Cantidad de Personas</Form.Label>
+              <Form.Control
+                type="number"
+                name="cantidadDePersonas"
+                id="cantidadDePersonas"
+                value={cantPersonas}
+                onChange={handleCantPersonasChange}
+                className={clsx(
+                  'form-control',
+                  {
+                    'is-invalid': formik.touched.cantPersonas && formik.errors.cantPersonas,
+                  },
+                  {
+                    'is-valid': formik.touched.cantPersonas && !formik.errors.cantPersonas,
+                  }
+                )}
+              />
+              {formik.touched.cantPersonas && formik.errors.cantPersonas && (
+                <div className="text-danger mt-1">
                   <span role="alert">{formik.errors.cantPersonas}</span>
-              </div>
-        )}
-      </Form.Group>
+                </div>
+              )}
+            </Form.Group>
 
-      <Form.Group controlId="hora">
-        <Form.Label>Hora</Form.Label>
-        <Form.Control
-          type="text"
-          name="hora"
-
-          //formik
-          id="hora"
-          {...formik.getFieldProps("hora")}
-          className= {clsx(
-             "form-control",{
-                 "is-invalid": formik.touched.hora && formik.errors.hora
-             }, {
-                 "is-valid": formik.touched.hora && !formik.errors.hora
-             }
-          )}
-        />
-        {formik.touched.hora && formik.errors.hora && (
-              <div className="text-danger mt-1">
+            <Form.Group>
+              <Form.Label>Hora</Form.Label>
+              <Form.Control
+                type="text"
+                name="hora"
+                id="hora"
+                value={hora}
+                onChange={handleHoraChange}
+                className={clsx(
+                  'form-control',
+                  {
+                    'is-invalid': formik.touched.hora && formik.errors.hora,
+                  },
+                  {
+                    'is-valid': formik.touched.hora && !formik.errors.hora,
+                  }
+                )}
+              />
+              {formik.touched.hora && formik.errors.hora && (
+                <div className="text-danger mt-1">
                   <span role="alert">{formik.errors.hora}</span>
-              </div>
-        )}
-      </Form.Group>
+                </div>
+              )}
+            </Form.Group>
+          </Modal.Body>
 
-
-        </Modal.Body>
-
-        
-
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Cerrar
-          </Button>
-          <Button variant="primary" type='submit'>
-            Guardar cambios
-          </Button>
-        </Modal.Footer>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Cerrar
+            </Button>
+            <Button variant="primary" type="submit">
+              Guardar cambios
+            </Button>
+          </Modal.Footer>
         </Form>
       </Modal>
     </>

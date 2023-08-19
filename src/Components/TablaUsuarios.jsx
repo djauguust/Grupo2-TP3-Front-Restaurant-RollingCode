@@ -53,6 +53,7 @@ const TablaUsuarios = () =>{
                         <th>Nombre</th>
                         <th>Email</th>
                         <th>Contraseña</th>
+                        <th>Rol</th>
                         <th>Acción</th>
                     </tr>
                 </thead>
