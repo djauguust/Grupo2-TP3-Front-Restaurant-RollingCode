@@ -127,8 +127,8 @@ const ReservasTest = () => {
       <main className="reservation-main">
         <Container fluid className="reservation-container">
           <Row className="d-flex justify-content-between align-items-center pb-3">
-            <Col xs={6} md={4}>
-              <Image src="" rounded width={60} height={60} />
+            <Col>
+              <Image src="https://trello.com/1/cards/64b73c636625809102489870/attachments/64dfc537d5a51cfa5a6d7733/download/logo.png" rounded width={80} height={80} />
             </Col>
           </Row>
 
@@ -145,7 +145,7 @@ const ReservasTest = () => {
               <Col xs={12} md={3} className="p-0">
                 <Form.Group controlId="date">
                   <DatePicker
-                    className="inputReservation"
+                    className="input-reservation"
                     selected={formik.values.ReservationDate}
                     onChange={(date) => formik.setFieldValue("ReservationDate", date)}
                     minDate={filterMinDay()}
@@ -161,7 +161,7 @@ const ReservasTest = () => {
               <Col xs={12} md={3} className="p-0">
                 <Form.Group controlId="time">
                   <DatePicker
-                    className="inputReservation"
+                    className="input-reservation"
                     selected={formik.values.ReservationTime}
                     onChange={(time) => formik.setFieldValue("ReservationTime", time)}
                     showTimeSelect
@@ -179,7 +179,7 @@ const ReservasTest = () => {
               <Col xs={12} md={3} className="p-0">
                 <Form.Group controlId="people">
                   <Form.Control
-                    className="inputReservation"
+                    className="input-reservation"
                     placeholder="N° de Personas"
                     onChange={(e) => formik.setFieldValue("People", e.target.value)}
                     type="number"
@@ -192,9 +192,10 @@ const ReservasTest = () => {
 
               <Col xs={12} md={3} className="p-0">
                 <Button
+                className="reservation-boton"
                   variant="primary"
                   type="submit"
-                  className="inputReservation"
+                  
                 >
                   Encontrar mesa
                 </Button>
