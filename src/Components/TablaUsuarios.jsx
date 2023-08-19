@@ -45,7 +45,7 @@ const TablaUsuarios = () =>{
 
     return(
         <>
-            <h2 className="my-3">Usuarios</h2>
+            <h2 className="my-3 text-center">Usuarios</h2>
             <Table>
                 <thead>
                     <tr>

@@ -8,7 +8,7 @@ const Admin = () =>{
 
     return(
         <>
-            <div className="nav">
+            <div className={style.nav}>
                 <Header/>
             </div>
             
