@@ -16,10 +16,6 @@ const ACercaDeNosotros = () => {
         <Row>
           <Col className="about-col" xs={12} lg={4}>
             <Card
-              style={{
-                width: "18rem",
-                marginTop: "3rem",
-              }}
               className="about-card shadow-lg"
             >
               <Image
@@ -36,13 +32,13 @@ const ACercaDeNosotros = () => {
                 </Card.Text>
                 <div>
                   <a href="">
-                    <i class="bi bi-github m-2"></i>
+                    <i className="bi bi-github m-2"></i>
                   </a>
                   <a href="">
-                    <i class="bi bi-linkedin m-2"></i>
+                    <i className="bi bi-linkedin m-2"></i>
                   </a>
                   <a href="">
-                    <i class="bi bi-instagram m-2"></i>
+                    <i className="bi bi-instagram m-2"></i>
                   </a>
                 </div>
               </Card.Body>
@@ -50,10 +46,7 @@ const ACercaDeNosotros = () => {
           </Col>
           <Col className="about-col" xs={12} lg={4}>
             <Card
-              style={{
-                width: "18rem",
-                marginTop: "3rem",
-              }}
+              
               className="about-card shadow-lg"
             >
               <Image
@@ -70,13 +63,13 @@ const ACercaDeNosotros = () => {
                 </Card.Text>
                 <div>
                   <a href="">
-                    <i class="bi bi-github m-2"></i>
+                    <i className="bi bi-github m-2"></i>
                   </a>
                   <a href="">
-                    <i class="bi bi-linkedin m-2"></i>
+                    <i className="bi bi-linkedin m-2"></i>
                   </a>
                   <a href="">
-                    <i class="bi bi-instagram m-2"></i>
+                    <i className="bi bi-instagram m-2"></i>
                   </a>
                 </div>
               </Card.Body>
@@ -84,10 +77,7 @@ const ACercaDeNosotros = () => {
           </Col>
           <Col className="about-col" xs={12} lg={4}>
             <Card
-              style={{
-                width: "18rem",
-                marginTop: "3rem",
-              }}
+             
               className="about-card shadow-lg"
             >
               <Image
@@ -104,13 +94,13 @@ const ACercaDeNosotros = () => {
                 </Card.Text>
                 <div>
                   <a href="">
-                    <i class="bi bi-github m-2"></i>
+                    <i className="bi bi-github m-2"></i>
                   </a>
                   <a href="">
-                    <i class="bi bi-linkedin m-2"></i>
+                    <i className="bi bi-linkedin m-2"></i>
                   </a>
                   <a href="">
-                    <i class="bi bi-instagram m-2"></i>
+                    <i className="bi bi-instagram m-2"></i>
                   </a>
                 </div>
               </Card.Body>
@@ -120,10 +110,38 @@ const ACercaDeNosotros = () => {
         <Row>
           <Col className="about-col" xs={12} lg={4}>
             <Card
-              style={{
-                width: "18rem",
-                marginTop: "3rem",
-              }}
+             
+              className="about-card shadow-lg"
+            >
+              <Image
+                className="about-img"
+                src="https://cdn-icons-png.flaticon.com/512/2815/2815428.png"
+                roundedCircle
+              />
+              <Card.Body>
+                <Card.Title>Nombre</Card.Title>
+                <Card.Text>
+                  Descripcion breve. Lorem ipsum dolor sit amet consectetur
+                  adipisicing elit. Dicta non voluptate dolore dolores unde
+                  similique sequi assumenda ducimus laudantium enim.
+                </Card.Text>
+                <div>
+                  <a href="">
+                    <i className="bi bi-github m-2"></i>
+                  </a>
+                  <a href="">
+                    <i className="bi bi-linkedin m-2"></i>
+                  </a>
+                  <a href="">
+                    <i className="bi bi-instagram m-2"></i>
+                  </a>
+                </div>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col className="about-col" xs={12} lg={4}>
+            <Card
+            
               className="about-card shadow-lg"
             >
               <Image
@@ -154,10 +172,6 @@ const ACercaDeNosotros = () => {
           </Col>
           <Col className="about-col" xs={12} lg={4}>
             <Card
-              style={{
-                width: "18rem",
-                marginTop: "3rem",
-              }}
               className="about-card shadow-lg"
             >
               <Image
@@ -174,47 +188,13 @@ const ACercaDeNosotros = () => {
                 </Card.Text>
                 <div>
                   <a href="">
-                    <i class="bi bi-github m-2"></i>
+                    <i className="bi bi-github m-2"></i>
                   </a>
                   <a href="">
-                    <i class="bi bi-linkedin m-2"></i>
+                    <i className="bi bi-linkedin m-2"></i>
                   </a>
                   <a href="">
-                    <i class="bi bi-instagram m-2"></i>
-                  </a>
-                </div>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col className="about-col" xs={12} lg={4}>
-            <Card
-              style={{
-                width: "18rem",
-                marginTop: "3rem",
-              }}
-              className="about-card shadow-lg"
-            >
-              <Image
-                className="about-img"
-                src="https://cdn-icons-png.flaticon.com/512/2815/2815428.png"
-                roundedCircle
-              />
-              <Card.Body>
-                <Card.Title>Nombre</Card.Title>
-                <Card.Text>
-                  Descripcion breve. Lorem ipsum dolor sit amet consectetur
-                  adipisicing elit. Dicta non voluptate dolore dolores unde
-                  similique sequi assumenda ducimus laudantium enim.
-                </Card.Text>
-                <div>
-                  <a href="">
-                    <i class="bi bi-github m-2"></i>
-                  </a>
-                  <a href="">
-                    <i class="bi bi-linkedin m-2"></i>
-                  </a>
-                  <a href="">
-                    <i class="bi bi-instagram m-2"></i>
+                    <i className="bi bi-instagram m-2"></i>
                   </a>
                 </div>
               </Card.Body>

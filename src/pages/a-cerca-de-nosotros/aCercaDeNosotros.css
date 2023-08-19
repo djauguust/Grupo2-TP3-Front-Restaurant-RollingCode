@@ -1,6 +1,9 @@
 
 /*A cerca de nosotros*/
+
 .about-card{
+  width: 18rem;
+  margin-top: 3rem;
   background-color: #f4f5f6;
   -webkit-transition:all 0.25s ease-in-out;
   -moz-transition: all 0.25s ease-in-out;
@@ -24,3 +27,10 @@
   justify-content: center;
   
 }
+
+/* 
+@media screen and (max-width: 900px){
+  .about-card{
+    margin-bottom: 250px;
+  }
+} */
