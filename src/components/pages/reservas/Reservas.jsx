@@ -15,31 +15,23 @@ import Card from "react-bootstrap/Card";
 
 const Reservas = () => {
   let date = new Date();
+
+  //Estado para saber fechas disponibles o no
   const [availableData, setAvailableData] = useState(null);
+
+  //Get para solicitar si una fecha esta disponible o no
   useEffect(()=>{
     if(availableData){
-      console.log(availableData)
+      axios.get(` http://localhost:3000/reservas?date=${availableData}`)
+      .then(response =>{
+        console.log("Datos disponibles: ",response)
+      })
+      .catch(error =>{
+        console.log("Error :", error)
+      })
     }
 
   },[availableData])
-
-  //useEffect
-  //  const  [availableData, setAvailabelData] = useState("")
-  //  useEffect(()=>{
-
-  //    if(formik.values.ReservationDate){
-  //      axios.get(`http://localhost:3000/reservas?date=${startDate}`)
-  //      .then(response=>{
-  //        // setAvailabelData(response.data)
-  //        console.log("Datos del servidor ",response.data)
-  //      })
-  //      .catch(error=>{
-  //        console.log('Error al obtener disponibilidad: ', error)
-  //      })
-
-  //    }
-
-  //  }, [formik.values.ReservationDate])
 
   //Yup
   const eschema = Yup.object().shape({
@@ -159,7 +151,7 @@ const Reservas = () => {
                     onChange={(date) => {
                       formik.setFieldValue("ReservationDate", date);
                       if (date) {
-                        setAvailableData(date);
+                        setAvailableData(fechaFormateada(date));
                       }
                     }}
                     minDate={filterMinDay()}
