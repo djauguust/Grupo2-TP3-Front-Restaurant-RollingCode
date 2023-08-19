@@ -1,20 +1,30 @@
 import { useState } from "react";
 import styles from '../styles/LoginStyle.module.css';
+import logo from '../assets/logo.png';
+import { useAuth } from "../auth/AuthProvider";
+import { Navigate } from "react-router-dom";
 
 
 function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");  
+    const auth = useAuth
+
+    if(auth.isAuthenticated){
+        return <Navigate to="/dashboard" />
+    }
 
   return (
+<div className={styles["background-image"]}>
     <div className={styles["section"]}>
-        <div className={styles["container"]}>
-            <div className={styles["card"]}>
-                <div className={styles["center"]}>
-                    <div className="section text-center">
-                        <h3 className="mb-4 pb-3">Bienvenido!</h3> 
-                            
-                            <form className="form">
+           
+           <div className={styles["container"]}>
+               <div className={styles["card"]}>
+                   <div className={styles["center"]}>
+                       <div className="section text-center">
+                       <h3 className="mb-4 pb-3">Bienvenido!</h3> 
+                       <img src={logo} alt="Logo de la pagina" className={styles["logo"]} />  
+                          <form className="form">
 
                             <div className={styles["form-group"]}>
                             <label htmlFor=""></label>
@@ -50,12 +60,13 @@ function Login() {
                             <p className="mb-0 mt-4 text-center"><a href="#" className={styles["link"]}>
                             Olvidaste tu contraseña?</a></p>
                                
-                            </form> 
+                           </form> 
 
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div>    
     </div>
   );
 }

@@ -1,14 +1,14 @@
-body {
+.background-image {
 font-family: 'Poppins', sans-serif;
 font-weight: 300;  
 font-size: 15px;   
 line-height: 1.7;   
 color: #c4c3ca; 
 background-color: #1f2029;
-background-image: url(../assets/LoginBackground.jpg);
+background-image: url(../assets/SignupBackground.jpg);
 background-size: 100%;
 overflow-x: hidden; 
-}
+} 
     
 .section {
 position: relative;  
