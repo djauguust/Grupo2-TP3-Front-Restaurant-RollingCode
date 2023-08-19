@@ -13,29 +13,34 @@ import Image from "react-bootstrap/Image";
 import axios from "axios";
 import Card from "react-bootstrap/Card";
 
-const ReservasTest = () => {
-  
+const Reservas = () => {
   let date = new Date();
+  const [availableData, setAvailableData] = useState(null);
+  useEffect(()=>{
+    if(availableData){
+      console.log(availableData)
+    }
 
- //useEffect
-//  const  [availableData, setAvailabelData] = useState("")
-//  useEffect(()=>{
+  },[availableData])
 
-//    if(formik.values.ReservationDate){
-//      axios.get(`http://localhost:3000/reservas?date=${startDate}`)
-//      .then(response=>{
-//        // setAvailabelData(response.data)
-//        console.log("Datos del servidor ",response.data)
-//      })
-//      .catch(error=>{
-//        console.log('Error al obtener disponibilidad: ', error)
-//      })
- 
-//    }
+  //useEffect
+  //  const  [availableData, setAvailabelData] = useState("")
+  //  useEffect(()=>{
 
-//  }, [formik.values.ReservationDate])
- 
- 
+  //    if(formik.values.ReservationDate){
+  //      axios.get(`http://localhost:3000/reservas?date=${startDate}`)
+  //      .then(response=>{
+  //        // setAvailabelData(response.data)
+  //        console.log("Datos del servidor ",response.data)
+  //      })
+  //      .catch(error=>{
+  //        console.log('Error al obtener disponibilidad: ', error)
+  //      })
+
+  //    }
+
+  //  }, [formik.values.ReservationDate])
+
   //Yup
   const eschema = Yup.object().shape({
     ReservationDate: Yup.date().required("Fecha es requerida"),
@@ -59,42 +64,41 @@ const ReservasTest = () => {
     validateOnChange: true,
     validateOnBlur: true,
 
-    
-
-
+    //Submit
     onSubmit: async (values) => {
-      try{
-      // Para formatear la fecha a un valor dia/mes/año
-      const fechaFormateada = format(values.ReservationDate, "dd/MM/yyyy", {
-        locale: es,
-      });
+      try {
+        // Guardar los datos editados
+        const Reserva = {
+          Fecha: fechaFormateada(values.ReservationDate),
+          Hora: horaFormateada(values.ReservationTime),
+          CantidadDePersonas: formik.values.People,
+        };
 
-      //Para formatear la hora a un valor Hora/Minutos
-      const horaFormateada = format(values.ReservationTime, "HH:mm", {
-        locale: es,
-      });
-
-      // Guardar los datos editados
-      const Reserva = {
-        Fecha: fechaFormateada,
-        Hora: horaFormateada,
-        CantidadDePersonas: formik.values.People
-      };
-
-      const response = await axios.post("http://localhost:3000/reservas", {
-        date: Reserva.Fecha,
-        time: Reserva.Hora,
-        people: Reserva.CantidadDePersonas
-
-      });
-      console.log(response.data);
-
-
-    } catch(error){
-      console,log(error)
-    }
+        const response = await axios.post("http://localhost:3000/reservas", {
+          date: Reserva.Fecha,
+          time: Reserva.Hora,
+          people: Reserva.CantidadDePersonas,
+        });
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      }
     },
   });
+
+  //Funcion para formatear fecha
+  const fechaFormateada = (date)=>{
+    return format(date, "dd/MM/yyyy",{
+      locale:es,
+    })
+  }
+
+  //Funcion para formatear hora
+  const horaFormateada = (time)=>{
+    return format(time, "HH:mm",{
+      locale:es,
+    })
+  }
 
   //Funcion para que los domingos esten deshabilitados
   const isWeekday = (date) => {
@@ -116,10 +120,10 @@ const ReservasTest = () => {
     return limitDate;
   };
 
-  //Funcion para deshabilitar horas 
+  //Funcion para deshabilitar horas
   const filterTime = (time) => {
     const hours = new Date(time).getHours();
-    return hours >= 7 && hours <= 22 
+    return hours >= 7 && hours <= 22;
   };
 
   return (
@@ -128,11 +132,17 @@ const ReservasTest = () => {
         <Container fluid className="reservation-container">
           <Row className="d-flex justify-content-between align-items-center pb-3">
             <Col>
-              <Image src="https://trello.com/1/cards/64b73c636625809102489870/attachments/64dfc537d5a51cfa5a6d7733/download/logo.png" rounded width={80} height={80} />
+              <Image
+                src="https://trello.com/1/cards/64b73c636625809102489870/attachments/64dfc537d5a51cfa5a6d7733/download/logo.png"
+                rounded
+                width={80}
+                height={80}
+              />
             </Col>
           </Row>
 
-          <Form onSubmit={formik.handleSubmit}
+          <Form
+            onSubmit={formik.handleSubmit}
             style={{
               display: "flex",
               justifyContent: "center",
@@ -141,19 +151,22 @@ const ReservasTest = () => {
             }}
           >
             <Row>
-
               <Col xs={12} md={3} className="p-0">
                 <Form.Group controlId="date">
                   <DatePicker
                     className="input-reservation"
                     selected={formik.values.ReservationDate}
-                    onChange={(date) => formik.setFieldValue("ReservationDate", date)}
+                    onChange={(date) => {
+                      formik.setFieldValue("ReservationDate", date);
+                      if (date) {
+                        setAvailableData(date);
+                      }
+                    }}
                     minDate={filterMinDay()}
                     maxDate={filterMaxDay()}
                     dateFormat="dd/MM/yyyy"
                     filterDate={isWeekday}
                     placeholderText="Seleccione una fecha"
-                    
                   />
                 </Form.Group>
               </Col>
@@ -163,7 +176,9 @@ const ReservasTest = () => {
                   <DatePicker
                     className="input-reservation"
                     selected={formik.values.ReservationTime}
-                    onChange={(time) => formik.setFieldValue("ReservationTime", time)}
+                    onChange={(time) =>
+                      formik.setFieldValue("ReservationTime", time)
+                    }
                     showTimeSelect
                     showTimeSelectOnly
                     timeIntervals={60}
@@ -181,7 +196,9 @@ const ReservasTest = () => {
                   <Form.Control
                     className="input-reservation"
                     placeholder="N° de Personas"
-                    onChange={(e) => formik.setFieldValue("People", e.target.value)}
+                    onChange={(e) =>
+                      formik.setFieldValue("People", e.target.value)
+                    }
                     type="number"
                     required
                     min={1}
@@ -192,10 +209,9 @@ const ReservasTest = () => {
 
               <Col xs={12} md={3} className="p-0">
                 <Button
-                className="reservation-boton"
+                  className="reservation-boton"
                   variant="primary"
                   type="submit"
-                  
                 >
                   Encontrar mesa
                 </Button>
@@ -208,4 +224,4 @@ const ReservasTest = () => {
   );
 };
 
-export default ReservasTest;
+export default Reservas;
