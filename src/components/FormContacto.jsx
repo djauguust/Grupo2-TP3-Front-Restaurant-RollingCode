@@ -15,7 +15,7 @@ const Formulario = () =>{
     return(
 
         <>
-            <h3 className="mb-5">Completa el formulario y lo contactaremos a la brevedad</h3>
+            <h3 className="mb-5 text-center">Completa el formulario y lo contactaremos a la brevedad</h3>
             <Form onSubmit={ev =>{
                 ev.preventDefault();
                 limpiar();
@@ -60,7 +60,7 @@ const Formulario = () =>{
                     />
                 </Form.Group>
 
-                <Button variant="warning" type="submit">
+                <Button variant="warning" className="w-100 p-2" type="submit">
                     Enviar
                 </Button>
 

@@ -20,7 +20,7 @@ const Contacto = () =>{
                 </div>
 
                 <div className={style.container2}>
-                    <h4 className={`mx-5 mt-5 text-center ${style.parrafo}`}>
+                    <h4 className={`mx-5 mt-5 text-center ${style.parrafo} ${style.titulo}`}>
                         ¡Tu satisfacción es nuestra prioridad! Si tienes alguna pregunta, inquietud o necesitas asistencia para hacer una reserva, no dudes en contactarnos.
                     </h4>
                     <div className={`p-5 ${style.formContacto}`}>

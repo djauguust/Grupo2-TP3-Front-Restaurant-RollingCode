@@ -67,11 +67,17 @@ body {
         display: none;
     }
 
+    .titulo{
+        display: none;
+    }
+
     .formContacto{
         grid-column: 1/3;
+        padding: 10% 3% 3% 3%!important; 
     }
 
     .mapa{
         grid-column: 1/3;
+        padding: 3% !important;
     }
   }
