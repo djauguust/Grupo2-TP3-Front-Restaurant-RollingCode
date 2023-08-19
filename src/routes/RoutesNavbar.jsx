@@ -6,6 +6,7 @@ import Contacto from "../pages/Contacto";
 import Reservas from "../pages/Reservas";
 import Galeria from "../components/galeria/Galeria";
 import Login from "../pages/Login";
+import Error404 from "../pages/Error404/Error404";
 
 
 const RoutesNavbar = () => {
@@ -18,6 +19,7 @@ const RoutesNavbar = () => {
         <Route path="/reservas" element={<Reservas />} />
         <Route path="/galeria" element={<Galeria />} />
         <Route path="/login" element={<Login />} />
+        <Route path='*' element={<Error404 />} />
       </Routes>
     </>
   );

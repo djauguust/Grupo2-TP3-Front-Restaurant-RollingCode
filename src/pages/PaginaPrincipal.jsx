@@ -10,11 +10,11 @@ import Footer from "../components/footer/Footer";
 import { NavbarContext } from "../context/NavbarContext";
 
 const PaginaPrincipal = () => {
-  const { theme, handleSwitch } = useContext(NavbarContext);
+const {theme} =useContext(NavbarContext)
 
   return (
     <>
-      <Header handleSwitch={handleSwitch} theme={theme}></Header>
+
       <CarruselPrincipal />
       <Info theme={theme} />
       <Menu theme={theme} />

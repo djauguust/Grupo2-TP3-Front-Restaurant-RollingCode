@@ -13,11 +13,15 @@ import  i18n  from "i18next";
 import Form from 'react-bootstrap/Form';
 import { useTranslation, initReactI18next } from "react-i18next";
 import { useEffect } from "react";
+import { NavbarContext } from "../../context/NavbarContext";
 
 
 
-const Header = ( {handleSwitch, theme}) => {
+const Header = () => {
   const { logout } = useContext(UsuariosContext);
+
+  const {theme, handleSwitch} = useContext(NavbarContext)
+  console.log("este es them",theme);
 
   const user = JSON.parse(localStorage.getItem("user"));
 

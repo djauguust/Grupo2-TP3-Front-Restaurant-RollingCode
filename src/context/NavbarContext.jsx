@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState } from "react";
 
 
-export const NavbarContext = createContext(null);
+export const NavbarContext = createContext();
 
 export const NavbarContexto = ({ children }) => {
   const [theme, settheme] = useState("claro");
