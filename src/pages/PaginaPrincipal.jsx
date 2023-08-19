@@ -30,6 +30,7 @@ const PaginaPrincipal = () => {
     <Menu theme={theme}/>
     <Reviews theme={theme}/>
     <Galeria theme={theme}/>
+    <Footer theme={theme} />
     </>
   )
 }

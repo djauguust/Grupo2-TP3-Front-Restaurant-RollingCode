@@ -1,5 +1,5 @@
 .body-galeriaclaro{
-    background-color: #B08D59;
+    background-color: white;
 }
 
 .body-galeriaoscuro{
@@ -7,7 +7,7 @@
 }
 
 .titulo-galeria{
-    color: white;
+    color: #B08D59;
 }
 
 .grid-item{
