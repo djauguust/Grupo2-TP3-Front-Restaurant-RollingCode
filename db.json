@@ -2,9 +2,9 @@
   "Reservas": [
     {
       "id": "2",
-      "Fecha": "12/08/2023",
+      "Fecha": "12/08/2024",
       "CantidadDePersonas": "4",
-      "Hora": "18:34"
+      "Hora": "18:33"
     },
     {
       "id": "3",
@@ -23,9 +23,9 @@
     },
     {
       "id": "3",
-      "Nombre": "Juan Pérez",
-      "Email": "juan@email.com",
-      "Contrasena": "5678",
+      "Nombre": "Juan Pérezz",
+      "Email": "juan@email.comm",
+      "Contrasena": "56789a",
       "Rol": "usuario"
     }
   ]

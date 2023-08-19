@@ -71,10 +71,6 @@ function ModalEditarUsuario(props) {
     validateOnChange: true,
     validateOnBlur: true,
     onSubmit: (values) => {
-      setNombre(values.nombre);
-      setEmail(values.email);
-      setContrasena(values.contrasena);
-      setRol(values.rol);
       actualizar();
     },
   });
@@ -98,7 +94,8 @@ function ModalEditarUsuario(props) {
                 type="text"
                 name="nombre"
                 id="nombre"
-                value={nombre}
+
+                {...formik.getFieldProps("nombre")}
                 onChange={(ev) => {
                   formik.handleChange(ev);
                   setNombre(ev.target.value);
@@ -126,7 +123,8 @@ function ModalEditarUsuario(props) {
                 type="email"
                 name="email"
                 id="email"
-                value={email}
+                
+                {...formik.getFieldProps("email")}
                 onChange={(ev) => {
                   formik.handleChange(ev);
                   setEmail(ev.target.value);
@@ -154,7 +152,8 @@ function ModalEditarUsuario(props) {
                 type="password"
                 name="contrasena"
                 id="contrasena"
-                value={contrasena}
+
+                {...formik.getFieldProps("contrasena")}
                 onChange={(ev) => {
                   formik.handleChange(ev);
                   setContrasena(ev.target.value);

@@ -64,21 +64,7 @@ function ModalEditar(props) {
     },
   });
 
-  const handleFechaChange = (event) => {
-    setFecha(event.target.value);
-    formik.handleChange(event);
-  };
-
-  const handleCantPersonasChange = (event) => {
-    setCantPersonas(event.target.value);
-    formik.handleChange(event);
-  };
-
-  const handleHoraChange = (event) => {
-    setHora(event.target.value);
-    formik.handleChange(event);
-  };
-
+  
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
@@ -98,8 +84,13 @@ function ModalEditar(props) {
                 type="text"
                 name="fecha"
                 id="fecha"
-                value={fecha}
-                onChange={handleFechaChange}
+
+                {...formik.getFieldProps("fecha")}
+                onChange={(ev) => {
+                  formik.handleChange(ev);
+                  setFecha(ev.target.value);
+                }}
+
                 className={clsx(
                   'form-control',
                   {
@@ -123,8 +114,13 @@ function ModalEditar(props) {
                 type="number"
                 name="cantidadDePersonas"
                 id="cantidadDePersonas"
-                value={cantPersonas}
-                onChange={handleCantPersonasChange}
+
+                {...formik.getFieldProps("cantPersonas")}
+                onChange={(ev) => {
+                  formik.handleChange(ev);
+                  setCantPersonas(ev.target.value);
+                }}
+
                 className={clsx(
                   'form-control',
                   {
@@ -148,8 +144,12 @@ function ModalEditar(props) {
                 type="text"
                 name="hora"
                 id="hora"
-                value={hora}
-                onChange={handleHoraChange}
+                {...formik.getFieldProps("hora")}
+
+                onChange={(ev) => {
+                  formik.handleChange(ev);
+                  setHora(ev.target.value);
+                }}
                 className={clsx(
                   'form-control',
                   {
