@@ -11,13 +11,17 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./reserva.css";
 import Image from "react-bootstrap/Image";
 import axios from "axios";
+// import jwt from "jsonwebtoken";
 
 const Reservas = () => {
   let date = new Date();
 
   //Token
-  const token = localStorage.getItem("token")
-  // const decodeToken =  
+  // const token = localStorage.getItem("token")
+  // const decodeToken = jwt.decode(token)
+  // const user = decodeToken.usuario
+  // const {id,nombre,apellido} = user
+
 
   //Estado de fecha seleccionada
   const [availableData, setAvailableData] = useState(null);
@@ -70,6 +74,7 @@ const Reservas = () => {
         };
 
         const response = await axios.post("http://localhost:3000/reservas", {
+          // reservaOF: userName,
           date: Reserva.Fecha,
           time: Reserva.Hora,
           people: Reserva.CantidadDePersonas,
