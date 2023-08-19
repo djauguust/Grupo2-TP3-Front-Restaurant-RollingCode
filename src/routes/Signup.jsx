@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styles from '../styles/SignupStyle.module.css';
+import logo from '../assets/logo.png';
 import { useAuth } from "../auth/AuthProvider";
 import { Navigate } from "react-router-dom";
 
@@ -14,6 +15,7 @@ function Signup() {
    }
 
     return (
+        <div className={styles["background-image"]}>  
             <div className={styles["section"]}>             
                 <div className={styles["container"]}>
                     <div className={styles["card"]}>
@@ -21,6 +23,7 @@ function Signup() {
                             <div className="section text-center">
                             <h4 className="mb-4 pb-3">No tienes cuenta?</h4> 
                             <h5 className="mb-4 pb-3">Create una!</h5>  
+                            <img src={logo} alt="Logo de la pagina" className={styles["logo"]} />
                             <div className="section text-center">  
 
                                <form className="form">
@@ -60,6 +63,7 @@ function Signup() {
                                   className={styles["form-style"]}
                                   value={password}
                                   type="password"
+                                  onChange={(e) => setPassword(e.target.value)}
                                   placeholder="Contraseña" required
                                   autoComplete="off"
                                   minLength={4}
@@ -77,7 +81,7 @@ function Signup() {
                     </div>
                 </div>
             </div>    
-        
+        </div>  
     )
   }
   
