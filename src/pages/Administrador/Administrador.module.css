@@ -1,0 +1,17 @@
+body {
+    background-image: url(../../../public/contactofondo.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.nav{
+    background-color: white !important;
+}
+.tabla{
+    width: 70%;
+    margin: 2% auto;
+    padding: 1% ;
+    background-color: white;
+    border-radius: 30px;
+}

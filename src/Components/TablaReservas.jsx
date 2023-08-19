@@ -47,7 +47,7 @@ const TablaReservas = () =>{
 
     return(
         <>
-            <h2 className="my-3">Reservas</h2>
+            <h2 className="my-3 text-center">Reservas</h2>
             <Table>
                 <thead>
                     <tr>
