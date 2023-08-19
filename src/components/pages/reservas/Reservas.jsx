@@ -1,22 +1,25 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
-import { useFormik, Field, ErrorMessage } from "formik";
+import { useFormik} from "formik";
 import * as Yup from "yup";
 import clsx from "clsx";
 import DatePicker from "react-datepicker";
-import { format, getDay, parseISO, setHours, setMinutes } from "date-fns";
+import { format, getDay} from "date-fns";
 import es from "date-fns/locale/es";
 import "react-datepicker/dist/react-datepicker.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./reserva.css";
 import Image from "react-bootstrap/Image";
 import axios from "axios";
-import Card from "react-bootstrap/Card";
 
 const Reservas = () => {
   let date = new Date();
 
-  //Estado para saber fechas disponibles o no
+  //Token
+  const token = localStorage.getItem("token")
+  // const decodeToken =  
+
+  //Estado de fecha seleccionada
   const [availableData, setAvailableData] = useState(null);
 
   //Get para solicitar si una fecha esta disponible o no
@@ -205,7 +208,7 @@ const Reservas = () => {
                   variant="primary"
                   type="submit"
                 >
-                  Encontrar mesa
+                  Reservar
                 </Button>
               </Col>
             </Row>
