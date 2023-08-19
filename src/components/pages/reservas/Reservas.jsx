@@ -123,7 +123,13 @@ const Reservas = () => {
   //Funcion para deshabilitar horas
   const filterTime = (time) => {
     const hours = new Date(time).getHours();
-    return hours >= 7 && hours <= 22;
+    return hours > 11 && hours <= 23;
+  };
+
+
+  //Funcion para que solo se vean las horas que son validas
+  let handleColor = (time) => {
+    return time.getHours() > 11 ? "" : "d-none";
   };
 
   return (
@@ -167,6 +173,7 @@ const Reservas = () => {
                     dateFormat="dd/MM/yyyy"
                     filterDate={isWeekday}
                     placeholderText="Seleccione una fecha"
+                    required
                   />
                 </Form.Group>
               </Col>
@@ -187,6 +194,7 @@ const Reservas = () => {
                     filterTime={filterTime}
                     required
                     placeholderText="00:00"
+                    timeClassName={handleColor}
                   />
                 </Form.Group>
               </Col>
