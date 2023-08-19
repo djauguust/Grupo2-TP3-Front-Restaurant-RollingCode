@@ -1,0 +1,87 @@
+.claro{
+    height: 110px;
+    z-index: 100 !important;
+    background-color: white;
+}
+.oscuro{
+    height: 110px;
+    z-index: 100 !important;
+    background-color: #191919;
+}
+.oscuro .botones{
+    border-bottom: 3px solid transparent;
+    color: #B08D59;
+}
+.claro .botones{
+    border-bottom: 3px solid transparent;
+    color: #191919;
+}
+
+.claro .botones:hover{
+    border-bottom: 3px solid #B08D59;
+}
+
+.oscuro .botones:hover{
+    border-bottom: 3px solid #B08D59;
+    color: white;
+}
+
+.claro .boton-reserva{
+    background-color: #191919;
+    color: white;
+
+}
+.oscuro .boton-reserva{
+    background-color: #F0E5D8;
+    color: #191919;
+
+}
+
+.claro .boton-reserva:hover{
+    background-color: #B08D59;
+}
+
+.oscuro .boton-reserva:hover{
+    background-color: #B08D59;
+}
+
+.oscuro .boton-izq-custom{
+    color: white;
+}
+
+.claro .boton-izq-custom{
+    color: black;
+}
+
+@media (max-width: 1000px ){
+    .custom-navbar .botones:hover{
+        border-bottom: none;
+    }
+    .custom-navbar .botones{
+        border-bottom: 3px solid white;
+    }
+    .claro .collapse-custom{
+        background-color: white;
+    }
+    .oscuro .collapse-custom{
+        background-color: black;
+    }
+}
+
+
+@media (max-width: 350px ){
+  .logo-custom{
+    width: 180px;
+  }
+}
+
+@media (max-width: 1100px){
+    .botones-izquierda{
+        left: 10px !important;
+    }
+}
+
+.boton-izq-custom:hover{
+    transform: scale(1.04);
+    background-color: #B08D59 !important;
+}
