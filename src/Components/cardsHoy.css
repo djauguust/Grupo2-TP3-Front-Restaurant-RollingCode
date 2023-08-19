@@ -1,0 +1,24 @@
+.contenedor{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 3%;
+}
+
+.caja{
+    width: 20%;
+    margin: 2%;
+}
+
+@media only screen and (max-width: 1068px) {
+    .contenedor{
+        display: block;
+        margin: 0;
+    }
+    
+    .caja{
+        width: 90%;
+        margin: 2% auto;
+    }
+}
