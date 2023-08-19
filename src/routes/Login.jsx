@@ -21,6 +21,7 @@ function Login() {
                             className="form-style"
                             value={username}
                             type="text"
+                            
                             placeholder="Correo Electrónico" required
                             pattern="^[\wñ]+@[a-zñ]+\.[a-zñ]{2,5}$"
                             autoComplete="off"
@@ -35,6 +36,7 @@ function Login() {
                             className="form-style"
                             value={password}
                             type="password"
+                            onChange={(e) => setPassword(e.target.value)}
                             placeholder="Contraseña" required
                             autoComplete="off"
                             minLength={4}
