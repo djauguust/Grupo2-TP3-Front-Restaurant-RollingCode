@@ -18,13 +18,15 @@
       "id": "2",
       "Nombre": "María Rodríguez",
       "Email": "maria@email.com",
-      "Contrasena": "abcdef"
+      "Contrasena": "abcdef",
+      "Rol": "admin"
     },
     {
       "id": "3",
       "Nombre": "Juan Pérez",
       "Email": "juan@email.com",
-      "Contrasena": "5678"
+      "Contrasena": "5678",
+      "Rol": "usuario"
     }
   ]
 }

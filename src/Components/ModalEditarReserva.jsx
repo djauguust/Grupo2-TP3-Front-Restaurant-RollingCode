@@ -4,6 +4,10 @@ import Modal from 'react-bootstrap/Modal';
 import { Form } from 'react-bootstrap';
 import axios from 'axios';
 
+import { useFormik } from 'formik';
+import * as Yup from "yup";
+import clsx from 'clsx';
+
 function ModalEditar(props) { //Recibe la reserva por props
   const [show, setShow] = useState(false);
 
@@ -43,6 +47,36 @@ function ModalEditar(props) { //Recibe la reserva por props
     } 
   }
 
+  // Esquema
+  const SingUpSchema = Yup.object().shape({
+    fecha: Yup.string()
+    .required("Debe introducir la fecha")
+    .trim(),
+    cantPersonas: Yup.string()
+    .required("Debe introducir una cantidad")
+    .min(1,"Debe introducir al menos una persona")
+    .trim(),
+    hora: Yup.string()
+    .required("Debe introducir un horario")
+    .trim()
+  });
+
+  const initialValues={
+    fecha: fecha,
+    cantPersonas: cantPersonas,
+    hora: hora,
+  }
+
+  const formik = useFormik({
+    initialValues,
+    validationSchema: SingUpSchema,
+    validateOnChange: true,
+    validateOnBlur: true,
+    onSubmit: (values) => {
+        console.log("Valores del Formik-->", values);
+    }
+  });
+
 
   return (
     <>
@@ -55,17 +89,32 @@ function ModalEditar(props) { //Recibe la reserva por props
           <Modal.Title>Editar datos de la reserva</Modal.Title>
         </Modal.Header>
 
+        <Form onSubmit={formik.handleSubmit} noValidate>
         <Modal.Body>
           
-        <Form>
-      <Form.Group controlId="fecha">
+
+      <Form.Group>
         <Form.Label>Fecha</Form.Label>
         <Form.Control
           type="text"
           name="fecha"
-          onChange={ev=> setFecha(ev.target.value)}
-          value={fecha}
+
+          //formik
+          id="fecha"
+          {...formik.getFieldProps("fecha")}
+          className= {clsx(
+             "form-control",{
+                 "is-invalid": formik.touched.fecha && formik.errors.fecha
+             }, {
+                 "is-valid": formik.touched.fecha && !formik.errors.fecha
+             }
+          )}
         />
+        {formik.touched.fecha && formik.errors.fecha && (
+              <div className="text-danger mt-1">
+                  <span role="alert">{formik.errors.fecha}</span>
+              </div>
+        )}
       </Form.Group>
 
       <Form.Group controlId="cantidadDePersonas">
@@ -73,9 +122,23 @@ function ModalEditar(props) { //Recibe la reserva por props
         <Form.Control
           type="number"
           name="cantidadDePersonas"
-          value={cantPersonas}
-          onChange={ev=> setCantPersonas(ev.target.value)}
+          
+          //formik
+          id="fecha"
+          {...formik.getFieldProps("cantPersonas")}
+          className= {clsx(
+             "form-control",{
+                 "is-invalid": formik.touched.cantPersonas && formik.errors.cantPersonas
+             }, {
+                 "is-valid": formik.touched.cantPersonas && !formik.errors.cantPersonas
+             }
+          )}
         />
+        {formik.touched.cantPersonas && formik.errors.cantPersonas && (
+              <div className="text-danger mt-1">
+                  <span role="alert">{formik.errors.cantPersonas}</span>
+              </div>
+        )}
       </Form.Group>
 
       <Form.Group controlId="hora">
@@ -83,11 +146,25 @@ function ModalEditar(props) { //Recibe la reserva por props
         <Form.Control
           type="text"
           name="hora"
-          value={hora}
-          onChange={ev=> setHora(ev.target.value)}
+
+          //formik
+          id="hora"
+          {...formik.getFieldProps("hora")}
+          className= {clsx(
+             "form-control",{
+                 "is-invalid": formik.touched.hora && formik.errors.hora
+             }, {
+                 "is-valid": formik.touched.hora && !formik.errors.hora
+             }
+          )}
         />
+        {formik.touched.hora && formik.errors.hora && (
+              <div className="text-danger mt-1">
+                  <span role="alert">{formik.errors.hora}</span>
+              </div>
+        )}
       </Form.Group>
-    </Form>
+
 
         </Modal.Body>
 
@@ -97,11 +174,11 @@ function ModalEditar(props) { //Recibe la reserva por props
           <Button variant="secondary" onClick={handleClose}>
             Cerrar
           </Button>
-          <Button variant="primary" onClick={actualizar}>
+          <Button variant="primary" type='submit'>
             Guardar cambios
           </Button>
         </Modal.Footer>
-
+        </Form>
       </Modal>
     </>
   );

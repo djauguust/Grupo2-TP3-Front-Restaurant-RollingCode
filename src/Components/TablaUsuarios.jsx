@@ -66,6 +66,7 @@ const TablaUsuarios = () =>{
                                     <td>{user.Nombre}</td>
                                     <td>{user.Email}</td>
                                     <td>{user.Contrasena}</td>
+                                    <td>{user.Rol}</td>
                                     <td>
                                         <ModalEditarUsuario usuario={user} url={URL}/>
                                         <Button onClick={() => eliminar(user.id)} className="mx-2">Eliminar</Button>
