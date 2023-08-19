@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styles from '../styles/SignupStyle.module.css';
 
 function Signup() {
    const [name, setName] = useState("");
@@ -7,20 +8,21 @@ function Signup() {
 
 
     return (
-      <div className="section">
-        <div className="container">
-            <div className="card">
-                <div className="center">
+      <div className={styles["section"]}>
+        <div className={styles["container"]}>
+            <div className={styles["card"]}>
+                <div className={styles["center"]}>
                     <div className="section text-center">
                         <h4 className="mb-4 pb-3">No tienes cuenta?</h4> 
                         <h5 className="mb-4 pb-3">Create una!</h5>  
-                          
+                        <div className="section text-center">  
+
                             <form className="form">
 
-                            <div className="form-group">
+                            <div className={styles["form-group"]}>
                             <label htmlFor=""></label>
                             <input
-                            className="form-style"
+                            className={styles["form-style"]}
                             value={name}
                             type="text"
                             onChange={(e) => setName(e.target.value)}                   
@@ -31,10 +33,10 @@ function Signup() {
                             />                            
                             </div>
 
-                            <div className="form-group">
+                            <div className={styles["form-group"]}>
                             <label htmlFor=""></label>
                             <input
-                            className="form-style"
+                            className={styles["form-style"]}
                             value={username}
                             type="text"
                             onChange={(e) => setUsername(e.target.value)}                          
@@ -46,10 +48,10 @@ function Signup() {
                                                       
                             </div>
 
-                            <div className="form-group">
+                            <div className={styles["form-group"]}>
                             <label htmlFor=""></label>
                             <input
-                            className="form-style"
+                            className={styles["form-style"]}
                             value={password}
                             type="password"
                             placeholder="Contraseña" required
@@ -59,11 +61,11 @@ function Signup() {
                             />
                             </div>
 
-                            <button className="btn" type="submit">Crear Cuenta</button>
+                            <button className={styles["btn"]} type="submit">Crear Cuenta</button>
 
                                
                             </form> 
-
+                        </div>
                     </div>
                 </div>
             </div>
