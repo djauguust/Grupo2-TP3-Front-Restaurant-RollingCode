@@ -1,36 +1,16 @@
 import React, { Children } from 'react'
 import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Login from './routes/Login.jsx'
-import Signup from './routes/Signup.jsx'
+import { BrowserRouter, createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Dashboard from './routes/Dashboard.jsx'
 import ProtectedRoute from './routes/ProtectedRoute.jsx'
-
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Login />,
-  },
-  {
-    path: "/signup",
-    element: <Signup />,
-  },
-  {
-    path: "/",
-    element: <ProtectedRoute />,
-    children: [
-      {
-        path: "/dashboard",
-        element: <Dashboard />,
-      },
-    ],
-  },
-]);
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
+import App from './App.jsx'
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
+  <BrowserRouter>
   <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>,
+    <App/>
+  </React.StrictMode>  
+  </BrowserRouter>
 )

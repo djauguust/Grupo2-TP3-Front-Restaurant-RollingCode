@@ -1,10 +1,10 @@
 import { useState } from "react";
-import styles from '../styles/SignupStyle.module.css';
-import logo from '../assets/logo.png';
-import { useAuth } from "../auth/AuthProvider";
+import styles from '../../styles/Registro.css';
+import logo from '../../assets/logo.png';
+import { useAuth } from "../../auth/AuthProvider";
 import { Navigate } from "react-router-dom";
 
-function Signup() {
+function Registro() {
    const [name, setName] = useState("");
    const [username, setUsername] = useState("");
    const [password, setPassword] = useState("");
@@ -15,7 +15,7 @@ function Signup() {
    }
 
     return (
-        <div className={styles["background-image"]}>  
+        <div className="background-image">  
             <div className={styles["section"]}>             
                 <div className={styles["container"]}>
                     <div className={styles["card"]}>
@@ -85,4 +85,4 @@ function Signup() {
     )
   }
   
-  export default Signup;
+  export default Registro;

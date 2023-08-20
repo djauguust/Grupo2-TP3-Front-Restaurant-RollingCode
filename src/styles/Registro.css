@@ -1,3 +1,6 @@
+
+
+
 .background-image {
 position: absolute;
 top: 0;
@@ -9,12 +12,7 @@ background-size: cover;
 background-repeat: no-repeat;
 z-index: -1; 
 } 
-    
-.section {
-position: relative;  
-width: 100%;  
-display: block; 
-}
+
     
 .container {
 display: flex;
@@ -23,30 +21,8 @@ align-items: center;
 height: 100vh;
 }
     
-.card {
-width: 50vh;  
-height: 70vh;  
-background-color: #ffffff;  
-background-image: url('../assets/LoginBackground2.jpg');
-background-position: bottom center;  
-background-repeat: no-repeat;  
-background-size: 211%;  
-position: relative;  
-border-radius: 26px;  
-left: 0;  
-top: 0;
-}
+
     
-.center {
-position: relative;  
-width: 100%;  
-padding: 0 35px;  
-top: 50%;  
-left: -3vh;  
-transform: translate3d(0, -50%, 35px) perspective(100px);  
-z-index: 20;  
-display: block; 
-}
     
 p {  
 font-weight: 500;  
@@ -180,7 +156,6 @@ text-transform: uppercase;
 -webkit-transition : all 200ms linear;  
 transition: all 200ms linear;  
 padding: 0 30px;  
-margin-left: 14vh;
 letter-spacing: 1px;  
 display: -webkit-inline-flex;  
 display: -ms-inline-flexbox;  
@@ -212,10 +187,8 @@ color: #ffeba7;
 box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);  
 } 
     
-a {  
-cursor: pointer;  
-transition: all 200ms linear; 
-margin-left: 16vh; 
+a {    
+transition: all 200ms linear;  
 }  
 a:hover {  
 text-decoration: none;  
@@ -228,17 +201,3 @@ color: #c4c3ca;
 color: #ffeba7;  
 } 
     
-@media (max-width: 1024px) {
-body{  
-font-family: 'Poppins', sans-serif;  
-font-weight: 300;  
-font-size: 15px;  
-line-height: 1.7;  
-color: #c4c3ca;  
-background-color: #1f2029;  
-background-image: url(https://wallpapersmug.com/download/3840x2160/b67e3e/pizza-slices-food.jpg);
-background-position: center;
-background-size: 350%;
-overflow-x: hidden;  
-} 
-}
