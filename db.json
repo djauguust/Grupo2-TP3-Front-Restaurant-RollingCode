@@ -1,0 +1,10 @@
+{
+  "Usuarios": [
+    {
+      "Nombre": "Cafe",
+      "Email": "lucasyudi@gmail.com",
+      "Contraseña": "Lucas1234",
+      "id": 1
+    }
+  ]
+}

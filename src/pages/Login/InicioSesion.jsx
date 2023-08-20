@@ -1,9 +1,13 @@
 import { useState } from "react";
-import styles from '../../styles/InicioSesion.css';
+import "../../styles/InicioSesion.css"
 import logo from '../../assets/logo.png';
 import { useAuth } from "../../auth/AuthProvider";
 import { Navigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
+import {useFormik} from "formik";
+import * as Yup from "yup" ;
+import clsx from "clsx";
+import Swal from 'sweetalert2';
 
 
 function InicioSesion() {
