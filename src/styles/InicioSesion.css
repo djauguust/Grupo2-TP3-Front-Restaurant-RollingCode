@@ -1,6 +1,6 @@
 /*Resolución para Pantallas de Celulares */
 @media (max-width: 767px) {
-  .center{
+  .Carta{
       padding: 0 !important;
   }
   .form-control{
@@ -20,16 +20,15 @@
   
 }
 
-/* Resolución para Pantallas de Ordenador */
-@media (min-width: 913px) {
+
+
  
+/*Estilo para texto error en login*/
+.text-danger{
+  max-width: 38vh;
 }
 
-/* Resolución para Pantallas de Tablet */
-@media (min-width: 768px) and (max-width: 912px) {
-  
-} 
-
+/*Estilo para el texto grande en*/
 .Div-Contraseña{
   max-width: 300px;
 }
@@ -48,7 +47,7 @@ z-index: -1;
 
 } 
 
-.container {
+.ubicarCarta {
 display: flex;
 justify-content: center;
 align-items: center;
@@ -59,6 +58,7 @@ background-image: url('../assets/LoginBackground2.jpg');
 background-position: bottom center;   
 border-radius: 26px;  
 background-size: cover;
+padding: 0 35px;   
 }
 
 .center {  
@@ -231,7 +231,7 @@ text-decoration: none;
 color: #ffeba7;  
 } 
 
-@media (max-width: 1024px) {
+
     body{  
       font-family: 'Poppins', sans-serif;  
       font-weight: 300;  
@@ -244,5 +244,5 @@ color: #ffeba7;
       background-size: 350%;
       overflow-x: hidden;  
     } 
-  } 
+  
 

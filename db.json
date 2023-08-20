@@ -5,6 +5,11 @@
       "Email": "lucasyudi@gmail.com",
       "Contraseña": "Lucas1234",
       "id": 1
+    },
+    {
+      "Email": "a",
+      "Contraseña": "a",
+      "id": 2
     }
   ]
 }
