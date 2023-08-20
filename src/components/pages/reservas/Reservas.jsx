@@ -1,10 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
-import { useFormik} from "formik";
+import { useFormik } from "formik";
 import * as Yup from "yup";
 import clsx from "clsx";
 import DatePicker from "react-datepicker";
-import { format, getDay} from "date-fns";
+import { format, getDay } from "date-fns";
 import es from "date-fns/locale/es";
 import "react-datepicker/dist/react-datepicker.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -22,29 +22,34 @@ const Reservas = () => {
   // const user = decodeToken.usuario
   // const {id,nombre,apellido} = user
 
-
   //Estado de fecha seleccionada
   const [availableData, setAvailableData] = useState(null);
 
   //Get para solicitar si una fecha esta disponible o no
-  useEffect(()=>{
-    if(availableData){
-      axios.get(` http://localhost:3000/reservas?date=${availableData}`)
-      .then(response =>{
-        console.log("Datos disponibles: ",response)
-      })
-      .catch(error =>{
-        console.log("Error :", error)
-      })
+  useEffect(() => {
+    if (availableData) {
+      axios
+        .get(` http://localhost:3000/reservas?date=${availableData}`)
+        .then((response) => {
+          console.log("Datos disponibles: ", response);
+        })
+        .catch((error) => {
+          console.log("Error :", error);
+        });
     }
-
-  },[availableData])
+  }, [availableData]);
 
   //Yup
   const eschema = Yup.object().shape({
     ReservationDate: Yup.date().required("Fecha es requerida"),
 
-    ReservationTime: Yup.string().required("La hora es requerida"),
+    ReservationTime: Yup.string()
+    .required("La hora es requerida")
+    .test("valid-time", "Hora no valida", function (value){
+      if(!value) return false
+      const parsedTime = parse(value, "HH:mm", new Date())
+      return filterTime(parsedTime)
+    }),
 
     People: Yup.string().required("La cantidad de personas es requerida"),
   });
@@ -87,18 +92,18 @@ const Reservas = () => {
   });
 
   //Funcion para formatear fecha
-  const fechaFormateada = (date)=>{
-    return format(date, "dd/MM/yyyy",{
-      locale:es,
-    })
-  }
+  const fechaFormateada = (date) => {
+    return format(date, "dd/MM/yyyy", {
+      locale: es,
+    });
+  };
 
   //Funcion para formatear hora
-  const horaFormateada = (time)=>{
-    return format(time, "HH:mm",{
-      locale:es,
-    })
-  }
+  const horaFormateada = (time) => {
+    return format(time, "HHmm", {
+      locale: es,
+    });
+  };
 
   //Funcion para que los domingos esten deshabilitados
   const isWeekday = (date) => {
@@ -126,7 +131,6 @@ const Reservas = () => {
     return hours > 11 && hours <= 23;
   };
 
-
   //Funcion para que solo se vean las horas que son validas
   let handleColor = (time) => {
     return time.getHours() > 11 ? "" : "d-none";
@@ -139,7 +143,7 @@ const Reservas = () => {
           <Row className="d-flex justify-content-between align-items-center pb-3">
             <Col>
               <Image
-                src="https://trello.com/1/cards/64b73c636625809102489870/attachments/64dfc537d5a51cfa5a6d7733/download/logo.png"
+                src="https://trello.com/1/cards/64b73c636625809102489870/attachments/64e189b71cf6c64059cf2edc/previews/64e189b81cf6c64059cf2ef8/download/Texto_del_p%C3%A1rrafo__2_-removebg-preview_%281%29.png"
                 rounded
                 width={80}
                 height={80}
@@ -160,7 +164,6 @@ const Reservas = () => {
               <Col xs={12} md={3} className="p-0">
                 <Form.Group controlId="date">
                   <DatePicker
-                    className="input-reservation"
                     selected={formik.values.ReservationDate}
                     onChange={(date) => {
                       formik.setFieldValue("ReservationDate", date);
@@ -174,14 +177,24 @@ const Reservas = () => {
                     filterDate={isWeekday}
                     placeholderText="Seleccione una fecha"
                     required
+                    className={clsx("input-reservation", {
+                      "is-invalid":
+                        formik.touched.ReservationDate &&
+                        formik.errors.ReservationDate,
+                    })}
                   />
+                  {formik.touched.ReservationDate &&
+                    formik.errors.ReservationDate && (
+                      <div className="invalid-feedback">
+                        {formik.errors.ReservationDate}
+                      </div>
+                    )}
                 </Form.Group>
               </Col>
 
               <Col xs={12} md={3} className="p-0">
                 <Form.Group controlId="time">
                   <DatePicker
-                    className="input-reservation"
                     selected={formik.values.ReservationTime}
                     onChange={(time) =>
                       formik.setFieldValue("ReservationTime", time)
@@ -195,14 +208,24 @@ const Reservas = () => {
                     required
                     placeholderText="00:00"
                     timeClassName={handleColor}
+                    className={clsx("input-reservation", {
+                      "is-invalid":
+                        formik.touched.ReservationTime &&
+                        formik.errors.ReservationTime,
+                    })}
                   />
+                  {formik.touched.ReservationTime &&
+                    formik.errors.ReservationTime && (
+                      <div className="invalid-feedback">
+                        {formik.errors.ReservationTime}
+                      </div>
+                    )}
                 </Form.Group>
               </Col>
 
               <Col xs={12} md={3} className="p-0">
                 <Form.Group controlId="people">
                   <Form.Control
-                    className="input-reservation"
                     placeholder="N° de Personas"
                     onChange={(e) =>
                       formik.setFieldValue("People", e.target.value)
@@ -211,7 +234,16 @@ const Reservas = () => {
                     required
                     min={1}
                     max={10}
+                    className={clsx("input-reservation", {
+                      "is-invalid":
+                        formik.touched.People && formik.errors.People,
+                    })}
                   />
+                  {formik.touched.People && formik.errors.People && (
+                    <div className="invalid-feedback">
+                      {formik.errors.People}
+                    </div>
+                  )}
                 </Form.Group>
               </Col>
 

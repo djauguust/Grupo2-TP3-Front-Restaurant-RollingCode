@@ -1,6 +1,5 @@
 .reservation-main {
   height: 100vh; 
-  display: flex;
   padding-top: 80px;
   justify-content: center;
   background-image: url(https://images.pexels.com/photos/326333/pexels-photo-326333.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
@@ -8,9 +7,11 @@
 
 .reservation-container {
   width: 75%;
-  height: 55%;
   margin-top: 50px;
-  padding: 40px;
+  padding-top: 40px;
+  padding-bottom: 70px;
+  padding-left: 40px;
+  padding-right: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -62,7 +63,6 @@
 
 @media screen and (max-width: 768px) {
   .reservation-container {
-    height: 60%;
     padding-top: 30px;
   }
 }
