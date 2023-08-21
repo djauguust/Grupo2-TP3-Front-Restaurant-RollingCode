@@ -11,7 +11,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./reserva.css";
 import Image from "react-bootstrap/Image";
 import axios from "axios";
-import { parse } from "date-fns";
 // import jwt from "jsonwebtoken";
 
 const Reservas = () => {
@@ -21,9 +20,6 @@ const Reservas = () => {
   // const token = localStorage.getItem("token")
   // const decodeToken = jwt.decode(token)
   // const user = decodeToken.id
-
-
-  
 
   //Estado de fecha seleccionada
   const [availableData, setAvailableData] = useState(null);
@@ -46,22 +42,23 @@ const Reservas = () => {
   const validationSchema = Yup.object().shape({
     ReservationDate: Yup.date().required("Fecha es requerida"),
 
-    ReservationTime: Yup.date().required("La hora es requerida")
-    .test(
-      "intervalos",
-      "La hora debe ser entre las 11am y las 11pm",
-      (value) => {
-        console.log("Valor recibido en ReservationTime:", value);
-  
-        const hours = value.getHours();
-        const minutes = value.getMinutes();
-        console.log("Parsed Hours:", hours);
-        console.log("Parsed Minutes:", minutes);
-  
-        return hours >= 11 && hours <= 23;
-      }
-    ),
-    
+    ReservationTime: Yup.date()
+      .required("La hora es requerida")
+      .test(
+        "intervalos",
+        "La hora debe ser entre las 11am y las 11pm",
+        (value) => {
+          console.log("Valor recibido en ReservationTime:", value);
+
+          const hours = value.getHours();
+          const minutes = value.getMinutes();
+          console.log("Parsed Hours:", hours);
+          console.log("Parsed Minutes:", minutes);
+
+          return hours >= 11 && hours <= 23;
+        }
+      ),
+
     People: Yup.number()
       .required("La cantidad de personas es requerida")
       .max(10, "Maximo diez personas"),
@@ -83,7 +80,7 @@ const Reservas = () => {
 
     //Submit
     onSubmit: async (values) => {
-      console.log("Valores que llegan al form de formik: ",values)
+      console.log("Valores que llegan al form de formik: ", values);
 
       try {
         // Guardar los datos editados
@@ -92,9 +89,9 @@ const Reservas = () => {
           Hora: horaFormateada(values.ReservationTime),
           CantidadDePersonas: formik.values.People,
         };
-        console.log("Val formateadod de fecha: ",Reserva.Fecha)
-        console.log("Val formateadod de hora: ",Reserva.Hora)
-        console.log("Val cant de personas: ",Reserva.CantidadDePersonas)
+        console.log("Val formateadod de fecha: ", Reserva.Fecha);
+        console.log("Val formateadod de hora: ", Reserva.Hora);
+        console.log("Val cant de personas: ", Reserva.CantidadDePersonas);
 
         const response = await axios.post("http://localhost:3000/reservas", {
           // reservaOF: userName,
@@ -194,19 +191,24 @@ const Reservas = () => {
                     dateFormat="dd/MM/yyyy"
                     filterDate={isWeekday}
                     placeholderText="Seleccione una fecha"
-                    className={clsx("form-control input-reservation", {
-                      "is-invalid":
-                        formik.touched.ReservationDate &&
-                        formik.errors.ReservationDate,
-                    },{
-                      "is-valid": formik.touched.ReservationDate &&
-                      !formik.errors.ReservationDate,
-                    })}
+                    className={clsx(
+                      "form-control input-reservation",
+                      {
+                        "is-invalid":
+                          formik.touched.ReservationDate &&
+                          formik.errors.ReservationDate,
+                      },
+                      {
+                        "is-valid":
+                          formik.touched.ReservationDate &&
+                          !formik.errors.ReservationDate,
+                      }
+                    )}
                   />
                   {formik.touched.ReservationDate &&
                     formik.errors.ReservationDate && (
-                      <div >
-                        <span role="alert" className="text-danger">
+                      <div className="text-center">
+                        <span role="alert" className="text-danger text-span">
                           {formik.errors.ReservationDate}
                         </span>
                       </div>
@@ -227,21 +229,26 @@ const Reservas = () => {
                     timeCaption="Time"
                     dateFormat="HH:mm"
                     filterTime={filterTime}
-                    placeholderText="00:00"
+                    placeholderText="Elija un horario"
                     timeClassName={handleColor}
-                    className={clsx("form-control input-reservation", {
-                      "is-invalid":
-                        formik.touched.ReservationTime &&
-                        formik.errors.ReservationTime,
-                    },{
-                      "is-valid": formik.touched.ReservationTime &&
-                      !formik.errors.ReservationTime,
-                    })}
+                    className={clsx(
+                      "form-control input-reservation",
+                      {
+                        "is-invalid":
+                          formik.touched.ReservationTime &&
+                          formik.errors.ReservationTime,
+                      },
+                      {
+                        "is-valid":
+                          formik.touched.ReservationTime &&
+                          !formik.errors.ReservationTime,
+                      }
+                    )}
                   />
                   {formik.touched.ReservationTime &&
                     formik.errors.ReservationTime && (
-                      <div>
-                        <span role="alert" className="text-danger">
+                      <div  className="text-center">
+                        <span role="alert" className="text-danger text-span">
                           {formik.errors.ReservationTime}
                         </span>
                       </div>
@@ -259,20 +266,23 @@ const Reservas = () => {
                     type="number"
                     min={1}
                     max={10}
-                    className={clsx("form-control input-reservation", {
-                      "is-invalid":
-                        formik.touched.People && formik.errors.People,
-                    },{
-                      "is-valid": formik.touched.People &&
-                      !formik.errors.People,
-                    })}
+                    className={clsx(
+                      "form-control input-reservation",
+                      {
+                        "is-invalid":
+                          formik.touched.People && formik.errors.People,
+                      },
+                      {
+                        "is-valid":
+                          formik.touched.People && !formik.errors.People,
+                      }
+                    )}
                   />
                   {formik.touched.People && formik.errors.People && (
-                    <div >
-                      <span role="alert" className="text-danger">
-                          {formik.errors.People}
-                        </span>
-                      
+                    <div  className="text-center">
+                      <span role="alert" className="text-danger text-span">
+                        {formik.errors.People}
+                      </span>
                     </div>
                   )}
                 </Form.Group>
