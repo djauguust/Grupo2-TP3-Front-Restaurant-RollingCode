@@ -8,6 +8,7 @@ const TablaReservas = () =>{
     const [pagina, setPagina] = useState(1);
     const [conteo,setConteo] = useState(0);
     const [reservas10, setReservas10] = useState([]);
+    const [busqueda, setBusqueda] = useState("");
 
     const [act, setAct] = useState(0);
 
@@ -75,6 +76,14 @@ const TablaReservas = () =>{
         <>
             <h2 className="my-3 text-center">Reservas</h2>
             <p style={{ color: '#F0E5D8' }}>{act}</p>
+            <input type="text" 
+                value={busqueda}
+                onChange={(ev)=>{
+                    setBusqueda(ev.target.value);
+                }}
+                placeholder="Buscar fecha"
+                className="my-2"
+            />
             <Table>
                 <thead>
                     <tr>
@@ -87,7 +96,7 @@ const TablaReservas = () =>{
 
                 <tbody>
                     {reservas10.map((reserv) => {
-                        if (reserv.id >=0) {
+                        if (reserv.id >=0 && busqueda=="") {
                             return (
                                 <tr key={reserv.id}>
                                     <td>{reserv.Fecha}</td>
@@ -99,7 +108,21 @@ const TablaReservas = () =>{
                                     </td>
                                 </tr>
                             );
-                        } else {
+                        }
+                        if (busqueda==reserv.Fecha) {
+                            return (
+                                <tr key={reserv.id}>
+                                    <td>{reserv.Fecha}</td>
+                                    <td>{reserv.CantidadDePersonas}</td>
+                                    <td>{reserv.Hora}</td>
+                                    <td>
+                                        <ModalEditar reserva={reserv} url={URL}/>
+                                        <Button className="mx-2" onClick={() => eliminar(reserv.id)}>Eliminar</Button>
+                                    </td>
+                                </tr>
+                            );
+                        }
+                        else {
                             return null; // No renderiza nada si reserv está vacío
                         }
                     })}

@@ -8,6 +8,7 @@ const TablaUsuarios = () =>{
     const [usuarios10, setReservas10] = useState([]);
     const [pagina, setPagina] = useState(1);
     const [conteo,setConteo] = useState(0);
+    const [busqueda, setBusqueda] = useState("");
 
     const [act, setAct] = useState(0);
 
@@ -75,6 +76,14 @@ const TablaUsuarios = () =>{
         <>
             <p style={{ color: '#F0E5D8' }}>{act}</p>
             <h2 className="my-3 text-center">Usuarios</h2>
+            <input type="text" 
+                value={busqueda}
+                onChange={(ev)=>{
+                    setBusqueda(ev.target.value);
+                }}
+                placeholder="Buscar por Nombre, Email o ID"
+                className="my-2"
+            />
             <Table>
                 <thead>
                     <tr>
@@ -89,8 +98,9 @@ const TablaUsuarios = () =>{
 
                 <tbody>
                     {
+                        
                         usuarios10.map((user)=>{
-                            if (user.id >= 0){
+                            if (user.id >= 0 && busqueda==""){
                                 return(
                                     <tr>
                                     <td>{user.id}</td>
@@ -104,6 +114,21 @@ const TablaUsuarios = () =>{
                                     </td>
                                 </tr>
                                 );}
+                                else if (user.Nombre == busqueda || user.Email == busqueda || user.id == busqueda){
+                                    return(
+                                        <tr>
+                                        <td>{user.id}</td>
+                                        <td>{user.Nombre}</td>
+                                        <td>{user.Email}</td>
+                                        <td>{user.Contrasena}</td>
+                                        <td>{user.Rol}</td>
+                                        <td>
+                                            <ModalEditarUsuario usuario={user} url={URL}/>
+                                            <Button onClick={() => eliminar(user.id)} className="mx-2">Eliminar</Button>
+                                        </td>
+                                    </tr>
+                                    );
+                                }
                                 else {
                                     return null;
                                 }

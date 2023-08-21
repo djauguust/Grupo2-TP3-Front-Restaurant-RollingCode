@@ -20,6 +20,8 @@ function ModalEditar(props) {
   const [cantPersonas, setCantPersonas] = useState(props.reserva.CantidadDePersonas);
   const [hora, setHora] = useState(props.reserva.Hora);
 
+  const [busqueda, setBusqueda] = useState("");
+
   const reservaActualizada = {
     id: props.reserva.id,
     Fecha: fecha,
