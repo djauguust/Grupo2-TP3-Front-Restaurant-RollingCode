@@ -11,6 +11,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./reserva.css";
 import Image from "react-bootstrap/Image";
 import axios from "axios";
+import { parse } from "date-fns";
 // import jwt from "jsonwebtoken";
 
 const Reservas = () => {
@@ -40,18 +41,30 @@ const Reservas = () => {
   }, [availableData]);
 
   //Yup
-  const eschema = Yup.object().shape({
+  const validationSchema = Yup.object().shape({
     ReservationDate: Yup.date().required("Fecha es requerida"),
 
-    ReservationTime: Yup.string()
-    .required("La hora es requerida")
-    .test("valid-time", "Hora no valida", function (value){
-      if(!value) return false
-      const parsedTime = parse(value, "HH:mm", new Date())
-      return filterTime(parsedTime)
-    }),
-
-    People: Yup.string().required("La cantidad de personas es requerida"),
+    ReservationTime: Yup.string().required("La hora es requerida")
+    .test(
+      "time-range",
+      "La hora debe ser entre las 11am y las 11pm",
+      (value) => {
+        console.log("Valor recibido en ReservationTime:", value);
+        const formatDate = format(value, "HH:mm", {
+          locale: es,
+        })
+        console.log(formatDate)
+        const parsedTime = parse(value, "HH:mm", new Date());
+        console.log("Parsed Time:", parsedTime);
+        const hours = parsedTime.getHours();
+        console.log("Hours:", hours);
+        return hours >= 11 && hours <= 23;
+      }
+    ),
+    
+    People: Yup.number()
+      .required("La cantidad de personas es requerida")
+      .max(10, "Maximo dos caracteres"),
   });
 
   //Initial Values
@@ -64,12 +77,14 @@ const Reservas = () => {
   //Formik
   const formik = useFormik({
     initialValues,
-    eschema,
+    validationSchema,
     validateOnChange: true,
     validateOnBlur: true,
 
     //Submit
     onSubmit: async (values) => {
+      console.log("Valores que llegan al form de formik: ",values)
+
       try {
         // Guardar los datos editados
         const Reserva = {
@@ -77,6 +92,9 @@ const Reservas = () => {
           Hora: horaFormateada(values.ReservationTime),
           CantidadDePersonas: formik.values.People,
         };
+        console.log("Val formateadod de fecha: ",Reserva.Fecha)
+        console.log("Val formateadod de hora: ",Reserva.Hora)
+        console.log("Val cant de personas: ",Reserva.CantidadDePersonas)
 
         const response = await axios.post("http://localhost:3000/reservas", {
           // reservaOF: userName,
@@ -217,7 +235,9 @@ const Reservas = () => {
                   {formik.touched.ReservationTime &&
                     formik.errors.ReservationTime && (
                       <div className="invalid-feedback">
-                        {formik.errors.ReservationTime}
+                        <span role="alert" className="text-danger">
+                          {formik.errors.ReservationTime}
+                        </span>
                       </div>
                     )}
                 </Form.Group>
