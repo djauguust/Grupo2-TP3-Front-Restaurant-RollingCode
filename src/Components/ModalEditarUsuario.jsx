@@ -6,6 +6,8 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import clsx from 'clsx';
+import Swal from 'sweetalert2'
+
 
 function ModalEditarUsuario(props) {
   const [show, setShow] = useState(false);
@@ -32,11 +34,18 @@ function ModalEditarUsuario(props) {
         `${props.url}/${props.usuario.id}`,
         usuarioActualizado
       );
-      alert('Guardado exitoso');
+      Swal.fire(
+        'Guardado!',
+        'Los cambios han sido guardados!',
+        'success'
+      )
       handleClose();
     } catch (error) {
-      console.error('Error al actualizar el usuario:', error);
-      alert('Error');
+      cSwal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'No se pudieron realizar los cambios'
+      })
     }
   };
 

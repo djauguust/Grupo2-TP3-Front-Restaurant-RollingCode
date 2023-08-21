@@ -5,6 +5,7 @@ import { Form } from 'react-bootstrap';
 import axios from 'axios';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Swal from 'sweetalert2'
 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -35,11 +36,18 @@ function ModalEditar(props) {
         `${props.url}/${props.reserva.id}`,
         reservaActualizada
       );
-      alert('Guardado exitoso');
+      Swal.fire(
+        'Guardado!',
+        'Los cambios han sido guardados!',
+        'success'
+      )
       handleClose();
     } catch (error) {
-      console.error('Error al actualizar la reservación:', error);
-      alert('Error');
+      cSwal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'No se pudieron realizar los cambios'
+      })
     }
   };
 
