@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../../styles/InicioSesion.css";
+import ButtonDefault from "../../components/ButtonDefault";
 import logo from "../../assets/logo.png";
-import { useAuth } from "../../auth/AuthProvider";
 import { Link, Navigate } from "react-router-dom";
 import { Container, Form } from "react-bootstrap";
 import { useFormik } from "formik";
@@ -9,6 +9,7 @@ import * as Yup from "yup";
 import clsx from "clsx";
 import Swal from "sweetalert2";
 import axios from "axios";
+
 
 function InicioSesion() {
   //Url de un back de prueba para que la funcion de logueo quede guardada para cuando usemos el back
@@ -67,12 +68,6 @@ function InicioSesion() {
     },
   });
 
-  //Nose para que sirve xd
-  const auth = useAuth;
-
-  if (auth.isAuthenticated) {
-    return <Navigate to="/dashboard" />;
-  }
 
   return (
     <div className="background-image">
@@ -140,10 +135,15 @@ function InicioSesion() {
                 </div>
               )}
             </Form.Group>
-
-            <button className="btn mt-3 mb-3" type="submit">
+            
+            <ButtonDefault namebtn='ingresar'/>
+            
+            
+             {/* <button className="btn mt-3 mb-3" type="submit">
               Ingresar
-            </button>
+            </button>  */}
+
+            
 
             <div className="mb-3 text-center">
               <Link to={"/Registro"} className="link">

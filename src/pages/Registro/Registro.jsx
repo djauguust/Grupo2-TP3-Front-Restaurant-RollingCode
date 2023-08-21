@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../../styles/InicioSesion.css";
+import ButtonDefault from "../../components/ButtonDefault";
 import logo from "../../assets/logo.png";
-import { useAuth } from "../../auth/AuthProvider";
 import { Link, Navigate } from "react-router-dom";
 import { Container, Form } from "react-bootstrap";
 import { useFormik } from "formik";
@@ -9,6 +9,7 @@ import * as Yup from "yup";
 import clsx from "clsx";
 import Swal from "sweetalert2";
 import axios from "axios";
+
 
 function Registro() {
   const url = import.meta.env.VITE_API_USUARIOS;
@@ -104,12 +105,7 @@ function Registro() {
     },
   });
 
-  const auth = useAuth();
-
-  if (auth.isAuthenticated) {
-    return <Navigate to="/dashboard" />;
-  }
-
+  
   return (
     <div className="background-image">
       <Container className="ubicarCarta mt-4 mb-4">
@@ -229,9 +225,12 @@ function Registro() {
                   )}
               </Form.Group>
 
-              <button className="btn mt-3 mb-3" type="submit">
+              <ButtonDefault namebtn='Crear cuenta'/>
+
+              {/* <button className="btn mt-3 mb-3" type="submit">
                 Crear Cuenta
-              </button>
+              </button> */}
+              
 
               <div className=" text-center mb-3">
                 <Link to={"/Login"} className="link ">
