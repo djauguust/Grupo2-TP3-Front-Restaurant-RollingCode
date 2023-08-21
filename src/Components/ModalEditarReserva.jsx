@@ -3,6 +3,8 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Form } from 'react-bootstrap';
 import axios from 'axios';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -79,28 +81,19 @@ function ModalEditar(props) {
         <Form onSubmit={formik.handleSubmit} noValidate>
           <Modal.Body>
             <Form.Group>
-              <Form.Label>Fecha</Form.Label>
-              <Form.Control
-                type="text"
+              <Form.Label className='mx-1'>Fecha:</Form.Label>
+              <DatePicker
                 name="fecha"
                 id="fecha"
-
+                //selected={Date.parse(fecha)}
                 {...formik.getFieldProps("fecha")}
-                onChange={(ev) => {
-                  formik.handleChange(ev);
-                  setFecha(ev.target.value);
+                onChange={(date) => {
+                  formik.setFieldValue("fecha",date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear());
+                  setFecha(date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear());
+                  onSelect={handleDateSelect}
                 }}
-
-                className={clsx(
-                  'form-control',
-                  {
-                    'is-invalid': formik.touched.fecha && formik.errors.fecha,
-                  },
-                  {
-                    'is-valid': formik.touched.fecha && !formik.errors.fecha,
-                  }
-                )}
               />
+              
               {formik.touched.fecha && formik.errors.fecha && (
                 <div className="text-danger mt-1">
                   <span role="alert">{formik.errors.fecha}</span>

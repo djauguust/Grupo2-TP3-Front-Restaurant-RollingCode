@@ -14,7 +14,6 @@ const CardsReservas = () =>{
         const getReservas = async () =>{
             const respuesta = await axios.get(URL).then((res)=>{
                 setReservas(res.data);
-                console.log(res.data);
             }).catch ((response)=>{
                 switch (response.response.status) {
                     case 404:
@@ -33,8 +32,6 @@ const CardsReservas = () =>{
     // Elimina la reserva
 
     const eliminar = async (id)=>{
-
-        console.log(`${URL}/${id}`)
     
         try {
           const response = await axios.delete(

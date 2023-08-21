@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react"
 import axios from "axios";
-import { Table, Button } from "react-bootstrap";
+import { Table, Button, Alert } from "react-bootstrap";
 import ModalEditar from "./ModalEditarReserva";
 
 const TablaReservas = () =>{
     const [reservas, setReservas] = useState([]);
+    const [pagina, setPagina] = useState(1);
+    const [conteo,setConteo] = useState(0);
+    const [reservas10, setReservas10] = useState([]);
+
+    const [act, setAct] = useState(0);
 
     const URL= import.meta.env.VITE_API_RESERVAS;
 
@@ -12,7 +17,7 @@ const TablaReservas = () =>{
         const getReservas = async () =>{
             const respuesta = await axios.get(URL).then((res)=>{
                 setReservas(res.data);
-                console.log(res.data);
+                
             }).catch ((response)=>{
                 switch (response.response.status) {
                     case 404:
@@ -27,12 +32,33 @@ const TablaReservas = () =>{
         getReservas();
     }, []);
 
+    useEffect(()=>{
+        cargarPagina();
+        
+    });
+
+    const cargarPagina = () => {
+
+        for(let i=0; i<10; i++){
+            if(i==9){
+                setAct(-1);
+            }
+
+            if(reservas.length > (conteo+i) ){
+                reservas10[i]=reservas[conteo+i];
+                if(i==9){
+                    setAct(-10);
+                }
+            } else{
+                reservas10[i]=[null];
+            }
+        }
+        
+    }
 
     // Elimina la reserva
 
     const eliminar = async (id)=>{
-
-        console.log(`${URL}/${id}`)
     
         try {
           const response = await axios.delete(
@@ -48,6 +74,7 @@ const TablaReservas = () =>{
     return(
         <>
             <h2 className="my-3 text-center">Reservas</h2>
+            <p style={{ color: '#F0E5D8' }}>{act}</p>
             <Table>
                 <thead>
                     <tr>
@@ -59,10 +86,10 @@ const TablaReservas = () =>{
                 </thead>
 
                 <tbody>
-                    {
-                        reservas.map((reserv)=>(
-                            <>
-                                <tr>
+                    {reservas10.map((reserv) => {
+                        if (reserv.id >=0) {
+                            return (
+                                <tr key={reserv.id}>
                                     <td>{reserv.Fecha}</td>
                                     <td>{reserv.CantidadDePersonas}</td>
                                     <td>{reserv.Hora}</td>
@@ -71,11 +98,34 @@ const TablaReservas = () =>{
                                         <Button className="mx-2" onClick={() => eliminar(reserv.id)}>Eliminar</Button>
                                     </td>
                                 </tr>
-                            </>
-                        ))
-                    }
+                            );
+                        } else {
+                            return null; // No renderiza nada si reserv está vacío
+                        }
+                    })}
                 </tbody>
+
             </Table>
+            <div>
+                <p>Página: {pagina}</p>
+                <Button
+                    onClick={()=>{
+                        setPagina(pagina+1);
+                        setConteo(conteo+10);
+                        setAct(act+1)
+                    }}
+                >Siguiente página</Button>
+                <Button className="mx-2"
+                    onClick={()=>{
+                        if(pagina!=1){
+                            setPagina(pagina-1);
+                            setConteo(conteo-10);
+                            
+                        }
+                        setAct(act+1)
+                    }}
+                >Anterior</Button>
+            </div>
         </>
     )
 }

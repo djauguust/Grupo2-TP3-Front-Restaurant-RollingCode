@@ -5,6 +5,12 @@ import ModalEditarUsuario from "./ModalEditarUsuario";
 
 const TablaUsuarios = () =>{
     const [usuarios, setUsuarios] = useState([]);
+    const [usuarios10, setReservas10] = useState([]);
+    const [pagina, setPagina] = useState(1);
+    const [conteo,setConteo] = useState(0);
+
+    const [act, setAct] = useState(0);
+
 
     const URL= import.meta.env.VITE_API_USUARIOS;
 
@@ -12,7 +18,6 @@ const TablaUsuarios = () =>{
         const getUsuarios = async () =>{
             const respuesta = await axios.get(URL).then((res)=>{
                 setUsuarios(res.data);
-                console.log(res.data);
             }).catch ((response)=>{
                 switch (response.response.status) {
                     case 404:
@@ -27,11 +32,34 @@ const TablaUsuarios = () =>{
         getUsuarios();
     }, []);
 
+    useEffect(()=>{
+        cargarPagina();
+        
+    });
+
+    const cargarPagina = () => {
+
+        for(let i=0; i<10; i++){
+            if(i==9){
+                setAct(-1);
+            }
+            if(usuarios.length > (conteo+i) ){
+                usuarios10[i]=usuarios[conteo+i];
+                if(i==9){
+                    setAct(-10);
+                }
+
+            } else{
+                usuarios10[i]=[null];
+            }
+        }
+        
+    }
+
     // Elimina la reserva
 
     const eliminar = async (id)=>{
 
-        console.log(`${URL}/${id}`)
     
         try {
           const response = await axios.delete(
@@ -45,6 +73,7 @@ const TablaUsuarios = () =>{
 
     return(
         <>
+            <p style={{ color: '#F0E5D8' }}>{act}</p>
             <h2 className="my-3 text-center">Usuarios</h2>
             <Table>
                 <thead>
@@ -60,9 +89,10 @@ const TablaUsuarios = () =>{
 
                 <tbody>
                     {
-                        usuarios.map((user)=>(
-                            <>
-                                <tr>
+                        usuarios10.map((user)=>{
+                            if (user.id >= 0){
+                                return(
+                                    <tr>
                                     <td>{user.id}</td>
                                     <td>{user.Nombre}</td>
                                     <td>{user.Email}</td>
@@ -73,11 +103,34 @@ const TablaUsuarios = () =>{
                                         <Button onClick={() => eliminar(user.id)} className="mx-2">Eliminar</Button>
                                     </td>
                                 </tr>
-                            </>
-                        ))
-                    }
+                                );}
+                                else {
+                                    return null;
+                                }
+                            
+                        })}
                 </tbody>
             </Table>
+            <div>
+                <p>Página: {pagina}</p>
+                <Button
+                    onClick={()=>{
+                        setPagina(pagina+1);
+                        setConteo(conteo+10);
+                        setAct(act+1)
+                    }}
+                >Siguiente página</Button>
+                <Button className="mx-2"
+                    onClick={()=>{
+                        if(pagina!=1){
+                            setPagina(pagina-1);
+                            setConteo(conteo-10);
+                            
+                        }
+                        setAct(act+1)
+                    }}
+                >Anterior</Button>
+            </div>
         </>
     )
 }

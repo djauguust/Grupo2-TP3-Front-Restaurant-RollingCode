@@ -12,8 +12,11 @@ body {
     width: 70%;
     margin: 2% auto;
     padding: 1% ;
-    background-color: white;
-    border-radius: 30px;
+    background-color: #F0E5D8;
+}
+
+.tablaDiv{
+    background-color: aqua !important;
 }
 
 .cards{

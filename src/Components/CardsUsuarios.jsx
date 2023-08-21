@@ -14,7 +14,6 @@ const CardsUsuarios = () =>{
         const getUsuarios = async () =>{
             const respuesta = await axios.get(URL).then((res)=>{
                 setUsuarios(res.data);
-                console.log(res.data);
             }).catch ((response)=>{
                 switch (response.response.status) {
                     case 404:
@@ -33,7 +32,6 @@ const CardsUsuarios = () =>{
 
     const eliminar = async (id)=>{
 
-        console.log(`${URL}/${id}`)
     
         try {
           const response = await axios.delete(
