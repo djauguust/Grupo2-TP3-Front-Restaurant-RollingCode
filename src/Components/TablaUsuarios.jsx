@@ -98,9 +98,9 @@ const TablaUsuarios = () =>{
 
                 <tbody>
                     {
-                        
+                        busqueda == "" ? 
                         usuarios10.map((user)=>{
-                            if (user.id >= 0 && busqueda==""){
+                            if (user.id >= 0){
                                 return(
                                     <tr>
                                     <td>{user.id}</td>
@@ -114,26 +114,34 @@ const TablaUsuarios = () =>{
                                     </td>
                                 </tr>
                                 );}
-                                else if (user.Nombre == busqueda || user.Email == busqueda || user.id == busqueda){
-                                    return(
-                                        <tr>
-                                        <td>{user.id}</td>
-                                        <td>{user.Nombre}</td>
-                                        <td>{user.Email}</td>
-                                        <td>{user.Contrasena}</td>
-                                        <td>{user.Rol}</td>
-                                        <td>
-                                            <ModalEditarUsuario usuario={user} url={URL}/>
-                                            <Button onClick={() => eliminar(user.id)} className="mx-2">Eliminar</Button>
-                                        </td>
-                                    </tr>
-                                    );
-                                }
+                                
                                 else {
                                     return null;
                                 }
                             
-                        })}
+                        }) :
+                        usuarios.map((user)=>{
+                            if (user.Nombre == busqueda || user.Email == busqueda || user.id == busqueda){
+                                return(
+                                    <tr>
+                                    <td>{user.id}</td>
+                                    <td>{user.Nombre}</td>
+                                    <td>{user.Email}</td>
+                                    <td>{user.Contrasena}</td>
+                                    <td>{user.Rol}</td>
+                                    <td>
+                                        <ModalEditarUsuario usuario={user} url={URL}/>
+                                        <Button onClick={() => eliminar(user.id)} className="mx-2">Eliminar</Button>
+                                    </td>
+                                </tr>
+                                );
+                            }
+                            else {
+                                return null;
+                            }
+                        })
+                    } 
+
                 </tbody>
             </Table>
             <div>

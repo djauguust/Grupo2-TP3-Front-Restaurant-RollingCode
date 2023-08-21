@@ -2,13 +2,13 @@
   "Reservas": [
     {
       "id": "1",
-      "Fecha": "2/7/2023",
+      "Fecha": "21/8/2023",
       "CantidadDePersonas": "3",
       "Hora": "20:00"
     },
     {
       "id": "2",
-      "Fecha": "12/08/2024",
+      "Fecha": "21/8/2023",
       "CantidadDePersonas": "4",
       "Hora": "18:33"
     },
@@ -157,7 +157,7 @@
       "Nombre": "Ana",
       "Email": "ana@example.com",
       "Contrasena": "abcdef",
-      "Rol": "usuario"
+      "Rol": "administrador"
     },
     {
       "id": "2",

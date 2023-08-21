@@ -95,21 +95,10 @@ const TablaReservas = () =>{
                 </thead>
 
                 <tbody>
-                    {reservas10.map((reserv) => {
-                        if (reserv.id >=0 && busqueda=="") {
-                            return (
-                                <tr key={reserv.id}>
-                                    <td>{reserv.Fecha}</td>
-                                    <td>{reserv.CantidadDePersonas}</td>
-                                    <td>{reserv.Hora}</td>
-                                    <td>
-                                        <ModalEditar reserva={reserv} url={URL}/>
-                                        <Button className="mx-2" onClick={() => eliminar(reserv.id)}>Eliminar</Button>
-                                    </td>
-                                </tr>
-                            );
-                        }
-                        if (busqueda==reserv.Fecha) {
+                    {
+                    busqueda == "" ?
+                    reservas10.map((reserv) => {
+                        if (reserv.id >=0) {
                             return (
                                 <tr key={reserv.id}>
                                     <td>{reserv.Fecha}</td>
@@ -125,7 +114,27 @@ const TablaReservas = () =>{
                         else {
                             return null; // No renderiza nada si reserv está vacío
                         }
-                    })}
+                    })
+                    : 
+                    reservas.map((reserv) => {
+                        if (reserv.id >=0 && busqueda==reserv.Fecha) {
+                            return (
+                                <tr>
+                                    <td>{reserv.Fecha}</td>
+                                    <td>{reserv.CantidadDePersonas}</td>
+                                    <td>{reserv.Hora}</td>
+                                    <td>
+                                        <ModalEditar reserva={reserv} url={URL}/>
+                                        <Button className="mx-2" onClick={() => eliminar(reserv.id)}>Eliminar</Button>
+                                    </td>
+                                </tr>
+                            );
+                        }
+                        else {
+                            return null; // No renderiza nada si reserv está vacío
+                        }
+                    })
+                    }
                 </tbody>
 
             </Table>
