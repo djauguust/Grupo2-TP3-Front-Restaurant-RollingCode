@@ -117,6 +117,7 @@ function Registro() {
             <Form onSubmit={formik.handleSubmit} noValidate>
               <Form.Group className="contenedorForm">
                 <Form.Label>Nombre :</Form.Label>
+                
                 <Form.Control
                   type="text"
                   placeholder="Ej: Lucas"
@@ -134,6 +135,7 @@ function Registro() {
                     }
                   )}
                 />
+                
                 {formik.touched.Nombre && formik.errors.Nombre && (
                   <div>
                     <span role="alert" className="text-danger">
@@ -144,6 +146,7 @@ function Registro() {
               </Form.Group>
               <Form.Group className="contenedorForm">
                 <Form.Label>Correo Electrónico </Form.Label>
+                <img src="/src/assets/iconoCorreo.png" alt="Icono de correo electrónico" className="email-icon"/>
                 <Form.Control
                   type="text"
                   placeholder="Ej: lucas@gmail.com"
@@ -158,7 +161,9 @@ function Registro() {
                       "is-valid": formik.touched.Email && !formik.errors.Email,
                     }
                   )}
+                  
                 />
+                
                 {formik.touched.Email && formik.errors.Email && (
                   <div>
                     <span role="alert" className="text-danger">
@@ -166,6 +171,7 @@ function Registro() {
                     </span>
                   </div>
                 )}
+               
               </Form.Group>
               <Form.Group className="contenedorForm">
                 <Form.Label>Contrasña </Form.Label>
@@ -193,6 +199,7 @@ function Registro() {
                     </span>
                   </div>
                 )}
+                
               </Form.Group>
               <Form.Group className="contenedorForm">
                 <Form.Label>Repite tu contraseña </Form.Label>
