@@ -38,6 +38,13 @@ i18n.use(initReactI18next).init({
         reseña1: "Exceptional Italian dining experience: authentic flavors, impeccable service and welcoming atmosphere. Delight for the senses!",
         reseña2: "A true Italian gem: delicious dishes, charming atmosphere and exceptional service. A must see!",
         reseña3: "The taste of Italy at its best: exquisite dishes, a cozy atmosphere and impeccable service. Incredible.",
+        bienvenido: "Welcome",
+        micuenta: "My Account",
+        misreservas: "My Reservations",
+        configurarcuenta: "Set Up Account",
+        cerrarsesion: "Sign out",
+        nombreusuario: "Username: ",
+        perfil: "My profile"
       },
     },
     es: {
@@ -75,6 +82,13 @@ i18n.use(initReactI18next).init({
         reseña1: "Experiencia gastronómica italiana excepcional: auténticos sabores, servicio impecable y ambiente acogedor. ¡Delicia para los sentidos!",
         reseña2: "Una auténtica joya italiana: deliciosos platos, encantador ambiente y servicio excepcional. ¡Una visita obligada!",
         reseña3: "El sabor de Italia en su máximo esplendor: platos exquisitos, ambiente acogedor y atención impecable. Increíble.",
+        bienvenido: "Bienvenido",
+        micuenta: "Mi Cuenta",
+        misreservas: "Mis Reservas",
+        configurarcuenta: "Configurar Cuenta",
+        cerrarsesion: "Cerrar Sesion",
+        nombreusuario: "Nombre de Usuario: ",
+        perfil: "Ver perfil"
       },
     },
   },

@@ -9,7 +9,7 @@ const Info = ( {theme}) => {
   return (
     <>
       <section className="mt-4 mb-4 text-center">
-        <h3 className="titulo-custom">Don Luigi</h3>
+        <h3 className="titulo-custom">Gusteau's</h3>
         <p>
          {t('descripcion')}
         </p>
