@@ -20,8 +20,10 @@ const Reservas = () => {
   //Token
   // const token = localStorage.getItem("token")
   // const decodeToken = jwt.decode(token)
-  // const user = decodeToken.usuario
-  // const {id,nombre,apellido} = user
+  // const user = decodeToken.id
+
+
+  
 
   //Estado de fecha seleccionada
   const [availableData, setAvailableData] = useState(null);
@@ -44,27 +46,25 @@ const Reservas = () => {
   const validationSchema = Yup.object().shape({
     ReservationDate: Yup.date().required("Fecha es requerida"),
 
-    ReservationTime: Yup.string().required("La hora es requerida")
+    ReservationTime: Yup.date().required("La hora es requerida")
     .test(
-      "time-range",
+      "intervalos",
       "La hora debe ser entre las 11am y las 11pm",
       (value) => {
         console.log("Valor recibido en ReservationTime:", value);
-        const formatDate = format(value, "HH:mm", {
-          locale: es,
-        })
-        console.log(formatDate)
-        const parsedTime = parse(value, "HH:mm", new Date());
-        console.log("Parsed Time:", parsedTime);
-        const hours = parsedTime.getHours();
-        console.log("Hours:", hours);
+  
+        const hours = value.getHours();
+        const minutes = value.getMinutes();
+        console.log("Parsed Hours:", hours);
+        console.log("Parsed Minutes:", minutes);
+  
         return hours >= 11 && hours <= 23;
       }
     ),
     
     People: Yup.number()
       .required("La cantidad de personas es requerida")
-      .max(10, "Maximo dos caracteres"),
+      .max(10, "Maximo diez personas"),
   });
 
   //Initial Values
@@ -194,17 +194,21 @@ const Reservas = () => {
                     dateFormat="dd/MM/yyyy"
                     filterDate={isWeekday}
                     placeholderText="Seleccione una fecha"
-                    required
-                    className={clsx("input-reservation", {
+                    className={clsx("form-control input-reservation", {
                       "is-invalid":
                         formik.touched.ReservationDate &&
                         formik.errors.ReservationDate,
+                    },{
+                      "is-valid": formik.touched.ReservationDate &&
+                      !formik.errors.ReservationDate,
                     })}
                   />
                   {formik.touched.ReservationDate &&
                     formik.errors.ReservationDate && (
-                      <div className="invalid-feedback">
-                        {formik.errors.ReservationDate}
+                      <div >
+                        <span role="alert" className="text-danger">
+                          {formik.errors.ReservationDate}
+                        </span>
                       </div>
                     )}
                 </Form.Group>
@@ -223,18 +227,20 @@ const Reservas = () => {
                     timeCaption="Time"
                     dateFormat="HH:mm"
                     filterTime={filterTime}
-                    required
                     placeholderText="00:00"
                     timeClassName={handleColor}
-                    className={clsx("input-reservation", {
+                    className={clsx("form-control input-reservation", {
                       "is-invalid":
                         formik.touched.ReservationTime &&
                         formik.errors.ReservationTime,
+                    },{
+                      "is-valid": formik.touched.ReservationTime &&
+                      !formik.errors.ReservationTime,
                     })}
                   />
                   {formik.touched.ReservationTime &&
                     formik.errors.ReservationTime && (
-                      <div className="invalid-feedback">
+                      <div>
                         <span role="alert" className="text-danger">
                           {formik.errors.ReservationTime}
                         </span>
@@ -251,17 +257,22 @@ const Reservas = () => {
                       formik.setFieldValue("People", e.target.value)
                     }
                     type="number"
-                    required
                     min={1}
                     max={10}
-                    className={clsx("input-reservation", {
+                    className={clsx("form-control input-reservation", {
                       "is-invalid":
                         formik.touched.People && formik.errors.People,
+                    },{
+                      "is-valid": formik.touched.People &&
+                      !formik.errors.People,
                     })}
                   />
                   {formik.touched.People && formik.errors.People && (
-                    <div className="invalid-feedback">
-                      {formik.errors.People}
+                    <div >
+                      <span role="alert" className="text-danger">
+                          {formik.errors.People}
+                        </span>
+                      
                     </div>
                   )}
                 </Form.Group>
