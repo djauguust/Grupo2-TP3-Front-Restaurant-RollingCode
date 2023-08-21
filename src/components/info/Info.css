@@ -68,7 +68,10 @@ section{
 
 
 @media (max-width: 1000px ){
-    .cartel-custom{
+    .cartel-customclaro{
+        margin: 0 auto;
+    }
+    .cartel-customoscuro{
         margin: 0 auto;
     }
 }
