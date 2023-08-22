@@ -1,18 +1,25 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import Rutas from './routes/rutas'
 
-
+import Footer from "./components/footer/Footer";
+import Header from "./components/navbar/Header";
+import "bootstrap/dist/css/bootstrap.min.css";
+import RoutesNavbar from "./routes/RoutesNavbar";
+import UserContext from "./context/UserContext";
+import "./i18n";
+import { useContext, useState } from "react";
+import { NavbarContext, NavbarContexto } from "./context/NavbarContext.jsx";
 
 function App() {
-  
 
   return (
     <>
-      <Rutas />
+      <NavbarContexto>
+        <UserContext>
+           <Header/> 
+          <RoutesNavbar />
+        </UserContext>
+      </NavbarContexto>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
