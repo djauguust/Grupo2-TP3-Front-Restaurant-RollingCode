@@ -17,12 +17,14 @@
   h3{
     font-size: 27px !important;
   }
+
+.contenedorForm {
+width: 45vh;
+margin-left: 10px;
+}  
   
 }
 
-
-
- 
 /*Estilo para texto error en login*/
 .text-danger{
   max-width: 38vh;
@@ -33,9 +35,7 @@
   max-width: 300px;
 }
 
-
 .background-image {
-
 top: 0;
 left: 0;
 width: 100%;
@@ -59,7 +59,11 @@ background-position: bottom center;
 border-radius: 26px;  
 background-size: cover;
 padding: 0 35px;   
+width: 50vh;
 }
+
+
+
 
 .center {  
 padding: 0 35px;   
@@ -114,9 +118,21 @@ background-position: center;
 background-size: 350%;
 overflow-x: hidden;  
 } 
-  
-.email-icon {
-width: 30px;
-height: 30px;
-margin-left: 10px;
+
+.usuario-icono {
+  width: 40px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.correo-icono {
+  width: 40px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.contraseña-icono {
+  width: 40px;
+  height: auto;
+  margin-right: 10px;
 }

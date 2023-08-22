@@ -116,9 +116,10 @@ function Registro() {
           <div className="section text-center">
             <Form onSubmit={formik.handleSubmit} noValidate>
               <Form.Group className="contenedorForm">
-                <Form.Label>Nombre :</Form.Label>
-                
-                <Form.Control
+                <Form.Label>Nombre</Form.Label>
+                <div className="input-group">
+                <img src="/src/assets/usuario.png" alt="Imagen" className="usuario-icono" />
+                <Form.Control                
                   type="text"
                   placeholder="Ej: Lucas"
                   id="Nombre"
@@ -134,8 +135,9 @@ function Registro() {
                         formik.touched.Nombre && !formik.errors.Nombre,
                     }
                   )}
+                  
                 />
-                
+                </div>
                 {formik.touched.Nombre && formik.errors.Nombre && (
                   <div>
                     <span role="alert" className="text-danger">
@@ -146,7 +148,8 @@ function Registro() {
               </Form.Group>
               <Form.Group className="contenedorForm">
                 <Form.Label>Correo Electrónico </Form.Label>
-                <img src="/src/assets/iconoCorreo.png" alt="Icono de correo electrónico" className="email-icon"/>
+                <div className="input-group">
+                <img src="/src/assets/iconoCorreo.png" alt="Imagen" className="correo-icono" />
                 <Form.Control
                   type="text"
                   placeholder="Ej: lucas@gmail.com"
@@ -163,7 +166,7 @@ function Registro() {
                   )}
                   
                 />
-                
+                </div>
                 {formik.touched.Email && formik.errors.Email && (
                   <div>
                     <span role="alert" className="text-danger">
@@ -174,7 +177,9 @@ function Registro() {
                
               </Form.Group>
               <Form.Group className="contenedorForm">
-                <Form.Label>Contrasña </Form.Label>
+                <Form.Label>Contraseña </Form.Label>
+                <div className="input-group">
+                <img src="/src/assets/contraseña.png" alt="Imagen" className="contraseña-icono" />
                 <Form.Control
                   type="password"
                   placeholder="Ej: Lucas1234"
@@ -192,6 +197,7 @@ function Registro() {
                     }
                   )}
                 />
+                </div>
                 {formik.touched.Contraseña && formik.errors.Contraseña && (
                   <div className="Div-Contraseña">
                     <span role="alert" className="text-danger">
@@ -203,6 +209,8 @@ function Registro() {
               </Form.Group>
               <Form.Group className="contenedorForm">
                 <Form.Label>Repite tu contraseña </Form.Label>
+                <div className="input-group">
+                <img src="/src/assets/contraseña.png" alt="Imagen" className="contraseña-icono" />
                 <Form.Control
                   type="password"
                   placeholder="Ingresa nuevamente la contraseña"
@@ -222,6 +230,7 @@ function Registro() {
                     }
                   )}
                 />
+                </div>
                 {formik.touched.ConfirmarContraseña &&
                   formik.errors.ConfirmarContraseña && (
                     <div className="Div-Contraseña">
