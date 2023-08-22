@@ -9,6 +9,7 @@ const TablaUsuarios = () =>{
     const [pagina, setPagina] = useState(1);
     const [conteo,setConteo] = useState(0);
     const [busqueda, setBusqueda] = useState("");
+    const [habBoton, setHabBoton]= useState(true);
 
     const [act, setAct] = useState(0);
 
@@ -148,17 +149,26 @@ const TablaUsuarios = () =>{
                 <p>Página: {pagina}</p>
                 <Button
                     onClick={()=>{
-                        setPagina(pagina+1);
-                        setConteo(conteo+10);
-                        setAct(act+1)
+                        if(habBoton==true){
+                            if(conteo+10 >= usuarios.length){
+                                setHabBoton(false);
+                            } else {
+
+                                setPagina(pagina+1);
+                                setConteo(conteo+10);
+                                setAct(act+1)
+                            }
+                        }
                     }}
-                >Siguiente página</Button>
+                    >Siguiente página</Button>
                 <Button className="mx-2"
                     onClick={()=>{
                         if(pagina!=1){
                             setPagina(pagina-1);
                             setConteo(conteo-10);
-                            
+                            if (habBoton==false){
+                                setHabBoton(true);
+                            }
                         }
                         setAct(act+1)
                     }}

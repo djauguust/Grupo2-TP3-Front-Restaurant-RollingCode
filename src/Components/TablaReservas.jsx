@@ -9,6 +9,7 @@ const TablaReservas = () =>{
     const [conteo,setConteo] = useState(0);
     const [reservas10, setReservas10] = useState([]);
     const [busqueda, setBusqueda] = useState("");
+    const [habBoton, setHabBoton]= useState(true);
 
     const [act, setAct] = useState(0);
 
@@ -142,9 +143,16 @@ const TablaReservas = () =>{
                 <p>Página: {pagina}</p>
                 <Button
                     onClick={()=>{
-                        setPagina(pagina+1);
-                        setConteo(conteo+10);
-                        setAct(act+1)
+                        if(habBoton==true){
+                            if(conteo+10 >= reservas.length){
+                                setHabBoton(false);
+                            } else {
+
+                                setPagina(pagina+1);
+                                setConteo(conteo+10);
+                                setAct(act+1)
+                            }
+                        }
                     }}
                 >Siguiente página</Button>
                 <Button className="mx-2"
@@ -152,7 +160,9 @@ const TablaReservas = () =>{
                         if(pagina!=1){
                             setPagina(pagina-1);
                             setConteo(conteo-10);
-                            
+                            if (habBoton==false){
+                                setHabBoton(true);
+                            }
                         }
                         setAct(act+1)
                     }}

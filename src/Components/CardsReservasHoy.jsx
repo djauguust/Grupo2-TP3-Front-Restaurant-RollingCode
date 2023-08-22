@@ -86,10 +86,7 @@ const CardsReservasHoy = () =>{
                                   </Card>
                                 </>
                               );
-                            } else {
-
-                            }
-                            
+                            } 
                             })
                     }
                     </div>

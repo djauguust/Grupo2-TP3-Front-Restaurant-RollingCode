@@ -100,7 +100,6 @@ function ModalEditar(props) {
                 onChange={(date) => {
                   formik.setFieldValue("fecha",date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear());
                   setFecha(date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear());
-                  onSelect={handleDateSelect}
                 }}
               />
               
