@@ -85,6 +85,8 @@ function InicioSesion() {
           <Form onSubmit={formik.handleSubmit} noValidate>
             <Form.Group className="contenedorForm">
               <Form.Label>Ingresa tu correo electronico :</Form.Label>
+              <div className="input-group">
+                <img src="/src/assets/iconoCorreo.png" alt="Imagen" className="correo-icono" />
               <Form.Control
                 type="text"
                 placeholder="Ej: Lucas@gmail.com"
@@ -100,6 +102,7 @@ function InicioSesion() {
                   }
                 )}
               />
+              </div>
               {formik.touched.Email && formik.errors.Email && (
                 <div>
                   <span role="alert" className="text-danger">
@@ -110,6 +113,8 @@ function InicioSesion() {
             </Form.Group>
             <Form.Group className="contenedorForm">
               <Form.Label>Ingresa tu contraseña :</Form.Label>
+              <div className="input-group">
+                <img src="/src/assets/contraseña.png" alt="Imagen" className="contraseña-icono" />
               <Form.Control
                 type="password"
                 placeholder="Ej: Lucas1234"
@@ -127,6 +132,7 @@ function InicioSesion() {
                   }
                 )}
               />
+              </div>
               {formik.touched.Contraseña && formik.errors.Contraseña && (
                 <div>
                   <span role="alert" className="text-danger">
