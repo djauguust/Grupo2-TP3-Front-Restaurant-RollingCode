@@ -18,6 +18,22 @@
     font-size: 27px !important;
   }
 
+  /* Resolución para Pantallas de Celulares */  
+@media (max-width: 767px) {
+    .correo-icono,
+    .contraseña-icono,
+    .usuario-icono {
+      display: none;
+    }
+    .Carta{
+      width: 100% !important;
+   }
+   .contenedorForm{
+    width: auto !important;
+   }
+}
+
+  
 .contenedorForm {
 width: 45vh;
 margin-left: 10px;

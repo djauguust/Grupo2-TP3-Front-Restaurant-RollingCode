@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router";
 import PaginaPrincipal from "../Pages/PaginaPrincipal/PaginaPrincipal";
-import ACercaDeNosotros from "../pages/ACercaDeNosotros";
+import ACercaDeNosotros from "../Pages/a-cerca-de-nosotros/ACercaDeNosotros"
 import Contacto from "../Pages/Contacto/Contacto"
 import Reservas from "../pages/Reservas";
 import Galeria from "../components/galeria/Galeria";
