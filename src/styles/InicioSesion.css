@@ -1,0 +1,138 @@
+/*Resolución para Pantallas de Celulares */
+@media (max-width: 767px) {
+  .Carta{
+      padding: 0 !important;
+  }
+  .form-control{
+      width: auto ;
+  }
+  .contenedorForm{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+  .Div-Contraseña{
+    max-width: 228px !important;
+  }
+  h3{
+    font-size: 27px !important;
+  }
+
+.contenedorForm {
+width: 45vh;
+margin-left: 10px;
+}  
+  
+}
+
+/*Estilo para texto error en login*/
+.text-danger{
+  max-width: 38vh;
+}
+
+/*Estilo para el texto grande en*/
+.Div-Contraseña{
+  max-width: 300px;
+}
+
+.background-image {
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-image: url(../assets/LoginBackground.jpg);
+background-size: cover;
+background-repeat: no-repeat;
+z-index: -1; 
+
+} 
+
+.ubicarCarta {
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.Carta {
+background-image: url('../assets/LoginBackground2.jpg');
+background-position: bottom center;   
+border-radius: 26px;  
+background-size: cover;
+padding: 0 35px;   
+width: 50vh;
+}
+
+
+
+
+.center {  
+padding: 0 35px;   
+}
+
+p {  
+font-weight: 500;  
+font-size: 14px;  
+line-height: 1.7;  
+}  
+h3 {  
+font-weight: 700; 
+color: #fff; 
+font-size: 30px;
+}  
+
+.logo {
+width: 260px;
+height: 260px;
+margin: 0 auto 1vh;
+filter: opacity(1.9); 
+display: block;
+}
+
+h6 span{  
+padding: 0 20px;  
+text-transform: uppercase;  
+font-weight: 700;
+color: #fff;  
+}  
+
+
+.link {  
+color: #c4c3ca;
+text-decoration: none; 
+ 
+}  
+.link:hover {  
+color: #ffeba7;  
+} 
+
+
+body{  
+font-family: 'Poppins', sans-serif;  
+font-weight: 300;  
+font-size: 18px;  
+line-height: 1.7;  
+color: #ffffff;  
+background-color: #1f2029;  
+background-image: url(https://wallpapersmug.com/download/3840x2160/b67e3e/pizza-slices-food.jpg);
+background-position: center;
+background-size: 350%;
+overflow-x: hidden;  
+} 
+
+.usuario-icono {
+  width: 40px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.correo-icono {
+  width: 40px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.contraseña-icono {
+  width: 40px;
+  height: auto;
+  margin-right: 10px;
+}
