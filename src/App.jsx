@@ -15,7 +15,7 @@ function App() {
         <UserContext>
            <Header/> 
           <RoutesNavbar />
-          
+      <Footer/>
         </UserContext>
       </NavbarContexto>
     </>

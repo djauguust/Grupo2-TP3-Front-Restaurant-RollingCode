@@ -1,8 +1,8 @@
 import React from "react";
 import { Route, Routes } from "react-router";
-import PaginaPrincipal from "../pages/PaginaPrincipal";
+import PaginaPrincipal from "../Pages/PaginaPrincipal/PaginaPrincipal";
 import ACercaDeNosotros from "../pages/ACercaDeNosotros";
-import Contacto from "../pages/Contacto";
+import Contacto from "../Pages/Contacto/Contacto"
 import Reservas from "../pages/Reservas";
 import Galeria from "../components/galeria/Galeria";
 import Login from "../pages/Login";

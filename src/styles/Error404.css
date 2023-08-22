@@ -8,6 +8,7 @@
 .Imagen-Fondo{
   background-image: url('https://live.staticflickr.com/65535/53058334730_918066df47_o.jpg'); /* Ruta a tu imagen de fondo */
   background-position: center;
+  margin-top: 22vh;
 }
 
 .Fondo-Oscuro{
