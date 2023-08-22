@@ -15,7 +15,7 @@ const ACercaDeNosotros = () => {
 
       <Container>
         <Row>
-          <Col className="about-col" xs={12} lg={4}>
+          <Col className="about-col" xs={12} md={6} lg={4}>
             <Card
               className="about-card shadow-lg"
             >
@@ -45,7 +45,7 @@ const ACercaDeNosotros = () => {
               </Card.Body>
             </Card>
           </Col>
-          <Col className="about-col" xs={12} lg={4}>
+          <Col className="about-col" xs={12} md={6} lg={4}>
             <Card
               
               className="about-card shadow-lg"
@@ -76,7 +76,7 @@ const ACercaDeNosotros = () => {
               </Card.Body>
             </Card>
           </Col>
-          <Col className="about-col" xs={12} lg={4}>
+          <Col className="about-col" xs={12} md={6} lg={4}>
             <Card
              
               className="about-card shadow-lg"
@@ -107,9 +107,7 @@ const ACercaDeNosotros = () => {
               </Card.Body>
             </Card>
           </Col>
-        </Row>
-        <Row>
-          <Col className="about-col" xs={12} lg={4}>
+          <Col className="about-col" xs={12} md={6} lg={4}>
             <Card
              
               className="about-card shadow-lg"
@@ -140,7 +138,7 @@ const ACercaDeNosotros = () => {
               </Card.Body>
             </Card>
           </Col>
-          <Col className="about-col" xs={12} lg={4}>
+          <Col className="about-col" xs={12} md={6} lg={4}>
             <Card
             
               className="about-card shadow-lg"
@@ -171,7 +169,7 @@ const ACercaDeNosotros = () => {
               </Card.Body>
             </Card>
           </Col>
-          <Col className="about-col" xs={12} lg={4}>
+          <Col className="about-col" xs={12} md={6} lg={4}>
             <Card
               className="about-card shadow-lg"
             >
@@ -202,6 +200,7 @@ const ACercaDeNosotros = () => {
             </Card>
           </Col>
         </Row>
+
       </Container>
     </>
   );
