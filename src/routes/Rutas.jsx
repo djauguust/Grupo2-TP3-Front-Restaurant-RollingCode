@@ -6,6 +6,7 @@ import Contacto from "../Pages/Contacto/Contacto"
 import Reservas from "../pages/Reservas";
 import Galeria from "../components/galeria/Galeria";
 import InicioSesion from "../Pages/Login/InicioSesion";
+import Registro from "../Pages/Registro/Registro"
 import Error404 from "../pages/Error404/Error404";
 
 
@@ -19,6 +20,7 @@ const Rutas = () => {
         <Route path="/reservas" element={<Reservas />} />
         <Route path="/galeria" element={<Galeria />} />
         <Route path="/login" element={<InicioSesion />} />
+        <Route path="/registro" element={<Registro />} />
         <Route path='*' element={<Error404 />} />
       </Routes>
     </>
