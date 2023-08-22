@@ -11,6 +11,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./reserva.css";
 import Image from "react-bootstrap/Image";
 import axios from "axios";
+import Swal from "sweetalert2";
 // import jwt from "jsonwebtoken";
 
 const Reservas = () => {
@@ -77,34 +78,51 @@ const Reservas = () => {
     validationSchema,
     validateOnChange: true,
     validateOnBlur: true,
-
+  
     //Submit
     onSubmit: async (values) => {
       console.log("Valores que llegan al form de formik: ", values);
-
+  
       try {
-        // Guardar los datos editados
         const Reserva = {
           Fecha: fechaFormateada(values.ReservationDate),
           Hora: horaFormateada(values.ReservationTime),
           CantidadDePersonas: formik.values.People,
         };
-        console.log("Val formateadod de fecha: ", Reserva.Fecha);
-        console.log("Val formateadod de hora: ", Reserva.Hora);
-        console.log("Val cant de personas: ", Reserva.CantidadDePersonas);
-
-        const response = await axios.post("http://localhost:3000/reservas", {
-          // reservaOF: userName,
-          date: Reserva.Fecha,
-          time: Reserva.Hora,
-          people: Reserva.CantidadDePersonas,
+  
+        //Swal fire para confirmacion de reserva
+        const result = await Swal.fire({
+          title: "Estás por realizar una reserva",
+          text: "¿Estás seguro?",
+          icon: "warning",
+          position:"top",
+          showCancelButton: true,
+          confirmButtonColor: "#B08D59",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Sí, guardar mi reserva!",
         });
-        console.log(response.data);
+  
+        //Post a db
+        if (result.isConfirmed) {
+          const response = await axios.post("http://localhost:3000/reservas", {
+            date: Reserva.Fecha,
+            time: Reserva.Hora,
+            people: Reserva.CantidadDePersonas,
+          });
+  
+          console.log(response.data);
+  
+          Swal.fire("Reserva Guardada", "Tu reserva ha sido guardada exitosamente.", "success");
+        } else {
+          Swal.fire("Reserva Cancelada", "Tu reserva no ha sido guardada.", "info");
+        }
       } catch (error) {
         console.log(error);
+        Swal.fire("Error", "Hubo un problema al guardar la reserva.", "error");
       }
     },
   });
+
 
   //Funcion para formatear fecha
   const fechaFormateada = (date) => {
@@ -179,6 +197,7 @@ const Reservas = () => {
               <Col xs={12} md={3} className="p-0">
                 <Form.Group controlId="date">
                   <DatePicker
+                    onFocus={(e) => e.target.blur()}
                     selected={formik.values.ReservationDate}
                     onChange={(date) => {
                       formik.setFieldValue("ReservationDate", date);
@@ -219,6 +238,7 @@ const Reservas = () => {
               <Col xs={12} md={3} className="p-0">
                 <Form.Group controlId="time">
                   <DatePicker
+                    onFocus={(e) => e.target.blur()}
                     selected={formik.values.ReservationTime}
                     onChange={(time) =>
                       formik.setFieldValue("ReservationTime", time)
@@ -247,7 +267,7 @@ const Reservas = () => {
                   />
                   {formik.touched.ReservationTime &&
                     formik.errors.ReservationTime && (
-                      <div  className="text-center">
+                      <div className="text-center">
                         <span role="alert" className="text-danger text-span">
                           {formik.errors.ReservationTime}
                         </span>
@@ -279,7 +299,7 @@ const Reservas = () => {
                     )}
                   />
                   {formik.touched.People && formik.errors.People && (
-                    <div  className="text-center">
+                    <div className="text-center">
                       <span role="alert" className="text-danger text-span">
                         {formik.errors.People}
                       </span>
