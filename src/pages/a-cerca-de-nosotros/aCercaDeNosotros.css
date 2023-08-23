@@ -7,6 +7,7 @@
 }
 
 .about-card{
+  align-items: center;
   width: 18rem;
   margin-top: 3rem;
   background-color: #f4f5f6;
@@ -20,6 +21,9 @@
   background-color: #B08D59;
 }
 .about-img{
+  margin-top: 20px;
+  width: 80%;
+  height: auto;
   border: white solid;
   transition: 0.5s;
   object-fit: cover;
