@@ -86,7 +86,7 @@ const CardsReservas = () =>{
                     {
                       busqueda == "" ?
                         reservas10.map((reserv)=>(
-                            <Card className="w-100 my-3">
+                            <Card className="w-100 my-3" key={reserv.id}>
                             <Card.Img variant="top" src="https://marketing4ecommerce.co/wp-content/uploads/2018/06/Ahora-puedes-hacer-reservaciones-en-restaurantes-desde-Google-Maps-Colombia-compressor-1280x720.jpg" />
                             <Card.Body>
                               <Card.Title>Reservación</Card.Title>

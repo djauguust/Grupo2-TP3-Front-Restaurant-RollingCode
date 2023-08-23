@@ -86,8 +86,8 @@ const CardsUsuarios = () =>{
                     {
                       busqueda == "" ?
                         usuarios10.map((user)=>(
-                            <>
-                                <Card className="w-100 my-3">
+                          
+                                <Card className="w-100 my-3" key={user.id}>
                             <Card.Img variant="top" src="https://cdn.pixabay.com/photo/2017/07/18/23/23/user-2517433_1280.png" />
                             <Card.Body>
                               <Card.Title>{user.Rol}</Card.Title>
@@ -103,7 +103,7 @@ const CardsUsuarios = () =>{
                                         <Button onClick={() => eliminar(user.id)} className="mx-2">Eliminar</Button>
                             </Card.Body>
                           </Card>
-                            </>
+                          
                         ))
                         :
                         usuarios.map((user)=>{

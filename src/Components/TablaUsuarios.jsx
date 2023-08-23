@@ -103,7 +103,7 @@ const TablaUsuarios = () =>{
                         usuarios10.map((user)=>{
                             if (user.id >= 0){
                                 return(
-                                    <tr>
+                                    <tr key={user.id}>
                                     <td>{user.id}</td>
                                     <td>{user.Nombre}</td>
                                     <td>{user.Email}</td>
@@ -124,7 +124,7 @@ const TablaUsuarios = () =>{
                         usuarios.map((user)=>{
                             if (user.Nombre == busqueda || user.Email == busqueda || user.id == busqueda){
                                 return(
-                                    <tr>
+                                    <tr key={user.id}>
                                     <td>{user.id}</td>
                                     <td>{user.Nombre}</td>
                                     <td>{user.Email}</td>

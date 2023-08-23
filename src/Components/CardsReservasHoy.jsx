@@ -5,6 +5,7 @@ import ModalEditar from "./ModalEditarReserva";
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import style from "./cardsHoy.css";
+import Swal from "sweetalert2";
 
 const CardsReservasHoy = () =>{
     const [reservas, setReservas] = useState([]);
@@ -56,15 +57,34 @@ const CardsReservasHoy = () =>{
         }
       }
 
-      const reservaUsada = async (id) => {
-        try {
-          const response = await axios.patch(`${URL}/${id}`,{
-            FueUsada: true
-          })
-          console.log(response);
-        } catch (error) {
-          console.log(error);
-        }
+      const reservaUsada =(id) => {
+        Swal.fire({
+          title: 'Estas seguro que la reserva fue usada?',
+          text: "No podras revertir este cambio.",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Si, estoy seguro!',
+          cancelButtonText: 'No,me equivoque'
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+          
+            try {
+              const response = await axios.patch(`${URL}/${id}`,{
+                FueUsada: true
+              })
+              console.log(response);
+            } catch (error) {
+              console.log(error);
+            }
+            Swal.fire(
+              'Reserva usada!',
+              'La reserva ya fue marcada como usa exitosamente.',
+              'success'
+            )
+          }
+        })
       }
 
     return(
