@@ -10,8 +10,8 @@ import "./aCercaDeNosotros.css";
 const ACercaDeNosotros = () => {
   return (
     <>
-      <h1>A Cerca De Nosotros</h1>
-      <p>Somos un grupo de programadores que...</p>
+      <h1 className="about-title">A Cerca De Nosotros</h1>
+      <p className="text-center">Somos un grupo de programadores que...</p>
 
       <Container>
         <Row>

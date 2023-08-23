@@ -1,6 +1,11 @@
 
 /*A cerca de nosotros*/
 
+.about-title{
+  margin-top: 150px;
+  text-align: center
+}
+
 .about-card{
   width: 18rem;
   margin-top: 3rem;
