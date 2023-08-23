@@ -7,9 +7,7 @@ const Portero = () =>{
 
     return(
         <>
-            <div className={style.nav}>
-                <Header/>
-            </div>
+        <h1>Portero</h1>
             
             <div className={style.contenedor}>
                 <div className="cards">
@@ -17,7 +15,6 @@ const Portero = () =>{
                 </div>
             </div>
 
-            <Footer/>
         </>
     )
 }

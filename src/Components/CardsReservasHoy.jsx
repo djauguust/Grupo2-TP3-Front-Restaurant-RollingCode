@@ -16,7 +16,6 @@ const CardsReservasHoy = () =>{
         const getReservas = async () =>{
             const respuesta = await axios.get(URL).then((res)=>{
                 setReservas(res.data);
-                console.log(res.data);
             }).catch ((response)=>{
                 switch (response.response.status) {
                     case 404:
@@ -44,7 +43,7 @@ const CardsReservasHoy = () =>{
 
     const eliminar = async (id)=>{
 
-        console.log(`${URL}/${id}`)
+
     
         try {
           const response = await axios.delete(
@@ -57,6 +56,17 @@ const CardsReservasHoy = () =>{
         }
       }
 
+      const reservaUsada = async (id) => {
+        try {
+          const response = await axios.patch(`${URL}/${id}`,{
+            FueUsada: true
+          })
+          console.log(response);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
     return(
         <>
             <h1 className="mt-5 text-center text-light">Reservas</h1>
@@ -64,12 +74,12 @@ const CardsReservasHoy = () =>{
                     {
                         reservas.map((reserv)=>{
 
-                          console.log("fecha", reserv.Fecha)
-                          console.log(fechaHoy, "la de hoy");
+
+
                             if(reserv.Fecha==fechaHoy){
                               return(
-                                <>
-                                  <Card className="caja">
+                                
+                                  <Card className="caja" key={reserv.id}>
                                     <Card.Img variant="top" src="https://marketing4ecommerce.co/wp-content/uploads/2018/06/Ahora-puedes-hacer-reservaciones-en-restaurantes-desde-Google-Maps-Colombia-compressor-1280x720.jpg" />
                                     <Card.Body>
                                       <Card.Title>Reservación</Card.Title>
@@ -80,11 +90,11 @@ const CardsReservasHoy = () =>{
                                       <ListGroup.Item>Hora: {reserv.Hora}</ListGroup.Item>
                                     </ListGroup>
                                     <Card.Body>
-                                    <ModalEditar reserva={reserv} url={URL}/>
+                                    <Button className="mx-2" onClick={() => reservaUsada(reserv.id)}>Reserva Usada</Button>
                                     <Button className="mx-2" onClick={() => eliminar(reserv.id)}>Eliminar</Button>
                                     </Card.Body>
                                   </Card>
-                                </>
+                                
                               );
                             } 
                             })
