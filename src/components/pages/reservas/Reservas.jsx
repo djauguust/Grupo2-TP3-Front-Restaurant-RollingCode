@@ -23,13 +23,13 @@ const Reservas = () => {
   // const user = decodeToken.id
 
   //Estado de fecha seleccionada
-  const [availableData, setAvailableData] = useState(null);
+  const [availableDate, setAvailableDate] = useState(null);
 
   //Get para solicitar si una fecha esta disponible o no
   useEffect(() => {
-    if (availableData) {
+    if (availableDate) {
       axios
-        .get(` http://localhost:3000/reservas?date=${availableData}`)
+        .get(` http://localhost:3000/reservas?fecha=${availableDate}`)
         .then((response) => {
           console.log("Datos disponibles: ", response);
         })
@@ -37,7 +37,7 @@ const Reservas = () => {
           console.log("Error :", error);
         });
     }
-  }, [availableData]);
+  }, [availableDate]);
 
   //Yup
   const validationSchema = Yup.object().shape({
@@ -87,7 +87,7 @@ const Reservas = () => {
         const Reserva = {
           Fecha: fechaFormateada(values.ReservationDate),
           Hora: horaFormateada(values.ReservationTime),
-          CantidadDePersonas: formik.values.People,
+          CantidadDePersonas: parseInt(formik.values.People),
         };
   
         //Swal fire para confirmacion de reserva
@@ -105,9 +105,10 @@ const Reservas = () => {
         //Post a db
         if (result.isConfirmed) {
           const response = await axios.post("http://localhost:3000/reservas", {
-            date: Reserva.Fecha,
-            time: Reserva.Hora,
-            people: Reserva.CantidadDePersonas,
+            fecha: Reserva.Fecha,
+            hora: Reserva.Hora,
+            comensales: Reserva.CantidadDePersonas,
+            // usuario: user.nombre
           });
   
           console.log(response.data);
@@ -133,7 +134,7 @@ const Reservas = () => {
 
   //Funcion para formatear hora
   const horaFormateada = (time) => {
-    return format(time, "HHmm", {
+    return format(time, "HH:mm", {
       locale: es,
     });
   };
@@ -202,7 +203,7 @@ const Reservas = () => {
                     onChange={(date) => {
                       formik.setFieldValue("ReservationDate", date);
                       if (date) {
-                        setAvailableData(fechaFormateada(date));
+                        setAvailableDate(fechaFormateada(date));
                       }
                     }}
                     minDate={filterMinDay()}
@@ -245,7 +246,7 @@ const Reservas = () => {
                     }
                     showTimeSelect
                     showTimeSelectOnly
-                    timeIntervals={60}
+                    timeIntervals={30}
                     timeCaption="Time"
                     dateFormat="HH:mm"
                     filterTime={filterTime}
