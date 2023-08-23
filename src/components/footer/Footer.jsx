@@ -5,7 +5,6 @@ import "./Footer.css";
 
 const Footer = ({theme}) => {
 
-  console.log("theme en footer",theme)
   return (
     <>
       <Container fluid className={`footer${theme}`}>
