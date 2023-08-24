@@ -165,10 +165,7 @@ const Reservas = () => {
   };
 
   //Funcion para que los domingos esten deshabilitados
-  const isWeekday = (date) => {
-    const day = getDay(date);
-    return day !== 0;
-  };
+
 
   //Funcion para que el usuario no pueda elegir fechas de dias anteriores o del mismo dia
   const filterMinDay = () => {
@@ -236,7 +233,6 @@ const Reservas = () => {
                     minDate={filterMinDay()}
                     maxDate={filterMaxDay()}
                     dateFormat="dd/MM/yyyy"
-                    filterDate={isWeekday}
                     placeholderText="Elige una fecha"
                     className={clsx(
                       "form-control input-reservation",
