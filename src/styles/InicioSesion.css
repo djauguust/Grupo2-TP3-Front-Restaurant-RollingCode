@@ -1,56 +1,52 @@
-/*Resolución para Pantallas de Celulares */
-@media (max-width: 767px) {
-  .Carta{
-      padding: 0 !important;
-  }
-  .form-control{
-      width: auto ;
-  }
-  .contenedorForm{
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-  }
-  .Div-Contraseña{
-    max-width: 228px !important;
-  }
-  h3{
-    font-size: 27px !important;
-  }
+  
 
   /* Resolución para Pantallas de Celulares */  
 @media (max-width: 767px) {
-    .correo-icono,
-    .contraseña-icono,
-    .usuario-icono {
-      display: none;
-    }
     .Carta{
       width: 100% !important;
    }
    .contenedorForm{
     width: auto !important;
    }
+   .Div-Contraseña{
+    max-width: auto;
+   }
+   .Carta{
+    padding: 0 !important;
 }
+.form-control{
+    width: auto ;
+}
+.contenedorForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+h3{
+  font-size: 27px !important;
+}
+}
+
+/* Resolución para Pantallas de Tablet */
+@media (min-width: 768px) and (max-width: 912px) {
+  
+  
+}  
 
   
 .contenedorForm {
 width: 45vh;
 margin-left: 10px;
-
+display: flex;
+flex-direction: column;
+align-items: center;
 }  
   
-}
-
 /*Estilo para texto error en login*/
 .text-danger{
   max-width: 38vh;
 }
 
-/*Estilo para el texto grande en*/
-.Div-Contraseña{
-  max-width: 300px;
-}
 
 .background-image {
 margin-top: 17vh;
@@ -76,8 +72,7 @@ background-image: url('../assets/LoginBackground2.jpg');
 background-position: bottom center;   
 border-radius: 26px;  
 background-size: cover;
-padding: 0 35px;   
-width: 50vh;
+padding: 0 35px;  
 }
 
 
@@ -87,13 +82,7 @@ width: 50vh;
 padding: 0 35px;   
 }
 
-/* p {  
-font-weight: 500;  
-font-size: 14px;  
-line-height: 1.7;  
-}  
 
-*/
 h3 {  
 font-weight: 700; 
 color: #fff; 
@@ -164,4 +153,11 @@ overflow-x: hidden;
 
 .label-color {
 color: #ffffff;
+}
+
+.Contenedor-Error{
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo con opacidad */
+  width: fit-content;
+  padding: 1vh;
+
 }

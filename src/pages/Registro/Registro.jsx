@@ -10,9 +10,8 @@ import clsx from "clsx";
 import Swal from "sweetalert2";
 import axios from "axios";
 
-
 function Registro() {
-  const url = import.meta.env.VITE_API_USUARIOS;
+  const url = import.meta.env.VITE_API;
 
   //Expresiones para validar
   const soloLetras = /^[a-zA-Z ]+$/;
@@ -74,25 +73,30 @@ function Registro() {
           cancelButtonText: "No, quiero cambiar algo",
         }).then(async (result) => {
           if (result.isConfirmed) {
-            Swal.fire(
-              "Usuario credo con exito",
-              "Tus datos ya fueron ingresados exitosamente",
-              "success"
-            );
             //Guarda los valores del formulario
             const Usuario = {
-              Nombre: values.Nombre,
-              Email: values.Email,
-              Contraseña: values.Contraseña,
+              nombre: values.Nombre,
+              email: values.Email,
+              contrasenia: values.Contraseña,
             };
 
             axios
-              .post(url, Usuario)
+              .post(`${url}/usuarios/`, Usuario)
               .then((response) => {
                 console.log("Usuario creado con exito");
+                Swal.fire(
+                  "Usuario credo con exito",
+                  "Tus datos ya fueron ingresados exitosamente",
+                  "success"
+                );
               })
               .catch((error) => {
-                console.error("Error al cargar el usuario");
+                Swal.fire(
+                  "No se pudo crear el usuario",
+                  " ",
+                  "warning"
+                );
+                console.error(error);
               });
 
             console.log(Usuario);
@@ -105,7 +109,6 @@ function Registro() {
     },
   });
 
-  
   return (
     <div className="background-image">
       <Container className="ubicarCarta mt-4 mb-4">
@@ -118,28 +121,31 @@ function Registro() {
               <Form.Group className="contenedorForm">
                 <Form.Label className="label-color">Nombre</Form.Label>
                 <div className="input-group">
-                <img src="/src/assets/usuario.png" alt="Imagen" className="usuario-icono" />
-                <Form.Control                
-                  type="text"
-                  placeholder="Ej: Lucas"
-                  id="Nombre"
-                  {...formik.getFieldProps("Nombre")}
-                  className={clsx(
-                    "form-control",
-                    {
-                      "is-invalid":
-                        formik.touched.Nombre && formik.errors.Nombre,
-                    },
-                    {
-                      "is-valid":
-                        formik.touched.Nombre && !formik.errors.Nombre,
-                    }
-                  )}
-                  
-                />
+                  <img
+                    src="/src/assets/usuario.png"
+                    alt="Imagen"
+                    className="usuario-icono"
+                  />
+                  <Form.Control
+                    type="text"
+                    placeholder="Ej: Lucas"
+                    id="Nombre"
+                    {...formik.getFieldProps("Nombre")}
+                    className={clsx(
+                      "form-control",
+                      {
+                        "is-invalid":
+                          formik.touched.Nombre && formik.errors.Nombre,
+                      },
+                      {
+                        "is-valid":
+                          formik.touched.Nombre && !formik.errors.Nombre,
+                      }
+                    )}
+                  />
                 </div>
                 {formik.touched.Nombre && formik.errors.Nombre && (
-                  <div>
+                  <div className="Contenedor-Error">
                     <span role="alert" className="text-danger">
                       {formik.errors.Nombre}
                     </span>
@@ -147,93 +153,108 @@ function Registro() {
                 )}
               </Form.Group>
               <Form.Group className="contenedorForm">
-                <Form.Label className="label-color">Correo Electrónico </Form.Label>
+                <Form.Label className="label-color">
+                  Correo Electrónico{" "}
+                </Form.Label>
                 <div className="input-group">
-                <img src="/src/assets/iconoCorreo.png" alt="Imagen" className="correo-icono" />
-                <Form.Control
-                  type="text"
-                  placeholder="Ej: lucas@gmail.com"
-                  id="Email"
-                  {...formik.getFieldProps("Email")}
-                  className={clsx(
-                    "form-control",
-                    {
-                      "is-invalid": formik.touched.Email && formik.errors.Email,
-                    },
-                    {
-                      "is-valid": formik.touched.Email && !formik.errors.Email,
-                    }
-                  )}
-                  
-                />
+                  <img
+                    src="/src/assets/iconoCorreo.png"
+                    alt="Imagen"
+                    className="correo-icono"
+                  />
+                  <Form.Control
+                    type="text"
+                    placeholder="Ej: lucas@gmail.com"
+                    id="Email"
+                    {...formik.getFieldProps("Email")}
+                    className={clsx(
+                      "form-control",
+                      {
+                        "is-invalid":
+                          formik.touched.Email && formik.errors.Email,
+                      },
+                      {
+                        "is-valid":
+                          formik.touched.Email && !formik.errors.Email,
+                      }
+                    )}
+                  />
                 </div>
                 {formik.touched.Email && formik.errors.Email && (
-                  <div>
+                  <div className="Contenedor-Error">
                     <span role="alert" className="text-danger">
                       {formik.errors.Email}
                     </span>
                   </div>
                 )}
-               
               </Form.Group>
               <Form.Group className="contenedorForm">
                 <Form.Label className="label-color">Contraseña </Form.Label>
                 <div className="input-group">
-                <img src="/src/assets/contraseña.png" alt="Imagen" className="contraseña-icono" />
-                <Form.Control
-                  type="password"
-                  placeholder="Ej: Lucas1234"
-                  id="Contraseña"
-                  {...formik.getFieldProps("Contraseña")}
-                  className={clsx(
-                    "form-control",
-                    {
-                      "is-invalid":
-                        formik.touched.Contraseña && formik.errors.Contraseña,
-                    },
-                    {
-                      "is-valid":
-                        formik.touched.Contraseña && formik.errors.Contraseña,
-                    }
-                  )}
-                />
+                  <img
+                    src="/src/assets/contraseña.png"
+                    alt="Imagen"
+                    className="contraseña-icono"
+                  />
+                  <Form.Control
+                    type="password"
+                    placeholder="Ej: Lucas1234"
+                    id="Contraseña"
+                    {...formik.getFieldProps("Contraseña")}
+                    className={clsx(
+                      "form-control",
+                      {
+                        "is-invalid":
+                          formik.touched.Contraseña && formik.errors.Contraseña,
+                      },
+                      {
+                        "is-valid":
+                          formik.touched.Contraseña && formik.errors.Contraseña,
+                      }
+                    )}
+                  />
                 </div>
                 {formik.touched.Contraseña && formik.errors.Contraseña && (
-                  <div className="Div-Contraseña">
+                  <div className="Contenedor-Error">
                     <span role="alert" className="text-danger">
                       {formik.errors.Contraseña}
                     </span>
                   </div>
                 )}
-                
               </Form.Group>
               <Form.Group className="contenedorForm">
-                <Form.Label className="label-color">Repite tu contraseña </Form.Label>
+                <Form.Label className="label-color">
+                  Repite tu contraseña{" "}
+                </Form.Label>
                 <div className="input-group">
-                <img src="/src/assets/contraseña.png" alt="Imagen" className="contraseña-icono" />
-                <Form.Control
-                  type="password"
-                  placeholder="Ingresa nuevamente la contraseña"
-                  id="ConfirmarContraseña"
-                  {...formik.getFieldProps("ConfirmarContraseña")}
-                  className={clsx(
-                    "form-control",
-                    {
-                      "is-invalid":
-                        formik.touched.ConfirmarContraseña &&
-                        formik.errors.ConfirmarContraseña,
-                    },
-                    {
-                      "is-valid":
-                        formik.touched.ConfirmarContraseña &&
-                        !formik.errors.ConfirmarContraseña,
-                    }
-                  )}
-                />
+                  <img
+                    src="/src/assets/contraseña.png"
+                    alt="Imagen"
+                    className="contraseña-icono"
+                  />
+                  <Form.Control
+                    type="password"
+                    placeholder="Ingresa nuevamente la contraseña"
+                    id="ConfirmarContraseña"
+                    {...formik.getFieldProps("ConfirmarContraseña")}
+                    className={clsx(
+                      "form-control",
+                      {
+                        "is-invalid":
+                          formik.touched.ConfirmarContraseña &&
+                          formik.errors.ConfirmarContraseña,
+                      },
+                      {
+                        "is-valid":
+                          formik.touched.ConfirmarContraseña &&
+                          !formik.errors.ConfirmarContraseña,
+                      }
+                    )}
+                  />
                 </div>
                 {formik.touched.ConfirmarContraseña &&
                   formik.errors.ConfirmarContraseña && (
-                    <div className="Div-Contraseña">
+                    <div className="Contenedor-Error">
                       <span role="alert" className="text-danger">
                         {formik.errors.ConfirmarContraseña}
                       </span>
@@ -241,9 +262,8 @@ function Registro() {
                   )}
               </Form.Group>
 
-              <ButtonDefault namebtn='Crear cuenta'/>
+              <ButtonDefault namebtn="Crear cuenta" />
 
-              
               <div className=" text-center mb-3">
                 <Link to={"/Login"} className="link ">
                   Ya tienes una cuenta? Inicia Sesion!
