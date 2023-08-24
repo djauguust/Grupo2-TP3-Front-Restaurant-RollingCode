@@ -177,7 +177,7 @@ function InicioSesion() {
           <br />
 
           {/* Botón link 'olvidaste tu contrasenia' */}
-          <div className="mb-3 text-center">
+           <div className="mb-3 text-center">
             <ButtonDefault
               namebtn="registrarse"
               funcion={MandarARegistro}
