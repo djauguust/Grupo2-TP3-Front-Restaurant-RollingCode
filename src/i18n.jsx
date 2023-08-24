@@ -16,7 +16,7 @@ i18n.use(initReactI18next).init({
         descripcion:
           "Welcome to our sophisticated Italian corner in the heart of Puerto Madero, Buenos Aires. In our restaurant, you will delight your senses with an authentic Italian gastronomic experience. Discover the diversity of flavors we offer, from exquisite pastas and artisan pizzas to select wines and delicious desserts. Our cozy modern atmosphere invites you to enjoy unforgettable moments with your loved ones. Immerse yourself in the culinary culture of Italy and let yourself be captivated by our unique and distinguished flavor!",
         informacion: "Info",
-        dias: "Everyday",
+        dias: "Tuesday to Sunday",
         direccion: "Address",
         pastas: "Pasta",
         pizzas: "Pizza",
@@ -44,9 +44,7 @@ i18n.use(initReactI18next).init({
         configurarcuenta: "Set Up Account",
         cerrarsesion: "Sign out",
         nombreusuario: "Username: ",
-        perfil: "My profile",
-        ingles: "English",
-        español: "Spanish"
+        perfil: "My profile"
       },
     },
     es: {
@@ -62,7 +60,7 @@ i18n.use(initReactI18next).init({
         descripcion:
           "Bienvenido a nuestro sofisticado rincón italiano en el corazón de Puerto Madero, Buenos Aires. En nuestro restaurante, deleitarás tus sentidos con una auténtica experiencia gastronómica italiana. Descubre la diversidad de sabores que ofrecemos, desde exquisitas pastas y pizzas artesanales hasta selectos vinos y deliciosos postres. Nuestro acogedor ambiente moderno te invita a disfrutar de momentos inolvidables con tus seres queridos. ¡Sumérgete en la cultura culinaria de Italia y déjate cautivar por nuestro sabor único y distinguido",
         informacion: "Informacion",
-        dias: "Todos los dias",
+        dias: "Martes a Domingo",
         direccion: "Direccion",
         pastas: "Pastas",
         pizzas: "Pizzas",
@@ -90,9 +88,7 @@ i18n.use(initReactI18next).init({
         configurarcuenta: "Configurar Cuenta",
         cerrarsesion: "Cerrar Sesion",
         nombreusuario: "Nombre de Usuario: ",
-        perfil: "Ver perfil",
-        ingles: "Ingles",
-        español: "Español"
+        perfil: "Ver perfil"
       },
     },
   },

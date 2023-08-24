@@ -10,7 +10,6 @@ const Footer = () => {
   const {theme} = useContext(NavbarContext)
 
 
-  console.log("theme en footer",theme)
   return (
     <>
       <Container fluid className={`footer${theme}`}>
