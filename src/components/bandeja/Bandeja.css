@@ -1,0 +1,22 @@
+.titulo-bandeja{
+  color: black;
+  margin-top: 150px;
+}
+
+.custom-backdrop {
+  background-color: transparent
+}
+
+.modal-custom .modal-dialog {
+  max-width: 90%; 
+}
+
+.modal-custom .modal-body {
+height: 100%;
+overflow-y: auto; 
+}
+
+.modal-custom{
+  z-index: 99999;
+  margin-top: 100px;
+}

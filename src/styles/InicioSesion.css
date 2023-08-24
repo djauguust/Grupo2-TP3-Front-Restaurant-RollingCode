@@ -1,0 +1,207 @@
+  
+
+  /* Resolución para Pantallas de Celulares */  
+@media (max-width: 767px) {
+    .Carta{
+      width: 100% !important;
+   }
+   .contenedorForm{
+    width: auto !important;
+   }
+   .Div-Contraseña{
+    max-width: auto;
+   }
+   .Carta{
+    padding: 0 !important;
+}
+.form-control{
+    width: auto ;
+}
+.contenedorForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+h3{
+  font-size: 27px !important;
+}
+}
+
+/* Resolución para Pantallas de Tablet */
+@media (min-width: 768px) and (max-width: 912px) {
+  
+  
+}  
+
+  
+.contenedorForm {
+width: 45vh;
+margin-left: 10px;
+display: flex;
+flex-direction: column;
+align-items: center;
+}  
+  
+/*Estilo para texto error en login*/
+.text-danger{
+  max-width: 38vh;
+}
+
+
+.background-image {
+margin-top: 12vh;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-image: url(../assets/LoginBackground.jpg);
+background-size: cover;
+background-repeat: no-repeat;
+z-index: -1; 
+
+} 
+
+.ubicarCarta {
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.Carta {
+  
+background-image: url('../assets/LoginBackground2.jpg');
+background-position: bottom center;   
+border-radius: 26px;  
+background-size: cover;
+padding: 0 35px;  
+margin-top: 5vh;
+margin-bottom: 5vh;
+}
+
+
+
+
+
+.center {  
+padding: 0 35px;   
+}
+
+
+h3 {  
+font-weight: 700; 
+color: #fff; 
+font-size: 30px;
+}   
+
+.logo {
+width: 260px;
+height: 260px;
+margin: 0 auto 1vh;
+filter: opacity(1.9); 
+display: block;
+}
+
+h6 span{  
+padding: 0 20px;  
+text-transform: uppercase;  
+font-weight: 700;
+color: #fff;  
+}  
+
+
+.link {  
+color: #c4c3ca;
+text-decoration: none; 
+ 
+}  
+
+.link:hover {  
+color: #ffeba7;  
+} 
+
+
+body{  
+font-family: 'Poppins', sans-serif;  
+font-weight: 300;  
+font-size: 18px;  
+line-height: 1.7;  
+color: #ffffff;  
+background-color: #1f2029;  
+
+background-position: center;
+background-size: 350%;
+overflow-x: hidden;  
+} 
+
+.usuario-icono {
+  width: 40px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.correo-icono {
+  width: 40px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.contraseña-icono {
+  width: 40px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.text-after-input {
+  color: #fff;
+}
+
+.label-color {
+color: #ffffff;
+}
+
+.Contenedor-Error{
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo con opacidad */
+  width: fit-content;
+  padding: 1vh;
+
+}
+
+.Contenedor-Error {
+position: relative;  
+width: 27vh;
+height: 4vh;
+top: -8vh;
+left: 24px;
+/* background-color: #ffb4a7; */
+background-color: #dfd5ce;
+
+
+
+}
+
+.Contenedor-Error2 {
+  position: relative;  
+  width: 27vh;
+  height: 4vh;
+  top: -8vh;
+  left: 24px;
+  /* background-color: #ffb4a7; */
+  background-color: #dfd5ce;
+  
+  
+  
+  }
+
+@media (max-width: 390px) {
+.Contenedor-Error {
+  position: relative;  
+  width: 36vh;
+  height: 5vh;
+  top: -9vh;
+  left: 24px;
+  /* background-color: #ffb4a7; */
+  background-color: #dfd5ce;
+  
+ }
+
+}
