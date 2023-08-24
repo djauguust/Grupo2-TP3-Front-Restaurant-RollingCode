@@ -5,8 +5,11 @@ import { Button } from "react-bootstrap"
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import clsx from "clsx";
+import { useTranslation } from "react-i18next";
 
 const Formulario = () =>{
+
+    const {t} = useTranslation();
 
     // Esquema
     const SingUpSchema = Yup.object().shape({
@@ -47,14 +50,14 @@ const Formulario = () =>{
     return(
 
         <>
-            <h3 className="mb-5 text-center">Completa el formulario y lo contactaremos a la brevedad</h3>
+            <h3 className="mb-5 text-center">{t('completa')}</h3>
             <Form onSubmit={formik.handleSubmit} noValidate>
 
             <Form.Group className="mb-3">
-                    <Form.Label htmlFor="nombre">Nombre completo</Form.Label>
+                    <Form.Label htmlFor="nombre">{t('nombreCompleto')}</Form.Label>
                     <Form.Control
                          type="text"
-                         placeholder="Introduce tu nombre"
+                         placeholder={t('introduce')}
                          required
                          minLength={8}
                          maxLength={35}
@@ -77,7 +80,7 @@ const Formulario = () =>{
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                    <Form.Label htmlFor="email">Correo electrónico</Form.Label>
+                    <Form.Label htmlFor="email">{t('email')}</Form.Label>
                     <Form.Control
                         type="email"
                         placeholder="ejemplo@gmail.com"
@@ -104,11 +107,11 @@ const Formulario = () =>{
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                    <Form.Label htmlFor="mensaje">Mensaje</Form.Label>
+                    <Form.Label htmlFor="mensaje">{t('mensaje')}</Form.Label>
                     <Form.Control
                         as="textarea"
                         rows={5}
-                        placeholder="Motivo de contacto"
+                        placeholder={t('motivo')}
                         required
                         minLength={50}
                         maxLength={1000}
@@ -132,7 +135,7 @@ const Formulario = () =>{
                 </Form.Group>
 
                 <Button variant="warning" className="w-100 p-2" type="submit">
-                    Enviar
+                    {t('enviar')}
                 </Button>
 
             </Form>

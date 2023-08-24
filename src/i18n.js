@@ -8,7 +8,7 @@ i18n.use(initReactI18next).init({
         inicio: "HOME",
         nosotros: "ABOUT US",
         galeria: "GALLERY",
-        contacto: "CONTACT",
+        contacto: "CONTACT US",
         reserva: "MAKE A RESERVATION",
         login: "Log in",
         ubicacion: "Location",
@@ -46,7 +46,15 @@ i18n.use(initReactI18next).init({
         nombreusuario: "Username: ",
         perfil: "My profile",
         ingles: "English",
-        español: "Spanish"
+        español: "Spanish",
+        descripcionContacto: "Your satisfaction is our priority! If you have any questions, concerns or need assistance making a reservation, please do not hesitate to contact us.",
+        completa: "Complete the form and we will contact you shortly",
+        nombreCompleto: "Full Name",
+        email:"Email",
+        enviar: "Send",
+        mensaje: "Message",
+        motivo: "Reason to contact",
+        introduce: "Introduce your name"
       },
     },
     es: {
@@ -92,7 +100,15 @@ i18n.use(initReactI18next).init({
         nombreusuario: "Nombre de Usuario: ",
         perfil: "Ver perfil",
         ingles: "Ingles",
-        español: "Español"
+        español: "Español",
+        descripcionContacto: "¡Tu satisfacción es nuestra prioridad! Si tienes alguna pregunta, inquietud o necesitas asistencia para hacer una reserva, no dudes en contactarnos.",
+        completa: "Completa el formulario y lo contactaremos a la brevedad",
+        nombreCompleto: "Nombre completo",
+        email:"Email",
+        enviar: "Enviar",
+        mensaje: "Mensaje",
+        motivo: "Motivo de contacto",
+        introduce: "Introduce tu nombre"
       },
     },
   },
