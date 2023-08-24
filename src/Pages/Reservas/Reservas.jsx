@@ -12,15 +12,18 @@ import "./reserva.css";
 import Image from "react-bootstrap/Image";
 import axios from "axios";
 import Swal from "sweetalert2";
-// import jwt from "jsonwebtoken";
+import jwt_decode from "jwt-decode"
+
 
 const Reservas = () => {
   let date = new Date();
 
+
   //Token
-  // const token = localStorage.getItem("token")
-  // const decodeToken = jwt.decode(token)
-  // const user = decodeToken.id
+   const token = localStorage.getItem("user")
+   const decode = jwt_decode(token);
+   
+  const Url = import.meta.env.VITE_API
 
   //Estado de fecha seleccionada
   const [dates, setDates] = useState(null);
@@ -149,11 +152,11 @@ const Reservas = () => {
 
         //Post a db
         if (result.isConfirmed) {
-          const response = await axios.post("http://localhost:3000/reservas", {
+          const response = await axios.post(`${Url}/reservas`, {
             fecha: Reserva.Fecha,
             hora: Reserva.Hora,
             comensales: Reserva.CantidadDePersonas,
-            // usuario: user.nombre
+             usuario: decode.id
           });
 
           console.log(response.data);
