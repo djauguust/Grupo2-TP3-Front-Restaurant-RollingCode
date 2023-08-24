@@ -88,7 +88,7 @@ function InicioSesion() {
           )}
           <Form onSubmit={formik.handleSubmit} noValidate>
             <Form.Group className="contenedorForm">
-              <Form.Label>Ingresa tu correo electronico :</Form.Label>
+              <Form.Label className="label-color">Ingresa tu correo electronico </Form.Label>
               <div className="input-group">
                 <img src="/src/assets/iconoCorreo.png" alt="Imagen" className="correo-icono" />
               <Form.Control
@@ -116,7 +116,7 @@ function InicioSesion() {
               )}
             </Form.Group>
             <Form.Group className="contenedorForm">
-              <Form.Label>Ingresa tu contraseña :</Form.Label>
+              <Form.Label className="label-color">Ingresa tu contraseña </Form.Label>
               <div className="input-group">
                 <img src="/src/assets/contraseña.png" alt="Imagen" className="contraseña-icono" />
               <Form.Control
@@ -155,6 +155,8 @@ function InicioSesion() {
             
           </Form>
             <br />
+
+            {/* Botón link 'olvidaste tu contraseña' */}
             <div className="mb-3 text-center">
             <ButtonDefault namebtn='registrarse' funcion={MandarARegistro} to={"/registro"}/>
 

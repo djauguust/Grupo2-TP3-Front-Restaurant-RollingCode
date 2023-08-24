@@ -116,7 +116,7 @@ function Registro() {
           <div className="section text-center">
             <Form onSubmit={formik.handleSubmit} noValidate>
               <Form.Group className="contenedorForm">
-                <Form.Label>Nombre</Form.Label>
+                <Form.Label className="label-color">Nombre</Form.Label>
                 <div className="input-group">
                 <img src="/src/assets/usuario.png" alt="Imagen" className="usuario-icono" />
                 <Form.Control                
@@ -147,7 +147,7 @@ function Registro() {
                 )}
               </Form.Group>
               <Form.Group className="contenedorForm">
-                <Form.Label>Correo Electrónico </Form.Label>
+                <Form.Label className="label-color">Correo Electrónico </Form.Label>
                 <div className="input-group">
                 <img src="/src/assets/iconoCorreo.png" alt="Imagen" className="correo-icono" />
                 <Form.Control
@@ -177,7 +177,7 @@ function Registro() {
                
               </Form.Group>
               <Form.Group className="contenedorForm">
-                <Form.Label>Contraseña </Form.Label>
+                <Form.Label className="label-color">Contraseña </Form.Label>
                 <div className="input-group">
                 <img src="/src/assets/contraseña.png" alt="Imagen" className="contraseña-icono" />
                 <Form.Control
@@ -208,7 +208,7 @@ function Registro() {
                 
               </Form.Group>
               <Form.Group className="contenedorForm">
-                <Form.Label>Repite tu contraseña </Form.Label>
+                <Form.Label className="label-color">Repite tu contraseña </Form.Label>
                 <div className="input-group">
                 <img src="/src/assets/contraseña.png" alt="Imagen" className="contraseña-icono" />
                 <Form.Control
@@ -243,14 +243,10 @@ function Registro() {
 
               <ButtonDefault namebtn='Crear cuenta'/>
 
-              {/* <button className="btn mt-3 mb-3" type="submit">
-                Crear Cuenta
-              </button> */}
               
-
               <div className=" text-center mb-3">
                 <Link to={"/Login"} className="link ">
-                  Ya tienes una cuenta? Inicia Sesion?
+                  Ya tienes una cuenta? Inicia Sesion!
                 </Link>
               </div>
             </Form>
