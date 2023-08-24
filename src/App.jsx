@@ -1,4 +1,6 @@
-
+import { useState } from 'react'
+import Navbar from './componentes/navbar'
+import { ReservasProvider } from './contexto/contexto'
 import Footer from "./components/footer/Footer";
 import Header from "./components/navbar/Header";
 import "bootstrap/dist/css/bootstrap.min.css";

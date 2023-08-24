@@ -9,6 +9,8 @@ pnpm-debug.log*
 lerna-debug.log*
 .vite/deps
 
+.vite
+
 node_modules
 dist
 dist-ssr
