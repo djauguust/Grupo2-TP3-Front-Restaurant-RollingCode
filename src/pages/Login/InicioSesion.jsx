@@ -1,19 +1,25 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "../../styles/InicioSesion.css";
 import ButtonDefault from "../../components/ButtonDefault";
 import logo from "../../assets/logo.png";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Container, Form } from "react-bootstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import clsx from "clsx";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { UsuariosContext } from "../../context/UserContext";
 
 function InicioSesion() {
   //Url de un back de prueba para que la funcion de logueo quede guardada para cuando usemos el back
   /* const url = "http://localhost:8001/api/usuarios/login"; */
   const url = import.meta.env.VITE_API;
+
+
+  
+
+  const navigate = useNavigate();
 
   //UseState para mostrar un mensaje de que los datos ingresados no se encontraron
   const [UsuarioLogueadoError, setUsuarioLogueadoError] = useState(false);
@@ -55,6 +61,9 @@ function InicioSesion() {
           "success"
         );
 
+        navigate("/")
+          setAct(1)
+
         // Guardo el token en el estado o en el LocalStorage si es necesario
         const jwtToken = response.data.data.token;
         setUsuarioLogueadoError(false); // No olvides manejar el estado de error
@@ -63,6 +72,7 @@ function InicioSesion() {
         // Aquí puedes decidir si deseas guardar el token en el estado o en LocalStorage
         /* setTokenEnEstado(jwtToken); */
         localStorage.setItem("user", JSON.stringify(jwtToken));
+        
       } catch (error) {
         // Si la petición falla
         Swal.fire("No se pudo loguear el usuario", " ", "warning");
