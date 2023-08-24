@@ -277,3 +277,33 @@ background-color: #dab276;
 .navbar-nav{
   font-size: small!important;
 }
+
+@media (max-width: 1090px) and (min-width: 990px){
+  .boton-ubicacion-izq-custom{
+    left: 70px;
+  }
+  .boton-login-izq-custom{
+    left: 72px;
+    top: 30px;
+  }
+  .logo-custom{
+    width: 150px;
+    object-fit: contain;
+  }
+}
+
+@media (max-width: 990px){
+  .boton-ubicacion-izq-custom{
+    left: 100px;
+  }
+  .drop-idioma{
+    text-align: center;
+  }
+  .boton-login-izq-custom{
+    left: 125px;
+    top: 10px;
+  }
+  .switch{
+    left: 40%;
+  }
+}
