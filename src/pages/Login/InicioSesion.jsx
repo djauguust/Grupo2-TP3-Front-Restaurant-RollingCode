@@ -44,31 +44,31 @@ function InicioSesion() {
           email: values.email,
           contrasenia: values.contrasenia,
         };
-      
+        console.log(usuarioLogueado);
         // Hago el pedido con axios
         const response = await axios.post(`${url}/login`, usuarioLogueado);
-      
+        console.log(response);
         // Si la petición es exitosa
         Swal.fire(
           "Usuario logueado con exito",
           "Tus datos ya fueron ingresados exitosamente",
           "success"
         );
-      
+
         // Guardo el token en el estado o en el LocalStorage si es necesario
         const jwtToken = response.data.data.token;
         setUsuarioLogueadoError(false); // No olvides manejar el estado de error
-      
+        console.log(jwtToken);
+
         // Aquí puedes decidir si deseas guardar el token en el estado o en LocalStorage
-         setTokenEnEstado(jwtToken);
-         localStorage.setItem("user", JSON.stringify(jwtToken));
+        /* setTokenEnEstado(jwtToken); */
+        localStorage.setItem("user", JSON.stringify(jwtToken));
       } catch (error) {
         // Si la petición falla
         Swal.fire("No se pudo loguear el usuario", " ", "warning");
         setUsuarioLogueadoError(true);
         console.error(error.response); // Muestra los detalles del error en la consola
       }
-      
     },
   });
 
