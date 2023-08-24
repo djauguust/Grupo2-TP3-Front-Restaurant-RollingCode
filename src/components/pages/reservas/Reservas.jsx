@@ -43,7 +43,6 @@ const Reservas = () => {
     if (dates) {
       axios
         .get(` http://localhost:3000/reservas?fecha=${dates}`)
-        
         .then((response) => {
           setFilterHour(response.data);
           // console.log("Horas disponibles: ", response.data);
@@ -59,7 +58,8 @@ const Reservas = () => {
     const fetchData = async () => {
       if (time) {
         try {
-          const response = await axios.get(`http://localhost:3000/reservas`);
+          const response = await axios.get(`http://localhost:3000/reservas?fecha=${dates}&hora=${time}`);
+          // const response = await axios.get(`http://localhost:3000/reservas`);
           setFilterPeople(response.data);
           console.log("Comensales disponibles: ", response.data);
         } catch (error) {
@@ -158,10 +158,10 @@ const Reservas = () => {
     },
   });
 
+  //Funcion para filtrar maximo de comensales
   const lugaresDisponibles = ()=>{
     const gente = filterPeople[0]
-    const asientosDisponibles = Math.abs(gente-10) || 10
-    console.log(asientosDisponibles)
+    const asientosDisponibles = Math.max(gente-10) || 10
     return asientosDisponibles
   }
  
