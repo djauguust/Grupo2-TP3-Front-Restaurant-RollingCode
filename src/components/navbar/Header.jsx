@@ -265,7 +265,7 @@ const Header = () => {
 
           {/* Nuevo toggle modo dia/noche */}
 
-          <label role="button" for="checkbox" className="switch">
+          <label role="button" htmlFor="checkbox" className="switch">
             <input type="checkbox" id="checkbox" onChange={handleSwitch} />
             <span className="switch__ball"></span>
             <i className="ri-sun-line switch__sun"></i>

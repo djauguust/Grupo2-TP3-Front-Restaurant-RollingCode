@@ -5,8 +5,13 @@ import { Button } from "react-bootstrap"
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import clsx from "clsx";
+import Swal from "sweetalert2";
+import axios from "axios";
 
 const Formulario = () =>{
+
+  const url = import.meta.env.VITE_API;
+
 
     // Esquema
     const SingUpSchema = Yup.object().shape({
@@ -40,7 +45,33 @@ const Formulario = () =>{
         validateOnChange: true,
         validateOnBlur: true,
         onSubmit: (values) => {
-            console.log("Valores del Formik-->", values);
+            Swal.fire({
+                title: 'Ya escribio todo el mensaje?',
+                text: "Los cambios no los podra revertir luego!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, estoy seguro!',
+                cancelButtonText: 'No, mejor no!'
+              }).then(async (result) => {
+                try {
+                    const res = await axios.post(`${url}/mensajes`,{
+                        nombre : values.nombre,
+                        email : values.email,
+                        mensaje : values.mensaje
+                    })
+                } catch (error) {
+                    console.log(error);
+                }
+                if (result.isConfirmed) {
+                  Swal.fire(
+                    'Mensaje enviado!',
+                    'El mensaje escrito fue enviado exitosamente.',
+                    'success'
+                  )
+                }
+              })
         }
     });
 

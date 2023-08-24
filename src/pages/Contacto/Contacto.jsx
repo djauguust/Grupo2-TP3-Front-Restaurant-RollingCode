@@ -1,4 +1,3 @@
-import Header from "../../components/Header"
 import Footer from "../../components/Footer"
 import Mapa from "../../components/Mapa"
 import style from "./Contacto.module.css"
