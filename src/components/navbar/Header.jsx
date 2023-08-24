@@ -18,8 +18,7 @@ import { NavbarContext } from "../../context/NavbarContext";
 const Header = () => {
   const { logout } = useContext(UsuariosContext);
 
-  const { theme, handleSwitch } = useContext(NavbarContext);
-  console.log("este es them", theme);
+  const {theme, handleSwitch} = useContext(NavbarContext)
 
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -30,7 +29,6 @@ const Header = () => {
 
   const { t } = useTranslation();
 
-  console.log("theme en header", theme);
 
   useEffect(() => {
     if (theme === "claro") {

@@ -1,3 +1,4 @@
+
 import Footer from "./components/footer/Footer";
 import Header from "./components/navbar/Header";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -15,7 +16,6 @@ function App() {
         <UserContext>
            <Header/> 
           <RoutesNavbar />
-          
         </UserContext>
       </NavbarContexto>
     </>
