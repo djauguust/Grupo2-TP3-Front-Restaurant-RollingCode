@@ -25,6 +25,8 @@ function ModalEditar(props) {
 
   const [act, setAct] = useState(0);
 
+  const Url = import.meta.env.VITE_API;
+
 
   //Para abrir y cerrar el modal
   const handleClose = () => setShow(false);
@@ -34,6 +36,8 @@ function ModalEditar(props) {
     TraerReservas()
 
 }, [act]);
+
+
 
  
 
@@ -75,12 +79,12 @@ function ModalEditar(props) {
       }).then(async (result) => {
         if (result.isConfirmed) {
           try {
-            const res = await axios.patch(`${props.url}/${props.reserva.id}`, {
-              Fecha: fechaFormateada(values.Fecha),
-              Hora: horaFormateada(values.Hora),
-              CantidadDePersonas: values.CantidadDePersonas,
+            const res = await axios.put(`${Url}/reservas/${props.reserva._id}`, {
+              fecha: fechaFormateada(values.Fecha),
+              hora: horaFormateada(values.Hora),
+              comensales: values.CantidadDePersonas,
             });
-            console.log(fechaFormateada(values.Fecha));
+
           handleClose();
           setAct(prevAct => prevAct + 1);
           TraerReservas()
@@ -99,7 +103,7 @@ function ModalEditar(props) {
   });
   //Funcion para formatear fecha
   const fechaFormateada = (date) => {
-    return format(date, "dd/MM/yyyy", {
+    return format(date, "dd-MM-yyyy", {
       locale: es,
     });
   };
@@ -140,7 +144,7 @@ function ModalEditar(props) {
 
   //Funcion para parsear la fecha para hacerle el setfieldvalue pra el formik
   const parsearFecha = (customDate) => {
-    const [day, month, year] = customDate.split("/");
+    const [day, month, year] = customDate.split("-");
     const fechaParseada = `${year}-${month}-${day}`;
     return parseISO(fechaParseada);
   };
@@ -160,13 +164,14 @@ function ModalEditar(props) {
   //Funcion para establecer los datos en los form
   const EstablecerDatos = () => {
     if (props && props.reserva) {
-      const { Fecha, Hora, CantidadDePersonas } = props.reserva;
-      const fechaParseada = parsearFecha(Fecha);
-      const horaParseada = parsearHora(Hora);
+      const { fecha, hora, comensales } = props.reserva;
+      const fechaParseada = parsearFecha(fecha);
+      const horaParseada = parsearHora(hora);
+
 
       formik.setFieldValue("Fecha", fechaParseada);
       formik.setFieldValue("Hora", horaParseada);
-      formik.setFieldValue("CantidadDePersonas", CantidadDePersonas);
+      formik.setFieldValue("CantidadDePersonas", comensales);
     }
   };
 

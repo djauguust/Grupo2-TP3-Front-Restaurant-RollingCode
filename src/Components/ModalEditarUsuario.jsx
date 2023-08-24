@@ -1,47 +1,91 @@
-import { useContext, useEffect, useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import { Form } from 'react-bootstrap';
-import axios from 'axios';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import clsx from 'clsx';
-import Swal from 'sweetalert2'
-import { AdministradorContexto } from '../Contexto/ContextoAdmin';
-
+import { useContext, useEffect, useState } from "react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import { Form } from "react-bootstrap";
+import axios from "axios";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import clsx from "clsx";
+import Swal from "sweetalert2";
+import { AdministradorContexto } from "../Contexto/ContextoAdmin";
+import { matches } from "lodash";
 
 function ModalEditarUsuario(props) {
+  const URL = import.meta.env.VITE_API_USUARIOS;
 
-  const {TraerUsuarios} = useContext(AdministradorContexto)
+  console.log(props);
+
+  const { TraerUsuarios } = useContext(AdministradorContexto);
 
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [nombre, setNombre] = useState(props.usuario.Nombre);
-  const [email, setEmail] = useState(props.usuario.Email);
-  const [contrasena, setContrasena] = useState(props.usuario.Contrasena);
-  const [rol, setRol] = useState(props.usuario.Rol);
+  const [nombre, setNombre] = useState(props.usuario.nombre);
+  const [email, setEmail] = useState(props.usuario.email);
+  const [contrasena, setContrasena] = useState(props.usuario.contrasena);
+  const [rol, setRol] = useState(props.usuario.esAdmin);
+
+  const Url = import.meta.env.VITE_API;
 
   const [act, setAct] = useState(0);
 
   useEffect(() => {
-    TraerUsuarios()
-
-}, [act]);
+    TraerUsuarios();
+  }, [act]);
 
   const usuarioActualizado = {
-    id: props.usuario.id,
-    Nombre: nombre,
-    Email: email,
-    Contrasena: contrasena,
-    Rol: rol,
+    id: props.usuario._id,
+    Nombre: props.usuario.nombre,
+    Email: props.usuario.email,
+    Rol:
+      props.usuario.esAdmin === 0
+        ? "Usuario"
+        : props.usuario.esAdmin === 1
+        ? "Portero"
+        : props.usuario.esAdmin === 2
+        ? "Administrador"
+        : "",
   };
 
-  const actualizar = async () => {
+  const regex = /^[a-zA-Z]+$/;
+  const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  // Esquema de yup
+  const esquemaUsuario = Yup.object().shape({
+    nombre : Yup.string()
+    .required("El nombre es requerido")
+    .matches(regex,"El nombre solo debe de incluir letras sin espacios")
+    .min(3,"Debe ingresar un nombre mayor o igual 3 letras")
+    .max(15,"El nombre debe de ser menor a 15 palabras"),
+
+    email : Yup.string()
+    .required("El email es requerido")
+    .email("El valor debe de ser de tipo Email")
+    .min(6,"El email debe de ser mayor a 6 caracteres")
+    .max(30,"El email debe de ser menor a 30 caracteres"),
+
+    rol: Yup.string()
+    .required("El rol es requerido")
+  })
+
+//Valores Iniciales
+const valoresIniciales = {
+  nombre: "",
+  email: "",
+  rol : ""
+}
+
+//Validacion de Formik
+const formik = useFormik({
+  initialValues: valoresIniciales,
+  validationSchema: esquemaUsuario,
+  validateOnChange: true,
+  validateOnBlur: true,
+  onSubmit: (values) => {
     Swal.fire({
-      title: "Esta seguro de editar el usuario?",
+      title: "Esta seguro de editar la reserva?",
       text: "Los cambio los podra revertir luego",
       icon: "warning",
       showCancelButton: true,
@@ -52,68 +96,36 @@ function ModalEditarUsuario(props) {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const response = await axios.put(
-            `${props.url}/${props.usuario.id}`,
-            usuarioActualizado
-          );         
-          Swal.fire(
-            "Usuario editada!",
-            "Los cambios fueron aplicados con exito",
-            "success"
-          );
-          handleClose();
-          setAct(prevAct => prevAct + 1);
-          TraerUsuarios()
-          handleResetForm()
+        
+          const res = await axios.put(`${Url}/usuarios/${props.usuario._id}`)
         } catch (error) {
-          cSwal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'No se pudieron realizar los cambios'
-          })
+          console.log(error);
         }
+
       }
     });
-  };
+  },
+});
 
-  const SignUpSchema = Yup.object().shape({
-    nombre: Yup.string()
-      .required('Debe introducir el nombre')
-      .min(3, 'El nombre debe tener al menos 2 caracteres')
-      .max(50, 'El nombre no debe exceder los 50 caracteres')
-      .trim(),
-    email: Yup.string()
-      .email('Ingrese un email válido')
-      .required('Debe introducir el email')
-      .trim(),
-    contrasena: Yup.string()
-      .required('Debe introducir la contraseña')
-      .min(6, 'La contraseña debe tener al menos 6 caracteres')
-      .max(20, 'La contraseña no debe exceder los 20 caracteres')
-      .trim(),
-    rol: Yup.string().required('Debe seleccionar un rol'),
-  });
+//Funcion para establecer los datos en los form
+const EstablecerDatos = () => {
+  if (props && props.usuario) {
+    formik.setFieldValue("nombre", props.usuario.nombre);
+    formik.setFieldValue("email", props.usuario.email);
+    formik.setFieldValue("rol", props.usuario.esAdmin === 0
+    ? "Usuario"
+    : props.usuario.esAdmin === 1
+    ? "Portero"
+    : props.usuario.esAdmin === 2
+    ? "Administrador"
+    : "",);
+  }
+};
 
-  const initialValues = {
-    nombre: nombre,
-    email: email,
-    contrasena: contrasena,
-    rol: rol,
-  };
-
-  const formik = useFormik({
-    initialValues,
-    validationSchema: SignUpSchema,
-    validateOnChange: true,
-    validateOnBlur: true,
-    onSubmit: (values) => {
-      actualizar();
-    },
-  });
-
-  const handleResetForm = () => {
-    formik.resetForm();
-  };
+//UseEffect que sirve para establecer los datos
+useEffect(() => {
+  EstablecerDatos();
+}, [props]);
 
   return (
     <>
@@ -134,19 +146,14 @@ function ModalEditarUsuario(props) {
                 type="text"
                 name="nombre"
                 id="nombre"
-
                 {...formik.getFieldProps("nombre")}
-                onChange={(ev) => {
-                  formik.handleChange(ev);
-                  setNombre(ev.target.value);
-                }}
                 className={clsx(
-                  'form-control',
+                  "form-control",
                   {
-                    'is-invalid': formik.touched.nombre && formik.errors.nombre,
+                    "is-invalid": formik.touched.nombre && formik.errors.nombre,
                   },
                   {
-                    'is-valid': formik.touched.nombre && !formik.errors.nombre,
+                    "is-valid": formik.touched.nombre && !formik.errors.nombre,
                   }
                 )}
               />
@@ -163,19 +170,18 @@ function ModalEditarUsuario(props) {
                 type="email"
                 name="email"
                 id="email"
-                
                 {...formik.getFieldProps("email")}
                 onChange={(ev) => {
                   formik.handleChange(ev);
                   setEmail(ev.target.value);
                 }}
                 className={clsx(
-                  'form-control',
+                  "form-control",
                   {
-                    'is-invalid': formik.touched.email && formik.errors.email,
+                    "is-invalid": formik.touched.email && formik.errors.email,
                   },
                   {
-                    'is-valid': formik.touched.email && !formik.errors.email,
+                    "is-valid": formik.touched.email && !formik.errors.email,
                   }
                 )}
               />
@@ -187,67 +193,25 @@ function ModalEditarUsuario(props) {
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>Contraseña</Form.Label>
-              <Form.Control
-                type="password"
-                name="contrasena"
-                id="contrasena"
-
-                {...formik.getFieldProps("contrasena")}
-                onChange={(ev) => {
-                  formik.handleChange(ev);
-                  setContrasena(ev.target.value);
-                }}
+              <Form.Label>Rol :</Form.Label>
+              <Form.Select
+                as="selected"
+                {...formik.getFieldProps("rol")}
+                id="rol"
                 className={clsx(
-                  'form-control',
+                  "form-control",
                   {
-                    'is-invalid':
-                      formik.touched.contrasena && formik.errors.contrasena,
+                    "is-invalid": formik.touched.rol && formik.errors.rol,
                   },
                   {
-                    'is-valid':
-                      formik.touched.contrasena && !formik.errors.contrasena,
+                    "is-valid": formik.touched.rol && !formik.errors.rol,
                   }
                 )}
-              />
-              {formik.touched.contrasena && formik.errors.contrasena && (
-                <div className="text-danger mt-1">
-                  <span role="alert">{formik.errors.contrasena}</span>
-                </div>
-              )}
-            </Form.Group>
-
-            <Form.Group>
-              <Form.Label>Rol</Form.Label>
-              <Form.Check
-                type="radio"
-                label="Usuario"
-                name="rol"
-                id="usuario"
-                value="usuario"
-                checked={rol === 'usuario'}
-                onChange={(ev) => {
-                  formik.handleChange(ev);
-                  setRol(ev.target.value);
-                }}
-              />
-              <Form.Check
-                type="radio"
-                label="Administrador"
-                name="rol"
-                id="administrador"
-                value="administrador"
-                checked={rol === 'administrador'}
-                onChange={(ev) => {
-                  formik.handleChange(ev);
-                  setRol(ev.target.value);
-                }}
-              />
-              {formik.touched.rol && formik.errors.rol && (
-                <div className="text-danger mt-1">
-                  <span role="alert">{formik.errors.rol}</span>
-                </div>
-              )}
+              >
+                <option value="Administrador">Admin</option>
+                <option value="Usuario">Usuario</option>
+                <option value="Portero">Portero</option>
+              </Form.Select>
             </Form.Group>
           </Modal.Body>
 

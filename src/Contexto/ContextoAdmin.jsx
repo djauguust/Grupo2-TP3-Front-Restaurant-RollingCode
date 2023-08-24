@@ -15,10 +15,9 @@ export const AdministradorProvider = ({ children }) => {
   const urlFechasNoDisponibles = import.meta.env.VITE_API_FECHASNODISPONIBLES;
 
   //Url de Reservas
-  const urlReservas = import.meta.env.VITE_API_RESERVAS;
+  const Url = import.meta.env.VITE_API;
 
-  //Url de Usuarios
-  const urlUsuarios = import.meta.env.VITE_API_USUARIOS;
+
 
   //Funcion para sumarle un dia a la fecha que le damos porque por un error con datepicker y validaciones
   const sumarUnDia = (fecha) => {
@@ -57,7 +56,7 @@ export const AdministradorProvider = ({ children }) => {
   //Traer Reservas
   const TraerReservas = async () => {
     try {
-      const respuesta = await axios.get(urlReservas).then((res) => {
+      const respuesta = await axios.get(`${Url}/reservas/`).then((res) => {
         setReservas(res.data);
       });
     } catch (error) {
@@ -65,10 +64,11 @@ export const AdministradorProvider = ({ children }) => {
     }
   };
 
+
   //Traer Usuarios
   const TraerUsuarios = async () => {
     const respuesta = await axios
-      .get(urlUsuarios)
+      .get(`${Url}/usuarios`)
       .then((res) => {
         setUsuarios(res.data);
       })

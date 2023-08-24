@@ -18,7 +18,7 @@ const TablaReservas = () =>{
 
     const [act, setAct] = useState(0);
 
-    const URL= import.meta.env.VITE_API_RESERVAS;
+    
 
 
 
@@ -83,6 +83,28 @@ const TablaReservas = () =>{
           })
       }
 
+      const mostrarReservas = () => {
+        const inicio = (pagina - 1) * 10;
+    const fin = inicio + 10;
+    const reservasMostradas = busqueda === ""
+      ? reservas.slice(inicio, fin)
+      : reservas.filter(reserv => reserv.Fecha === busqueda);
+
+    return reservasMostradas.map((reserv) => (
+        <tr key={reserv._id}>
+        <td>{reserv.fecha}</td>
+        <td>{reserv.comensales}</td>
+        <td>{reserv.hora}</td>
+        <td>
+            <div className="ContenedorBotonesTablaUsuarios">
+            <ModalEditar reserva={reserv} url={URL}/>
+            <Button className="mx-2" onClick={() => eliminar(reserv.id)}>Eliminar</Button>
+            </div>
+        </td>
+    </tr>
+    ));
+    }
+
     return(
         <>
             <h2 className="my-3 text-center">Reservas</h2>
@@ -108,7 +130,8 @@ const TablaReservas = () =>{
                 </thead>
 
                 <tbody>
-                    {
+                    {mostrarReservas()}
+                    {/*
                     busqueda == "" ?
                     reservas10.map((reserv) => {
                         if (reserv.id >=0) {
@@ -151,7 +174,7 @@ const TablaReservas = () =>{
                             return null; // No renderiza nada si reserv está vacío
                         }
                     })
-                    }
+                */}
                 </tbody>
 
             </Table>

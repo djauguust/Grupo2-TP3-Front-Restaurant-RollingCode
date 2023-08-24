@@ -87,6 +87,35 @@ const TablaUsuarios = () =>{
     
       }
 
+
+      const mostrarUsuarios = () => {
+        const inicio = (pagina - 1) * 10;
+    const fin = inicio + 10;
+    const usuariosMostrados = busqueda === ""
+      ? usuarios.slice(inicio, fin)
+      : usuarios.filter(reserv => reserv.nombre=== busqueda);
+
+    return usuariosMostrados.map((usuario) => (
+        <tr key={usuario._id}>
+        <td>{usuario.nombre}</td>
+        <td>{usuario.email}</td>
+        <td>{usuario.esAdmin === 0
+      ? "Usuario"
+      : usuario.esAdmin === 1
+      ? "Portero"
+      : usuario.esAdmin === 2
+      ? "Administrador"
+      : ""}</td>
+        <td>
+            <div className="ContenedorBotonesTablaUsuarios">
+            <ModalEditarUsuario usuario={usuario}/>
+            <Button className="mx-2" onClick={() => eliminar(usuario._id)}>Eliminar</Button>
+            </div>
+        </td>
+    </tr>
+    ));
+    }
+
     return(
         <>
             <p style={{ color: '#F0E5D8' }}>{act}</p>
@@ -104,66 +133,15 @@ const TablaUsuarios = () =>{
             <Table>
                 <thead>
                     <tr>
-                        <th>id</th>
                         <th>Nombre</th>
-                        <th>Apellido</th>
                         <th>Email</th>
-                        <th>Contraseña</th>
                         <th>Rol</th>
-                        <th>Acción</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    {
-                        busqueda == "" ? 
-                        usuarios10.map((user)=>{
-                            if (user.id >= 0){
-                                return(
-                                    <tr key={user.id}>
-                                    <td>{user.id}</td>
-                                    <td>{user.Nombre}</td>
-                                    <td>{user.Apellido}</td>
-                                    <td>{user.Email}</td>
-                                    <td>{user.Contrasena}</td>
-                                    <td>{user.Rol}</td>
-                                    <td>
-                                        <div className="ContenedorBotonesTablaUsuarios">
-                                        <ModalEditarUsuario usuario={user} url={URL}/>
-                                        <Button onClick={() => eliminar(user.id)} className="mx-2">Eliminar</Button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                );}
-                                
-                                else {
-                                    return null;
-                                }
-                            
-                        }) :
-                        usuarios.map((user)=>{
-                            if (user.Nombre == busqueda || user.Email == busqueda || user.id == busqueda){
-                                return(
-                                    <tr key={user.id}>
-                                    <td>{user.id}</td>
-                                    <td>{user.Nombre}</td>
-                                    <td>{user.Email}</td>
-                                    <td>{user.Contrasena}</td>
-                                    <td>{user.Rol}</td>
-                                    <td>
-                                    <div className="ContenedorBotonesTablaUsuarios">
-                                        <ModalEditarUsuario usuario={user} url={URL}/>
-                                        <Button className="mx-2" onClick={() => eliminar(reserv.id)}>Eliminar</Button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                );
-                            }
-                            else {
-                                return null;
-                            }
-                        })
-                    } 
+                    {mostrarUsuarios()} 
 
                 </tbody>
             </Table>
