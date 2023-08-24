@@ -13,7 +13,8 @@ import axios from "axios";
 
 function InicioSesion() {
   //Url de un back de prueba para que la funcion de logueo quede guardada para cuando usemos el back
-  const url = "http://localhost:8001/api/usuarios/login";
+  /* const url = "http://localhost:8001/api/usuarios/login"; */
+  const url = import.meta.env.VITE_API;
 
   //UseState para mostrar un mensaje de que los datos ingresados no se encontraron
   const [UsuarioLogueadoError, setUsuarioLogueadoError] = useState(false);
