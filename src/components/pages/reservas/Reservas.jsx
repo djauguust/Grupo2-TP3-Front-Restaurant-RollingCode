@@ -77,6 +77,13 @@ const Reservas = () => {
     formik.setFieldValue("People", ""); // Limpio input de personas
   };
 
+   //Funcion para filtrar maximo de comensales
+   const lugaresDisponibles = ()=>{
+    const gente = filterPeople[0]
+    const asientosDisponibles = Math.abs(gente-10) || 10
+    return asientosDisponibles
+  }
+
   //Yup
   const validationSchema = Yup.object().shape({
     ReservationDate: Yup.date().required("Fecha es requerida"),
@@ -85,7 +92,8 @@ const Reservas = () => {
 
     People: Yup.number()
       .required("La cantidad de personas es requerida")
-      .max(10, "Maximo diez personas"),
+      .max(lugaresDisponibles(), `Quedan disponibles ${lugaresDisponibles()} lugares en este horario`)
+      .min(1, "Debes elegir al menos 1 persona")
   });
 
   //Initial Values
@@ -158,12 +166,7 @@ const Reservas = () => {
     },
   });
 
-  //Funcion para filtrar maximo de comensales
-  const lugaresDisponibles = ()=>{
-    const gente = filterPeople[0]
-    const asientosDisponibles = Math.max(gente-10) || 10
-    return asientosDisponibles
-  }
+ 
  
 
   //Funcion para formatear fecha
@@ -334,7 +337,6 @@ const Reservas = () => {
                     disabled={!diseablePeople}
                     type="number"
                     min={1}
-                    max={lugaresDisponibles()}
                     value={formik.values.People}
                     className={clsx(
                       "form-control input-reservation",
