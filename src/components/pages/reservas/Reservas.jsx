@@ -33,16 +33,19 @@ const Reservas = () => {
   const [diseablePeople, setDiseablePeople] = useState(false);
 
   //Estado para filtrar horarios disponibles
-  const [filterHour, setFilterHour] = useState([])
+  const [filterHour, setFilterHour] = useState([]);
+
+  //Estado para filtrar cant de comensales dispnibles
+  const [filterPeople, setFilterPeople] = useState([]);
 
   //Get para solicitar si una fecha esta disponible o no
   useEffect(() => {
     if (dates) {
       axios
-        // .get(` http://localhost:3000/reservas?fecha=${dates}`)
-        .get(` http://localhost:3000/reservas`)
+        .get(` http://localhost:3000/reservas?fecha=${dates}`)
+        
         .then((response) => {
-          setFilterHour(response.data)
+          setFilterHour(response.data);
           // console.log("Horas disponibles: ", response.data);
         })
         .catch((error) => {
@@ -53,20 +56,20 @@ const Reservas = () => {
 
   //Get para solicitar la cantidad de comensales disponibles
   useEffect(() => {
-    if (time) {
-      axios
-        .get(
-          `http://localhost:3000/reservas?fecha=${dates}&hora=${time}`
-        )
-        .then((response) => {
-          console.log("Comensales disponibles: ", response);
-        })
-        .catch((error) => {
+    const fetchData = async () => {
+      if (time) {
+        try {
+          const response = await axios.get(`http://localhost:3000/reservas`);
+          setFilterPeople(response.data);
+          console.log("Comensales disponibles: ", response.data);
+        } catch (error) {
           console.log("Error: ", error);
-        });
-    }
+        }
+      }
+    };
+  
+    fetchData();
   }, [time]);
-
   //Funcion para resetear valores de inputs
   const handleDateChange = (date) => {
     setTime(null);
@@ -100,7 +103,7 @@ const Reservas = () => {
     validateOnBlur: true,
 
     //Submit
-    onSubmit: async (values, {resetForm}) => {
+    onSubmit: async (values, { resetForm }) => {
       console.log("Valores que llegan al form de formik: ", values);
 
       try {
@@ -139,15 +142,14 @@ const Reservas = () => {
             "success"
           );
 
-            resetForm()
-
+          resetForm();
         } else {
           Swal.fire(
             "Reserva Cancelada",
             "Tu reserva no ha sido guardada.",
             "info"
           );
-          resetForm()
+          resetForm();
         }
       } catch (error) {
         console.log(error);
@@ -155,6 +157,14 @@ const Reservas = () => {
       }
     },
   });
+
+  const lugaresDisponibles = ()=>{
+    const gente = filterPeople[0]
+    const asientosDisponibles = Math.abs(gente-10) || 10
+    console.log(asientosDisponibles)
+    return asientosDisponibles
+  }
+ 
 
   //Funcion para formatear fecha
   const fechaFormateada = (date) => {
@@ -171,7 +181,6 @@ const Reservas = () => {
   };
 
   //Funcion para que los domingos esten deshabilitados
-
 
   //Funcion para que el usuario no pueda elegir fechas de dias anteriores o del mismo dia
   const filterMinDay = () => {
@@ -284,10 +293,10 @@ const Reservas = () => {
                     timeCaption="Time"
                     dateFormat="HH:mm"
                     filterTime={filterTime}
-                    excludeTimes={filterHour.map((hour) => new Date(`2000-01-01 ${hour}`))}
-                      
-                      
-                     // instancio cada elemento de mi array para setearle un formato date 
+                    excludeTimes={filterHour.map(
+                      (hour) => new Date(`2000-01-01 ${hour}`)
+                    )}
+                    // instancio cada elemento de mi array para setearle un formato date
                     placeholderText="Elija un horario"
                     timeClassName={handleColor}
                     className={clsx(
@@ -319,13 +328,13 @@ const Reservas = () => {
                 <Form.Group controlId="people">
                   <Form.Control
                     placeholder="N° de Personas"
-                    onChange={(e) =>
+                    onChange={(e) =>{
                       formik.setFieldValue("People", e.target.value)
-                    }
+                    }}
                     disabled={!diseablePeople}
                     type="number"
                     min={1}
-                    max={10}
+                    max={lugaresDisponibles()}
                     value={formik.values.People}
                     className={clsx(
                       "form-control input-reservation",
