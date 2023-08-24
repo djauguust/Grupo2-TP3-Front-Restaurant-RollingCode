@@ -20,7 +20,12 @@ const Header = () => {
 
   const { theme, handleSwitch } = useContext(NavbarContext);
 
-  const user = JSON.parse(localStorage.getItem("user")) || "sinToken";
+  let user;
+  if (!localStorage.getItem("user")) {
+    user = JSON.parse(localStorage.getItem("user"));
+  } else {
+    user = "sinToken";
+  }
 
   const [show, setShow] = useState(false);
 
