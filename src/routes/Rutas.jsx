@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router";
 import PaginaPrincipal from "../Pages/PaginaPrincipal/PaginaPrincipal";
 import ACercaDeNosotros from "../Pages/a-cerca-de-nosotros/ACercaDeNosotros"
 import Contacto from "../Pages/Contacto/Contacto"
-import Reservas from "../pages/Reservas";
+import Reservas from "../Pages/Reservas/Reservas"
 import Galeria from "../components/galeria/Galeria";
 import InicioSesion from "../Pages/Login/InicioSesion";
 import Registro from "../Pages/Registro/Registro"
