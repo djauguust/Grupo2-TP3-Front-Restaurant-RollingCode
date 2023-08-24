@@ -22,9 +22,15 @@ const Reservas = () => {
   // const decodeToken = jwt.decode(token)
   // const user = decodeToken.id
 
-  //Estado de fecha seleccionada
+  //Estado de fecha disponible
   const [availableDate, setAvailableDate] = useState(null);
+  //Estado tiempo disponible
   const [availableHour, setAvailableHour] = useState(null);
+
+  //Estado fecha seleccionada
+  const [isDateSelected, setIsDateSelected] = useState(false);
+  //Estado tiempo seleccionado
+  const [isTimeSelected, setIsTimeSelected] = useState(false);
 
   //Get para solicitar si una fecha esta disponible o no
   useEffect(() => {
@@ -44,7 +50,9 @@ const Reservas = () => {
   useEffect(() => {
     if (availableHour) {
       axios
-        .get(`http://localhost:3000/reservas?hora=${availableHour}`)
+        .get(
+          `http://localhost:3000/reservas?fecha=${availableDate}&hora=${availableHour}`
+        )
         .then((response) => {
           console.log("Comensales disponibles: ", response);
         })
@@ -54,24 +62,18 @@ const Reservas = () => {
     }
   }, [availableHour]);
 
+  //Funcion para resetear valores de inputs
+  const handleDateChange = (date) => {
+    setAvailableHour(null);
+    formik.setFieldValue("ReservationTime", ""); // Limpio input de tiempo
+    formik.setFieldValue("People", ""); // Limpio input de personas
+  };
+
   //Yup
   const validationSchema = Yup.object().shape({
     ReservationDate: Yup.date().required("Fecha es requerida"),
 
-    ReservationTime: Yup.date()
-      .required("La hora es requerida")
-      .test(
-        "intervalos",
-        "La hora debe ser entre las 11am y las 11pm",
-        (value) => {
-          console.log("Valor recibido en ReservationTime:", value);
-
-          const hours = value.getHours();
-          const minutes = value.getMinutes();
-
-          return hours >= 11 && hours <= 23;
-        }
-      ),
+    ReservationTime: Yup.date().required("La hora es requerida"),
 
     People: Yup.number()
       .required("La cantidad de personas es requerida")
@@ -93,7 +95,7 @@ const Reservas = () => {
     validateOnBlur: true,
 
     //Submit
-    onSubmit: async (values) => {
+    onSubmit: async (values, {resetForm}) => {
       console.log("Valores que llegan al form de formik: ", values);
 
       try {
@@ -131,6 +133,9 @@ const Reservas = () => {
             "Tu reserva ha sido guardada exitosamente.",
             "success"
           );
+
+            resetForm()
+
         } else {
           Swal.fire(
             "Reserva Cancelada",
@@ -223,14 +228,16 @@ const Reservas = () => {
                     onChange={(date) => {
                       formik.setFieldValue("ReservationDate", date);
                       if (date) {
+                        setIsDateSelected(true);
                         setAvailableDate(fechaFormateada(date));
+                        handleDateChange();
                       }
                     }}
                     minDate={filterMinDay()}
                     maxDate={filterMaxDay()}
                     dateFormat="dd/MM/yyyy"
                     filterDate={isWeekday}
-                    placeholderText="Seleccione una fecha"
+                    placeholderText="Elige una fecha"
                     className={clsx(
                       "form-control input-reservation",
                       {
@@ -264,9 +271,11 @@ const Reservas = () => {
                     onChange={(time) => {
                       formik.setFieldValue("ReservationTime", time);
                       if (time) {
+                        setIsTimeSelected(true);
                         setAvailableHour(horaFormateada(time));
                       }
                     }}
+                    disabled={!isDateSelected}
                     showTimeSelect
                     showTimeSelectOnly
                     timeIntervals={30}
@@ -307,9 +316,11 @@ const Reservas = () => {
                     onChange={(e) =>
                       formik.setFieldValue("People", e.target.value)
                     }
+                    disabled={!isTimeSelected}
                     type="number"
                     min={1}
                     max={10}
+                    value={formik.values.People}
                     className={clsx(
                       "form-control input-reservation",
                       {
