@@ -170,7 +170,7 @@ const Header = () => {
                 </Offcanvas>
               </>
             ) : (
-              <Nav.Link className="boton-izq-custom" as={Link} to="/login">
+              <Nav.Link className="boton-login-izq-custom" as={Link} to="/login">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -191,7 +191,7 @@ const Header = () => {
             <Nav.Link
               target="_blank"
               href="https://www.google.com/maps/place/Olga+Cossettini+750,+Buenos+Aires/@-34.6111001,-58.3780726,13.75z/data=!4m6!3m5!1s0x95a3352ec57d549b:0x5341533dfe791f9f!8m2!3d-34.6067233!4d-58.3638578!16s%2Fg%2F11fk3r6bhk?entry=ttu"
-              className="boton-izq-custom"
+              className="boton-ubicacion-izq-custom"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -204,7 +204,7 @@ const Header = () => {
                 <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
                 <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
               </svg>{" "}
-              {t("ubicacion")}
+              {t("Ubicación")}
             </Nav.Link>
             <Dropdown className="drop-idioma">
               <Dropdown.Toggle
@@ -235,7 +235,7 @@ const Header = () => {
               </Dropdown.Menu>
             </Dropdown>
           </Nav>
-          <Form.Check
+          {/* <Form.Check
             type="switch"
             id="custom-switch"
             label=""
@@ -243,7 +243,15 @@ const Header = () => {
             className="boton-switch"
             variant="dark"
             custom // Agregar esta clase para habilitar los estilos personalizados
-          />
+          />  */}
+          <label role="button" for="checkbox" className="switch">
+            <input type="checkbox" id="checkbox" onChange={handleSwitch}/>
+            <span className="switch__ball"></span>
+            <i className="ri-sun-line switch__sun"></i>
+            <i className="ri-moon-line switch__moon"></i>
+            
+
+          </label>
         </Navbar.Collapse>
       </Navbar>
     </>

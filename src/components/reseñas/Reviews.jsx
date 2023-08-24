@@ -15,7 +15,7 @@ const Reviews = () => {
         <div className="contenedor">
           <div className="carta">
             <div className="imgBx">
-              <img src="public\donato2.jpg" alt="" />
+              <img src="public\donato2.jpg" alt=""/>
             </div>
             <div className="content">
               <h3>Donato De Santis</h3>
