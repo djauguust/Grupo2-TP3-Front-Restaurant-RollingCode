@@ -34,29 +34,12 @@ const CardsReservasHoy = () =>{
     function obtenerFechaActual() {
       const fecha = new Date();
       const dia = String(fecha.getDate()).padStart(2, '0');
-      const mes = String(fecha.getMonth() + 1); // Los meses van de 0 a 11
+      const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Los meses van de 0 a 11
       const año = fecha.getFullYear();
     
       return `${dia}/${mes}/${año}`;
     }
-
-    // Elimina la reserva
-
-    const eliminar = async (id)=>{
-
-
     
-        try {
-          const response = await axios.delete(
-            `${URL}/${id}`
-          );
-          alert("Eliminado exitoso");
-          handleClose();
-        } catch (error) {
-          console.error('Error al actualizar la reservación:', error);
-        }
-      }
-
       const reservaUsada =(id) => {
         Swal.fire({
           title: 'Estas seguro que la reserva fue usada?',
@@ -89,7 +72,7 @@ const CardsReservasHoy = () =>{
 
     return(
         <>
-            <h1 className="mt-5 text-center text-light">Reservas</h1>
+            <h1 className="mt-5 text-center text-light">Portero</h1>
                     <div className="contenedor">
                     {
                         reservas.map((reserv)=>{
@@ -99,7 +82,7 @@ const CardsReservasHoy = () =>{
                             if(reserv.Fecha==fechaHoy){
                               return(
                                 
-                                  <Card className="caja" key={reserv.id}>
+                                  <Card className="caja text-center" key={reserv.id}>
                                     <Card.Img variant="top" src="https://marketing4ecommerce.co/wp-content/uploads/2018/06/Ahora-puedes-hacer-reservaciones-en-restaurantes-desde-Google-Maps-Colombia-compressor-1280x720.jpg" />
                                     <Card.Body>
                                       <Card.Title>Reservación</Card.Title>
@@ -111,7 +94,6 @@ const CardsReservasHoy = () =>{
                                     </ListGroup>
                                     <Card.Body>
                                     <Button className="mx-2" onClick={() => reservaUsada(reserv.id)}>Reserva Usada</Button>
-                                    <Button className="mx-2" onClick={() => eliminar(reserv.id)}>Eliminar</Button>
                                     </Card.Body>
                                   </Card>
                                 

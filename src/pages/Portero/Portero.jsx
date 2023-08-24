@@ -7,7 +7,6 @@ const Portero = () =>{
 
     return(
         <>
-        <h1>Portero</h1>
             
             <div className={style.contenedor}>
                 <div className="cards">

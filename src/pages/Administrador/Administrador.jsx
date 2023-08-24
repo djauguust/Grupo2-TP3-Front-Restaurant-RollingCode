@@ -2,27 +2,33 @@ import TablaUsuarios from "../../Components/TablaUsuarios";
 import TablaReservas from "../../Components/TablaReservas";
 import CardsReservas from "../../Components/CardsReservas";
 import CardsUsuarios from "../../Components/CardsUsuarios";
-import style from "./Administrador.module.css"
+
+import "./Administrador.css"
+import CambiarFechasNoDisponibles from "../../Components/Administrador/CambiarFechasNoDisponibles/CambiarFechasNoDisponibles";
 
 const Admin = () =>{
 
     return(
         <>
-            <h1>Administracion</h1>
-            <div className={style.cards}>
+
+            <div className="cards">
                 <CardsReservas/>
             </div>
 
-            <div className={style.cards}>
+            <div className="cards">
                 <CardsUsuarios/>
             </div>
 
-            <div className={style.tabla}>
+            <div className="tabla">
                 <TablaReservas/>
             </div>
             
-            <div className={style.tabla}>
+            <div className="tabla">
                 <TablaUsuarios/>
+            </div>
+
+            <div className="tabla">
+                <CambiarFechasNoDisponibles />
             </div>
         </>
     )
