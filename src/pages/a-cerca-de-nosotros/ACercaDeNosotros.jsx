@@ -11,8 +11,8 @@ import leo from "./img/leo.jpeg"
 import lucas from "./img/lucas.jpeg"
 import mauro from "./img/mauro.jpeg"
 import pedro from "./img/pedro.jpeg"
+import lucasy from "./img/lucasy.jpeg"
 import { useTranslation } from "react-i18next";
-// import lucasy from "./img/lucasy.jpeg"
 
 const ACercaDeNosotros = () => {
 
@@ -20,7 +20,7 @@ const ACercaDeNosotros = () => {
 
   return (
     <>
-      <h1 className="about-title">{t('nosotros')}</h1>
+      <h1 className="about-title mb-3">{t('nosotros')}</h1>
       <p className="text-center px-5">{t('aboutDescripcion')}</p>
 
       <Container>
@@ -117,7 +117,7 @@ const ACercaDeNosotros = () => {
               </Card.Body>
             </Card>
           </Col>
-          <Col className="about-col" xs={12} md={6} lg={4}>
+          <Col className="about-col mb-5" xs={12} md={6} lg={4}>
             <Card
              
               className="about-card shadow-lg"
@@ -148,7 +148,7 @@ const ACercaDeNosotros = () => {
               </Card.Body>
             </Card>
           </Col>
-          <Col className="about-col" xs={12} md={6} lg={4}>
+          <Col className="about-col mb-5" xs={12} md={6} lg={4}>
             <Card
             
               className="about-card shadow-lg"
@@ -179,13 +179,13 @@ const ACercaDeNosotros = () => {
               </Card.Body>
             </Card>
           </Col>
-          <Col className="about-col" xs={12} md={6} lg={4}>
+          <Col className="about-col mb-5" xs={12} md={6} lg={4}>
             <Card
               className="about-card shadow-lg"
             >
               <Image
                 className="about-img"
-                src="https://cdn-icons-png.flaticon.com/512/2815/2815428.png"
+                src={lucasy}
                 roundedCircle
               />
               <Card.Body className="text-center">
