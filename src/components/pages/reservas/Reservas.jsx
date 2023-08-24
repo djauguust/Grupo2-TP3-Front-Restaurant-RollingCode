@@ -24,6 +24,7 @@ const Reservas = () => {
 
   //Estado de fecha seleccionada
   const [availableDate, setAvailableDate] = useState(null);
+  const [availableHour, setAvailableHour] = useState(null);
 
   //Get para solicitar si una fecha esta disponible o no
   useEffect(() => {
@@ -31,13 +32,27 @@ const Reservas = () => {
       axios
         .get(` http://localhost:3000/reservas?fecha=${availableDate}`)
         .then((response) => {
-          console.log("Datos disponibles: ", response);
+          console.log("Horas disponibles: ", response);
         })
         .catch((error) => {
           console.log("Error :", error);
         });
     }
   }, [availableDate]);
+
+  //Get para solicitar la cantidad de comensales disponibles
+  useEffect(() => {
+    if (availableHour) {
+      axios
+        .get(`http://localhost:3000/reservas?hora=${availableHour}`)
+        .then((response) => {
+          console.log("Comensales disponibles: ", response);
+        })
+        .catch((error) => {
+          console.log("Error: ", error);
+        });
+    }
+  }, [availableHour]);
 
   //Yup
   const validationSchema = Yup.object().shape({
@@ -53,8 +68,6 @@ const Reservas = () => {
 
           const hours = value.getHours();
           const minutes = value.getMinutes();
-          console.log("Parsed Hours:", hours);
-          console.log("Parsed Minutes:", minutes);
 
           return hours >= 11 && hours <= 23;
         }
@@ -78,30 +91,30 @@ const Reservas = () => {
     validationSchema,
     validateOnChange: true,
     validateOnBlur: true,
-  
+
     //Submit
     onSubmit: async (values) => {
       console.log("Valores que llegan al form de formik: ", values);
-  
+
       try {
         const Reserva = {
           Fecha: fechaFormateada(values.ReservationDate),
           Hora: horaFormateada(values.ReservationTime),
           CantidadDePersonas: parseInt(formik.values.People),
         };
-  
+
         //Swal fire para confirmacion de reserva
         const result = await Swal.fire({
           title: "Estás por realizar una reserva",
           text: "¿Estás seguro?",
           icon: "warning",
-          position:"top",
+          position: "top",
           showCancelButton: true,
           confirmButtonColor: "#B08D59",
           cancelButtonColor: "#d33",
           confirmButtonText: "Sí, guardar mi reserva!",
         });
-  
+
         //Post a db
         if (result.isConfirmed) {
           const response = await axios.post("http://localhost:3000/reservas", {
@@ -110,12 +123,20 @@ const Reservas = () => {
             comensales: Reserva.CantidadDePersonas,
             // usuario: user.nombre
           });
-  
+
           console.log(response.data);
-  
-          Swal.fire("Reserva Guardada", "Tu reserva ha sido guardada exitosamente.", "success");
+
+          Swal.fire(
+            "Reserva Guardada",
+            "Tu reserva ha sido guardada exitosamente.",
+            "success"
+          );
         } else {
-          Swal.fire("Reserva Cancelada", "Tu reserva no ha sido guardada.", "info");
+          Swal.fire(
+            "Reserva Cancelada",
+            "Tu reserva no ha sido guardada.",
+            "info"
+          );
         }
       } catch (error) {
         console.log(error);
@@ -123,7 +144,6 @@ const Reservas = () => {
       }
     },
   });
-
 
   //Funcion para formatear fecha
   const fechaFormateada = (date) => {
@@ -241,9 +261,12 @@ const Reservas = () => {
                   <DatePicker
                     onFocus={(e) => e.target.blur()}
                     selected={formik.values.ReservationTime}
-                    onChange={(time) =>
-                      formik.setFieldValue("ReservationTime", time)
-                    }
+                    onChange={(time) => {
+                      formik.setFieldValue("ReservationTime", time);
+                      if (time) {
+                        setAvailableHour(horaFormateada(time));
+                      }
+                    }}
                     showTimeSelect
                     showTimeSelectOnly
                     timeIntervals={30}
