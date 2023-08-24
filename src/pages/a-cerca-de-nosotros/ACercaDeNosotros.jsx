@@ -11,13 +11,17 @@ import leo from "./img/leo.jpeg"
 import lucas from "./img/lucas.jpeg"
 import mauro from "./img/mauro.jpeg"
 import pedro from "./img/pedro.jpeg"
+import { useTranslation } from "react-i18next";
 // import lucasy from "./img/lucasy.jpeg"
 
 const ACercaDeNosotros = () => {
+
+  const  { t } = useTranslation();
+
   return (
     <>
-      <h1 className="about-title">A Cerca De Nosotros</h1>
-      <p className="text-center px-5">Somos un equipo de desarrolladores comprometidos en la creación de un proyecto innovador para RollingCode. Nuestro grupo está formado por mentes creativas y dedicadas. Aprovechamos esta gran oportunidad que nos brinda la tecnologia para diseñar soluciones que aborden las necesidades únicas del instituto y aportar nuestro valor. Trabajamos en colaboración, combinando nuestras habilidades en desarrollo de software, diseño de experiencia de usuario y gestión de proyectos. Nuestra visión es brindar nuestra humilde experiencia para cumplir con un sistema de gestion para un restaurante, comprometidos a hacer realidad esa visión en cada línea de código que escribimos y en cada función que diseñamos.</p>
+      <h1 className="about-title">{t('nosotros')}</h1>
+      <p className="text-center px-5">{t('aboutDescripcion')}</p>
 
       <Container>
         <Row>

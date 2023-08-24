@@ -54,13 +54,15 @@ i18n.use(initReactI18next).init({
         enviar: "Send",
         mensaje: "Message",
         motivo: "Reason to contact",
-        introduce: "Introduce your name"
+        introduce: "Introduce your name",
+        aboutDescripcion: "Somos un equipo de desarrolladores comprometidos en la creación de un proyecto innovador para RollingCode. Nuestro grupo está formado por mentes creativas y dedicadas. Aprovechamos esta gran oportunidad que nos brinda la tecnologia para diseñar soluciones que aborden las necesidades únicas del instituto y aportar nuestro valor. Trabajamos en colaboración, combinando nuestras habilidades en desarrollo de software, diseño de experiencia de usuario y gestión de proyectos. Nuestra visión es brindar nuestra humilde experiencia para cumplir con un sistema de gestion para un restaurante, comprometidos a hacer realidad esa visión en cada línea de código que escribimos y en cada función que diseñamos.",
+
       },
     },
     es: {
       translation: {
         inicio: "INICIO",
-        nosotros: "QUIENES SOMOS",
+        nosotros: "NOSOTROS",
         galeria: "GALERIA",
         contacto: "CONTACTO",
         reserva: "HAZ TU RESERVA",
@@ -108,7 +110,8 @@ i18n.use(initReactI18next).init({
         enviar: "Enviar",
         mensaje: "Mensaje",
         motivo: "Motivo de contacto",
-        introduce: "Introduce tu nombre"
+        introduce: "Introduce tu nombre",
+        aboutDescripcion: "We are a team of developers committed to creating an innovative project for RollingCode. Our group is made up of creative and dedicated minds. We take advantage of this great opportunity that technology offers us to design solutions that address the unique needs of the institute and contribute our value. We work collaboratively, combining our skills in software development, user experience design, and project management. Our vision is to bring our humble experience to deliver a restaurant management system, committed to making that vision a reality in every line of code we write and every feature we design.",
       },
     },
   },

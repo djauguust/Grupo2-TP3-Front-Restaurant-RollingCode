@@ -24,8 +24,7 @@ const Footer = () => {
             />
           </Col>
           <Col sm={12} lg={3} className="mt-3">
-            Desarrollado por:
-            <br></br>
+
             Rolling Code School
             <br></br>
             <svg
