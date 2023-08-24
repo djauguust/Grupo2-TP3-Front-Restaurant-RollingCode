@@ -10,7 +10,6 @@ import clsx from "clsx";
 import Swal from "sweetalert2";
 import axios from "axios";
 
-
 function InicioSesion() {
   //Url de un back de prueba para que la funcion de logueo quede guardada para cuando usemos el back
   /* const url = "http://localhost:8001/api/usuarios/login"; */
@@ -21,15 +20,15 @@ function InicioSesion() {
 
   //Esquema de Yup
   const esquemaInicioSesion = Yup.object().shape({
-    Email: Yup.string().required("El email es requerido"),
+    email: Yup.string().required("El email es requerido"),
 
-    Contraseña: Yup.string().required("La contraseña es requerida"),
+    contrasenia: Yup.string().required("La contrasenia es requerida"),
   });
 
   //Valores Iniciales
   const valoresIniciales = {
-    Email: "",
-    Contraseña: "",
+    email: "",
+    contrasenia: "",
   };
 
   //Validacion con formik
@@ -38,29 +37,44 @@ function InicioSesion() {
     validationSchema: esquemaInicioSesion,
     validateOnChange: true,
     validateOnBlur: true,
-    onSubmit: async (values) => {
+    onSubmit: (values) => {
       try {
         //Guardo los valores de los inputs
         const usuarioLogueado = {
-          email: values.Email,
-          contraseña: values.Contraseña,
+          email: values.email,
+          contrasenia: values.contrasenia,
         };
-
+        console.log("first");
+        let jwtToken;
         //Hago el pedido con axios
-        const response = await axios.post(url, usuarioLogueado);
+        axios
+          .post(`${url}/login/`, usuarioLogueado)
+          .then((response) => {
+            console.log("Usuario logueado con exito");
+            console.log(response);
+            Swal.fire(
+              "Usuario logueado con exito",
+              "Tus datos ya fueron ingresados exitosamente",
+              "success"
+            );
+            jwtToken = response.data.data.token;
+            localStorage.setItem("user", JSON.stringify(jwtToken));
+          })
+          .catch((error) => {
+            Swal.fire("No se pudo loguear el usuario", " ", "warning");
+            console.error(error);
+          });
 
+        console.log("firsst");
         //Si se encuentra sale la alerta y guarda el token en LocalStorage
-        if (response.status === 200) {
+        /* if (response.status === 200) {
           Swal.fire(
             "Logueado con exito",
             "Los datos ingresaron coincidieron con su usuario exitosamente",
             "success"
           );
-
-          const jwtToken = response.data.data.token;
-          localStorage.setItem("user", JSON.stringify(jwtToken));
-          setUsuarioLogueadoError(false);
-        }
+          console.log(response); */
+        setUsuarioLogueadoError(false);
       } catch (error) {
         //Si no te muestra el mensaje de error
         setUsuarioLogueadoError(true);
@@ -70,9 +84,9 @@ function InicioSesion() {
   });
 
   const MandarARegistro = () => {
-    useNavigate("/Registro")
+    useNavigate("/Registro");
     console.log("Funciona mandar a registro");
-  }
+  };
 
   return (
     <div className="background-image">
@@ -89,79 +103,92 @@ function InicioSesion() {
           )}
           <Form onSubmit={formik.handleSubmit} noValidate>
             <Form.Group className="contenedorForm">
-              <Form.Label className="label-color">Ingresa tu correo electronico </Form.Label>
+              <Form.Label className="label-color">
+                Ingresa tu correo electronico{" "}
+              </Form.Label>
               <div className="input-group">
-                <img src="/src/assets/iconoCorreo.png" alt="Imagen" className="correo-icono" />
-              <Form.Control
-                type="text"
-                placeholder="Ej: Lucas@gmail.com"
-                id="Email"
-                {...formik.getFieldProps("Email")}
-                className={clsx(
-                  "form-control",
-                  {
-                    "is-invalid": formik.touched.Email && formik.errors.Email,
-                  },
-                  {
-                    "is-valud": formik.touched.Email && !formik.errors.Email,
-                  }
-                )}
-              />
+                <img
+                  src="/src/assets/iconoCorreo.png"
+                  alt="Imagen"
+                  className="correo-icono"
+                />
+                <Form.Control
+                  type="text"
+                  placeholder="Ej: Lucas@gmail.com"
+                  id="email"
+                  {...formik.getFieldProps("email")}
+                  className={clsx(
+                    "form-control",
+                    {
+                      "is-invalid": formik.touched.email && formik.errors.email,
+                    },
+                    {
+                      "is-valud": formik.touched.email && !formik.errors.email,
+                    }
+                  )}
+                />
               </div>
-              {formik.touched.Email && formik.errors.Email && (
+              {formik.touched.email && formik.errors.email && (
                 <div>
                   <span role="alert" className="text-danger">
-                    {formik.errors.Email}
+                    {formik.errors.email}
                   </span>
                 </div>
               )}
             </Form.Group>
             <Form.Group className="contenedorForm">
-              <Form.Label className="label-color">Ingresa tu contraseña </Form.Label>
+              <Form.Label className="label-color">
+                Ingresa tu contrasenia{" "}
+              </Form.Label>
               <div className="input-group">
-                <img src="/src/assets/contraseña.png" alt="Imagen" className="contraseña-icono" />
-              <Form.Control
-                type="password"
-                placeholder="Ej: Lucas1234"
-                id="Contraseña"
-                {...formik.getFieldProps("Contraseña")}
-                className={clsx(
-                  "form-control",
-                  {
-                    "is-invalid":
-                      formik.touched.Contraseña && formik.errors.Contraseña,
-                  },
-                  {
-                    "is-valid":
-                      formik.touched.Contraseña && formik.errors.Contraseña,
-                  }
-                )}
-              />
+                <img
+                  src="/src/assets/contraseña.png"
+                  alt="Imagen"
+                  className="contraseña-icono"
+                />
+                <Form.Control
+                  type="password"
+                  placeholder="Ej: Lucas1234"
+                  id="contrasenia"
+                  {...formik.getFieldProps("contrasenia")}
+                  className={clsx(
+                    "form-control",
+                    {
+                      "is-invalid":
+                        formik.touched.contrasenia && formik.errors.contrasenia,
+                    },
+                    {
+                      "is-valid":
+                        formik.touched.contrasenia && formik.errors.contrasenia,
+                    }
+                  )}
+                />
               </div>
-              {formik.touched.Contraseña && formik.errors.Contraseña && (
+              {formik.touched.contrasenia && formik.errors.contrasenia && (
                 <div>
                   <span role="alert" className="text-danger">
-                    {formik.errors.Contraseña}
+                    {formik.errors.contrasenia}
                   </span>
                 </div>
               )}
             </Form.Group>
-            
-            <ButtonDefault namebtn='ingresar' TipoBoton='sumbit'/>
-            
-             {/* <button className="btn mt-3 mb-3" type="submit">
+
+            <ButtonDefault namebtn="ingresar" TipoBoton="sumbit" />
+
+            {/* <button className="btn mt-3 mb-3" type="submit">
               Ingresar
             </button>  */}
-
-            
           </Form>
-            <br />
+          <br />
 
-            {/* Botón link 'olvidaste tu contraseña' */}
-            <div className="mb-3 text-center">
-            <ButtonDefault namebtn='registrarse' funcion={MandarARegistro} to={"/registro"}/>
-
-            </div>
+          {/* Botón link 'olvidaste tu contrasenia' */}
+          <div className="mb-3 text-center">
+            <ButtonDefault
+              namebtn="registrarse"
+              funcion={MandarARegistro}
+              to={"/registro"}
+            />
+          </div>
         </div>
       </Container>
     </div>
