@@ -34,11 +34,15 @@
   background-color: #191919;
   color: white;
   text-align: center;
+  display: flex;
+  align-items: center;
 }
 .oscuro .boton-reserva {
   background-color: #f0e5d8;
   color: #191919;
   text-align: center;
+  display: flex;
+  align-items: center;
 }
 
 .claro .boton-reserva:hover {
