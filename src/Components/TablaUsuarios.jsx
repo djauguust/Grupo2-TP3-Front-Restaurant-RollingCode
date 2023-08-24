@@ -1,10 +1,14 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import axios from "axios";
 import { Table, Button } from "react-bootstrap";
 import ModalEditarUsuario from "./ModalEditarUsuario";
+import { AdministradorContexto } from "../Contexto/ContextoAdmin";
+import Swal from "sweetalert2";
 
 const TablaUsuarios = () =>{
-    const [usuarios, setUsuarios] = useState([]);
+
+    const {TraerUsuarios, usuarios,TraerReservas} = useContext(AdministradorContexto)
+
     const [usuarios10, setReservas10] = useState([]);
     const [pagina, setPagina] = useState(1);
     const [conteo,setConteo] = useState(0);
@@ -16,27 +20,20 @@ const TablaUsuarios = () =>{
 
     const URL= import.meta.env.VITE_API_USUARIOS;
 
-    useEffect(()=>{
-        const getUsuarios = async () =>{
-            const respuesta = await axios.get(URL).then((res)=>{
-                setUsuarios(res.data);
-            }).catch ((response)=>{
-                switch (response.response.status) {
-                    case 404:
-                            alert("Página no encontrada de usuarios");
-                        break;
-                    case 500:
-                            alert("Sistema caído de usuarios");
-                        break;
-                }
-            })
-        }
-        getUsuarios();
-    }, []);
+        
+    useEffect(() => {
+        TraerUsuarios()
+
+    }, [act]);
+
+    
+
 
     useEffect(()=>{
         cargarPagina();
-        
+        if (usuarios.length === 0) {
+            TraerUsuarios();
+        }
     });
 
     const cargarPagina = () => {
@@ -60,17 +57,34 @@ const TablaUsuarios = () =>{
 
     // Elimina la reserva
 
-    const eliminar = async (id)=>{
-
+    const eliminar = (id)=>{
+        Swal.fire({
+            title: 'Esta seguro de que desea borrar la reserva?',
+            text: "La reserva fue eliminada exitosamente!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, estoy seguro!',
+            cancelButtonText: 'No quiero eliminarla!'
+          }).then( async ( result) => {
+            if (result.isConfirmed) {
+                try {
+                  const response = await axios.delete(
+                    `${URL}/${id}`
+                  );
+                  Swal.fire(
+                    'Su reserva fue eliminada!',
+                    'Los datos de su reserva fueron eliminados exitosamente',
+                    'success'
+                ) 
+                  setAct(1)
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+          })
     
-        try {
-          const response = await axios.delete(
-            `${URL}/${id}`
-          );
-          alert("Eliminado exitoso");
-          handleClose();
-        } catch (error) {
-        }
       }
 
     return(
@@ -85,11 +99,14 @@ const TablaUsuarios = () =>{
                 placeholder="Buscar por Nombre, Email o ID"
                 className="my-2"
             />
+            <div className="ContenedorTablaUsuario">
+
             <Table>
                 <thead>
                     <tr>
                         <th>id</th>
                         <th>Nombre</th>
+                        <th>Apellido</th>
                         <th>Email</th>
                         <th>Contraseña</th>
                         <th>Rol</th>
@@ -106,12 +123,15 @@ const TablaUsuarios = () =>{
                                     <tr key={user.id}>
                                     <td>{user.id}</td>
                                     <td>{user.Nombre}</td>
+                                    <td>{user.Apellido}</td>
                                     <td>{user.Email}</td>
                                     <td>{user.Contrasena}</td>
                                     <td>{user.Rol}</td>
                                     <td>
+                                        <div className="ContenedorBotonesTablaUsuarios">
                                         <ModalEditarUsuario usuario={user} url={URL}/>
                                         <Button onClick={() => eliminar(user.id)} className="mx-2">Eliminar</Button>
+                                        </div>
                                     </td>
                                 </tr>
                                 );}
@@ -131,8 +151,10 @@ const TablaUsuarios = () =>{
                                     <td>{user.Contrasena}</td>
                                     <td>{user.Rol}</td>
                                     <td>
+                                    <div className="ContenedorBotonesTablaUsuarios">
                                         <ModalEditarUsuario usuario={user} url={URL}/>
-                                        <Button onClick={() => eliminar(user.id)} className="mx-2">Eliminar</Button>
+                                        <Button className="mx-2" onClick={() => eliminar(reserv.id)}>Eliminar</Button>
+                                        </div>
                                     </td>
                                 </tr>
                                 );
@@ -145,6 +167,7 @@ const TablaUsuarios = () =>{
 
                 </tbody>
             </Table>
+            </div>
             <div>
                 <p>Página: {pagina}</p>
                 <Button

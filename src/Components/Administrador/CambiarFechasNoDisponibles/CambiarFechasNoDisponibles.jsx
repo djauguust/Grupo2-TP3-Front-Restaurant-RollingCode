@@ -4,6 +4,7 @@ import { Button, Container, Table } from 'react-bootstrap'
 import ModalEditar from '../../ModalEditarReserva';
 import ModalCambiarFecha from './ModalCambiarFecha';
 import { AdministradorContexto } from '../../../Contexto/ContextoAdmin';
+import Swal from 'sweetalert2';
 
 const CambiarFechasNoDisponibles = () => {
 
@@ -17,7 +18,7 @@ const CambiarFechasNoDisponibles = () => {
     const [busqueda, setBusqueda] = useState("");
     //Valor externo para que traer una reserva funcione una vez y no sea un bucle infinito
     const [externalChange, setExternalChange] = useState(false);
-  
+    const [habBoton, setHabBoton]= useState(true);
     const [act, setAct] = useState(0);
 
     const url = import.meta.env.VITE_API_FECHASNODISPONIBLES
@@ -40,14 +41,32 @@ const CambiarFechasNoDisponibles = () => {
     },[FechasNoDisponibles])
     
 
-    const eliminarFechaNoDisponible = async (id) => {
-        try {
-            const res = await axios.delete(`${url}/${id}`)
-
-        } catch (error) {
-      console.error("Error al actualizar la reservación:", error);
-            
-        }
+    const eliminarFechaNoDisponible = (id) => {
+        Swal.fire({
+            title: 'Esta seguro de que desea eliminar la fecha no disponible?',
+            text: "Los cambios no pueden ser revertidos",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, estoy seguro!',
+            cancelButtonText: 'No, mejor no'
+          }).then( async(result) => {
+            if (result.isConfirmed) {              
+                try {
+                    const res = await axios.delete(`${url}/${id}`)
+                    Swal.fire(
+                    'Fecha no disponible eliminada!',
+                    'La fecha no disponible fue eliminada exitosamente',
+                    'success'
+                  )
+                    setExternalChange(true)
+                } catch (error) {
+              console.error("Error al actualizar la reservación:", error);
+                    
+                }
+            }
+          })
     }
 
 
@@ -65,10 +84,12 @@ const CambiarFechasNoDisponibles = () => {
 
 
         <td>
+            <div className='ContenedorBotonesTablaUsuarios'>
           <ModalCambiarFecha reserva={reserv} url={URL} />
-          <Button className="mx-2" onClick={() => eliminar(reserv.id)}>
+          <Button className="mx-2" onClick={() => eliminarFechaNoDisponible(reserv.id)}>
             Eliminar
           </Button>
+            </div>
         </td>
       </tr>
     ));
@@ -77,7 +98,7 @@ const CambiarFechasNoDisponibles = () => {
 
 
   return (
-    <Container>
+    <div>
          <h2 className="my-3 text-center">Fechas No Disponibles</h2>
             <p style={{ color: '#F0E5D8' }}>{act}</p>
             <input type="text" 
@@ -88,10 +109,12 @@ const CambiarFechasNoDisponibles = () => {
                 placeholder="Buscar fecha"
                 className="my-2"
             />
+            <div className="ContenedorTablaUsuario text-center">
             <Table>
                 <thead>
                     <tr>
                         <th>Fecha</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
 
@@ -101,8 +124,10 @@ const CambiarFechasNoDisponibles = () => {
                 </tbody>
 
             </Table>
+            </div>
             <div>
                 <p>Página: {pagina}</p>
+                <div >
                  <Button
                     onClick={()=>{
                         if(habBoton==true){
@@ -129,8 +154,9 @@ const CambiarFechasNoDisponibles = () => {
                         setAct(act+1)
                     }}
                 >Anterior</Button> 
+                </div>
             </div>
-    </Container>
+    </div>
   )
 }
 

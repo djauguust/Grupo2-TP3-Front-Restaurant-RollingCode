@@ -1,10 +1,15 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import axios from "axios";
 import { Table, Button, Alert } from "react-bootstrap";
 import ModalEditar from "./ModalEditarReserva";
+import { AdministradorContexto } from "../Contexto/ContextoAdmin";
+import Swal from "sweetalert2";
+
 
 const TablaReservas = () =>{
-    const [reservas, setReservas] = useState([]);
+
+    const {TraerReservas,reservas,TraerUsuarios,usuarios,setUsuarios} = useContext(AdministradorContexto)
+
     const [pagina, setPagina] = useState(1);
     const [conteo,setConteo] = useState(0);
     const [reservas10, setReservas10] = useState([]);
@@ -15,28 +20,18 @@ const TablaReservas = () =>{
 
     const URL= import.meta.env.VITE_API_RESERVAS;
 
-    useEffect(()=>{
-        const getReservas = async () =>{
-            const respuesta = await axios.get(URL).then((res)=>{
-                setReservas(res.data);
-                
-            }).catch ((response)=>{
-                switch (response.response.status) {
-                    case 404:
-                            alert("Página no encontrada de usuarios");
-                        break;
-                    case 500:
-                            alert("Sistema caído de usuarios");
-                        break;
-                }
-            })
-        }
-        getReservas();
-    }, []);
 
+
+    useEffect(() => {
+            TraerReservas()
+    
+        }, [act]);
+    
     useEffect(()=>{
-        cargarPagina();
-        
+        {reservas.length === 0 && (
+            TraerReservas()
+        )}
+        cargarPagina(); 
     });
 
     const cargarPagina = () => {
@@ -60,17 +55,32 @@ const TablaReservas = () =>{
 
     // Elimina la reserva
 
-    const eliminar = async (id)=>{
-    
-        try {
-          const response = await axios.delete(
-            `${URL}/${id}`
-          );
-          alert("Eliminado exitoso");
-          handleClose();
-        } catch (error) {
-          console.error('Error al actualizar la reservación:', error);
-        }
+    const eliminar = (id)=>{
+        Swal.fire({
+            title: 'Esta seguro de que desea borrar la reserva?',
+            text: "La reserva fue eliminada exitosamente!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, estoy seguro!',
+            cancelButtonText: 'No quiero eliminarla!'
+          }).then( async ( result) => {
+            if (result.isConfirmed) {
+                try {
+                    const response = await axios.delete(`${URL}/${id}`);
+                    Swal.fire(
+                        'Su reserva fue eliminada!',
+                        'Los datos de su reserva fueron eliminados exitosamente',
+                        'success'
+                    );
+                     setAct(1); // Llamar a TraerReservas() después de la eliminación exitosa
+                  
+                } catch (error) {
+                    console.error('Error al actualizar la reservación:', error);
+                }
+            }
+          })
       }
 
     return(
@@ -85,6 +95,8 @@ const TablaReservas = () =>{
                 placeholder="Buscar fecha"
                 className="my-2"
             />
+            <div className="ContenedorTablaUsuario">
+
             <Table>
                 <thead>
                     <tr>
@@ -106,8 +118,10 @@ const TablaReservas = () =>{
                                     <td>{reserv.CantidadDePersonas}</td>
                                     <td>{reserv.Hora}</td>
                                     <td>
+                                        <div className="ContenedorBotonesTablaUsuarios">
                                         <ModalEditar reserva={reserv} url={URL}/>
                                         <Button className="mx-2" onClick={() => eliminar(reserv.id)}>Eliminar</Button>
+                                        </div>
                                     </td>
                                 </tr>
                             );
@@ -125,8 +139,10 @@ const TablaReservas = () =>{
                                     <td>{reserv.CantidadDePersonas}</td>
                                     <td>{reserv.Hora}</td>
                                     <td>
+                                    <div className="ContenedorBotonesTablaUsuarios">
                                         <ModalEditar reserva={reserv} url={URL}/>
                                         <Button className="mx-2" onClick={() => eliminar(reserv.id)}>Eliminar</Button>
+                                        </div>
                                     </td>
                                 </tr>
                             );
@@ -139,6 +155,7 @@ const TablaReservas = () =>{
                 </tbody>
 
             </Table>
+            </div>
             <div>
                 <p>Página: {pagina}</p>
                 <Button

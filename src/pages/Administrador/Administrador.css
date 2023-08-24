@@ -23,13 +23,49 @@ body {
     display: none;
 }
 
-@media only screen and (max-width: 1068px) {
-    .cards{
-        display: block;
-        width: 80%;
-        margin: 0 auto;
+table{
+    width: fit-content;
+}
+
+.ContenedorTablaUsuario{
+    overflow-x: auto;
+}
+
+.ContenedorBotonesTablaUsuarios{
+    display: flex;
+    justify-content: center;
+}
+
+.accordion-item{
+    background-color: transparent !important;
+}
+
+.accordion-body{
+    padding: 0;
+}
+
+.accordion-collapse{
+    transition: 1s !important;
+}
+
+/* Resolución para Pantallas de Celulares */  
+@media (max-width: 767px) {
+    .ContenedorTablas{
+        padding: 2vh;
     }
     .tabla{
-        display: none;
+        width: auto;
     }
+  }
+
+  /* Resolución para Pantallas de Tablet */
+@media (min-width: 768px) {
+    .accordion{
+        pad: 1vh !important;
+    }
+    
+  }  
+
+  .accordion-button{
+    background-color: #F0E5D8 !important;
 }

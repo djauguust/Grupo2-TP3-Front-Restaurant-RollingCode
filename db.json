@@ -8,12 +8,6 @@
       "FueUsada": false
     },
     {
-      "id": "3",
-      "Fecha": "23/05/2023",
-      "CantidadDePersonas": "2",
-      "Hora": "14:30"
-    },
-    {
       "id": "4",
       "Fecha": "03/07/2023",
       "CantidadDePersonas": "6",
@@ -147,13 +141,6 @@
     }
   ],
   "Usuarios": [
-    {
-      "id": "1",
-      "Nombre": "Ana",
-      "Email": "ana@example.com",
-      "Contrasena": "abcdef",
-      "Rol": "administrador"
-    },
     {
       "id": "2",
       "Nombre": "Juan Pérez",
@@ -326,11 +313,33 @@
   "FechasNoDisponibles": [
     {
       "id": 1,
-      "Fecha": "2023-09-02"
+      "Fecha": "2023-08-26"
     },
     {
       "id": 2,
       "Fecha": "2023-08-25"
+    },
+    {
+      "Fecha": "2023-09-01",
+      "id": 3
+    }
+  ],
+  "maximoComensales": [
+    {
+      "MaximoComenzales": 5,
+      "id": 1
+    }
+  ],
+  "reservasMaxima": [
+    {
+      "reservasMaxima": 5,
+      "id": 1
+    }
+  ],
+  "horario": [
+    {
+      "desde": 1200,
+      "hasta": 2300
     }
   ]
 }
