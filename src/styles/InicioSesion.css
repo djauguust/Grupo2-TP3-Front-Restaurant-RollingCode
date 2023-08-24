@@ -18,9 +18,26 @@
     font-size: 27px !important;
   }
 
+  /* Resolución para Pantallas de Celulares */  
+@media (max-width: 767px) {
+    .correo-icono,
+    .contraseña-icono,
+    .usuario-icono {
+      display: none;
+    }
+    .Carta{
+      width: 100% !important;
+   }
+   .contenedorForm{
+    width: auto !important;
+   }
+}
+
+  
 .contenedorForm {
 width: 45vh;
 margin-left: 10px;
+
 }  
   
 }
@@ -36,6 +53,7 @@ margin-left: 10px;
 }
 
 .background-image {
+margin-top: 17vh;
 top: 0;
 left: 0;
 width: 100%;
@@ -69,16 +87,18 @@ width: 50vh;
 padding: 0 35px;   
 }
 
-p {  
+/* p {  
 font-weight: 500;  
 font-size: 14px;  
 line-height: 1.7;  
 }  
+
+*/
 h3 {  
 font-weight: 700; 
 color: #fff; 
 font-size: 30px;
-}  
+}   
 
 .logo {
 width: 260px;
@@ -101,6 +121,7 @@ color: #c4c3ca;
 text-decoration: none; 
  
 }  
+
 .link:hover {  
 color: #ffeba7;  
 } 
@@ -113,7 +134,7 @@ font-size: 18px;
 line-height: 1.7;  
 color: #ffffff;  
 background-color: #1f2029;  
-background-image: url(https://wallpapersmug.com/download/3840x2160/b67e3e/pizza-slices-food.jpg);
+
 background-position: center;
 background-size: 350%;
 overflow-x: hidden;  
@@ -135,4 +156,12 @@ overflow-x: hidden;
   width: 40px;
   height: auto;
   margin-right: 10px;
+}
+
+.text-after-input {
+  color: #fff;
+}
+
+.label-color {
+color: #ffffff;
 }

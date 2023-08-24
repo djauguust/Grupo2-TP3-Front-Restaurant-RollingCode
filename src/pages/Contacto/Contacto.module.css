@@ -1,12 +1,11 @@
-body {
+
+.container{
     background-image: url(../../../public/contactofondo.jpg);
+    margin-top: 22vh;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-}
-
-
-.container{
+    
 }
 
 .container2{

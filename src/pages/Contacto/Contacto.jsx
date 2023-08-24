@@ -11,9 +11,6 @@ const Contacto = () =>{
         <>
             <div className={style.container}>
 
-                <div className={style.header}>
-                    <Header/>
-                </div>
 
                 <div className={`text-center ${style.banner}`}>
                     <p>CONTACTANOS</p>
@@ -32,9 +29,6 @@ const Contacto = () =>{
                     </div>
                 </div>
                 
-                <div className={style.footer}>
-                    <Footer/>
-                </div>
             </div>
         </>
     )

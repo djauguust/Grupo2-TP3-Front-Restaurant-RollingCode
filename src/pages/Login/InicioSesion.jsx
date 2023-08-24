@@ -2,7 +2,7 @@ import { useState } from "react";
 import "../../styles/InicioSesion.css";
 import ButtonDefault from "../../components/ButtonDefault";
 import logo from "../../assets/logo.png";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { Container, Form } from "react-bootstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -13,7 +13,8 @@ import axios from "axios";
 
 function InicioSesion() {
   //Url de un back de prueba para que la funcion de logueo quede guardada para cuando usemos el back
-  const url = "http://localhost:8001/api/usuarios/login";
+  /* const url = "http://localhost:8001/api/usuarios/login"; */
+  const url = import.meta.env.VITE_API;
 
   //UseState para mostrar un mensaje de que los datos ingresados no se encontraron
   const [UsuarioLogueadoError, setUsuarioLogueadoError] = useState(false);
@@ -68,6 +69,10 @@ function InicioSesion() {
     },
   });
 
+  const MandarARegistro = () => {
+    useNavigate("/Registro")
+    console.log("Funciona mandar a registro");
+  }
 
   return (
     <div className="background-image">
@@ -84,7 +89,7 @@ function InicioSesion() {
           )}
           <Form onSubmit={formik.handleSubmit} noValidate>
             <Form.Group className="contenedorForm">
-              <Form.Label>Ingresa tu correo electronico :</Form.Label>
+              <Form.Label className="label-color">Ingresa tu correo electronico </Form.Label>
               <div className="input-group">
                 <img src="/src/assets/iconoCorreo.png" alt="Imagen" className="correo-icono" />
               <Form.Control
@@ -112,7 +117,7 @@ function InicioSesion() {
               )}
             </Form.Group>
             <Form.Group className="contenedorForm">
-              <Form.Label>Ingresa tu contraseña :</Form.Label>
+              <Form.Label className="label-color">Ingresa tu contraseña </Form.Label>
               <div className="input-group">
                 <img src="/src/assets/contraseña.png" alt="Imagen" className="contraseña-icono" />
               <Form.Control
@@ -142,21 +147,21 @@ function InicioSesion() {
               )}
             </Form.Group>
             
-            <ButtonDefault namebtn='ingresar'/>
-            
+            <ButtonDefault namebtn='ingresar' TipoBoton='sumbit'/>
             
              {/* <button className="btn mt-3 mb-3" type="submit">
               Ingresar
             </button>  */}
 
             
-
-            <div className="mb-3 text-center">
-              <Link to={"/Registro"} className="link">
-                Olvidaste tu contraseña?
-              </Link>
-            </div>
           </Form>
+            <br />
+
+            {/* Botón link 'olvidaste tu contraseña' */}
+            <div className="mb-3 text-center">
+            <ButtonDefault namebtn='registrarse' funcion={MandarARegistro} to={"/registro"}/>
+
+            </div>
         </div>
       </Container>
     </div>

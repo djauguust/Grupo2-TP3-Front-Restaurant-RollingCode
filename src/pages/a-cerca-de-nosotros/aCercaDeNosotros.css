@@ -1,0 +1,45 @@
+
+/*A cerca de nosotros*/
+
+.about-title{
+  margin-top: 150px;
+  text-align: center
+}
+
+.about-card{
+  align-items: center;
+  width: 18rem;
+  margin-top: 3rem;
+  background-color: #f4f5f6;
+  -webkit-transition:all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -ms-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
+  transition: 0.25s ease-in-out;;
+}
+.about-card:hover{
+  background-color: #B08D59;
+}
+.about-img{
+  margin-top: 20px;
+  width: 80%;
+  height: auto;
+  border: white solid;
+  transition: 0.5s;
+  object-fit: cover;
+}
+.about-img:hover{
+  transform: scale(1.1);
+}
+.about-col{
+  display: flex;
+  justify-content: center;
+  
+}
+
+/* 
+@media screen and (max-width: 900px){
+  .about-card{
+    margin-bottom: 250px;
+  }
+} */
