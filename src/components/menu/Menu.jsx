@@ -26,27 +26,27 @@ const Menu = ({theme}) => {
               eventKey="Pastas"
               title={<span className={`tab-title${theme}`}>{t('pastas')}</span>}
             >
-              <h3 className="text-center">SPAGHETTI ALLA BOLOGNESE</h3>
+              <h3 className="text-center color-info">SPAGHETTI ALLA BOLOGNESE</h3>
               <p className="text-center">
               {t('descripcionSpageti')}
               </p>
               <h4 className="text-center">$1650</h4>
               <hr />
-              <h3 className="text-center">RAVIOLI ALLA CARBONARA</h3>
+              <h3 className="text-center color-info">RAVIOLI ALLA CARBONARA</h3>
               <p className="text-center">
               {t('descripcionRavioles')}
               </p>
               <h4 className="text-center">$1800</h4>
               <p className="text-center">{t('opcionesRavioles')}</p>
               <hr />
-              <h3 className="text-center">CANNELLONI DI POLLO</h3>
+              <h3 className="text-center color-info">CANNELLONI DI POLLO</h3>
               <p className="text-center">
                 {" "}
                 {t('descripcionCanelones')}
               </p>
               <h4 className="text-center">$1900</h4>
               <hr />
-              <h3 className="text-center">LASAGNE DI CARNE</h3>
+              <h3 className="text-center color-info">LASAGNE DI CARNE</h3>
               <p className="text-center">
                 {" "}
                 {t('descripcionLasagna')}
@@ -57,7 +57,7 @@ const Menu = ({theme}) => {
               eventKey="Pizzas"
               title={<span className={`tab-title${theme}`}>{t('pizzas')}</span>}
             >
-              <h3 className="text-center">MARGHERITA</h3>
+              <h3 className="text-center color-info">MARGHERITA</h3>
               <p className="text-center">
                 {" "}
                 {t('pizza1')}
@@ -65,7 +65,7 @@ const Menu = ({theme}) => {
               <h4 className="text-center">$2200</h4>
               <hr />
 
-              <h3 className="text-center">MARINARA</h3>
+              <h3 className="text-center color-info">MARINARA</h3>
               <p className="text-center">
                 {" "}
                 {t('pizza2')}
@@ -73,7 +73,7 @@ const Menu = ({theme}) => {
               <h4 className="text-center">$1900</h4>
               <hr />
 
-              <h3 className="text-center">QUATTRO FORMAGGI</h3>
+              <h3 className="text-center color-info">QUATTRO FORMAGGI</h3>
               <p className="text-center">
                 {" "}
                 {t('pizza3')}
@@ -81,7 +81,7 @@ const Menu = ({theme}) => {
               <h4 className="text-center">$2500</h4>
               <hr />
 
-              <h3 className="text-center">NAPOLETANA</h3>
+              <h3 className="text-center color-info">NAPOLETANA</h3>
               <p className="text-center">
                 {" "}
                 {t('pizza4')}
@@ -124,7 +124,7 @@ const Menu = ({theme}) => {
                   </Col>
                 </Row>
               </Container>
-              <h3 className="text-center">{t('gaseosas')}</h3>
+              <h3 className="text-center color-info">{t('gaseosas')}</h3>
               <p className="text-center">350cc</p>
               <p className="text-center">COCA-COLA | FANTA | SPRITE</p>
               <h5 className="text-center">$500</h5>
@@ -134,17 +134,17 @@ const Menu = ({theme}) => {
               eventKey="Postres"
               title={<span className={`tab-title${theme}`}>{t('postres')}</span>}
             >
-              <h3 className="text-center">TIRAMISÚ</h3>
+              <h3 className="text-center color-info">TIRAMISÚ</h3>
               <h5 className="text-center">$800</h5>
               <hr />
-              <h3 className="text-center">GELATO</h3>
+              <h3 className="text-center color-info">GELATO</h3>
               <h5 className="text-center">$650</h5>
               <p>{t('opcionesHelado')}</p>
               <hr />
-              <h3 className="text-center">CANNOLI</h3>
+              <h3 className="text-center color-info">CANNOLI</h3>
               <h5 className="text-center">$600</h5>
               <hr />
-              <h3 className="text-center">PANNA COTTA</h3>
+              <h3 className="text-center color-info">PANNA COTTA</h3>
               <h5 className="text-center">$900</h5>
               <hr />
             </Tab>

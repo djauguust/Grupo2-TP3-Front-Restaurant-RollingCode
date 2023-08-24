@@ -16,7 +16,7 @@ const Info = ( {theme}) => {
       </section>
       <div className="info-custom">
         <div className={`cartel-custom${theme}`}>
-          <h3 className="text-center mt-3">{t('informacion')}</h3>
+          <h3 className="text-center mt-3 color-info">{t('informacion')}</h3>
           <hr />
           <p className="d-inline-block info-negra ms-2">{t('dias')} </p>
           <p className="d-inline-block info-dorado ms-2">11:30 am - 12:00 pm</p>

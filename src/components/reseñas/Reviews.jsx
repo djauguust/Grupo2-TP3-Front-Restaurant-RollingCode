@@ -18,8 +18,8 @@ const Reviews = () => {
             <img src="public\donato2.jpg" height="260px" alt="" />
             </div>
             <div className="content">
-              <h3>Donato De Santis</h3>
-              <p>
+              <h3 className="nombre-cocinero">Donato De Santis</h3>
+              <p className="texto-reseña">
                 {t('reseña1')}
               </p>
             </div>
@@ -29,8 +29,8 @@ const Reviews = () => {
               <img src="public\GordonRamsay.jpg" alt="" />
             </div>
             <div className="content">
-              <h3>Gordon Ramsay</h3>
-              <p>
+              <h3 className="nombre-cocinero">Gordon Ramsay</h3>
+              <p className="texto-reseña">
               {t('reseña2')}
               </p>
             </div>
@@ -40,8 +40,8 @@ const Reviews = () => {
               <img src="public\Massimo-Bottura.jpg" alt="" />
             </div>
             <div className="content">
-              <h3>Massimo Bottura</h3>
-              <p>
+              <h3 className="nombre-cocinero">Massimo Bottura</h3>
+              <p className="texto-reseña">
               {t('reseña3')}
               </p>
             </div>
