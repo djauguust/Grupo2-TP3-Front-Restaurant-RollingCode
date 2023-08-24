@@ -32,17 +32,21 @@ const Reservas = () => {
   //Estado para deshabilitar inputs
   const [diseablePeople, setDiseablePeople] = useState(false);
 
+
   //Estado para filtrar horarios disponibles
   const [filterHour, setFilterHour] = useState([]);
 
   //Estado para filtrar cant de comensales dispnibles
   const [filterPeople, setFilterPeople] = useState([]);
 
+
+
+
   //Get para solicitar si una fecha esta disponible o no
   useEffect(() => {
     if (dates) {
       axios
-        .get(` http://localhost:3000/reservas?fecha=${dates}`)
+        .get(`http://localhost:3000/reservas?fecha=${dates}`)
         .then((response) => {
           setFilterHour(response.data);
           // console.log("Horas disponibles: ", response.data);
@@ -77,19 +81,18 @@ const Reservas = () => {
     setTime(null);
     formik.setFieldValue("ReservationTime", ""); // Limpio input de tiempo
     formik.setFieldValue("People", ""); // Limpio input de personas
+    formik.touched.ReservationTime = false
+    formik.touched.People = false
+    
   };
 
   //Funcion para resetear valores de input people
   const resetInputsFromTime = (date) => {
     formik.setFieldValue("People", ""); // Limpio input de personas
+    formik.touched.People = false
+    
   };
 
-  //Funcion para filtrar maximo de comensales
-  const lugaresDisponibles = () => {
-    const gente = filterPeople[0];
-    const asientosDisponibles = Math.abs(gente - 10) || 10;
-    return asientosDisponibles;
-  };
 
   //Yup
   const validationSchema = Yup.object().shape({
@@ -100,9 +103,10 @@ const Reservas = () => {
     People: Yup.number()
       .required("La cantidad de personas es requerida")
       .max(
-        lugaresDisponibles(),
-        `Quedan disponibles ${lugaresDisponibles()} lugares en este horario`
+        filterPeople[0],
+        `Quedan disponibles ${filterPeople[0]} lugares en este horario`
       )
+      
       .min(1, "Debes elegir al menos 1 persona"),
   });
 
@@ -292,7 +296,7 @@ const Reservas = () => {
                     onChange={(time) => {
                       formik.setFieldValue("ReservationTime", time);
                       if (time) {
-                        resetInputsFromTime()
+                        resetInputsFromTime();
                         setDiseablePeople(true);
                         setTime(horaFormateada(time));
                       }
@@ -315,12 +319,12 @@ const Reservas = () => {
                       {
                         "is-invalid":
                           formik.touched.ReservationTime &&
-                          formik.errors.ReservationTime,
+                          formik.errors.ReservationTime ,
                       },
                       {
                         "is-valid":
                           formik.touched.ReservationTime &&
-                          !formik.errors.ReservationTime,
+                          !formik.errors.ReservationTime
                       }
                     )}
                   />
@@ -342,7 +346,7 @@ const Reservas = () => {
                     onChange={(e) => {
                       formik.setFieldValue("People", e.target.value);
                     }}
-                    disabled={!diseablePeople}
+                    disabled={!diseablePeople || !time}
                     type="number"
                     min={1}
                     value={formik.values.People}
@@ -350,11 +354,13 @@ const Reservas = () => {
                       "form-control input-reservation",
                       {
                         "is-invalid":
-                          formik.touched.People && formik.errors.People,
+                          formik.touched.People &&
+                          formik.errors.People 
                       },
                       {
                         "is-valid":
-                          formik.touched.People && !formik.errors.People,
+                          formik.touched.People &&
+                          !formik.errors.People 
                       }
                     )}
                   />
