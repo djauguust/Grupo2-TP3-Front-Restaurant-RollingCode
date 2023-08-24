@@ -81,7 +81,7 @@ function Registro() {
             };
 
             axios
-              .post(`${url}/usuarios/`, Usuario)
+              .post(`${url}/usuarios`, Usuario)
               .then((response) => {
                 console.log("Usuario creado con exito");
                 Swal.fire(

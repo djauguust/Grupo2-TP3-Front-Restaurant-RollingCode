@@ -163,13 +163,13 @@ const ACercaDeNosotros = () => {
                 </Card.Text>
                 <div>
                   <a href="">
-                    <i class="bi bi-github m-2"></i>
+                    <i className="bi bi-github m-2"></i>
                   </a>
                   <a href="">
-                    <i class="bi bi-linkedin m-2"></i>
+                    <i className="bi bi-linkedin m-2"></i>
                   </a>
                   <a href="">
-                    <i class="bi bi-instagram m-2"></i>
+                    <i className="bi bi-instagram m-2"></i>
                   </a>
                 </div>
               </Card.Body>

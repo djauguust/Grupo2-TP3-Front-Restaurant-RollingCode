@@ -37,49 +37,38 @@ function InicioSesion() {
     validationSchema: esquemaInicioSesion,
     validateOnChange: true,
     validateOnBlur: true,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       try {
-        //Guardo los valores de los inputs
+        // Guardo los valores de los inputs
         const usuarioLogueado = {
           email: values.email,
           contrasenia: values.contrasenia,
         };
-        console.log("first");
-        let jwtToken;
-        //Hago el pedido con axios
-        axios
-          .post(`${url}/login/`, usuarioLogueado)
-          .then((response) => {
-            console.log("Usuario logueado con exito");
-            console.log(response);
-            Swal.fire(
-              "Usuario logueado con exito",
-              "Tus datos ya fueron ingresados exitosamente",
-              "success"
-            );
-            jwtToken = response.data.data.token;
-            localStorage.setItem("user", JSON.stringify(jwtToken));
-          })
-          .catch((error) => {
-            Swal.fire("No se pudo loguear el usuario", " ", "warning");
-            console.error(error);
-          });
-
-        console.log("firsst");
-        //Si se encuentra sale la alerta y guarda el token en LocalStorage
-        /* if (response.status === 200) {
-          Swal.fire(
-            "Logueado con exito",
-            "Los datos ingresaron coincidieron con su usuario exitosamente",
-            "success"
-          );
-          console.log(response); */
-        setUsuarioLogueadoError(false);
+      
+        // Hago el pedido con axios
+        const response = await axios.post(`${url}/login`, usuarioLogueado);
+      
+        // Si la petición es exitosa
+        Swal.fire(
+          "Usuario logueado con exito",
+          "Tus datos ya fueron ingresados exitosamente",
+          "success"
+        );
+      
+        // Guardo el token en el estado o en el LocalStorage si es necesario
+        const jwtToken = response.data.data.token;
+        setUsuarioLogueadoError(false); // No olvides manejar el estado de error
+      
+        // Aquí puedes decidir si deseas guardar el token en el estado o en LocalStorage
+         setTokenEnEstado(jwtToken);
+         localStorage.setItem("user", JSON.stringify(jwtToken));
       } catch (error) {
-        //Si no te muestra el mensaje de error
+        // Si la petición falla
+        Swal.fire("No se pudo loguear el usuario", " ", "warning");
         setUsuarioLogueadoError(true);
-        console.log(error);
+        console.error(error.response); // Muestra los detalles del error en la consola
       }
+      
     },
   });
 

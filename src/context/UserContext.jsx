@@ -8,9 +8,11 @@ const UserContext = ({children}) => {
 
     const[usuarios,setUsuarios] = useState([])
 
+  const url = import.meta.env.VITE_API;
+
     const  getUsuarios = async () => {
         try {
-            const response = await axios.get("http://localhost:8080/users")
+            const response = await axios.get(`${url}`)
             setUsuarios(response.data)
         } catch (error) {
             console.log(error)
