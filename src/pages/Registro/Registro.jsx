@@ -145,7 +145,7 @@ function Registro() {
                   />
                 </div>
                 {formik.touched.Nombre && formik.errors.Nombre && (
-                  <div>
+                  <div className="Contenedor-Error">
                     <span role="alert" className="text-danger">
                       {formik.errors.Nombre}
                     </span>
@@ -181,7 +181,7 @@ function Registro() {
                   />
                 </div>
                 {formik.touched.Email && formik.errors.Email && (
-                  <div>
+                  <div className="Contenedor-Error">
                     <span role="alert" className="text-danger">
                       {formik.errors.Email}
                     </span>
@@ -215,7 +215,7 @@ function Registro() {
                   />
                 </div>
                 {formik.touched.Contraseña && formik.errors.Contraseña && (
-                  <div className="Div-Contraseña">
+                  <div className="Contenedor-Error">
                     <span role="alert" className="text-danger">
                       {formik.errors.Contraseña}
                     </span>
@@ -254,7 +254,7 @@ function Registro() {
                 </div>
                 {formik.touched.ConfirmarContraseña &&
                   formik.errors.ConfirmarContraseña && (
-                    <div className="Div-Contraseña">
+                    <div className="Contenedor-Error">
                       <span role="alert" className="text-danger">
                         {formik.errors.ConfirmarContraseña}
                       </span>
