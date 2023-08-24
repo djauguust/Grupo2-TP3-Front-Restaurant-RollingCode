@@ -18,14 +18,9 @@ import { NavbarContext } from "../../context/NavbarContext";
 const Header = () => {
   const { logout } = useContext(UsuariosContext);
 
-  const { theme, handleSwitch } = useContext(NavbarContext);
+  const {  theme, handleSwitch  } = useContext(NavbarContext);;
 
-  let user;
-  if (!localStorage.getItem("user")) {
-    user = JSON.parse(localStorage.getItem("user"));
-  } else {
-    user = "sinToken";
-  }
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const [show, setShow] = useState(false);
 
@@ -47,7 +42,7 @@ const Header = () => {
   return (
     <>
       <Navbar fixed="top" expand="lg" className={theme}>
-        <Navbar.Brand href="/" className="ms-4">
+        <Navbar.Brand as={Link} to="/" className="ms-4">
           <img
             alt=""
             src="public\Gusteau_s-removebg-preview.png"
@@ -78,38 +73,38 @@ const Header = () => {
               {t("reserva")}
             </Nav.Link>
             <Nav.Link>
-              <Dropdown className="drop-idioma">
-                <Dropdown.Toggle
-                  className="boton-izq-custom-idioma"
-                  variant="none"
-                  id="dropdown-basic"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    className="bi bi-globe-americas"
-                    viewBox="0 0 16 16"
+                <Dropdown className="drop-idioma">
+                  <Dropdown.Toggle
+                    className="boton-izq-custom-idioma"
+                    variant="none"
+                    id="dropdown-basic"
                   >
-                    <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0ZM2.04 4.326c.325 1.329 2.532 2.54 3.717 3.19.48.263.793.434.743.484-.08.08-.162.158-.242.234-.416.396-.787.749-.758 1.266.035.634.618.824 1.214 1.017.577.188 1.168.38 1.286.983.082.417-.075.988-.22 1.52-.215.782-.406 1.48.22 1.48 1.5-.5 3.798-3.186 4-5 .138-1.243-2-2-3.5-2.5-.478-.16-.755.081-.99.284-.172.15-.322.279-.51.216-.445-.148-2.5-2-1.5-2.5.78-.39.952-.171 1.227.182.078.099.163.208.273.318.609.304.662-.132.723-.633.039-.322.081-.671.277-.867.434-.434 1.265-.791 2.028-1.12.712-.306 1.365-.587 1.579-.88A7 7 0 1 1 2.04 4.327Z" />
-                  </svg>{" "}
-                  {t("idioma")}
-                </Dropdown.Toggle>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      className="bi bi-globe-americas"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0ZM2.04 4.326c.325 1.329 2.532 2.54 3.717 3.19.48.263.793.434.743.484-.08.08-.162.158-.242.234-.416.396-.787.749-.758 1.266.035.634.618.824 1.214 1.017.577.188 1.168.38 1.286.983.082.417-.075.988-.22 1.52-.215.782-.406 1.48.22 1.48 1.5-.5 3.798-3.186 4-5 .138-1.243-2-2-3.5-2.5-.478-.16-.755.081-.99.284-.172.15-.322.279-.51.216-.445-.148-2.5-2-1.5-2.5.78-.39.952-.171 1.227.182.078.099.163.208.273.318.609.304.662-.132.723-.633.039-.322.081-.671.277-.867.434-.434 1.265-.791 2.028-1.12.712-.306 1.365-.587 1.579-.88A7 7 0 1 1 2.04 4.327Z" />
+                    </svg>{" "}
+                    {t("idioma")}
+                  </Dropdown.Toggle>
 
-                <Dropdown.Menu>
-                  <Dropdown.Item onClick={() => i18n.changeLanguage("es")}>
-                    Español
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={() => i18n.changeLanguage("en")}>
-                    Ingles
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
+                  <Dropdown.Menu>
+                    <Dropdown.Item onClick={() => i18n.changeLanguage("es")}>
+                      {t('español')}  <img src="public\Bandera_de_España.svg.png" height="15px"></img>
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={() => i18n.changeLanguage("en")}>
+                    {t('ingles')} <img src="public\Bandera-de-inglaterra-400x240.png" height="15px"></img>
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
             </Nav.Link>
           </Nav>
           <Nav
-            style={{ display: "block", left: "50px", position: "relative" }}
+            style={{ display: "block", position: "relative" }}
             className="botones-izquierda"
           >
             {user ? (
@@ -132,22 +127,16 @@ const Header = () => {
                     <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z" />
                   </svg>
                   {t("perfil")}
+                  {t("perfil")}
                 </Nav.Link>
-                <Offcanvas
-                  show={show}
-                  onHide={handleClose}
-                  placement="end"
-                  className={`modal-cuenta${theme}`}
-                >
+                <Offcanvas show={show} onHide={handleClose} placement="end" className={`modal-cuenta${theme}`}>
                   <Offcanvas.Header closeButton>
                     <Offcanvas.Title>
-                      <h3>
-                        {" "}
-                        {t("bienvenido")} {user.name}
-                      </h3>
+                      <h3> {t('bienvenido')} {user.name}</h3>
                     </Offcanvas.Title>
                   </Offcanvas.Header>
                   <Offcanvas.Body className="text-center">
+                    <h5> {t("micuenta")} </h5>
                     <h5> {t("micuenta")} </h5>
                     <img
                       src="public\cocinero-icono-plano-chef-avatar-ilustracion-vectorial-diseno-dibujos-animados-chef-bigotudo-gorra-u-removebg-preview-removebg-preview (1).png"
@@ -185,6 +174,7 @@ const Header = () => {
                         <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm9 1.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 0-1h-4a.5.5 0 0 0-.5.5ZM9 8a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 0-1h-4A.5.5 0 0 0 9 8Zm1 2.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5Zm-1 2C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1 1 0 0 0 2 13h6.96c.026-.163.04-.33.04-.5ZM7 6a2 2 0 1 0-4 0 2 2 0 0 0 4 0Z" />
                       </svg>
                       {t("configurarcuenta")}
+                      {t("configurarcuenta")}
                     </Button>{" "}
                     <br></br>
                     <br></br>
@@ -207,16 +197,13 @@ const Header = () => {
                         />
                       </svg>
                       {t("cerrarsesion")}
+                      {t("cerrarsesion")}
                     </Button>{" "}
                   </Offcanvas.Body>
                 </Offcanvas>
               </>
             ) : (
-              <Nav.Link
-                className="boton-login-izq-custom"
-                as={Link}
-                to="/login"
-              >
+              <Nav.Link className="boton-login-izq-custom" as={Link} to="/login">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -237,7 +224,7 @@ const Header = () => {
             <Nav.Link
               target="_blank"
               href="https://www.google.com/maps/place/Olga+Cossettini+750,+Buenos+Aires/@-34.6111001,-58.3780726,13.75z/data=!4m6!3m5!1s0x95a3352ec57d549b:0x5341533dfe791f9f!8m2!3d-34.6067233!4d-58.3638578!16s%2Fg%2F11fk3r6bhk?entry=ttu"
-              className="boton-ubicacion-izq-custom"
+              className="boton-ubicacion-izq-custom boton-izq-custom"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -263,14 +250,16 @@ const Header = () => {
             custom // Agregar esta clase para habilitar los estilos personalizados
           />  */}
 
+
           {/* Nuevo toggle modo dia/noche */}
 
           <label role="button" htmlFor="checkbox" className="switch">
-            <input type="checkbox" id="checkbox" onChange={handleSwitch} />
+            <input type="checkbox" id="checkbox" onChange={handleSwitch}/>
             <span className="switch__ball"></span>
             <i className="ri-sun-line switch__sun"></i>
-            <i className="ri-moon-line switch__moon"></i>
+            <i className="ri-moon-line switch__moon"></i>            
           </label>
+       
         </Navbar.Collapse>
       </Navbar>
     </>

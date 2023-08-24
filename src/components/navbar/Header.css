@@ -94,11 +94,7 @@
   }
 }
 
-@media (max-width: 1100px) {
-  .botones-izquierda {
-    left: 10px !important;
-  }
-}
+
   
 .boton-izq-custom:hover {
   transform: scale(1.04);
@@ -163,10 +159,19 @@
   left: -15%;
 }
 
+.oscuro .boton-ubicacion-izq-custom:visited{
+  color: wheat;
+}
+
 .boton-login-izq-custom:hover {
 transform: scale(1.04);
 color: #e2b111;
 }
+
+.boton-izq-custom:hover {
+  transform: scale(1.04);
+  color: #e2b111;
+  }
 
 .oscuro .boton-login-izq-custom {
 color: wheat;
@@ -280,10 +285,10 @@ background-color: #dab276;
 
 @media (max-width: 1090px) and (min-width: 990px){
   .boton-ubicacion-izq-custom{
-    left: 70px;
+    left: 80px;
   }
   .boton-login-izq-custom{
-    left: 72px;
+    left: 80px;
     top: 30px;
   }
   .logo-custom{
@@ -295,6 +300,8 @@ background-color: #dab276;
 @media (max-width: 990px){
   .boton-ubicacion-izq-custom{
     left: 100px;
+    position: static;
+    text-align: center;
   }
   .drop-idioma{
     text-align: center;
@@ -302,8 +309,20 @@ background-color: #dab276;
   .boton-login-izq-custom{
     left: 125px;
     top: 10px;
+    position: static;
+    text-align: center;
   }
   .switch{
-    left: 40%;
+    left: 40vw;
   }
+}
+
+@media (max-width: 990px) and (min-width: 415px){
+  .switch{
+    left:45vw
+  }
+}
+
+.color-info-oscuro{
+  color: white;
 }

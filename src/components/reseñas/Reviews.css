@@ -70,6 +70,7 @@
 .titulo {
     text-align: center;
     color: #B08D59!important;
+    font-size: xx-large!important;
 }
 
 @media (max-width: 390px) {
@@ -79,4 +80,14 @@
         margin-top: -35px;
         transition-delay: 0.3s;
     }
+}
+
+.nombre-cocinero{
+    font-size: medium!important;
+    color: black;
+}
+
+.texto-reseña{
+    font-size: medium;
+    margin-top: 10px;
 }
