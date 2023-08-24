@@ -95,7 +95,8 @@ HoraCierre : Yup.string()
             }
           }
 
-          console.log(horario);
+          handleResetForm()
+traerFechasNoDisponibles()
 
           try {
             const res = await axios.put(url, 

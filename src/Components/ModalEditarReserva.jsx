@@ -15,7 +15,7 @@ import { AdministradorContexto } from "../Contexto/ContextoAdmin";
 
 function ModalEditar(props) {
 
-  const {NuevasFechas} = useContext(AdministradorContexto)
+  const {NuevasFechas,TraerReservas} = useContext(AdministradorContexto)
 
   //Declaro la fecha de hoy para usarla en proximas funciones
   let date = new Date();
@@ -23,9 +23,17 @@ function ModalEditar(props) {
   //Constante para mostrar el modal
   const [show, setShow] = useState(false);
 
+  const [act, setAct] = useState(0);
+
+
   //Para abrir y cerrar el modal
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  useEffect(() => {
+    TraerReservas()
+
+}, [act]);
 
  
 
@@ -68,10 +76,15 @@ function ModalEditar(props) {
         if (result.isConfirmed) {
           try {
             const res = await axios.patch(`${props.url}/${props.reserva.id}`, {
-              Fecha: fechaFormateada,
-              Hora: horaFormateada,
+              Fecha: fechaFormateada(values.Fecha),
+              Hora: horaFormateada(values.Hora),
               CantidadDePersonas: values.CantidadDePersonas,
             });
+            console.log(fechaFormateada(values.Fecha));
+          handleClose();
+          setAct(prevAct => prevAct + 1);
+          TraerReservas()
+            handleResetForm
           } catch (error) {
             console.log(error);
           }
@@ -93,7 +106,7 @@ function ModalEditar(props) {
 
   //Funcion para formatear hora
   const horaFormateada = (time) => {
-    return format(time, "HHmm", {
+    return format(time, "HH:mm", {
       locale: es,
     });
   };
@@ -161,6 +174,11 @@ function ModalEditar(props) {
   useEffect(() => {
     EstablecerDatos();
   }, [props]);
+
+  const handleResetForm = () => {
+    formik.resetForm();
+  };
+
 
   return (
     <>

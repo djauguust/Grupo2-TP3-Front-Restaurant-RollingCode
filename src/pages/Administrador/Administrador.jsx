@@ -1,7 +1,6 @@
 import TablaUsuarios from "../../Components/TablaUsuarios";
 import TablaReservas from "../../Components/TablaReservas";
-import CardsReservas from "../../Components/CardsReservas";
-import CardsUsuarios from "../../Components/CardsUsuarios";
+
 
 import "./Administrador.css";
 import CambiarFechasNoDisponibles from "../../Components/Administrador/CambiarFechasNoDisponibles/CambiarFechasNoDisponibles";

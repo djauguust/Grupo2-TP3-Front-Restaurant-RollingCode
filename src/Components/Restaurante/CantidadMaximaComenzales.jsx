@@ -63,7 +63,7 @@ const CantidadMaximaComenzales = () => {
     validateOnChange: true,
     validateOnBlur: true,
     onSubmit: (values) => {
-      console.log(values.MaximoComenzales);
+
       Swal.fire({
         title: "Seguro que no quiere realizar ningun cambio?",
         text: "Tiene que ingresar otro numero para realizar un cambio",

@@ -7,10 +7,11 @@ const Portero = () =>{
 
     return(
         <>
-            
             <div className={style.contenedor}>
-                <div className="cards">
+                <div className="ContenedorTablas">
+                <div className="tabla">
                     <CardsReservasHoy/>
+                </div>
                 </div>
             </div>
 

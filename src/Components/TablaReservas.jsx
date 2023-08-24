@@ -134,7 +134,7 @@ const TablaReservas = () =>{
                     reservas.map((reserv) => {
                         if (reserv.id >=0 && busqueda==reserv.Fecha) {
                             return (
-                                <tr>
+                                <tr key={reserv.id}>
                                     <td>{reserv.Fecha}</td>
                                     <td>{reserv.CantidadDePersonas}</td>
                                     <td>{reserv.Hora}</td>

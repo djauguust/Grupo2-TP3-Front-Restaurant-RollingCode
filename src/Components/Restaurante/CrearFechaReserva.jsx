@@ -54,7 +54,7 @@ const CrearFechaReserva = () => {
 
             const fechaFormateada = format(values.Fecha, "yyyy-MM-dd");
 
-            console.log(fechaFormateada);
+
             
             const prueba ={
                 Nombre: "Hola Mundo"
@@ -70,6 +70,7 @@ const CrearFechaReserva = () => {
                 "success"
                 );
                 traerFechasNoDisponibles()
+                handleResetForm()
             } catch (error) {
                 console.log(error);
             }
@@ -93,6 +94,9 @@ const CrearFechaReserva = () => {
     return limitDate;
   };
 
+  const handleResetForm = () => {
+    formik.resetForm();
+  };
 
   return (
     <>

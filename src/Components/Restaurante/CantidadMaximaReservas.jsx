@@ -84,6 +84,7 @@ const CantidadMaximaReservas = () => {
               "success"
             );
             traerFechasNoDisponibles();
+            handleResetForm()
           } catch (error) {
             console.log(error);
           }
@@ -131,7 +132,7 @@ const CantidadMaximaReservas = () => {
               </div>
             )}
         </Form.Group>
-        <Button variant="primary" type="submit" className='mt-2 mb-2' onClick={handleResetForm}>
+        <Button variant="primary" type="submit" className='mt-2 mb-2' >
               Guardar cambios
             </Button>
       </Form>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Form } from 'react-bootstrap';
@@ -7,9 +7,13 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import clsx from 'clsx';
 import Swal from 'sweetalert2'
+import { AdministradorContexto } from '../Contexto/ContextoAdmin';
 
 
 function ModalEditarUsuario(props) {
+
+  const {TraerUsuarios} = useContext(AdministradorContexto)
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -20,6 +24,13 @@ function ModalEditarUsuario(props) {
   const [contrasena, setContrasena] = useState(props.usuario.Contrasena);
   const [rol, setRol] = useState(props.usuario.Rol);
 
+  const [act, setAct] = useState(0);
+
+  useEffect(() => {
+    TraerUsuarios()
+
+}, [act]);
+
   const usuarioActualizado = {
     id: props.usuario.id,
     Nombre: nombre,
@@ -29,24 +40,40 @@ function ModalEditarUsuario(props) {
   };
 
   const actualizar = async () => {
-    try {
-      const response = await axios.put(
-        `${props.url}/${props.usuario.id}`,
-        usuarioActualizado
-      );
-      Swal.fire(
-        'Guardado!',
-        'Los cambios han sido guardados!',
-        'success'
-      )
-      handleClose();
-    } catch (error) {
-      cSwal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'No se pudieron realizar los cambios'
-      })
-    }
+    Swal.fire({
+      title: "Esta seguro de editar el usuario?",
+      text: "Los cambio los podra revertir luego",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, estoy seguro!",
+      cancelButtonText: "Mejor no",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await axios.put(
+            `${props.url}/${props.usuario.id}`,
+            usuarioActualizado
+          );         
+          Swal.fire(
+            "Usuario editada!",
+            "Los cambios fueron aplicados con exito",
+            "success"
+          );
+          handleClose();
+          setAct(prevAct => prevAct + 1);
+          TraerUsuarios()
+          handleResetForm()
+        } catch (error) {
+          cSwal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'No se pudieron realizar los cambios'
+          })
+        }
+      }
+    });
   };
 
   const SignUpSchema = Yup.object().shape({
@@ -83,6 +110,10 @@ function ModalEditarUsuario(props) {
       actualizar();
     },
   });
+
+  const handleResetForm = () => {
+    formik.resetForm();
+  };
 
   return (
     <>

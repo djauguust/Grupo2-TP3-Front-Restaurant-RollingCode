@@ -59,7 +59,6 @@ export const AdministradorProvider = ({ children }) => {
     try {
       const respuesta = await axios.get(urlReservas).then((res) => {
         setReservas(res.data);
-        console.log("TraerReservas funciono");
       });
     } catch (error) {
       console.log(error);
@@ -72,7 +71,6 @@ export const AdministradorProvider = ({ children }) => {
       .get(urlUsuarios)
       .then((res) => {
         setUsuarios(res.data);
-        console.log("Traer usuarios funciono");
       })
       .catch((response) => {
         switch (response.response.status) {
@@ -97,8 +95,6 @@ export const AdministradorProvider = ({ children }) => {
     usuarios,
     setUsuarios,
   };
-
-  console.log("Funciona?");
 
   return (
     <AdministradorContexto.Provider value={pasarDatos}>
