@@ -110,7 +110,7 @@ const Header = () => {
             {user ? (
               <>
                 <Nav.Link
-                  className=" boton-perfil-izq-custom"
+                  className=" boton-login-izq-custom"
                   as={Link}
                   onClick={handleShow}
                   variant="dark"
@@ -127,7 +127,6 @@ const Header = () => {
                     <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z" />
                   </svg>
                   {t("perfil")}
-                  {t("perfil")}
                 </Nav.Link>
                 <Offcanvas show={show} onHide={handleClose} placement="end" className={`modal-cuenta${theme}`}>
                   <Offcanvas.Header closeButton>
@@ -136,7 +135,6 @@ const Header = () => {
                     </Offcanvas.Title>
                   </Offcanvas.Header>
                   <Offcanvas.Body className="text-center">
-                    <h5> {t("micuenta")} </h5>
                     <h5> {t("micuenta")} </h5>
                     <img
                       src="public\cocinero-icono-plano-chef-avatar-ilustracion-vectorial-diseno-dibujos-animados-chef-bigotudo-gorra-u-removebg-preview-removebg-preview (1).png"
@@ -174,7 +172,6 @@ const Header = () => {
                         <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm9 1.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 0-1h-4a.5.5 0 0 0-.5.5ZM9 8a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 0-1h-4A.5.5 0 0 0 9 8Zm1 2.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5Zm-1 2C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1 1 0 0 0 2 13h6.96c.026-.163.04-.33.04-.5ZM7 6a2 2 0 1 0-4 0 2 2 0 0 0 4 0Z" />
                       </svg>
                       {t("configurarcuenta")}
-                      {t("configurarcuenta")}
                     </Button>{" "}
                     <br></br>
                     <br></br>
@@ -196,7 +193,6 @@ const Header = () => {
                           d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"
                         />
                       </svg>
-                      {t("cerrarsesion")}
                       {t("cerrarsesion")}
                     </Button>{" "}
                   </Offcanvas.Body>
