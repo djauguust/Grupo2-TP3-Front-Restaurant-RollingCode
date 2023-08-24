@@ -114,18 +114,6 @@
   color: white;
 }
 
-.boton-izq-custom-idioma {
-  border: none;
-  text-align: center;
-}
-.boton-izq-custom-idioma:hover {
-  transform: scale(1.04);
-  color: #e2b111;
-}
-
-.oscuro .boton-izq-custom-idioma {
-  color: wheat;
-}
 
  #custom-switch {
   width: 80px;
@@ -157,28 +145,22 @@
 }
 
 
-
-
-.boton-ubicacion-izq-custom {
-left: 9vh;
-bottom: 40px;
-position: relative;
-}
-
 .boton-ubicacion-izq-custom:hover {
   transform: scale(1.04);
   color: #e2b111;
   }
 
-.oscuro .boton-ubicacion-izq-custom {
-color: wheat;
-}
 
 .boton-login-izq-custom {
-position: relative;
-right: 4vh;
-bottom: 1px;
+  top: -20px;
+  position: relative;
+  left: -110%;
+}
 
+.boton-ubicacion-izq-custom{
+  position: relative;
+  top: -57px;
+  left: -15%;
 }
 
 .boton-login-izq-custom:hover {
@@ -190,12 +172,6 @@ color: #e2b111;
 color: wheat;
 }
 
-.drop-idioma {
-  text-align: center;
-  bottom: 78px;
-  left: 20vh;
-  
-  }
 
 @media (max-width: 390px) {
 .boton-ubicacion-izq-custom {
@@ -204,19 +180,8 @@ bottom: 40px;
 position: relative;
 }  
 
-.boton-login-izq-custom {
-position: relative;
-left: 1vh;
-bottom: 1px;
-  
-}
 
-.drop-idioma {
-text-align: center;
-bottom: 78px;
-left: 14vh;
-  
-}
+
 
 .switch {
 	position: relative;
@@ -265,7 +230,7 @@ left: 14vh;
 	display: inline-block;
 	width: 80px;
 	height: 35px;
-  left: 17vh;
+  left: -100px;
 	/* border: 2px solid #e7c03d; */
   border: 2px solid #191919;
 	border-radius: 30px;
@@ -307,4 +272,8 @@ background-color: #dab276;
 }
 #checkbox:checked + .switch__ball {
 	transform: translate(49px, -50%);
+}
+
+.navbar-nav{
+  font-size: small!important;
 }
