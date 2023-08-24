@@ -145,11 +145,11 @@ function Registro() {
                   />
                 </div>
                 {formik.touched.Nombre && formik.errors.Nombre && (
-                  <div className="Contenedor-Error">
+                  
                     <span role="alert" className="text-danger">
                       {formik.errors.Nombre}
                     </span>
-                  </div>
+                  
                 )}
               </Form.Group>
               <Form.Group className="contenedorForm">
@@ -181,11 +181,11 @@ function Registro() {
                   />
                 </div>
                 {formik.touched.Email && formik.errors.Email && (
-                  <div className="Contenedor-Error">
+                  
                     <span role="alert" className="text-danger">
                       {formik.errors.Email}
                     </span>
-                  </div>
+                  
                 )}
               </Form.Group>
               <Form.Group className="contenedorForm">
@@ -215,11 +215,11 @@ function Registro() {
                   />
                 </div>
                 {formik.touched.Contraseña && formik.errors.Contraseña && (
-                  <div className="Contenedor-Error">
+                  
                     <span role="alert" className="text-danger">
                       {formik.errors.Contraseña}
                     </span>
-                  </div>
+                  
                 )}
               </Form.Group>
               <Form.Group className="contenedorForm">
@@ -254,11 +254,11 @@ function Registro() {
                 </div>
                 {formik.touched.ConfirmarContraseña &&
                   formik.errors.ConfirmarContraseña && (
-                    <div className="Contenedor-Error">
+                    
                       <span role="alert" className="text-danger">
                         {formik.errors.ConfirmarContraseña}
                       </span>
-                    </div>
+                    
                   )}
               </Form.Group>
 

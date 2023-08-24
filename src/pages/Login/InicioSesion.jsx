@@ -11,6 +11,9 @@ import Swal from "sweetalert2";
 import axios from "axios";
 
 function InicioSesion() {
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   //Url de un back de prueba para que la funcion de logueo quede guardada para cuando usemos el back
   /* const url = "http://localhost:8001/api/usuarios/login"; */
   const url = import.meta.env.VITE_API;
@@ -63,6 +66,9 @@ function InicioSesion() {
         // Aquí puedes decidir si deseas guardar el token en el estado o en LocalStorage
         /* setTokenEnEstado(jwtToken); */
         localStorage.setItem("user", JSON.stringify(jwtToken));
+        
+        setIsLoogedIn(true);
+      
       } catch (error) {
         // Si la petición falla
         Swal.fire("No se pudo loguear el usuario", " ", "warning");
