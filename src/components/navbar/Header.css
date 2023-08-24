@@ -203,64 +203,6 @@ color: #e2b111;
 color: wheat;
 }
 
-@media (max-width: 390px) {
-  .boton-ubicacion-izq-custom {
-    left: 17vh;
-    bottom: 40px;
-    position: relative;
-    }
-    
-    .boton-ubicacion-izq-custom:hover {
-    transform: scale(1.04);
-    color: #e2b111;
-    }
-    
-    .oscuro .boton-ubicacion-izq-custom {
-    color: wheat;
-    }  
-
-    .boton-login-izq-custom {
-      position: relative;
-      left: 1vh;
-      bottom: 1px;
-      
-      }
-      
-      .boton-login-izq-custom:hover {
-      transform: scale(1.04);
-      color: #e2b111;
-      }
-      
-      .oscuro .boton-login-izq-custom {
-      color: wheat;
-      }
-}
-
-@media (max-width: 1000px) {
-  #custom-switch {
-    left: 50%;
-  }
-}
-@media (max-width: 1220px) and (min-width: 990px) {
-  .claro{
-    height: 200px;
-}   .oscuro{
-  height: 200px;
-} 
-.logo-custom{
-  width: 120px;
-  object-fit: contain;
-}
-.navbar-collapse{
-  flex-grow: none;
-}
-#custom-switch{
-  left: 50px;
-}
-
-}
-
-
 
 .navbar-toggler-icon {
   background-color: wheat;

@@ -29,7 +29,6 @@ const Header = () => {
                 <Nav.Link href="#link" className="bg-black text-light m-2">
                   HAZ TU RESERVA
                 </Nav.Link>
-                {/* NavDropdown... */}
               </Nav>
           </Navbar.Collapse>
       </Navbar>

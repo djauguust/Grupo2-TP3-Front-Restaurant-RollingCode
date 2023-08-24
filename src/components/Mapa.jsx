@@ -1,8 +1,8 @@
 const Mapa = () => {
     const iframeStyle = {
       border: "0",
-      width: "100%", // Ajusta el ancho del iframe al 100% del contenedor
-      height: "500px", // Asigna una altura para asegurarte de que el mapa se muestre correctamente
+      width: "100%",
+      height: "500px", 
     };
   
     return (
