@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import clsx from "clsx";
 import DatePicker from "react-datepicker";
-import { format, getDay } from "date-fns";
+import { format, getDay, setHours } from "date-fns";
 import es from "date-fns/locale/es";
 import "react-datepicker/dist/react-datepicker.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -22,36 +22,41 @@ const Reservas = () => {
   // const decodeToken = jwt.decode(token)
   // const user = decodeToken.id
 
-  //Estado de fecha disponible
-  const [availableDate, setAvailableDate] = useState(null);
-  //Estado tiempo disponible
-  const [availableHour, setAvailableHour] = useState(null);
-
-  //Estado fecha seleccionada
-  const [isDateSelected, setIsDateSelected] = useState(false);
+  //Estado de fecha seleccionada
+  const [dates, setDates] = useState(null);
   //Estado tiempo seleccionado
-  const [isTimeSelected, setIsTimeSelected] = useState(false);
+  const [time, setTime] = useState(null);
+
+  //Estado para deshabilitar inputs
+  const [enableDate, setEnableDate] = useState(false);
+  //Estado para deshabilitar inputs
+  const [diseablePeople, setDiseablePeople] = useState(false);
+
+  //Estado para filtrar horarios disponibles
+  const [filterHour, setFilterHour] = useState([])
 
   //Get para solicitar si una fecha esta disponible o no
   useEffect(() => {
-    if (availableDate) {
+    if (dates) {
       axios
-        .get(` http://localhost:3000/reservas?fecha=${availableDate}`)
+        // .get(` http://localhost:3000/reservas?fecha=${dates}`)
+        .get(` http://localhost:3000/reservas`)
         .then((response) => {
-          console.log("Horas disponibles: ", response);
+          setFilterHour(response.data)
+          // console.log("Horas disponibles: ", response.data);
         })
         .catch((error) => {
           console.log("Error :", error);
         });
     }
-  }, [availableDate]);
+  }, [dates]);
 
   //Get para solicitar la cantidad de comensales disponibles
   useEffect(() => {
-    if (availableHour) {
+    if (time) {
       axios
         .get(
-          `http://localhost:3000/reservas?fecha=${availableDate}&hora=${availableHour}`
+          `http://localhost:3000/reservas?fecha=${dates}&hora=${time}`
         )
         .then((response) => {
           console.log("Comensales disponibles: ", response);
@@ -60,11 +65,11 @@ const Reservas = () => {
           console.log("Error: ", error);
         });
     }
-  }, [availableHour]);
+  }, [time]);
 
   //Funcion para resetear valores de inputs
   const handleDateChange = (date) => {
-    setAvailableHour(null);
+    setTime(null);
     formik.setFieldValue("ReservationTime", ""); // Limpio input de tiempo
     formik.setFieldValue("People", ""); // Limpio input de personas
   };
@@ -142,6 +147,7 @@ const Reservas = () => {
             "Tu reserva no ha sido guardada.",
             "info"
           );
+          resetForm()
         }
       } catch (error) {
         console.log(error);
@@ -225,8 +231,8 @@ const Reservas = () => {
                     onChange={(date) => {
                       formik.setFieldValue("ReservationDate", date);
                       if (date) {
-                        setIsDateSelected(true);
-                        setAvailableDate(fechaFormateada(date));
+                        setEnableDate(true);
+                        setDates(fechaFormateada(date));
                         handleDateChange();
                       }
                     }}
@@ -267,17 +273,21 @@ const Reservas = () => {
                     onChange={(time) => {
                       formik.setFieldValue("ReservationTime", time);
                       if (time) {
-                        setIsTimeSelected(true);
-                        setAvailableHour(horaFormateada(time));
+                        setDiseablePeople(true);
+                        setTime(horaFormateada(time));
                       }
                     }}
-                    disabled={!isDateSelected}
+                    disabled={!enableDate}
                     showTimeSelect
                     showTimeSelectOnly
                     timeIntervals={30}
                     timeCaption="Time"
                     dateFormat="HH:mm"
                     filterTime={filterTime}
+                    excludeTimes={filterHour.map((hour) => new Date(`2000-01-01 ${hour}`))}
+                      
+                      
+                     // instancio cada elemento de mi array para setearle un formato date 
                     placeholderText="Elija un horario"
                     timeClassName={handleColor}
                     className={clsx(
@@ -312,7 +322,7 @@ const Reservas = () => {
                     onChange={(e) =>
                       formik.setFieldValue("People", e.target.value)
                     }
-                    disabled={!isTimeSelected}
+                    disabled={!diseablePeople}
                     type="number"
                     min={1}
                     max={10}
