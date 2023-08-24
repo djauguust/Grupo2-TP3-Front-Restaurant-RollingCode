@@ -36,6 +36,10 @@
     width: 50%;
   }
 }
-.color-info{
+.color-infoclaro{
   color: black;
+}
+
+.color-infoosuro{
+  color: white;
 }

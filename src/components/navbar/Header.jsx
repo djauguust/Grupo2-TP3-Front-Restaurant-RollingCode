@@ -42,7 +42,7 @@ const Header = () => {
   return (
     <>
       <Navbar fixed="top" expand="lg" className={theme}>
-        <Navbar.Brand href="/" className="ms-4">
+        <Navbar.Brand as={Link} to="/" className="ms-4">
           <img
             alt=""
             src="public\Gusteau_s-removebg-preview.png"
@@ -224,7 +224,7 @@ const Header = () => {
             <Nav.Link
               target="_blank"
               href="https://www.google.com/maps/place/Olga+Cossettini+750,+Buenos+Aires/@-34.6111001,-58.3780726,13.75z/data=!4m6!3m5!1s0x95a3352ec57d549b:0x5341533dfe791f9f!8m2!3d-34.6067233!4d-58.3638578!16s%2Fg%2F11fk3r6bhk?entry=ttu"
-              className="boton-ubicacion-izq-custom"
+              className="boton-ubicacion-izq-custom boton-izq-custom"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
