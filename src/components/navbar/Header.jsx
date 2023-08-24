@@ -45,7 +45,7 @@ const Header = () => {
   return (
     <>
       <Navbar fixed="top" expand="lg" className={theme}>
-        <Navbar.Brand href="/" className="ms-4">
+        <Navbar.Brand as={Link} to="/" className="ms-4">
           <img
             alt=""
             src="public\Gusteau_s-removebg-preview.png"
@@ -227,10 +227,10 @@ const Header = () => {
 
               <Dropdown.Menu>
                 <Dropdown.Item onClick={() => i18n.changeLanguage("es")}>
-                  Español
+                  {t('español')}  <img height="15px" src="public\Bandera_de_España.svg.png"></img>
                 </Dropdown.Item>
                 <Dropdown.Item onClick={() => i18n.changeLanguage("en")}>
-                  Ingles
+                  {t('ingles')}  <img src="public\Bandera-de-inglaterra-400x240.png" height="15px"></img>
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
@@ -242,7 +242,7 @@ const Header = () => {
             onChange={handleSwitch}
             className="boton-switch"
             variant="dark"
-            custom // Agregar esta clase para habilitar los estilos personalizados
+            custom 
           />
         </Navbar.Collapse>
       </Navbar>
