@@ -8,6 +8,8 @@ import Galeria from "../components/galeria/Galeria";
 import InicioSesion from "../Pages/Login/InicioSesion";
 import Registro from "../Pages/Registro/Registro"
 import Error404 from "../pages/Error404/Error404";
+import Bandeja from "../components/bandeja/Bandeja";
+
 
 
 const Rutas = () => {
@@ -22,6 +24,7 @@ const Rutas = () => {
         <Route path="/login" element={<InicioSesion />} />
         <Route path="/registro" element={<Registro />} />
         <Route path='*' element={<Error404 />} />
+        <Route path='/bandeja' element={<Bandeja />} />
       </Routes>
     </>
   );
