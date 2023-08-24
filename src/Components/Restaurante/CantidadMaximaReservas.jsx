@@ -21,7 +21,7 @@ const CantidadMaximaReservas = () => {
       const res = await axios.get(url);
       setReservas(res.data);
     } catch (error) {
-      console.log(error);
+      /* console.log(error); */
     }
   };
 

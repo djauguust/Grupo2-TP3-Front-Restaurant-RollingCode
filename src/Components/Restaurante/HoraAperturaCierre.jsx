@@ -26,7 +26,7 @@ const HoraAperturaCierre = () => {
       const res = await axios.get(url);
       setHorario(res.data);
     } catch (error) {
-      console.log(error);
+      /* console.log(error); */
     }
   };
 

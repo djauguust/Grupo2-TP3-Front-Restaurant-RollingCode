@@ -12,9 +12,7 @@ import { matches } from "lodash";
 
 function ModalEditarUsuario(props) {
   const URL = import.meta.env.VITE_API_USUARIOS;
-
-  console.log(props);
-
+  
   const { TraerUsuarios } = useContext(AdministradorContexto);
 
   const [show, setShow] = useState(false);
