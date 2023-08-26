@@ -174,7 +174,7 @@ const Reservas = () => {
             "Tu reserva no ha sido guardada.",
             "info"
           );
-          resetForm();
+          resetForm(); 
         }
       } catch (error) {
         console.log(error);
