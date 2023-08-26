@@ -1,0 +1,18 @@
+/* ADMINISTRACIÓN */
+
+.about-title {
+  margin-top: 150px;
+  text-align: center;
+}
+
+.color-elegido {
+  color: #b08d59;
+  font-weight: bold;
+}
+
+.color-elegido:hover {
+  color: black;
+}
+.color-elegido:visited {
+  color: black;
+}
