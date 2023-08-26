@@ -59,18 +59,18 @@ const Reservas = () => {
         });
     }
   }, [dates]);
-
+  const url = import.meta.env.VITE_API
   //Get para solicitar la cantidad de comensales disponibles
   useEffect(() => {
     const fetchData = async () => {
       if (time) {
         try {
           const response = await axios.get(
-            `http://localhost:3000/reservas?fecha=${dates}&hora=${time}`
+            `${url}/${dates}/${time}`
           );
           // const response = await axios.get(`http://localhost:3000/reservas`);
           setFilterPeople(response.data);
-          console.log("Comensales disponibles: ", response.data);
+          console.log("Comensales disponibles: ", response);
         } catch (error) {
           console.log("Error: ", error);
         }
@@ -185,7 +185,7 @@ const Reservas = () => {
 
   //Funcion para formatear fecha
   const fechaFormateada = (date) => {
-    return format(date, "dd/MM/yyyy", {
+    return format(date, "dd-MM-yyyy", {
       locale: es,
     });
   };

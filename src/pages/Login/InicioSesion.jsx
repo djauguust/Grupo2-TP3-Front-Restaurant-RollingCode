@@ -67,7 +67,7 @@ function InicioSesion() {
         /* setTokenEnEstado(jwtToken); */
         localStorage.setItem("user", JSON.stringify(jwtToken));
         
-        setIsLoogedIn(true);
+        /* setIsLoogedIn(true); */
       
       } catch (error) {
         // Si la petición falla
