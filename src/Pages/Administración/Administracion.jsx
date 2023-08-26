@@ -52,7 +52,7 @@ export const Administracion = () => {
         )}
       </Nav>
       <Container fluid>
-        {showInterface == 0 && <AdministrarReservas />}
+        {showInterface == 0 && <AdministrarReservas isDoorman={isDoorman} />}
         {!isDoorman && (
           <>
             {showInterface == 1 && <AdministrarUsuarios />}
