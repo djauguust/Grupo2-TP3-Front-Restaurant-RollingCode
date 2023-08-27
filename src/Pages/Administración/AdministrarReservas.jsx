@@ -6,18 +6,6 @@ import Swal from "sweetalert2";
 import axios from "axios";
 
 export const AdministrarReservas = ({ isDoorman = false }) => {
-  const { formState, onInputChange } = useForm({ date: "" });
-
-  /* UseEffect que busque reservas cada vez que cambia formState.date */
-
-  /* Backend */
-  const url = import.meta.env.VITE_API;
-
-  const [actualizador, setActualizador] = useState(false);
-  const actualizar = () => {
-    setActualizador(!actualizador);
-  };
-
   const today = new Date();
   const mesComoString = () => {
     let aux = today.getMonth() + 1;
@@ -27,15 +15,41 @@ export const AdministrarReservas = ({ isDoorman = false }) => {
       return `${aux}`;
     }
   };
-  const today2 = `${today.getFullYear()}-${mesComoString()}-${today.getDate()}`;
+  const diaComoString = () => {
+    let aux = today.getDate();
+    if (aux < 10) {
+      return `0${aux}`;
+    } else {
+      return `${aux}`;
+    }
+  };
+  const today2 = `${today.getFullYear()}-${mesComoString()}-${diaComoString()}`;
   const [reservasToday, setReservasToday] = useState(null);
+  const { formState, onInputChange } = useForm({ date: today2 });
+
+  /* UseEffect que busque reservas cada vez que cambia formState.date */
+  const [reservaToShow, setReservaToShow] = useState([]);
+  useEffect(() => {
+    axios
+      .get(`${url}/reservas/${formState.date}`)
+      .then(({ data }) => {
+        setReservaToShow(data);
+      })
+      .catch((error) => console.log(error));
+  }, [formState.date]);
+
+  /* Backend */
+  const url = import.meta.env.VITE_API;
+
+  const [actualizador, setActualizador] = useState(false);
+  const actualizar = () => {
+    setActualizador(!actualizador);
+  };
 
   useEffect(() => {
-    console.log("hola");
     axios
       .get(`${url}/reservas/${today2}`)
       .then(({ data }) => {
-        console.log(data);
         setReservasToday(data);
       })
       .catch((error) => console.log(error));
@@ -76,7 +90,6 @@ export const AdministrarReservas = ({ isDoorman = false }) => {
       }
     });
   };
-  console.log(reservasToday);
   return (
     <>
       <h2 className="text-center mt-5">Administrar Reservas</h2>
@@ -143,34 +156,40 @@ export const AdministrarReservas = ({ isDoorman = false }) => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>Mark</td>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-              <td>
-                <Button variant="success">
-                  <i className="bi bi-check2"></i>
-                </Button>
-                {!isDoorman && (
-                  <>
-                    <Button variant="danger">
-                      <i className="bi bi-pencil"></i>
-                    </Button>
-                    <Button variant="danger" onClick={handleDelete}>
-                      <i className="bi bi-trash"></i>
-                    </Button>
-                  </>
-                )}
-              </td>
-            </tr>
+            {reservaToShow?.map((r, index) => (
+              <tr key={index}>
+                <td>{index + 1}</td>
+                <td>{r.hora}</td>
+                <td>{r.usuario}</td>
+                <td>{r.comensales}</td>
+                <td>{`${r.fueUsada}`}</td>
+                <td>
+                  <Button variant="success" onClick={handleConfirm}>
+                    <i className="bi bi-check2"></i>
+                  </Button>
+                  {!isDoorman && (
+                    <>
+                      <Button variant="danger">
+                        <i className="bi bi-pencil"></i>
+                      </Button>
+                      <Button variant="danger" onClick={handleDelete}>
+                        <i className="bi bi-trash"></i>
+                      </Button>
+                    </>
+                  )}
+                </td>
+              </tr>
+            ))}
           </tbody>
         </Table>
+        {reservaToShow.length == 0 && (
+          <>
+            <p>Sin Reservas para ese día</p>
+          </>
+        )}
       </Container>
       {/* Modales para confirmar/eliminar/editar reservas */}
-      Swal.fire( "Usuario logueado con exito", "Tus datos ya fueron ingresados
-      exitosamente", "success" );
+
       {/* FIN Modales para confirmar/eliminar/editar reservas */}
     </>
   );
