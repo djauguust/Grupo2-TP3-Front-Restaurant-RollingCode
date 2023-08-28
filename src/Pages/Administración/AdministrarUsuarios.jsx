@@ -130,7 +130,7 @@ export const AdministrarUsuarios = () => {
           placeholder="Buscar Usuario"
           name="user"
         />
-        <Table striped responsive className="mb-5">
+        <Table striped responsive className="my-3">
           <thead>
             <tr>
               <th>#</th>
@@ -152,7 +152,7 @@ export const AdministrarUsuarios = () => {
                 <td>{esActivoTraduccion(r.esActivo)}</td>
                 <td>{adminComoString(r.esAdmin)}</td>
                 <td>
-                  <Button variant="danger" onClick={handleEdit}>
+                  <Button variant="danger" onClick={handleEdit} className="me-3">
                     <i className="bi bi-pencil"></i>
                   </Button>
                   <Button variant="danger" onClick={handleDelete}>
