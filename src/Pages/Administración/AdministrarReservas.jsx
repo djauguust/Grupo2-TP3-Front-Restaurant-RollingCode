@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Container, Form, Row, Table } from "react-bootstrap";
+import {
+  Alert,
+  Badge,
+  Button,
+  Col,
+  Container,
+  Form,
+  Row,
+  Table,
+} from "react-bootstrap";
 import { FormSearch } from "./components/FormSearch";
 import { useForm } from "./hooks/useForm";
 import Swal from "sweetalert2";
@@ -90,50 +99,91 @@ export const AdministrarReservas = ({ isDoorman = false }) => {
       }
     });
   };
+
+  /* Badge de "fue usada" */
+  const fueUsada = (usada) => {
+    if (usada) {
+      return (
+        <>
+          <Badge bg="success">SI</Badge>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <Badge bg="secondary">NO</Badge>
+        </>
+      );
+    }
+  };
+  /* FIN Badge de "fue usada" */
+
+  /* Alert de que no hay reservas en ese día */
+  const sinReserva = (message = "Sin reservas para el día") => {
+    return (
+      <>
+        <Alert key="warning" variant="warning" className="my-2">
+          <b>{message}</b>
+        </Alert>
+      </>
+    );
+  };
+  /* FIN Alert de que no hay reservas en ese día */
   return (
     <>
       <h2 className="text-center mt-5">Administrar Reservas</h2>
       <Container>
         <h2>Reservas del día</h2>
-        <Table striped responsive className="mb-5">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Hora</th>
-              <th>Apellido y Nombre</th>
-              <th>Cantidad</th>
-              <th>Fue usada</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {reservasToday?.map((r, index) => (
-              <tr key={index}>
-                <td>{index + 1}</td>
-                <td>{r.hora}</td>
-                <td>{r.usuario}</td>
-                <td>{r.comensales}</td>
-                <td>{`${r.fueUsada}`}</td>
-                <td>
-                  <Button variant="success" onClick={handleConfirm}>
-                    <i className="bi bi-check2"></i>
-                  </Button>
-                  {!isDoorman && (
-                    <>
-                      <Button variant="danger">
-                        <i className="bi bi-pencil"></i>
+        {reservasToday?.length == 0 ? (
+          sinReserva("Sin reservas para el día de hoy")
+        ) : (
+          <>
+            <Table striped responsive className="mb-5">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Hora</th>
+                  <th>Apellido y Nombre</th>
+                  <th>Cantidad</th>
+                  <th>Fue usada</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {reservasToday?.map((r, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{r.hora}</td>
+                    <td>
+                      {r.usuario.apellido
+                        ? `${r.usuario.apellido}, ${r.usuario.nombre}`
+                        : `${r.usuario.nombre}`}
+                    </td>
+                    <td>{r.comensales}</td>
+                    <td>{`${fueUsada(r.fueUsada)}`}</td>
+                    <td>
+                      <Button variant="success" onClick={handleConfirm}>
+                        <i className="bi bi-check2"></i>
                       </Button>
-                      <Button variant="danger" onClick={handleDelete}>
-                        <i className="bi bi-trash"></i>
-                      </Button>
-                    </>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-        <Row>
+                      {!isDoorman && (
+                        <>
+                          <Button variant="danger">
+                            <i className="bi bi-pencil"></i>
+                          </Button>
+                          <Button variant="danger" onClick={handleDelete}>
+                            <i className="bi bi-trash"></i>
+                          </Button>
+                        </>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </>
+        )}
+
+        <Row className="my-3">
           <Col sm={9}>
             <h2>Buscar reservas por día: {formState.date}</h2>
           </Col>
@@ -144,47 +194,60 @@ export const AdministrarReservas = ({ isDoorman = false }) => {
             />
           </Col>
         </Row>
-        <Table striped responsive>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Hora</th>
-              <th>Apellido y Nombre</th>
-              <th>Cantidad</th>
-              <th>Fue usada</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {reservaToShow?.map((r, index) => (
-              <tr key={index}>
-                <td>{index + 1}</td>
-                <td>{r.hora}</td>
-                <td>{r.usuario}</td>
-                <td>{r.comensales}</td>
-                <td>{`${r.fueUsada}`}</td>
-                <td>
-                  <Button variant="success" onClick={handleConfirm}>
-                    <i className="bi bi-check2"></i>
-                  </Button>
-                  {!isDoorman && (
-                    <>
-                      <Button variant="danger">
-                        <i className="bi bi-pencil"></i>
-                      </Button>
-                      <Button variant="danger" onClick={handleDelete}>
-                        <i className="bi bi-trash"></i>
-                      </Button>
-                    </>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-        {reservaToShow.length == 0 && (
+        {reservaToShow.length == 0 ? (
+          sinReserva(`Sin reserva para el día ${formState.date}`)
+        ) : (
           <>
-            <p>Sin Reservas para ese día</p>
+            <Table striped responsive>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Hora</th>
+                  <th>Apellido y Nombre</th>
+                  <th>Cantidad</th>
+                  <th>Fue usada</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {reservaToShow?.map((r, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{r.hora}</td>
+                    <td>
+                      {r.usuario.apellido
+                        ? `${r.usuario.apellido}, ${r.usuario.nombre}`
+                        : `${r.usuario.nombre}`}
+                    </td>
+                    <td>{r.comensales}</td>
+                    <td>{fueUsada(r.fueUsada)}</td>
+                    <td>
+                      <Button
+                        variant="success"
+                        onClick={handleConfirm}
+                        className="mx-2"
+                      >
+                        <i className="bi bi-check2"></i>
+                      </Button>
+                      {!isDoorman && (
+                        <>
+                          <Button variant="danger">
+                            <i className="bi bi-pencil"></i>
+                          </Button>
+                          <Button
+                            variant="danger"
+                            onClick={handleDelete}
+                            className="mx-2"
+                          >
+                            <i className="bi bi-trash"></i>
+                          </Button>
+                        </>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
           </>
         )}
       </Container>
