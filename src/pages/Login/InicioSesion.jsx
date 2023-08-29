@@ -12,11 +12,14 @@ import axios from "axios";
 import { UsuariosContext } from "../../context/UserContext";
 
 function InicioSesion() {
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   //Url de un back de prueba para que la funcion de logueo quede guardada para cuando usemos el back
   /* const url = "http://localhost:8001/api/usuarios/login"; */
   const url = import.meta.env.VITE_API;
 
-
+  
   
 
   const navigate = useNavigate();
@@ -61,8 +64,8 @@ function InicioSesion() {
           "success"
         );
 
-        navigate("/")
-          setAct(1)
+        //navigate("/")
+          //setAct(1)
 
         // Guardo el token en el estado o en el LocalStorage si es necesario
         const jwtToken = response.data.data.token;
@@ -73,6 +76,8 @@ function InicioSesion() {
         /* setTokenEnEstado(jwtToken); */
         localStorage.setItem("user", JSON.stringify(jwtToken));
         
+        /* setIsLoogedIn(true); */
+      
       } catch (error) {
         // Si la petición falla
         Swal.fire("No se pudo loguear el usuario", " ", "warning");
@@ -181,7 +186,7 @@ function InicioSesion() {
           <br />
 
           {/* Botón link 'olvidaste tu contrasenia' */}
-          <div className="mb-3 text-center">
+           <div className="mb-3 text-center">
             <ButtonDefault
               namebtn="registrarse"
               funcion={MandarARegistro}

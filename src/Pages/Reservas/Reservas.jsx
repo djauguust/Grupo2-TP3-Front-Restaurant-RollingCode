@@ -13,15 +13,14 @@ import Image from "react-bootstrap/Image";
 import axios from "axios";
 import Swal from "sweetalert2";
 import jwt_decode from "jwt-decode"
+import { use } from "i18next";
+import UserContext from "../../context/UserContext";
 
 
 const Reservas = () => {
   let date = new Date();
 
-
-  //Token
-   const token = localStorage.getItem("user")
-   const decode = jwt_decode(token);
+  const Token = useContext(UserContext)
    
   const Url = import.meta.env.VITE_API
 
@@ -59,18 +58,18 @@ const Reservas = () => {
         });
     }
   }, [dates]);
-
+  const url = import.meta.env.VITE_API
   //Get para solicitar la cantidad de comensales disponibles
   useEffect(() => {
     const fetchData = async () => {
       if (time) {
         try {
           const response = await axios.get(
-            `http://localhost:3000/reservas?fecha=${dates}&hora=${time}`
+            `${url}/${dates}/${time}`
           );
           // const response = await axios.get(`http://localhost:3000/reservas`);
           setFilterPeople(response.data);
-          console.log("Comensales disponibles: ", response.data);
+          console.log("Comensales disponibles: ", response);
         } catch (error) {
           console.log("Error: ", error);
         }
@@ -156,7 +155,7 @@ const Reservas = () => {
             fecha: Reserva.Fecha,
             hora: Reserva.Hora,
             comensales: Reserva.CantidadDePersonas,
-             usuario: decode.id
+             usuario: Token.id
           });
 
           console.log(response.data);
@@ -185,7 +184,7 @@ const Reservas = () => {
 
   //Funcion para formatear fecha
   const fechaFormateada = (date) => {
-    return format(date, "dd/MM/yyyy", {
+    return format(date, "dd-MM-yyyy", {
       locale: es,
     });
   };

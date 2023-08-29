@@ -1,4 +1,4 @@
-
+import 'sweetalert2/dist/sweetalert2.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client'
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css" 

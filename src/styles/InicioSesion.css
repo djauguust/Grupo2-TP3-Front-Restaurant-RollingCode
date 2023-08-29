@@ -165,3 +165,43 @@ color: #ffffff;
   padding: 1vh;
 
 }
+
+.Contenedor-Error {
+position: relative;  
+width: 27vh;
+height: 4vh;
+top: -8vh;
+left: 24px;
+/* background-color: #ffb4a7; */
+background-color: #dfd5ce;
+
+
+
+}
+
+.Contenedor-Error2 {
+  position: relative;  
+  width: 27vh;
+  height: 4vh;
+  top: -8vh;
+  left: 24px;
+  /* background-color: #ffb4a7; */
+  background-color: #dfd5ce;
+  
+  
+  
+  }
+
+@media (max-width: 390px) {
+.Contenedor-Error {
+  position: relative;  
+  width: 36vh;
+  height: 5vh;
+  top: -9vh;
+  left: 24px;
+  /* background-color: #ffb4a7; */
+  background-color: #dfd5ce;
+  
+ }
+
+}
