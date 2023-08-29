@@ -120,8 +120,8 @@ export const AdministrarUsuarios = () => {
 
   return (
     <>
-      <h2 className="text-center mt-5">Administrar Usuarios</h2>
       <Container>
+      <h2 className="text-center mt-5">Administrar Usuarios</h2>
         <h2>Usuarios</h2>
         <FormSearch
           formState={formState}
