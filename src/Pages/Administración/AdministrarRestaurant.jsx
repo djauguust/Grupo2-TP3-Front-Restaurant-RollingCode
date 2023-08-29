@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Container, Form, Row, Table } from "react-bootstrap";
+import {
+  Button,
+  Col,
+  Container,
+  Form,
+  Modal,
+  Row,
+  Table,
+} from "react-bootstrap";
 import { useForm } from "./hooks/useForm";
 import axios from "axios";
 
@@ -7,13 +15,15 @@ export const AdministrarRestaurant = () => {
   const initialForm = {
     nombre: "",
     maximoComensales: 0,
-    fechasNoDisponibles: [{ fecha: "", admin: "" }],
+    fecha: "",
+    admin: "",
     horario: { desde: 0, hasta: 2359 },
     reservasMaxima: 0,
     tiempoMaximoReserva: 0,
   };
 
-  const { formState, setFormState, onInputChange } = useForm(initialForm);
+  const { formState, setFormState, onInputChange, onResetForm } =
+    useForm(initialForm);
 
   const handleSubmit = () => {};
   const handleDelete = () => {};
@@ -31,7 +41,6 @@ export const AdministrarRestaurant = () => {
     axios
       .get(`${url}/restaurant/`)
       .then(({ data }) => {
-        setRestaurant(data[0]);
         data[0] = {
           ...data[0],
           horario: {
@@ -39,7 +48,7 @@ export const AdministrarRestaurant = () => {
             hasta: numberToHour(data[0].horario.hasta),
           },
         };
-        setFormState(data[0]);
+        setRestaurant(data[0]);
       })
       .catch((error) => console.log(error));
   }, [actualizador]);
@@ -50,6 +59,42 @@ export const AdministrarRestaurant = () => {
     return `${aux[0]}${aux[1]}:${aux[2]}${aux[3]}`;
   };
 
+  /* MODALES */
+  const [showModal, setShowModal] = useState(false);
+  const [buttonGuardarFecha, setButtonGuardarFecha] = useState(false);
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleShowModal = () => {
+    setButtonGuardarFecha(false);
+    onResetForm();
+    setShowModal(true);
+  };
+
+  const handleSubmitModal = () => {
+    setButtonGuardarFecha(true);
+    let aux = {
+      fecha: formState.fecha,
+      admin: "64e6934cab45fce72db39fda", // TO DO Tiene que ser el id del admin logueado!!
+    };
+    axios
+      .post(`${url}/reservas/fecha`, aux)
+      .then(({ data }) => {
+        console.log(data);
+        setButtonGuardarFecha(false);
+        // TO DO mostrar cartel que fue agregado con éxito
+        setShowModal(false);
+      })
+      .catch(({ response }) => {
+        console.log(response);
+        setButtonGuardarFecha(false);
+        // TO DO mostrar cartel que hubo problemas.
+        setShowModal(false);
+      });
+  };
+  /* FIN MODALES */
+  console.log(formState);
   return (
     <>
       <Container>
@@ -60,8 +105,7 @@ export const AdministrarRestaurant = () => {
             <Form.Label>Nombre del Restaurant:</Form.Label>
             <Form.Control
               type="text"
-              value={formState.nombre}
-              onChange={onInputChange}
+              value={restaurant?.nombre}
               name="nombre"
               disabled
             />
@@ -70,8 +114,7 @@ export const AdministrarRestaurant = () => {
             <Form.Label>Cantidad máxima de comensales:</Form.Label>
             <Form.Control
               type="text"
-              value={formState.maximoComensales}
-              onChange={onInputChange}
+              value={restaurant?.maximoComensales}
               name="maximoComensales"
               disabled
             />
@@ -82,8 +125,7 @@ export const AdministrarRestaurant = () => {
               <Col>
                 <Form.Control
                   type="time"
-                  value={formState.horario.desde}
-                  onChange={onInputChange}
+                  value={restaurant?.horario.desde}
                   name="desde"
                   disabled
                 />
@@ -92,8 +134,7 @@ export const AdministrarRestaurant = () => {
               <Col>
                 <Form.Control
                   type="time"
-                  value={formState.horario.hasta}
-                  onChange={onInputChange}
+                  value={restaurant?.horario.hasta}
                   name="hasta"
                   disabled
                 />
@@ -104,8 +145,7 @@ export const AdministrarRestaurant = () => {
             <Form.Label>Cantidad máxima de reservas por Usuario:</Form.Label>
             <Form.Control
               type="text"
-              value={formState.reservasMaxima}
-              onChange={onInputChange}
+              value={restaurant?.reservasMaxima}
               name="reservasMaxima"
               disabled
             />
@@ -114,8 +154,7 @@ export const AdministrarRestaurant = () => {
             <Form.Label>Tiempo máximo de cada turno: (en horas)</Form.Label>
             <Form.Control
               type="text"
-              value={formState.tiempoMaximoReserva}
-              onChange={onInputChange}
+              value={restaurant?.tiempoMaximoReserva}
               name="tiempoMaximoReserva"
               disabled
             />
@@ -132,7 +171,7 @@ export const AdministrarRestaurant = () => {
             </tr>
           </thead>
           <tbody>
-            {formState?.fechasNoDisponibles.map((f, index) => (
+            {restaurant?.fechasNoDisponibles.map((f, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>{f.fecha}</td>
@@ -146,7 +185,57 @@ export const AdministrarRestaurant = () => {
             ))}
           </tbody>
         </Table>
+        <div className="col-12 mb-4 d-grid">
+          <Button
+            type="submit"
+            variant="warning"
+            /* onClick={handleDelete}
+                                disabled={waitAxiosDelete} */
+          >
+            <strong>Administrar Restaurant</strong>
+          </Button>
+        </div>
+        <div className="col-12 mb-4 d-grid">
+          <Button type="submit" variant="warning" onClick={handleShowModal}>
+            <strong>Agregar fecha No disponible</strong>
+          </Button>
+        </div>
       </Container>
+      <Modal
+        show={showModal}
+        onHide={handleCloseModal}
+        backdropClassName="custom-backdrop"
+        className="modal-custom"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Agregar Fecha No Disponible</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3" controlId="formOrganizacion">
+              <Form.Label>Fecha:</Form.Label>
+              <Form.Control
+                type="date"
+                value={formState.fecha}
+                onChange={onInputChange}
+                name="fecha"
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Cerrar
+          </Button>
+          <Button
+            variant="sucess"
+            onClick={handleSubmitModal}
+            disabled={buttonGuardarFecha}
+          >
+            Guardar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
