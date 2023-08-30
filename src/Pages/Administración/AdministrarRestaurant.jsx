@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  Alert,
   Button,
   Col,
   Container,
@@ -10,6 +11,25 @@ import {
 } from "react-bootstrap";
 import { useForm } from "./hooks/useForm";
 import axios from "axios";
+
+function despuesDe(obj, value) {
+  try {
+    if (value.split("-")[0] > obj.split("-")[0]) {
+      return false;
+    } else if (value.split("-")[0] == obj.split("-")[0]) {
+      if (value.split("-")[1] > obj.split("-")[1]) {
+        return false;
+      } else if (value.split("-")[1] == obj.split("-")[1]) {
+        if (value.split("-")[2] > obj.split("-")[2]) {
+          return false;
+        }
+      }
+    }
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
 
 export const AdministrarRestaurant = () => {
   const initialForm = {
@@ -31,6 +51,7 @@ export const AdministrarRestaurant = () => {
   /* Backend */
   const url = import.meta.env.VITE_API;
   const [restaurant, setRestaurant] = useState();
+  const [fechasND, setfechasND] = useState([]);
 
   const [actualizador, setActualizador] = useState(false);
   const actualizar = () => {
@@ -51,6 +72,12 @@ export const AdministrarRestaurant = () => {
         setRestaurant(data[0]);
       })
       .catch((error) => console.log(error));
+    axios
+      .get(`${url}/fechasnd/`)
+      .then(({ data }) => {
+        setfechasND(data);
+      })
+      .catch((error) => console.log(error));
   }, [actualizador]);
   /* FIN Backend */
 
@@ -62,6 +89,7 @@ export const AdministrarRestaurant = () => {
   /* MODALES */
   const [showModal, setShowModal] = useState(false);
   const [buttonGuardarFecha, setButtonGuardarFecha] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
   const handleCloseModal = () => {
     setShowModal(false);
   };
@@ -73,28 +101,76 @@ export const AdministrarRestaurant = () => {
   };
 
   const handleSubmitModal = () => {
+    setShowAlert(false);
     setButtonGuardarFecha(true);
     let aux = {
       fecha: formState.fecha,
-      admin: "64e6934cab45fce72db39fda", // TO DO Tiene que ser el id del admin logueado!!
+      idAdmin: "64e6934cab45fce72db39fda", // TO DO Tiene que ser el id del admin logueado!!
+      idRestaurant: "64e6a45a0367aebe3bef0158",
     };
-    axios
-      .post(`${url}/reservas/fecha`, aux)
-      .then(({ data }) => {
-        console.log(data);
-        setButtonGuardarFecha(false);
-        // TO DO mostrar cartel que fue agregado con éxito
-        setShowModal(false);
-      })
-      .catch(({ response }) => {
-        console.log(response);
-        setButtonGuardarFecha(false);
-        // TO DO mostrar cartel que hubo problemas.
-        setShowModal(false);
-      });
+    if (despuesDe(formState.fecha, today2)) {
+      //La fecha es posterior a hoy
+      axios
+        .post(`${url}/fechasnd/`, aux)
+        .then(({ data }) => {
+          console.log(data);
+          setButtonGuardarFecha(false);
+          // TO DO mostrar cartel que fue agregado con éxito
+          setShowModal(false);
+          actualizar()
+        })
+        .catch(({ response }) => {
+          console.log(response);
+          setButtonGuardarFecha(false);
+          // TO DO mostrar cartel que hubo problemas.
+          setShowModal(false);
+          actualizar();
+        });
+    } else {
+      //La fecha es anterior a hoy
+      setShowAlert(true);
+      setButtonGuardarFecha(false);
+    }
+  };
+
+  useEffect(() => {
+    setShowAlert(false);
+  }, [formState.fecha]);
+
+  const alertFechaIncorrecta = (
+    message = "La fecha no puede ser fecha pasada"
+  ) => {
+    return (
+      <>
+        <Alert key="warning" variant="warning" className="my-2">
+          <b>{message}</b>
+        </Alert>
+      </>
+    );
   };
   /* FIN MODALES */
-  console.log(formState);
+
+  /* HOY Y FECHAS NO DISPONIBLES FUTURAS */
+  const today = new Date();
+  const mesComoString = () => {
+    let aux = today.getMonth() + 1;
+    if (aux < 10) {
+      return `0${aux}`;
+    } else {
+      return `${aux}`;
+    }
+  };
+  const diaComoString = () => {
+    let aux = today.getDate();
+    if (aux < 10) {
+      return `0${aux}`;
+    } else {
+      return `${aux}`;
+    }
+  };
+  const today2 = `${today.getFullYear()}-${mesComoString()}-${diaComoString()}`;
+  /* FIN HOY Y FECHAS NO DISPONIBLES FUTURAS */
+
   return (
     <>
       <Container>
@@ -166,16 +242,18 @@ export const AdministrarRestaurant = () => {
             <tr>
               <th>#</th>
               <th>Fecha</th>
-              <th>Admin</th>
+              <th>Creado por:</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
-            {restaurant?.fechasNoDisponibles.map((f, index) => (
+            {fechasND?.map((f, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>{f.fecha}</td>
-                <td>{f.admin}</td>
+                <td>
+                  {f.apellido}, {f.nombre}
+                </td>
                 <td>
                   <Button variant="danger" onClick={handleDelete}>
                     <i className="bi bi-trash"></i>
@@ -222,6 +300,7 @@ export const AdministrarRestaurant = () => {
               />
             </Form.Group>
           </Form>
+          {showAlert && alertFechaIncorrecta()}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseModal}>
