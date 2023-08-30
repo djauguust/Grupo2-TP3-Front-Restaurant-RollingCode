@@ -11,6 +11,7 @@ import {
 } from "react-bootstrap";
 import { useForm } from "./hooks/useForm";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 function despuesDe(obj, value) {
   try {
@@ -46,7 +47,29 @@ export const AdministrarRestaurant = () => {
     useForm(initialForm);
 
   const handleSubmit = () => {};
-  const handleDelete = () => {};
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "¿Realmente deseas eliminar la fecha no disponible?",
+      text: "Para deshacer este cambio deberás clickear en el botón 'Agregar fecha no disponible'",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si",
+      cancelButtonText: "No",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`${url}/fechasnd/${id}`)
+          .then(({ data }) => {
+            actualizar();
+          })
+          .catch((error) => console.log(error));
+      }
+    });
+  };
+
+  const handleRestaurant = () => {};
 
   /* Backend */
   const url = import.meta.env.VITE_API;
@@ -117,7 +140,7 @@ export const AdministrarRestaurant = () => {
           setButtonGuardarFecha(false);
           // TO DO mostrar cartel que fue agregado con éxito
           setShowModal(false);
-          actualizar()
+          actualizar();
         })
         .catch(({ response }) => {
           console.log(response);
@@ -247,7 +270,7 @@ export const AdministrarRestaurant = () => {
             </tr>
           </thead>
           <tbody>
-            {fechasND?.map((f, index) => (
+            {fechasND.map((f, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>{f.fecha}</td>
@@ -255,7 +278,12 @@ export const AdministrarRestaurant = () => {
                   {f.apellido}, {f.nombre}
                 </td>
                 <td>
-                  <Button variant="danger" onClick={handleDelete}>
+                  <Button
+                    variant="danger"
+                    onClick={() => {
+                      handleDelete(f._id);
+                    }}
+                  >
                     <i className="bi bi-trash"></i>
                   </Button>
                 </td>
@@ -264,12 +292,7 @@ export const AdministrarRestaurant = () => {
           </tbody>
         </Table>
         <div className="col-12 mb-4 d-grid">
-          <Button
-            type="submit"
-            variant="warning"
-            /* onClick={handleDelete}
-                                disabled={waitAxiosDelete} */
-          >
+          <Button type="submit" variant="warning" onClick={handleRestaurant}>
             <strong>Administrar Restaurant</strong>
           </Button>
         </div>
