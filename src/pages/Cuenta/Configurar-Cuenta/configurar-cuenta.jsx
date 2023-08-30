@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 
 
 
-const configurarCuenta = () => {
+const ConfigurarCuenta = () => {
     
 
 
@@ -206,4 +206,4 @@ const configurarCuenta = () => {
   )
 }
 
-export default configurarCuenta
+export default ConfigurarCuenta
