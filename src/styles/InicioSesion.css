@@ -68,8 +68,8 @@ align-items: center;
 }
 
 .Carta {
-  
-background-image: url('../assets/LoginBackground2.jpg');
+width: 55vh;  
+background-image: url('../assets/LoginBackground6.jpg');
 background-position: bottom center;   
 border-radius: 26px;  
 background-size: cover;
