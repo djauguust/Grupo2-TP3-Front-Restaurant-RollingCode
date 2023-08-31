@@ -27,11 +27,21 @@ function InicioSesion() {
   //UseState para mostrar un mensaje de que los datos ingresados no se encontraron
   const [UsuarioLogueadoError, setUsuarioLogueadoError] = useState(false);
 
+  //Este regex queda a decision general si usarlo o es innecesario
+  const validarEmail= /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
+  
   //Esquema de Yup
   const esquemaInicioSesion = Yup.object().shape({
-    email: Yup.string().required("El email es requerido"),
+    email: Yup.string()
+    .required("El email es requerido")
+    .matches(validarEmail, "El email debe ser un email valido")
+    .min(15,"El valor ingresado debe ser mayor a 15 carácteres")
+    .max(30,"El valor ingresado debe ser menor a 30 carácteres"),
 
-    contrasenia: Yup.string().required("La contrasenia es requerida"),
+    contrasenia: Yup.string()
+    .required("La contrasenia es requerida")
+    .min(8, "El valor ingresadod ebe ser mayor a 8 carácteres")
+    .max(16, "El valor ingresado debe de ser menor a 16 carácteres")
   });
 
   //Valores Iniciales
@@ -120,6 +130,8 @@ function InicioSesion() {
                   type="text"
                   placeholder="Ej: Lucas@gmail.com"
                   id="email"
+                  minlength="15" 
+                  maxlength="30"
                   {...formik.getFieldProps("email")}
                   className={clsx(
                     "form-control",
@@ -154,6 +166,8 @@ function InicioSesion() {
                   type="password"
                   placeholder="Ej: Lucas1234"
                   id="contrasenia"
+                  minlength="8" 
+                  maxlength="16"
                   {...formik.getFieldProps("contrasenia")}
                   className={clsx(
                     "form-control",
@@ -187,11 +201,9 @@ function InicioSesion() {
 
           {/* Botón link 'olvidaste tu contrasenia' */}
            <div className="mb-3 text-center">
-            <ButtonDefault
-              namebtn="registrarse"
-              funcion={MandarARegistro}
-              to={"/registro"}
-            />
+            <Link to={"/registro"} className="link ">
+            ¿No tienes cuenta? ¡Crea una!
+                </Link>
           </div>
         </div>
       </Container>

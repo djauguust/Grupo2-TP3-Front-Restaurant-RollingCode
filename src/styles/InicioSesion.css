@@ -69,13 +69,17 @@ align-items: center;
 
 .Carta {
   
-background-image: url('../assets/LoginBackground2.jpg');
+background-image: url('https://live.staticflickr.com/65535/53154219005_293c0e974d_o.png');
 background-position: bottom center;   
 border-radius: 26px;  
 background-size: cover;
 padding: 0 35px;  
 margin-top: 5vh;
 margin-bottom: 5vh;
+}
+
+.Carta::before{
+  background-color: rgba(0, 0, 0, 2);
 }
 
 
