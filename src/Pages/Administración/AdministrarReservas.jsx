@@ -33,18 +33,17 @@ export const AdministrarReservas = ({ isDoorman = false }) => {
   };
   const today2 = `${today.getFullYear()}-${mesComoString()}-${diaComoString()}`;
   const [reservasToday, setReservasToday] = useState(null);
-  const { formState, onInputChange } = useForm({ date: today2 });
+  const initialForm = {
+    date: today2,
+    hora: "",
+    fecha: "",
+    comensales: "",
+    fueUsada: false,
+  };
+  const { formState, onInputChange } = useForm(initialForm);
 
   /* UseEffect que busque reservas cada vez que cambia formState.date */
   const [reservaToShow, setReservaToShow] = useState([]);
-  useEffect(() => {
-    axios
-      .get(`${url}/reservas/${formState.date}`)
-      .then(({ data }) => {
-        setReservaToShow(data);
-      })
-      .catch((error) => console.log(error));
-  }, [formState.date]);
 
   /* Backend */
   const url = import.meta.env.VITE_API;
@@ -53,6 +52,15 @@ export const AdministrarReservas = ({ isDoorman = false }) => {
   const actualizar = () => {
     setActualizador(!actualizador);
   };
+
+  useEffect(() => {
+    axios
+      .get(`${url}/reservas/${formState.date}`)
+      .then(({ data }) => {
+        setReservaToShow(data);
+      })
+      .catch((error) => console.log(error));
+  }, [formState.date, actualizador]);
 
   useEffect(() => {
     axios
@@ -82,7 +90,8 @@ export const AdministrarReservas = ({ isDoorman = false }) => {
     });
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = (reserva) => {
+    console.log(reserva);
     Swal.fire({
       title: "¿Confirmar Reserva?",
       text: "Verificar que la cantidad de personas son al menos la mitad de lo indicada en la reserva",
@@ -94,7 +103,28 @@ export const AdministrarReservas = ({ isDoorman = false }) => {
       cancelButtonText: "No",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        /* Confirma la reserva */
+        axios
+          .put(`${url}/reservas/usada/${reserva._id}`, { fueUsada: true })
+          .then(({ data }) => {
+            console.log(data);
+            /* setShowModalEdit(false); */
+            Swal.fire("Reserva marcada como usada", "", "success").then(
+              async (result) => {
+                actualizar();
+              }
+            );
+          })
+          .catch(({ response }) => {
+            console.log(response);
+            /* setShowModalRestaurant(false); */
+            Swal.fire(
+              "Error con servidor",
+              `Error: ${response.data.message}`,
+              "warning"
+            ).then(async (result) => {
+              actualizar();
+            });
+          });
       }
     });
   };
@@ -159,17 +189,27 @@ export const AdministrarReservas = ({ isDoorman = false }) => {
                         : `${r.usuario.nombre}`}
                     </td>
                     <td>{r.comensales}</td>
-                    <td>{`${fueUsada(r.fueUsada)}`}</td>
+                    <td>{fueUsada(r.fueUsada)}</td>
                     <td>
-                      <Button variant="success" onClick={handleConfirm}>
-                        <i className="bi bi-check2"></i>
-                      </Button>
+                      {!r.fueUsada && (
+                        <Button
+                          variant="success"
+                          onClick={() => handleConfirm(r)}
+                          className="mx-2"
+                        >
+                          <i className="bi bi-check2"></i>
+                        </Button>
+                      )}
                       {!isDoorman && (
                         <>
                           <Button variant="danger">
                             <i className="bi bi-pencil"></i>
                           </Button>
-                          <Button variant="danger" onClick={handleDelete}>
+                          <Button
+                            variant="danger"
+                            onClick={handleDelete}
+                            className="mx-2"
+                          >
                             <i className="bi bi-trash"></i>
                           </Button>
                         </>
@@ -221,13 +261,15 @@ export const AdministrarReservas = ({ isDoorman = false }) => {
                     <td>{r.comensales}</td>
                     <td>{fueUsada(r.fueUsada)}</td>
                     <td>
-                      <Button
-                        variant="success"
-                        onClick={handleConfirm}
-                        className="mx-2"
-                      >
-                        <i className="bi bi-check2"></i>
-                      </Button>
+                      {!r.fueUsada && (
+                        <Button
+                          variant="success"
+                          onClick={() => handleConfirm(r)}
+                          className="mx-2"
+                        >
+                          <i className="bi bi-check2"></i>
+                        </Button>
+                      )}
                       {!isDoorman && (
                         <>
                           <Button variant="danger">
