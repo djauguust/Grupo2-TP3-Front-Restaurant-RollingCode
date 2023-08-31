@@ -37,7 +37,33 @@ export const AdministrarUsuarios = () => {
   };
 
   /* handle */
-  const handleDelete = () => {
+  const handleDelete = (user) => {
+    console.log(user)
+    Swal.fire({
+      title: `¿Realmente deseas eliminar el usuario ${user.nombre} ${user.apellido}?`,
+      text: "Este cambio es irreversible y el email quedará librado para crear un usuario nuevo",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si",
+      cancelButtonText: "No",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`${url}/usuarios/${user._id}`)
+          .then(({ data }) => {
+            Swal.fire(
+              "Eliminación exitosa",
+              "E-mail liberado para crear nuevo usuario",
+              "success"
+            ).then(async (result) => {
+              actualizar();
+            });
+          })
+          .catch((error) => console.log(error));
+      }
+    });
     /* TO DO */
   };
 
@@ -152,10 +178,10 @@ export const AdministrarUsuarios = () => {
                 <td>{esActivoTraduccion(r.esActivo)}</td>
                 <td>{adminComoString(r.esAdmin)}</td>
                 <td>
-                  <Button variant="danger" onClick={handleEdit} className="me-3">
+                  <Button variant="danger" onClick={handleEdit} className="me-3 mb-2">
                     <i className="bi bi-pencil"></i>
                   </Button>
-                  <Button variant="danger" onClick={handleDelete}>
+                  <Button variant="danger" onClick={()=>handleDelete(r)}>
                     <i className="bi bi-trash"></i>
                   </Button>
                 </td>
