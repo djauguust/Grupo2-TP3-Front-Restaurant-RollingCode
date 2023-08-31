@@ -131,7 +131,7 @@ export const AdministrarReservas = ({ isDoorman = false }) => {
   return (
     <>
       <h2 className="text-center mt-5">Administrar Reservas</h2>
-      <Container>
+      <Container className="mb-5">
         <h2>Reservas del día</h2>
         {reservasToday?.length == 0 ? (
           sinReserva("Sin reservas para el día de hoy")

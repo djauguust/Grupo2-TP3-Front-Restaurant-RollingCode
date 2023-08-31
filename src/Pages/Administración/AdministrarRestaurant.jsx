@@ -86,7 +86,6 @@ export const AdministrarRestaurant = () => {
             }
           );
         });
-    } else {
     }
   };
   const handleDelete = (id) => {
