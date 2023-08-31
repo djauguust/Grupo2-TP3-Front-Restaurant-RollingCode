@@ -53,9 +53,27 @@ export const BandejaDeEntrada = () => {
           .catch((error) => console.log(error));
       }
     });
-    console.log(mensaje);
   };
-  const handleDelete = () => {};
+  const handleDelete = (mensaje) => {
+    Swal.fire({
+      title: "¿Eliminar mensaje?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si",
+      cancelButtonText: "No",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`${url}/mensajes/${mensaje._id}`)
+          .then(({ data }) => {
+            actualizar();
+          })
+          .catch((error) => console.log(error));
+      }
+    });
+  };
   /* FIN Handle confirm and delete */
 
   /* TO DO FUNCIÓN PARA MOSTRAR LOS NUEVOS ARRIBA */
@@ -99,7 +117,7 @@ export const BandejaDeEntrada = () => {
 
                   <Button
                     variant="danger"
-                    onClick={handleDelete}
+                    onClick={() => handleDelete(r)}
                     className="mx-2 my-1"
                   >
                     <i className="bi bi-trash"></i>
