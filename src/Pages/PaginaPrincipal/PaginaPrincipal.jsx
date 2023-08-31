@@ -8,9 +8,12 @@ import Galeria from "../../components/galeria/Galeria";
 import { useState } from "react";
 
 import { NavbarContext } from "../../context/NavbarContext";
+import Alerta from "../../components/Alerta";
 
 const PaginaPrincipal = () => {
 const {theme} =useContext(NavbarContext)
+
+const {toast, setToast} = useContext(NavbarContext)
 
   return (
     <>
@@ -20,6 +23,7 @@ const {theme} =useContext(NavbarContext)
       <Menu theme={theme} />
       <Reviews theme={theme} />
       <Galeria theme={theme} />
+      <Alerta toast={toast} setToast={setToast} />
     </>
   );
 };

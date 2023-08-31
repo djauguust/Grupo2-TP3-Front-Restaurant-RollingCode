@@ -209,3 +209,22 @@ background-color: #dfd5ce;
  }
 
 }
+
+.contenedor-toast{
+  position: fixed;
+  bottom: 0px; /* Ajusta este valor según sea necesario */
+  right: 0px; /* Ajusta este valor según sea necesario */
+  z-index: 9999; 
+}
+
+.icono-toast{
+  max-width: 4vh;
+}
+
+.contenedorToast{
+  width: fit-content;
+}
+
+.toast-header{
+  justify-content: space-between !important;
+}

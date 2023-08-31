@@ -3,26 +3,40 @@ import "../../styles/InicioSesion.css";
 import ButtonDefault from "../../components/ButtonDefault";
 import logo from "../../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
-import { Container, Form } from "react-bootstrap";
+import { Button, Container, Form, Toast } from "react-bootstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import clsx from "clsx";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { UsuariosContext } from "../../context/UserContext";
+import UserContext, { UsuariosContext } from "../../context/UserContext";
+import Alerta from "../../components/Alerta";
+import { NavbarContext } from "../../context/NavbarContext";
 
 function InicioSesion() {
 
+  const {getUsuarios,funcionPrueba} = useContext(UsuariosContext)
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+
+  const {toast, setToast} = useContext(NavbarContext)
+
 
   //Url de un back de prueba para que la funcion de logueo quede guardada para cuando usemos el back
   /* const url = "http://localhost:8001/api/usuarios/login"; */
   const url = import.meta.env.VITE_API;
-
-  
-  
-
   const navigate = useNavigate();
+    
+  useEffect(() => {
+    if (isLoggedIn === true) {
+      setToast(true)
+      getUsuarios()
+      navigate("/")
+
+    }
+  }, [isLoggedIn]);
+  
 
   //UseState para mostrar un mensaje de que los datos ingresados no se encontraron
   const [UsuarioLogueadoError, setUsuarioLogueadoError] = useState(false);
@@ -68,14 +82,8 @@ function InicioSesion() {
         const response = await axios.post(`${url}/login`, usuarioLogueado);
         console.log(response);
         // Si la petición es exitosa
-        Swal.fire(
-          "Usuario logueado con exito",
-          "Tus datos ya fueron ingresados exitosamente",
-          "success"
-        );
-
-        //navigate("/")
-          //setAct(1)
+        
+          setIsLoggedIn(true)
 
         // Guardo el token en el estado o en el LocalStorage si es necesario
         const jwtToken = response.data.data.token;
@@ -83,11 +91,9 @@ function InicioSesion() {
         console.log(jwtToken);
 
         // Aquí puedes decidir si deseas guardar el token en el estado o en LocalStorage
-        /* setTokenEnEstado(jwtToken); */
+
         localStorage.setItem("user", JSON.stringify(jwtToken));
-        
-        /* setIsLoogedIn(true); */
-      
+              
       } catch (error) {
         // Si la petición falla
         Swal.fire("No se pudo loguear el usuario", " ", "warning");
@@ -130,8 +136,8 @@ function InicioSesion() {
                   type="text"
                   placeholder="Ej: Lucas@gmail.com"
                   id="email"
-                  minlength="15" 
-                  maxlength="30"
+                  minLength="15" 
+                  maxLength="30"
                   {...formik.getFieldProps("email")}
                   className={clsx(
                     "form-control",
@@ -166,8 +172,8 @@ function InicioSesion() {
                   type="password"
                   placeholder="Ej: Lucas1234"
                   id="contrasenia"
-                  minlength="8" 
-                  maxlength="16"
+                  minLength="8" 
+                  maxLength="16"
                   {...formik.getFieldProps("contrasenia")}
                   className={clsx(
                     "form-control",
@@ -206,7 +212,10 @@ function InicioSesion() {
                 </Link>
           </div>
         </div>
+        
       </Container>
+      <Alerta toast={toast} setToast={setToast} />
+     
     </div>
   );
 }
