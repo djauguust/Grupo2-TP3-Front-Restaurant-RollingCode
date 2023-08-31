@@ -38,7 +38,8 @@ export const AdministrarRestaurant = () => {
     maximoComensales: 0,
     fecha: "",
     admin: "",
-    horario: { desde: 0, hasta: 2359 },
+    desde: 0,
+    hasta: 2359,
     reservasMaxima: 0,
     tiempoMaximoReserva: 0,
   };
@@ -59,30 +60,34 @@ export const AdministrarRestaurant = () => {
       reservasMaxima: formState.reservasMaxima,
       tiempoMaximoReserva: formState.tiempoMaximoReserva,
     };
-    setButtonGuardarRestaurant(true);
 
-    axios
-      .put(`${url}/restaurant/`, aux)
-      .then(({ data }) => {
-        console.log(data);
-        setShowModalRestaurant(false);
-        Swal.fire(
-          "Restaurant modificado con éxito",
-          "Tus modificaciones ya fueron integradas exitosamente",
-          "success"
-        ).then(async (result) => {
-          actualizar();
-        });
-      })
-      .catch(({ response }) => {
-        console.log(response);
-        setShowModalRestaurant(false);
-        Swal.fire("Error con servidor", `Error: ${response}`, "warning").then(
-          async (result) => {
+    if (validarForm(aux)) {
+      setButtonGuardarRestaurant(true);
+
+      axios
+        .put(`${url}/restaurant/`, aux)
+        .then(({ data }) => {
+          console.log(data);
+          setShowModalRestaurant(false);
+          Swal.fire(
+            "Restaurant modificado con éxito",
+            "Tus modificaciones ya fueron integradas exitosamente",
+            "success"
+          ).then(async (result) => {
             actualizar();
-          }
-        );
-      });
+          });
+        })
+        .catch(({ response }) => {
+          console.log(response);
+          setShowModalRestaurant(false);
+          Swal.fire("Error con servidor", `Error: ${response}`, "warning").then(
+            async (result) => {
+              actualizar();
+            }
+          );
+        });
+    } else {
+    }
   };
   const handleDelete = (id) => {
     Swal.fire({
@@ -109,10 +114,15 @@ export const AdministrarRestaurant = () => {
   const [ButtonGuardarRestaurant, setButtonGuardarRestaurant] = useState(false);
   const [ShowModalRestaurant, setShowModalRestaurant] = useState(false);
   const handleRestaurant = () => {
+    setErrores([]);
     setButtonGuardarRestaurant(false);
     onResetForm();
     setShowModalRestaurant(true);
-    setFormState(restaurant);
+    setFormState({
+      ...restaurant,
+      desde: restaurant.horario.desde,
+      hasta: restaurant.horario.hasta,
+    });
   };
   const handleCloseModalRestaurant = () => {
     setShowModalRestaurant(false);
@@ -240,6 +250,61 @@ export const AdministrarRestaurant = () => {
   };
   const today2 = `${today.getFullYear()}-${mesComoString()}-${diaComoString()}`;
   /* FIN HOY Y FECHAS NO DISPONIBLES FUTURAS */
+
+  /* VALIDACIÓN FORM RESTAURANT */
+  const [errores, setErrores] = useState([]);
+
+  const validarForm = (aux) => {
+    let array = [];
+    if (formState.nombre.length <= 3) {
+      array = [...array, "Nombre demasiado corto"];
+    }
+    if (formState.nombre.length > 20) {
+      array = [...array, "Nombre demasiado largo"];
+    }
+    if (formState.maximoComensales < 1) {
+      array = [...array, "Cantidad máxima de comensales debe ser positiva"];
+    }
+    if (formState.maximoComensales == "") {
+      array = [...array, "Debe ingresar cantidad máxima de comensales"];
+    }
+    if (formState.maximoComensales > 200) {
+      array = [
+        ...array,
+        "Cantidad máxima de comensales demasiado grande (límite del plan: 200)",
+      ];
+    }
+    if (aux.horario.desde > aux.horario.hasta) {
+      array = [
+        ...array,
+        "La hora de cierre no puede ser anterior a la hora de apertura",
+      ];
+    }
+    if (formState.reservasMaxima < 1) {
+      array = [...array, "Reservas máximas por comensales debe ser positiva"];
+    }
+    if (formState.reservasMaxima == "") {
+      array = [
+        ...array,
+        "Debe ingresar cantidad máxima de reservas por usuario",
+      ];
+    }
+    if (formState.tiempoMaximoReserva < 1) {
+      array = [...array, "Tiempo de turno de una reserva debe ser positivo"];
+    }
+    if (!Number.isInteger(formState.tiempoMaximoReserva)) {
+      array = [
+        ...array,
+        "Tiempo de turno de una reserva en horas, debe ser un número entero",
+      ];
+    }
+    if (formState.tiempoMaximoReserva == "") {
+      array = [...array, "Debe ingresar tiempo máximo de una reserva"];
+    }
+    setErrores(array);
+    return array.length == 0;
+  };
+  /* FIN VALIDACIÓN FORM RESTAURANT */
 
   return (
     <>
@@ -413,7 +478,7 @@ export const AdministrarRestaurant = () => {
                 <Form.Group className="mb-3" controlId="formOrganizacion">
                   <Form.Label>Cantidad máxima de comensales:</Form.Label>
                   <Form.Control
-                    type="text"
+                    type="number"
                     value={formState.maximoComensales}
                     name="maximoComensales"
                     onChange={onInputChange}
@@ -427,7 +492,7 @@ export const AdministrarRestaurant = () => {
                 <Col>
                   <Form.Control
                     type="time"
-                    value={formState.horario.desde}
+                    value={formState.desde}
                     name="desde"
                     onChange={onInputChange}
                   />
@@ -436,7 +501,7 @@ export const AdministrarRestaurant = () => {
                 <Col>
                   <Form.Control
                     type="time"
-                    value={formState.horario.hasta}
+                    value={formState.hasta}
                     name="hasta"
                     onChange={onInputChange}
                   />
@@ -452,7 +517,7 @@ export const AdministrarRestaurant = () => {
                 </Col>
                 <Col>
                   <Form.Control
-                    type="text"
+                    type="number"
                     value={formState.reservasMaxima}
                     name="reservasMaxima"
                     onChange={onInputChange}
@@ -469,7 +534,7 @@ export const AdministrarRestaurant = () => {
                 </Col>
                 <Col>
                   <Form.Control
-                    type="text"
+                    type="number"
                     value={formState.tiempoMaximoReserva}
                     name="tiempoMaximoReserva"
                     onChange={onInputChange}
@@ -478,6 +543,13 @@ export const AdministrarRestaurant = () => {
               </Row>
             </Form.Group>
           </Form>
+          {errores.length != 0 && (
+            <Alert variant="warning">
+              {errores.map((f) => (
+                <p>{f}</p>
+              ))}
+            </Alert>
+          )}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseModalRestaurant}>
