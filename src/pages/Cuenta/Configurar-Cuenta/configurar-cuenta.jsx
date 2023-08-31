@@ -34,7 +34,7 @@ const configurarCuenta = () => {
                     formik.setFieldValue('Email', Usuario.Email);
                   }
             } catch (error) {
-               console.log(error); 
+                
             }
         }
         mostrarValores()
@@ -116,7 +116,7 @@ const configurarCuenta = () => {
                         });
 
                     } catch (error) {
-                        console.log(error);
+                        
                     }
                     //Funciones para volver a mostrar los datos y TraerUsuarios para actualizar todo
                     setMostrarDatos(true)
@@ -127,7 +127,7 @@ const configurarCuenta = () => {
 
                   })
             } catch (error) {
-                console.log(error);
+                
             }
         }
     })

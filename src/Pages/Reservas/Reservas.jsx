@@ -51,10 +51,10 @@ const Reservas = () => {
         .get(`http://localhost:3000/reservas?fecha=${dates}`)
         .then((response) => {
           setFilterHour(response.data);
-          // console.log("Horas disponibles: ", response.data);
+          
         })
         .catch((error) => {
-          console.log("Error :", error);
+          
         });
     }
   }, [dates]);
@@ -69,9 +69,9 @@ const Reservas = () => {
           );
           // const response = await axios.get(`http://localhost:3000/reservas`);
           setFilterPeople(response.data);
-          console.log("Comensales disponibles: ", response);
+          
         } catch (error) {
-          console.log("Error: ", error);
+          
         }
       }
     };
@@ -128,7 +128,7 @@ const Reservas = () => {
 
     //Submit
     onSubmit: async (values, { resetForm }) => {
-      console.log("Valores que llegan al form de formik: ", values);
+      
 
       try {
         const Reserva = {
@@ -158,7 +158,7 @@ const Reservas = () => {
              usuario: Token.id
           });
 
-          console.log(response.data);
+          
 
           Swal.fire(
             "Reserva Guardada",
@@ -176,7 +176,7 @@ const Reservas = () => {
           resetForm();
         }
       } catch (error) {
-        console.log(error);
+        
         Swal.fire("Error", "Hubo un problema al guardar la reserva.", "error");
       }
     },

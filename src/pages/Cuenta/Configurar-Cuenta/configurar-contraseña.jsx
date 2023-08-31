@@ -98,7 +98,7 @@ const configurarContraseña = () => {
                             body : JSON.stringify(ContraseñaActualizada)
                         });
                     } catch (error) {
-                        console.log(error);
+                        
                     }
                     //Funciones para volver a mostrar los datos y TraerUsuarios para actualizar todo
                         setMostrarDatos(true)
@@ -108,7 +108,7 @@ const configurarContraseña = () => {
                     }
                   })
             } catch (error) {
-                console.log(error);
+                
             }
         }
     })

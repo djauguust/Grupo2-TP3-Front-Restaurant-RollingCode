@@ -13,7 +13,7 @@ export const NavbarContexto = ({ children }) => {
     } else {
       settheme("claro");
     }
-    console.log("asdasd");
+    
   };
 
   const datos = { 

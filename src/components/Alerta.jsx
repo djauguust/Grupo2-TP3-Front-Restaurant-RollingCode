@@ -2,7 +2,7 @@ import React from 'react'
 import { Toast } from 'react-bootstrap'
 
 const Alerta = ({toast, setToast}) => {
-    console.log(toast);
+    
   return (
     <>
      <div className=" contenedor-toast">

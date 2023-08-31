@@ -23,7 +23,7 @@ export const ReservasProvider = ({children}) => {
             SetReservas(reservas)
             
         } catch (error) {
-            console.error('Error:', error);
+            
         }
     }
     
@@ -34,7 +34,7 @@ export const ReservasProvider = ({children}) => {
             const reserva = await res.data
             setReserva(reserva)
         } catch (error) {
-            console.log(error);
+            
         }
     }
     

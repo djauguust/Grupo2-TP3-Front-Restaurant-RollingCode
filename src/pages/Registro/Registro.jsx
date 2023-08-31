@@ -91,7 +91,7 @@ function Registro() {
             axios
               .post(`${url}/usuarios`, Usuario)
               .then((response) => {
-                console.log("Usuario creado con exito");
+                
                 Swal.fire(
                   "Usuario credo con exito",
                   "Tus datos ya fueron ingresados exitosamente",
@@ -104,15 +104,15 @@ function Registro() {
                   " ",
                   "warning"
                 );
-                console.error(error);
+                
               });
 
-            console.log(Usuario);
+            
             //Agregar funcion para redirigirte a inicio
           }
         });
       } catch (error) {
-        console.log(error);
+        
       }
     },
   });

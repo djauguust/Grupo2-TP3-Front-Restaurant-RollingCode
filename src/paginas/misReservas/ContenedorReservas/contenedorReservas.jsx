@@ -29,10 +29,10 @@ const contenedorReservas = ({ onShowModal, Reserva }) => {
         if (result.isConfirmed) {
           axios.delete(`${UrlReservas}/${Reserva.id}`)
           .then(response =>{
-            console.log("Reserva Eliminada con exito");
+            
           })
           .catch(error => {
-            console.log("Error al eliminar la reserva");
+            
           })
           TraerReservas()
           Swal.fire(

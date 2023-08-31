@@ -97,12 +97,12 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
           axios
             .put(Url, Reserva)
             .then((Response) => {
-              console.log("Reserva Actualizada");
+              
               onCloseModal();
               TraerReservas();
             })
             .catch((error) => {
-              console.log(error);
+              
             });
           Swal.fire(
             "Reserva actualizada con éxito!",
