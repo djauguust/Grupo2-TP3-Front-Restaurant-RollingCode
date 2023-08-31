@@ -46,7 +46,44 @@ export const AdministrarRestaurant = () => {
   const { formState, setFormState, onInputChange, onResetForm } =
     useForm(initialForm);
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    let init = formState.horario.desde.split(":");
+    let fin = formState.horario.hasta.split(":");
+    let aux = {
+      nombre: formState.nombre,
+      maximoComensales: formState.maximoComensales,
+      horario: {
+        desde: parseInt(`${init[0]}${init[1]}`),
+        hasta: parseInt(`${fin[0]}${fin[1]}`),
+      },
+      reservasMaxima: formState.reservasMaxima,
+      tiempoMaximoReserva: formState.tiempoMaximoReserva,
+    };
+    setButtonGuardarRestaurant(true);
+
+    axios
+      .put(`${url}/restaurant/`, aux)
+      .then(({ data }) => {
+        console.log(data);
+        setShowModalRestaurant(false);
+        Swal.fire(
+          "Restaurant modificado con éxito",
+          "Tus modificaciones ya fueron integradas exitosamente",
+          "success"
+        ).then(async (result) => {
+          actualizar();
+        });
+      })
+      .catch(({ response }) => {
+        console.log(response);
+        setShowModalRestaurant(false);
+        Swal.fire("Error con servidor", `Error: ${response}`, "warning").then(
+          async (result) => {
+            actualizar();
+          }
+        );
+      });
+  };
   const handleDelete = (id) => {
     Swal.fire({
       title: "¿Realmente deseas eliminar la fecha no disponible?",
@@ -69,7 +106,17 @@ export const AdministrarRestaurant = () => {
     });
   };
 
-  const handleRestaurant = () => {};
+  const [ButtonGuardarRestaurant, setButtonGuardarRestaurant] = useState(false);
+  const [ShowModalRestaurant, setShowModalRestaurant] = useState(false);
+  const handleRestaurant = () => {
+    setButtonGuardarRestaurant(false);
+    onResetForm();
+    setShowModalRestaurant(true);
+    setFormState(restaurant);
+  };
+  const handleCloseModalRestaurant = () => {
+    setShowModalRestaurant(false);
+  };
 
   /* Backend */
   const url = import.meta.env.VITE_API;
@@ -199,7 +246,7 @@ export const AdministrarRestaurant = () => {
       <Container>
         <h2 className="text-center mt-5">Administrar Restaurante</h2>
 
-        <Form onSubmit={handleSubmit}>
+        <Form>
           <Form.Group className="mb-3" controlId="formOrganizacion">
             <Form.Label>Nombre del Restaurant:</Form.Label>
             <Form.Control
@@ -333,6 +380,113 @@ export const AdministrarRestaurant = () => {
             variant="sucess"
             onClick={handleSubmitModal}
             disabled={buttonGuardarFecha}
+          >
+            Guardar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal
+        show={ShowModalRestaurant}
+        onHide={handleCloseModalRestaurant}
+        backdropClassName="custom-backdrop"
+        className="modal-custom"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Administrar Restaurant</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={handleSubmit}>
+            <Row>
+              <Col>
+                <Form.Group className="mb-3" controlId="formOrganizacion">
+                  <Form.Label>Nombre del Restaurant:</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={formState.nombre}
+                    name="nombre"
+                    onChange={onInputChange}
+                  />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group className="mb-3" controlId="formOrganizacion">
+                  <Form.Label>Cantidad máxima de comensales:</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={formState.maximoComensales}
+                    name="maximoComensales"
+                    onChange={onInputChange}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Form.Group className="mb-3" controlId="formOrganizacion">
+              <Form.Label>Horarios del Restaurant:</Form.Label>
+              <Row>
+                <Col>
+                  <Form.Control
+                    type="time"
+                    value={formState.horario.desde}
+                    name="desde"
+                    onChange={onInputChange}
+                  />
+                </Col>
+                a
+                <Col>
+                  <Form.Control
+                    type="time"
+                    value={formState.horario.hasta}
+                    name="hasta"
+                    onChange={onInputChange}
+                  />
+                </Col>
+              </Row>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formOrganizacion">
+              <Row>
+                <Col>
+                  <Form.Label>
+                    Cantidad máxima de reservas por Usuario:
+                  </Form.Label>
+                </Col>
+                <Col>
+                  <Form.Control
+                    type="text"
+                    value={formState.reservasMaxima}
+                    name="reservasMaxima"
+                    onChange={onInputChange}
+                  />
+                </Col>
+              </Row>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formOrganizacion">
+              <Row>
+                <Col>
+                  <Form.Label>
+                    Tiempo máximo de cada turno: (en horas)
+                  </Form.Label>
+                </Col>
+                <Col>
+                  <Form.Control
+                    type="text"
+                    value={formState.tiempoMaximoReserva}
+                    name="tiempoMaximoReserva"
+                    onChange={onInputChange}
+                  />
+                </Col>
+              </Row>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModalRestaurant}>
+            Cerrar
+          </Button>
+          <Button
+            variant="sucess"
+            onClick={handleSubmit}
+            disabled={ButtonGuardarRestaurant}
           >
             Guardar
           </Button>
