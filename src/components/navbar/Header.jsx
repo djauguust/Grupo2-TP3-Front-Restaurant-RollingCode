@@ -18,7 +18,7 @@ import { NavbarContext } from "../../context/NavbarContext";
 const Header = () => {
   const { logout } = useContext(UsuariosContext);
 
-  const { theme, handleSwitch } = useContext(NavbarContext);
+  const { theme, handleSwitch, toast } = useContext(NavbarContext);
 
   let user;
   if (localStorage.getItem("user")) {
@@ -27,10 +27,10 @@ const Header = () => {
     user = ""
   }
 
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [miCuenta, setMiCuenta] = useState(false);
+  console.log(miCuenta);
+  const handleClose = () => setMiCuenta(false);
+  const handleShow = () => setMiCuenta(true);
 
   const { t } = useTranslation();
 
@@ -43,6 +43,12 @@ const Header = () => {
       document.body.style.color = "white";
     }
   }, [theme]);
+
+  useEffect(() => {
+    if (toast) {
+      setMiCuenta(false)
+    }
+  },[toast])
 
   return (
     <>
@@ -142,7 +148,7 @@ const Header = () => {
                   {t("perfil")}
                 </Nav.Link>
                 <Offcanvas
-                  show={show}
+                  show={miCuenta}
                   onHide={handleClose}
                   placement="end"
                   className={`modal-cuenta${theme}`}

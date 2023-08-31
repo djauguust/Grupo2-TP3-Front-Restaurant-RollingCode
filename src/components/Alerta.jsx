@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Toast } from 'react-bootstrap'
+import { NavbarContext } from '../context/NavbarContext'
 
-const Alerta = ({toast, setToast}) => {
+const Alerta = () => {
     
+const {toast, setToast} = useContext(NavbarContext)
+
   return (
     <>
      <div className=" contenedor-toast">

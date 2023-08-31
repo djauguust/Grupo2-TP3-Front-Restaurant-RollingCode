@@ -29,4 +29,4 @@ export const NavbarContexto = ({ children }) => {
   );
 };
 
-export default NavbarContexto;
+
