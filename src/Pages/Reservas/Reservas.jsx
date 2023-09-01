@@ -14,13 +14,14 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import jwt_decode from "jwt-decode"
 import { use } from "i18next";
-import UserContext from "../../context/UserContext";
+import { UsuariosContext } from "../../context/UserContext";
+
 
 
 const Reservas = () => {
   let date = new Date();
 
-  const Token = useContext(UserContext)
+  const {Token} = useContext(UsuariosContext)
    
   const Url = import.meta.env.VITE_API
 
@@ -104,10 +105,7 @@ const Reservas = () => {
 
     People: Yup.number()
       .required("La cantidad de personas es requerida")
-      .max(
-        filterPeople[0],
-        `Quedan disponibles ${filterPeople[0]} lugares en este horario`
-      )
+      //.max(filterPeople[0],`Quedan disponibles ${filterPeople[0]} lugares en este horario`)
       
       .min(1, "Debes elegir al menos 1 persona"),
   });
@@ -148,7 +146,6 @@ const Reservas = () => {
           cancelButtonColor: "#d33",
           confirmButtonText: "Sí, guardar mi reserva!",
         });
-
         //Post a db
         if (result.isConfirmed) {
           const response = await axios.post(`${Url}/reservas`, {

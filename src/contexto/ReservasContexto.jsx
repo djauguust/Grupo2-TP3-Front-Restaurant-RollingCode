@@ -1,12 +1,20 @@
 import axios from 'axios'
-import React, { createContext, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
+import jwt_decode from "jwt-decode";
+import { UsuariosContext } from '../context/UserContext';
+
 
 export const ReservasContexto = createContext()
 
 export const ReservasProvider = ({children}) => {
 
   //Url del .env
-    const UrlReservas = import.meta.env.VITE_API_RESERVAS
+  const url = import.meta.env.VITE_API;
+
+
+    const {Token} = useContext(UsuariosContext)
+   
+
 
 //Constante para guardar las reservas en general
     const [Reservas,SetReservas] = useState()
@@ -15,32 +23,22 @@ export const ReservasProvider = ({children}) => {
     //Constante que guarda el valor del Id para pasarlo al modal
     const [selectedReservaId, setSelectedReservaId] = useState("");
     
-    //Funcion para traer las reservas en general
-    const TraerReservas = async () =>{
-        try {
-            const res = await axios.get(UrlReservas);
-            const reservas = await res.data;
-            SetReservas(reservas)
-            
-        } catch (error) {
-            
-        }
-    }
     
     //Funcion para traer una sola reserva
     const TraerUnaReserva = async () =>{
         try {
-            const res = await axios.get(`${UrlReservas}/${selectedReservaId}`)
+            const res = await axios.get(`${url}/reservasByUsuario/${Token.id}`)
             const reserva = await res.data
             setReserva(reserva)
         } catch (error) {
-            
+            console.log(error);
         }
     }
-    
+
+    console.log(Reserva);
+    //TraerUnaReserva()
 //Constante para pasar todas las cosas del context, luego las simplifico mejor
     const PasarDatos = {
-        TraerReservas,
         Reservas,
         SetReservas,
         selectedReservaId,
