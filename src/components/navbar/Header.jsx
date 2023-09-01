@@ -22,7 +22,7 @@ const Header = () => {
 
    const navigate = useNavigate()
 
-  console.log(usuario);
+
 
   {usuario === undefined && Token && (
     traerUnUsuario()

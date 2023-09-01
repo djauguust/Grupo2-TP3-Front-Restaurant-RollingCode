@@ -8,6 +8,7 @@ import clsx from "clsx";
 import { useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { UsuariosContext } from '../../../context/UserContext';
+import axios from 'axios';
 
 
 
@@ -30,7 +31,8 @@ const configurarCuenta = () => {
   )}
 
 
-    const URLUsuarios=import.meta.env.VITE_API_USUARIOS
+  const url = import.meta.env.VITE_API;
+
 
     //Funcion para setear los valores en los inputs cada vez que datos usuarios se cambie
     useEffect(() => {
@@ -40,6 +42,8 @@ const configurarCuenta = () => {
                     formik.setFieldValue('Email', usuario.email);
                   }
     },[usuario])
+
+
 
     //Expresiones para validar 
     const soloLetras= /^[a-zA-Z ]+$/ 
@@ -94,36 +98,30 @@ const configurarCuenta = () => {
                     cancelButtonText: 'Cancelar'
                   }).then(async (result) => {
                     if (result.isConfirmed) {
-                      Swal.fire(
-                        'Usuario Modificado',
-                        'Los cambios que hiciste fueron implementados',
-                        'success'
-                      )
+                    
                       //Guarda los valores del formulario
                       const usuarioActualizado ={
-                        Nombre: values.Nombre,
-                        Apellido: values.Apellido,
-                        Email: values.Email,
-                        Contraseña: datosUsuarios.Contraseña
+                        nombre: values.Nombre,
+                        apellido: values.Apellido,
+                        email: values.Email
                     }
                     try {
                         //Solicitud para editar el usuario
-                        const res = await fetch(`${URLUsuarios}/${id}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type" : "application/json"
-                            },
-                            body : JSON.stringify(usuarioActualizado)
-                        });
-
+                        const respuesta = await axios.put(`${url}/usuarios/${usuario._id}`,usuarioActualizado)
+                        console.log(respuesta.data);
+                        Swal.fire(
+                            'Usuario Modificado',
+                            'Los cambios que hiciste fueron implementados',
+                            'success'
+                          )
                     } catch (error) {
-                        
+                        console.log(error);
                     }
                     //Funciones para volver a mostrar los datos y TraerUsuarios para actualizar todo
                     setMostrarDatos(true)
                     setMostrarConfigurarPerfil(false)
                     setMostrarContraseña(false)
-                    TraerUsuarios()
+                    traerUnUsuario()
                     }
 
                   })

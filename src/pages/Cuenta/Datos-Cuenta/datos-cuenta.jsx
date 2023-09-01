@@ -14,7 +14,7 @@ const DatosCuenta = () => {
     traerUnUsuario()
   )}
 
-  console.log(usuario);
+
 
     //Guardamos el id 
     
