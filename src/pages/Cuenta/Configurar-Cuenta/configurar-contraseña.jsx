@@ -8,6 +8,7 @@ import clsx from "clsx";
 import Swal from 'sweetalert2';
 import { useParams } from 'react-router';
 import { UsuariosContext } from '../../../context/UserContext';
+import axios from 'axios';
 
 const configurarContraseña = () => {
 
@@ -21,7 +22,9 @@ const configurarContraseña = () => {
     {usuario === undefined && Token && (
       traerUnUsuario()
     )}
-    const URLUsuarios=import.meta.env.VITE_API_USUARIOS
+
+    const url = import.meta.env.VITE_API;
+
     //Desestructuro pasarStates
     const [userId, setUserId] = useState("");
     const [datosUsuarios, setDatosUsuarios] = useState("")
@@ -45,12 +48,10 @@ const configurarContraseña = () => {
     //Esquema de Yup para el formulario 
     const esquemaConfigurarContraseña = Yup.object().shape({
         ContraseñaActual: Yup.string()
-        .required("Su contraseña actual es requerida")
-        .matches(contraseñaActual,"Debe ingresar una contraseña igual a la anterior"),
+        .required("Su contraseña actual es requerida"),
 
         Contraseña: Yup.string()
-        .required("La contraseña es requerida")
-        .matches(contraseña,"La contraseña debe de contener entre 8 y 16 carácteres, al menos un dígito, al menos una minuscula y al menos una mayuscula"),
+        .required("La contraseña es requerida"),
 
         ConfirmarContraseña: Yup.string()
         .required("Repetir la contraseña es requerido")
@@ -85,38 +86,36 @@ const configurarContraseña = () => {
                     cancelButtonText: 'Cancelar'
                   }).then(async (result) => {
                     if (result.isConfirmed) {
-                      Swal.fire(
-                        'Usuario Modificado',
-                        'Los cambios que hiciste fueron implementados',
-                        'success'
-                      )
-                    //Guarda los valores del formulario
-                      const ContraseñaActualizada ={
-                        ...datosUsuarios,
-                        Contraseña: values.Contraseña
-                    }
-
-                    try {
-                        //Solicitud para editar el usuario
-                        const res = await fetch(`${URLUsuarios}/${id}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type" : "application/json"
-                            },
-                            body : JSON.stringify(ContraseñaActualizada)
-                        });
-                    } catch (error) {
                         
+                        //Guarda los valores del formulario
+                        const ContraseñaActualizada ={
+                            oldPass : values.ContraseñaActual,
+                            newPass : values.ConfirmarContraseña
+                        }
+                        
+
+
+                        try {
+                            console.log("llega a axios");
+                            const respuesta = await axios.put(`${url}/contrasenia/${usuario._id}`,ContraseñaActualizada)
+                            console.log(respuesta.data);
+                            Swal.fire(
+                              'Usuario Modificado',
+                              'Los cambios que hiciste fueron implementados',
+                              'success'
+                            )
+                    } catch (error) {
+                        console.log(error);
                     }
                     //Funciones para volver a mostrar los datos y TraerUsuarios para actualizar todo
                         setMostrarDatos(true)
                         setMostrarConfigurarPerfil(false)
                         setMostrarContraseña(false)
-                        TraerUsuarios()
+                        traerUnUsuario()
                     }
                   })
             } catch (error) {
-                
+                console.log(error);
             }
         }
     })
