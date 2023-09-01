@@ -9,7 +9,7 @@ import InicioSesion from "../Pages/Login/InicioSesion";
 import Registro from "../Pages/Registro/Registro"
 import Error404 from "../pages/Error404/Error404";
 import Bandeja from "../components/bandeja/Bandeja";
-
+import DatosCuenta from "../Pages/Cuenta/Datos-Cuenta/datos-cuenta";
 
 
 const Rutas = () => {
@@ -25,6 +25,7 @@ const Rutas = () => {
         <Route path="/registro" element={<Registro />} />
         <Route path='*' element={<Error404 />} />
         <Route path='/bandeja' element={<Bandeja />} />
+        <Route path="/configurar-cuenta" element={<DatosCuenta />} />
       </Routes>
     </>
   );

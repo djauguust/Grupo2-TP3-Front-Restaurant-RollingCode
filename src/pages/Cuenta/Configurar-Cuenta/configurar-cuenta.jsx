@@ -1,12 +1,13 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, Container, Form, Stack } from 'react-bootstrap'
 import "../../../style/configurar-cuenta.css"
 import {useFormik} from "formik";
 import * as Yup from "yup" ;
 import clsx from "clsx";
-import { UsuariosContext } from '../../../context/context';
+
 import { useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { UsuariosContext } from '../../../context/UserContext';
 
 
 
@@ -14,31 +15,31 @@ const configurarCuenta = () => {
     
 
 
-    const {datosUsuarios, pasarStates, TraerUsuarios} = useContext(UsuariosContext)
-    
-    const { setMostrarDatos, setMostrarContraseña, setMostrarConfigurarPerfil } = pasarStates;
+    const { traerUnUsuario, usuario, Token } = useContext(UsuariosContext);
 
-    const {id} = useParams()
+    const [userId, setUserId] = useState("");
+    const [datosUsuarios, setDatosUsuarios] = useState("")
+
+    const [mostrarDatos, setMostrarDatos] = useState(true)
+    const [mostrarContraseña, setMostrarContraseña] = useState(false)
+    const [mostrarConfigurarPerfil, setMostrarConfigurarPerfil] = useState(false)
+
+
+  {usuario === undefined && Token && (
+    traerUnUsuario()
+  )}
 
 
     const URLUsuarios=import.meta.env.VITE_API_USUARIOS
 
     //Funcion para setear los valores en los inputs cada vez que datos usuarios se cambie
     useEffect(() => {
-        async function mostrarValores () {
-            try {
-                const Usuario = await datosUsuarios
-                if (Usuario && Usuario.Nombre && Usuario.Apellido && Usuario.Email) {
-                    formik.setFieldValue('Nombre', Usuario.Nombre);
-                    formik.setFieldValue('Apellido', Usuario.Apellido);
-                    formik.setFieldValue('Email', Usuario.Email);
+                if (usuario && usuario.nombre && usuario.apellido && usuario.email) {
+                    formik.setFieldValue('Nombre', usuario.nombre);
+                    formik.setFieldValue('Apellido', usuario.apellido);
+                    formik.setFieldValue('Email', usuario.email);
                   }
-            } catch (error) {
-                
-            }
-        }
-        mostrarValores()
-    },[datosUsuarios])
+    },[usuario])
 
     //Expresiones para validar 
     const soloLetras= /^[a-zA-Z ]+$/ 

@@ -2,7 +2,7 @@ import React from "react";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import "./Header.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UsuariosContext } from "../../context/UserContext";
 import { useState } from "react";
@@ -16,19 +16,21 @@ import { useEffect } from "react";
 import { NavbarContext } from "../../context/NavbarContext";
 
 const Header = () => {
-  const { logout } = useContext(UsuariosContext);
+  const { logout, traerUnUsuario, usuario, Token } = useContext(UsuariosContext);
 
   const { theme, handleSwitch, toast } = useContext(NavbarContext);
 
+   const navigate = useNavigate()
+
+  console.log(usuario);
+
+  {usuario === undefined && Token && (
+    traerUnUsuario()
+  )}
+
   let user;
-  if (localStorage.getItem("user")) {
-    user = JSON.parse(localStorage.getItem("user"));
-  }else{
-    user = ""
-  }
 
   const [miCuenta, setMiCuenta] = useState(false);
-  console.log(miCuenta);
   const handleClose = () => setMiCuenta(false);
   const handleShow = () => setMiCuenta(true);
 
@@ -126,7 +128,7 @@ const Header = () => {
             style={{ display: "block", position: "relative" }}
             className="botones-izquierda"
           >
-            {user ? (
+            {usuario ? (
               <>
                 <Nav.Link
                   className=" boton-login-izq-custom"
@@ -157,7 +159,7 @@ const Header = () => {
                     <Offcanvas.Title>
                       <h3>
                         {" "}
-                        {t("bienvenido")} {user.name}
+                        {t("bienvenido")} {usuario.nombre}
                       </h3>
                     </Offcanvas.Title>
                   </Offcanvas.Header>
@@ -169,7 +171,7 @@ const Header = () => {
                       height="200px"
                     />
                     <p>
-                      {t("nombreusuario")} {user.name}
+                      {t("nombreusuario")} {usuario.nombre}
                     </p>
                     <Button variant="success">
                       <svg
@@ -187,7 +189,7 @@ const Header = () => {
                     </Button>{" "}
                     <br></br>
                     <br></br>
-                    <Button variant="info">
+                    <Button variant="info" onClick={() => {navigate("/configurar-cuenta")}}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="16"

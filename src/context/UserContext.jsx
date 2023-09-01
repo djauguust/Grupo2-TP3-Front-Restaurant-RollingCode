@@ -7,6 +7,8 @@ export const UsuariosContext = createContext(null);
 
 const UserContext = ({ children }) => {
   const [Token, setToken] = useState();
+  const [usuarios, setUsuarios] = useState([]);
+  const [usuario, setUsuario] = useState()
 
   const navigate = useNavigate()
 
@@ -16,11 +18,9 @@ const UserContext = ({ children }) => {
       const token = localStorage.getItem("user");
       const decode = jwt_decode(token);
       setToken(decode);
-      //console.log(Token);
     }
   }, []);
-
-  const [usuarios, setUsuarios] = useState([]);
+  
 
   const url = import.meta.env.VITE_API;
 
@@ -32,6 +32,17 @@ const UserContext = ({ children }) => {
       console.log(error);
     }
   };
+
+  //Get de un usuario
+  const traerUnUsuario = async () => {
+    try {
+      const respuesta = await axios.get(`${url}/usuarios/${Token.id}`)
+      setUsuario(respuesta.data)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
 
   const logout = () => {
     localStorage.removeItem("user");
@@ -46,7 +57,8 @@ const UserContext = ({ children }) => {
     logout,
     Token,
     getUsuarios,
-
+    traerUnUsuario,
+    usuario
   };
 
   return (

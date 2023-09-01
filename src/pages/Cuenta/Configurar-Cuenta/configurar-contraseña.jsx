@@ -4,9 +4,10 @@ import "../../../style/configurar-cuenta.css"
 import {useFormik} from "formik";
 import * as Yup from "yup" ;
 import clsx from "clsx";
-import { UsuariosContext } from '../../../context/context';
+
 import Swal from 'sweetalert2';
 import { useParams } from 'react-router';
+import { UsuariosContext } from '../../../context/UserContext';
 
 const configurarContraseña = () => {
 
@@ -15,13 +16,20 @@ const configurarContraseña = () => {
     const CambiarTipo2 = useRef(null);
     const CambiarTipo3 = useRef(null);
 
-    const {datosUsuarios, pasarStates, TraerUsuarios} = useContext(UsuariosContext)
-    //Guardo el valor de contraseña en una constante
-    const contraseñaActual = datosUsuarios.Contraseña
-    const {id} = useParams()
+    const { logout, traerUnUsuario, usuario, Token } = useContext(UsuariosContext);
+
+    {usuario === undefined && Token && (
+      traerUnUsuario()
+    )}
     const URLUsuarios=import.meta.env.VITE_API_USUARIOS
     //Desestructuro pasarStates
-    const { setMostrarDatos, setMostrarContraseña, setMostrarConfigurarPerfil } = pasarStates;
+    const [userId, setUserId] = useState("");
+    const [datosUsuarios, setDatosUsuarios] = useState("")
+
+    const [mostrarDatos, setMostrarDatos] = useState(true)
+    const [mostrarContraseña, setMostrarContraseña] = useState(false)
+    const [mostrarConfigurarPerfil, setMostrarConfigurarPerfil] = useState(false)
+
 
     //Funcion para cambiar el type de los input a password por mas que se borren desde inspeccionar
     function cambiarTipo () {

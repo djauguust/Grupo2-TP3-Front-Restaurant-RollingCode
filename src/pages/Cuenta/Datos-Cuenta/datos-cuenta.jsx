@@ -1,27 +1,32 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { UsuariosContext } from '../../../context/context'
+
 import ConfigurarContraseña from '../Configurar-Cuenta/configurar-contraseña'
 import { Col, Row, Stack } from 'react-bootstrap'
 import ConfigurarCuenta from '../Configurar-Cuenta/configurar-cuenta'
+import { UsuariosContext } from '../../../context/UserContext'
 
-const datosCuenta = () => {
+const DatosCuenta = () => {
 
-    const {TraerUsuarios, datosUsuarios, setUserId, pasarStates, userId} = useContext(UsuariosContext)
+  const { logout, traerUnUsuario, usuario, Token } = useContext(UsuariosContext);
+
+  {usuario === undefined && Token && (
+    traerUnUsuario()
+  )}
+
+  console.log(usuario);
+
     //Guardamos el id 
-    const {id} = useParams()
-    useEffect(() => {
-        //Setea el valor de id para poder usarlo en el context
-        setUserId(id);
-      }, [setUserId, id]);
+    
+
       
-    //Desetruscturo pasarStates para traer todos los useStates de context
-    const { mostrarDatos, setMostrarDatos, mostrarContraseña, setMostrarContraseña, mostrarConfigurarPerfil, setMostrarConfigurarPerfil } = pasarStates;
+    const [userId, setUserId] = useState("");
+    const [datosUsuarios, setDatosUsuarios] = useState("")
 
+    const [mostrarDatos, setMostrarDatos] = useState(true)
+    const [mostrarContraseña, setMostrarContraseña] = useState(false)
+    const [mostrarConfigurarPerfil, setMostrarConfigurarPerfil] = useState(false)
 
-    {datosUsuarios === "" && (
-        TraerUsuarios() // Cargamos los datos del usuario cada vez que el ID de usuario cambia
-    )}
 
     //Funcion para mostrar el contenedor de los datos
     const MostrarDatos = () =>{
@@ -62,16 +67,16 @@ const datosCuenta = () => {
         }
     </div>
     {/*Expresion CondicionaL que muestra los datos si mostrarDatos es true */}
-    {mostrarDatos === true && datosUsuarios !== "" && (
+    {mostrarDatos === true && usuario  && (
     <div className='Contenedor-Para-Centrar'>
     <div className='Contenedor-Datos'>
         <div>
             <h3>Imagen</h3>
         </div>
         <div>
-            <p>Nombre : {datosUsuarios.Nombre}</p>
-            <p>Apellido : {datosUsuarios.Apellido}</p>
-            <p>Email : {datosUsuarios.Email}</p>
+            <p>Nombre : {usuario.nombre}</p>
+            <p>Apellido : {usuario.apellido}</p>
+            <p>Email : {usuario.email}</p>
             
         </div>
         <Link className='btn-Volver' onClick={MostrarConfigurarPerfil}>Editar Perfil</Link>
@@ -92,4 +97,4 @@ const datosCuenta = () => {
   )
 }
 
-export default datosCuenta
+export default DatosCuenta
