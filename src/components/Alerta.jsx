@@ -1,10 +1,11 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Toast } from 'react-bootstrap'
 import { NavbarContext } from '../context/NavbarContext'
 
-const Alerta = () => {
+const Alerta = ({mensaje}) => {
     
 const {toast, setToast} = useContext(NavbarContext)
+
 
   return (
     <>
@@ -17,7 +18,7 @@ const {toast, setToast} = useContext(NavbarContext)
               alt=""
             />
           </Toast.Header>
-          <Toast.Body>Usuario Logueado con éxito</Toast.Body>
+          <Toast.Body>{mensaje}</Toast.Body>
         </Toast>
       </div>
     </>

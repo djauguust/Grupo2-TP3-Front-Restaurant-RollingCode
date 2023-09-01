@@ -9,21 +9,20 @@ import { useState } from "react";
 
 import { NavbarContext } from "../../context/NavbarContext";
 import Alerta from "../../components/Alerta";
+import { Toaster } from "react-hot-toast";
 
 const PaginaPrincipal = () => {
-const {theme} =useContext(NavbarContext)
+  const { theme } = useContext(NavbarContext);
 
-const {toast, setToast} = useContext(NavbarContext)
+
 
   return (
     <>
-
       <CarruselPrincipal />
       <Info theme={theme} />
       <Menu theme={theme} />
       <Reviews theme={theme} />
       <Galeria theme={theme} />
-      <Alerta toast={toast} setToast={setToast} />
     </>
   );
 };

@@ -8,24 +8,16 @@ import { UsuariosContext } from '../../../context/UserContext'
 
 const DatosCuenta = () => {
 
-  const { logout, traerUnUsuario, usuario, Token } = useContext(UsuariosContext);
+  const { logout, traerUnUsuario, usuario, Token, pasarStates } = useContext(UsuariosContext);
 
   {usuario === undefined && Token && (
     traerUnUsuario()
   )}
 
-
+ const { mostrarDatos, setMostrarDatos, mostrarContraseña, setMostrarContraseña, mostrarConfigurarPerfil, setMostrarConfigurarPerfil} = pasarStates
 
     //Guardamos el id 
-    
 
-      
-    const [userId, setUserId] = useState("");
-    const [datosUsuarios, setDatosUsuarios] = useState("")
-
-    const [mostrarDatos, setMostrarDatos] = useState(true)
-    const [mostrarContraseña, setMostrarContraseña] = useState(false)
-    const [mostrarConfigurarPerfil, setMostrarConfigurarPerfil] = useState(false)
 
 
     //Funcion para mostrar el contenedor de los datos

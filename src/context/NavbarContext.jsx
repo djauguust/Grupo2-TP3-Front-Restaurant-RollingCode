@@ -5,7 +5,8 @@ export const NavbarContext = createContext();
 export const NavbarContexto = ({ children }) => {
   const [theme, settheme] = useState("claro");
 
-  const [toast, setToast] = useState(false)
+
+  
 
   const handleSwitch = (e) => {
     if (e.target.checked) {
@@ -19,8 +20,6 @@ export const NavbarContexto = ({ children }) => {
   const datos = { 
     theme,
     handleSwitch,
-    toast,
-    setToast  
   };
   return (
     <>

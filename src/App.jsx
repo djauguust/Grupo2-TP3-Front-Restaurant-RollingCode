@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import Navbar from './componentes/navbar'
+import { useState } from "react";
+import Navbar from "./componentes/navbar";
 
 import Footer from "./components/footer/Footer";
 import Header from "./components/navbar/Header";
@@ -9,19 +9,20 @@ import "./i18n";
 import { useContext } from "react";
 import { NavbarContext, NavbarContexto } from "./context/NavbarContext.jsx";
 import Rutas from "./routes/Rutas";
-import Reservas from './Pages/Reservas/Reservas';
-import { ReservasProvider } from './contexto/ReservasContexto';
+import Reservas from "./Pages/Reservas/Reservas";
+import { ReservasProvider } from "./contexto/ReservasContexto";
+import { Toaster } from "react-hot-toast";
 
 function App() {
-
   return (
     <>
       <NavbarContexto>
         <UserContext>
           <ReservasProvider>
-           <Header/> 
-          <Rutas />
-      <Footer/>
+            <Header />
+            <Toaster />
+            <Rutas />
+            <Footer />
           </ReservasProvider>
         </UserContext>
       </NavbarContexto>

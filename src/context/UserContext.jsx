@@ -10,6 +10,11 @@ const UserContext = ({ children }) => {
   const [usuarios, setUsuarios] = useState([]);
   const [usuario, setUsuario] = useState()
 
+  //States para mostrar datos
+  const [mostrarDatos, setMostrarDatos] = useState(true)
+  const [mostrarContraseña, setMostrarContraseña] = useState(false)
+  const [mostrarConfigurarPerfil, setMostrarConfigurarPerfil] = useState(false)
+
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -52,6 +57,14 @@ const UserContext = ({ children }) => {
     navigate("/login")
   };
 
+  const pasarStates = {
+    mostrarDatos,
+    setMostrarDatos,
+    mostrarContraseña,
+    setMostrarContraseña,
+    mostrarConfigurarPerfil,
+    setMostrarConfigurarPerfil
+  }
   
 
   const pasarDatos = {
@@ -62,7 +75,8 @@ const UserContext = ({ children }) => {
     getUsuarios,
     traerUnUsuario,
     usuario,
-    setUsuario
+    setUsuario,
+    pasarStates
   };
 
   return (

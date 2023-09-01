@@ -17,21 +17,12 @@ const configurarContraseña = () => {
     const CambiarTipo2 = useRef(null);
     const CambiarTipo3 = useRef(null);
 
-    const { logout, traerUnUsuario, usuario, Token } = useContext(UsuariosContext);
-
-    {usuario === undefined && Token && (
-      traerUnUsuario()
-    )}
+    const { logout, traerUnUsuario, usuario, Token, pasarStates  } = useContext(UsuariosContext);
 
     const url = import.meta.env.VITE_API;
 
-    //Desestructuro pasarStates
-    const [userId, setUserId] = useState("");
-    const [datosUsuarios, setDatosUsuarios] = useState("")
+    const { setMostrarDatos, setMostrarContraseña, setMostrarConfigurarPerfil} = pasarStates
 
-    const [mostrarDatos, setMostrarDatos] = useState(true)
-    const [mostrarContraseña, setMostrarContraseña] = useState(false)
-    const [mostrarConfigurarPerfil, setMostrarConfigurarPerfil] = useState(false)
 
 
     //Funcion para cambiar el type de los input a password por mas que se borren desde inspeccionar

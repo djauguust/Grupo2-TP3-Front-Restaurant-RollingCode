@@ -16,19 +16,9 @@ const configurarCuenta = () => {
     
 
 
-    const { traerUnUsuario, usuario, Token } = useContext(UsuariosContext);
+    const { traerUnUsuario, usuario, Token, pasarStates } = useContext(UsuariosContext);
+    const { setMostrarDatos, setMostrarContraseña, setMostrarConfigurarPerfil} = pasarStates
 
-    const [userId, setUserId] = useState("");
-    const [datosUsuarios, setDatosUsuarios] = useState("")
-
-    const [mostrarDatos, setMostrarDatos] = useState(true)
-    const [mostrarContraseña, setMostrarContraseña] = useState(false)
-    const [mostrarConfigurarPerfil, setMostrarConfigurarPerfil] = useState(false)
-
-
-  {usuario === undefined && Token && (
-    traerUnUsuario()
-  )}
 
 
   const url = import.meta.env.VITE_API;
