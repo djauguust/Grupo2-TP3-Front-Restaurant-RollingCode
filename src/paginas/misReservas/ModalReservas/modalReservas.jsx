@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-import { ReservasContexto } from "../../../contexto/contexto";
+import { ReservasContexto } from "../../../contexto/ReservasContexto";
 import { format, getDay, parseISO, setHours, setMinutes } from "date-fns";
 import DatePicker from "react-datepicker";
 import { useFormik } from "formik";

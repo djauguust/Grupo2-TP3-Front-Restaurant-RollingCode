@@ -48,7 +48,7 @@ const configurarCuenta = () => {
     //Expresiones para validar 
     const soloLetras= /^[a-zA-Z ]+$/ 
     const email = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
-    const contraseña= /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/
+    
 
     //Esquema de Yup para el formulario 
     const esquemaConfigurarCuenta = Yup.object().shape({
@@ -143,7 +143,7 @@ const configurarCuenta = () => {
         <Stack gap={2}>
             <Form.Group>
                 <Form.Label>Nombre :</Form.Label>
-                <Form.Control type='text' placeholder='Ej: Lucas' id='Nombre'
+                <Form.Control type='text' placeholder='Ej: Lucas' id='Nombre' minLength={4} maxLength={25}
                 {...formik.getFieldProps("Nombre")}
                 className={clsx(
                     "form-control",{
@@ -161,7 +161,7 @@ const configurarCuenta = () => {
             </Form.Group>
             <Form.Group>
                 <Form.Label>Apellido :</Form.Label>
-                <Form.Control type='text' placeholder='Ej: Yudi' id='Apellido'
+                <Form.Control type='text' placeholder='Ej: Yudi' id='Apellido' minLength={4} maxLength={25}
                 {...formik.getFieldProps("Apellido")}
                 className={clsx(
                     "form-control",{
@@ -179,7 +179,7 @@ const configurarCuenta = () => {
             </Form.Group>
             <Form.Group>
                 <Form.Label>Email :</Form.Label>
-                <Form.Control type='email' placeholder='Ej: yudilucas@gmail.com' id='Email'
+                <Form.Control type='email' placeholder='Ej: yudilucas@gmail.com' id='Email' minLength={16} maxLength={40}
                 {...formik.getFieldProps("Email")}
                 className={clsx(
                     "form-control",{

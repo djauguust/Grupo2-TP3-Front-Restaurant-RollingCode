@@ -53,10 +53,6 @@ const DatosCuenta = () => {
 
   return (
     <>
-    <div>
-        <h1>Mi Perfil</h1>
-    </div>
-    
     <div className='ContenedorPerfil'>
     <div className='ContenedorCambiarUsuario-Contraseña'>
         {/*Links para acceder a las distintas secciones */}

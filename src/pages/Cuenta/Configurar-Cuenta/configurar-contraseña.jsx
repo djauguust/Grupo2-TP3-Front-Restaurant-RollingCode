@@ -43,15 +43,17 @@ const configurarContraseña = () => {
     
 
     //Expresiones para validar
-    const contraseña= /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/
+    const contraseña = /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/;
 
     //Esquema de Yup para el formulario 
     const esquemaConfigurarContraseña = Yup.object().shape({
         ContraseñaActual: Yup.string()
-        .required("Su contraseña actual es requerida"),
+        .required("Su contraseña actual es requerida")
+        .matches(contraseña, "La contraseña debe de contener entre 8 y 16 carácteres, al menos un dígito, al menos una minuscula y al menos una mayuscula"),
 
         Contraseña: Yup.string()
-        .required("La contraseña es requerida"),
+        .required("La contraseña es requerida")
+        .matches(contraseña, "La contraseña debe de contener entre 8 y 16 carácteres, al menos un dígito, al menos una minuscula y al menos una mayuscula"),
 
         ConfirmarContraseña: Yup.string()
         .required("Repetir la contraseña es requerido")
@@ -91,12 +93,8 @@ const configurarContraseña = () => {
                         const ContraseñaActualizada ={
                             oldPass : values.ContraseñaActual,
                             newPass : values.ConfirmarContraseña
-                        }
-                        
-
-
+                        }                        
                         try {
-                            console.log("llega a axios");
                             const respuesta = await axios.put(`${url}/contrasenia/${usuario._id}`,ContraseñaActualizada)
                             console.log(respuesta.data);
                             Swal.fire(

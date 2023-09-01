@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { Button, Col, Container, Row, Stack } from "react-bootstrap";
-import { ReservasContexto } from "../../contexto/contexto";
+import { ReservasContexto } from "../../contexto/ReservasContexto";
 import "../../estilos/misReservas.css";
 import ContenedorReservas from "./ContenedorReservas/contenedorReservas";
 import ModalReservas from "./ModalReservas/modalReservas";
 
-const misReservas = () => {
+const MisReservas = () => {
 
 //Traigo todo esto del context
   const { TraerReservas, Reservas, selectedReservaId, setSelectedReservaId } = useContext(ReservasContexto);
@@ -53,4 +53,4 @@ const misReservas = () => {
   );
 };
 
-export default misReservas;
+export default MisReservas;

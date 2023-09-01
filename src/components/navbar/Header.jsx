@@ -176,7 +176,7 @@ useEffect(() => {
                     <p>
                       {t("nombreusuario")} {usuario.nombre}
                     </p>
-                    <Button variant="success">
+                    <Button variant="success" onClick={() => {navigate("/mis-reservas")}}> 
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="16"
