@@ -19,7 +19,9 @@ const UserContext = ({ children }) => {
       const decode = jwt_decode(token);
       setToken(decode);
     }
-  }, []);
+  }, [localStorage.getItem("user")]);
+
+
   
 
   const url = import.meta.env.VITE_API;
@@ -46,6 +48,7 @@ const UserContext = ({ children }) => {
 
   const logout = () => {
     localStorage.removeItem("user");
+    setToken("")
     navigate("/login")
   };
 
@@ -58,7 +61,8 @@ const UserContext = ({ children }) => {
     Token,
     getUsuarios,
     traerUnUsuario,
-    usuario
+    usuario,
+    setUsuario
   };
 
   return (

@@ -16,19 +16,22 @@ import { useEffect } from "react";
 import { NavbarContext } from "../../context/NavbarContext";
 
 const Header = () => {
-  const { logout, traerUnUsuario, usuario, Token } = useContext(UsuariosContext);
+  const { logout, traerUnUsuario, usuario, Token, setUsuario } = useContext(UsuariosContext);
 
   const { theme, handleSwitch, toast } = useContext(NavbarContext);
 
    const navigate = useNavigate()
 
 
-
-  {usuario === undefined && Token && (
+useEffect(() => {
+  if (usuario === undefined && Token) {
     traerUnUsuario()
-  )}
+  }else{
+    setUsuario()
+  }
+  },[Token])
+  
 
-  let user;
 
   const [miCuenta, setMiCuenta] = useState(false);
   const handleClose = () => setMiCuenta(false);
