@@ -16,22 +16,20 @@ import { useEffect } from "react";
 import { NavbarContext } from "../../context/NavbarContext";
 
 const Header = () => {
-  const { logout, traerUnUsuario, usuario, Token, setUsuario } = useContext(UsuariosContext);
+  const { logout, traerUnUsuario, usuario, Token, setUsuario } =
+    useContext(UsuariosContext);
 
   const { theme, handleSwitch, toast } = useContext(NavbarContext);
 
-   const navigate = useNavigate()
+  const navigate = useNavigate();
 
-
-useEffect(() => {
-  if (usuario === undefined && Token) {
-    traerUnUsuario()
-  }else{
-    setUsuario()
-  }
-  },[Token])
-  
-
+  useEffect(() => {
+    if (usuario === undefined && Token) {
+      traerUnUsuario();
+    } else {
+      setUsuario();
+    }
+  }, [Token]);
 
   const [miCuenta, setMiCuenta] = useState(false);
   const handleClose = () => setMiCuenta(false);
@@ -51,9 +49,9 @@ useEffect(() => {
 
   useEffect(() => {
     if (toast) {
-      setMiCuenta(false)
+      setMiCuenta(false);
     }
-  },[toast])
+  }, [toast]);
 
   return (
     <>
@@ -158,25 +156,27 @@ useEffect(() => {
                   placement="end"
                   className={`modal-cuenta${theme}`}
                 >
-                  <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>
-                      <h3>
-                        {" "}
-                        {t("bienvenido")} {usuario.nombre}
-                      </h3>
-                    </Offcanvas.Title>
-                  </Offcanvas.Header>
+                  <Offcanvas.Header closeButton />
                   <Offcanvas.Body className="text-center">
-                    <h5> {t("micuenta")} </h5>
                     <img
                       src="public\cocinero-icono-plano-chef-avatar-ilustracion-vectorial-diseno-dibujos-animados-chef-bigotudo-gorra-u-removebg-preview-removebg-preview (1).png"
                       alt=""
                       height="200px"
                     />
                     <p>
-                      {t("nombreusuario")} {usuario.nombre}
+                      {t("tipoUsuario")}{" "}
+                      {usuario.esAdmin === 0
+                        ? t("cliente")
+                        : usuario.esAdmin === 1
+                        ? t("Portero")
+                        : t("administrador")}
                     </p>
-                    <Button variant="success" onClick={() => {navigate("/mis-reservas")}}> 
+                    <Button
+                      variant="success"
+                      onClick={() => {
+                        navigate("/mis-reservas");
+                      }}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="16"
@@ -192,7 +192,12 @@ useEffect(() => {
                     </Button>{" "}
                     <br></br>
                     <br></br>
-                    <Button variant="info" onClick={() => {navigate("/configurar-cuenta")}}>
+                    <Button
+                      variant="info"
+                      onClick={() => {
+                        navigate("/configurar-cuenta");
+                      }}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="16"
@@ -227,6 +232,29 @@ useEffect(() => {
                       </svg>
                       {t("cerrarsesion")}
                     </Button>{" "}
+                    <br></br>
+                    <br></br>
+                    {usuario && usuario.esAdmin === 2 && (
+                      <Button
+                        variant="info"
+                        onClick={() => {
+                          navigate("/administrador");
+                        }}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          class="bi bi-gear"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z" />
+                          <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z" />
+                        </svg>
+                        {t("administrador")}
+                      </Button>
+                    )}
                   </Offcanvas.Body>
                 </Offcanvas>
               </>
