@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { ReservasContexto } from "../../../contexto/ReservasContexto";
-import { format, getDay, parseISO, setHours, setMinutes } from "date-fns";
+import { format, getDay, parse, parseISO, setHours, setMinutes } from "date-fns";
 import DatePicker from "react-datepicker";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -15,13 +15,14 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
   //Traer cosas dle context
   const { TraerUnaReserva, Reserva, TraerReservas } =
     useContext(ReservasContexto);
+
   //Valor externo para que traer una reserva funcione una vez y no sea un bucle infinito
   const [externalChange, setExternalChange] = useState(false);
 
   let date = new Date();
 
   //La Url reservas es la del .env
-  const UrlReservas = import.meta.env.VITE_API_RESERVAS;
+  const url = import.meta.env.VITE_API;
 
   //UseEffect para que funcione traer una reserva de acuerdo al valor externo
   useEffect(() => {
@@ -64,9 +65,11 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
     validateOnBlur: true,
     onSubmit: (values) => {
       //Para formatear la fecha a un valor dia/mes/año
-      const fechaFormateada = format(values.FechaReserva, "dd/MM/yyyy", {
+      const fechaFormateada = format(values.FechaReserva, "yyyy-MM-dd", {
         locale: es,
       });
+
+      console.log("Fecha formateada es",fechaFormateada);
 
       //Para formatear la hora a un valor Hora/Minutos
       const horaFormateada = format(values.HoraReserva, "HH:mm", {
@@ -75,9 +78,9 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
 
       //Guardar los datos editados
       const Reserva = {
-        Fecha: fechaFormateada,
-        Hora: horaFormateada,
-        CantidadDePersonas: values.CantidadDePersonas,
+        fecha: fechaFormateada,
+        hora: horaFormateada,
+        comensales: values.CantidadDePersonas,
       };
 
       //Alert para preguntar si el usuario esta seguro
@@ -92,14 +95,14 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
         cancelButtonText: "No",
       }).then((result) => {
         if (result.isConfirmed) {
-          const Url = `${UrlReservas}/${selectedReservaId}`;
+          const Url = `${url}/reservas/${selectedReservaId._id}`;
           //Peticion para editar la reserva
           axios
             .put(Url, Reserva)
             .then((Response) => {
               
               onCloseModal();
-              TraerReservas();
+              TraerUnaReserva();
             })
             .catch((error) => {
               
@@ -116,7 +119,7 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
 
   //Funcion que solo sirve para desformatear la fecha para setear los valores en el form
   const parsearFecha = (customDate) => {
-    const [day, month, year] = customDate.split("/");
+    const [day, month, year] = customDate.split("-");
     const fechaParseada = `${year}-${month}-${day}`;
     return parseISO(fechaParseada);
   };
@@ -130,10 +133,11 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
 
   //Funcion para establecer los datos en los form
   const EstablecerDatos = async () => {
-    if (Reserva) {
-      const Fecha = (await parsearFecha(Reserva.Fecha)) || "";
-      const Hora = (await parsearHora(Reserva.Hora)) || "";
-      const CantidadDePersonas = (await Reserva.CantidadDePersonas) || "";
+    if (selectedReservaId) {
+      const Fecha = (await parsearFecha(selectedReservaId.fecha)) || "";
+      console.log("Fecha es",Fecha);
+      const Hora = (await parsearHora(selectedReservaId.hora)) || "";
+      const CantidadDePersonas = (await selectedReservaId.comensales) || "";
       formik.setFieldValue("FechaReserva", Fecha);
       formik.setFieldValue("HoraReserva", Hora);
       formik.setFieldValue("CantidadDePersonas", CantidadDePersonas);
@@ -143,7 +147,7 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
   //UseEffect que sirve para establecer los datos
   useEffect(() => {
     EstablecerDatos();
-  }, [Reserva]);
+  }, [selectedReservaId]);
 
   //Funcion para que los domingos esten deshabilitados
   const isWeekday = (date) => {
@@ -253,8 +257,12 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
             </Form.Group>
             <Form.Group>
               <Form.Label>Cantidad de Personas :</Form.Label>
-              <Form.Select
+              <Form.Control
+                    placeholder="N° de Personas"
+                    type="number"
                 id="CantidadDePersonas"
+                min={1}
+
                 {...formik.getFieldProps("CantidadDePersonas")}
                 className={clsx(
                   "form-control",
@@ -269,13 +277,7 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
                       !formik.errors.CantidadDePersonas,
                   }
                 )}
-              >
-                <option>Ingrese la cantidad de personas</option>
-                <option value="2">2 personas</option>
-                <option value="3">3 personas</option>
-                <option value="4">4 personas</option>
-                <option value="5">5 personas</option>
-              </Form.Select>
+              />
               {formik.touched.CantidadDePersonas &&
                 formik.errors.CantidadDePersonas && (
                   <div>

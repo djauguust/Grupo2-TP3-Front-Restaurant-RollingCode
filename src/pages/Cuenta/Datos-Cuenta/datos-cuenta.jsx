@@ -59,7 +59,7 @@ const DatosCuenta = () => {
     <div className='Contenedor-Para-Centrar'>
     <div className='Contenedor-Datos'>
         <div>
-            <h3>Imagen</h3>
+            <h3>Mi Perfil</h3>
         </div>
         <div>
             <p>Nombre : {usuario.nombre}</p>

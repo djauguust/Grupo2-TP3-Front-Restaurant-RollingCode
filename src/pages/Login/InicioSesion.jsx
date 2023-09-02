@@ -104,7 +104,7 @@ function InicioSesion() {
     <div className="background-image">
       <Container className="ubicarCarta">
         <div className="Carta mt-3 mb-3 text-center">
-          <h3 className="mt-3">Bienvenido!</h3>
+          <h3 className="mt-3 TituloInicioSesion">Bienvenido!</h3>
           <img src={logo} alt="Logo de la pagina" className="img-fluid" />
           {UsuarioLogueadoError === true && (
             <div className="d-flex justify-content-center">

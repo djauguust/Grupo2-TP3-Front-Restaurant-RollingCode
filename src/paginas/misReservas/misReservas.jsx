@@ -4,16 +4,21 @@ import { ReservasContexto } from "../../contexto/ReservasContexto";
 import "../../estilos/misReservas.css";
 import ContenedorReservas from "./ContenedorReservas/contenedorReservas";
 import ModalReservas from "./ModalReservas/modalReservas";
+import { UsuariosContext } from "../../context/UserContext";
 
 const MisReservas = () => {
 
 //Traigo todo esto del context
-  const { TraerReservas, Reservas, selectedReservaId, setSelectedReservaId } = useContext(ReservasContexto);
+  const { TraerUnaReserva, Reserva, selectedReservaId, setSelectedReservaId, Reservas } = useContext(ReservasContexto);
+  const {Token} = useContext(UsuariosContext)
 
 //Digo que si reservas no tiene valor me traiga todas la reservas para poder mostrarlas con el map
-  {
-    Reservas === undefined && TraerReservas();
-  }
+
+  {Reserva === undefined && Token && (
+    TraerUnaReserva()
+                                         
+  )}
+
 
   //Funcion para el modal
   const [showModal, setShowModal] = useState(false);
@@ -40,9 +45,9 @@ const MisReservas = () => {
         <Container className="d-flex justify-content-center">
           <Row>
             {/*Map para que recorra el id y me muestre las reservas*/}
-          {Reservas &&
-            Reservas.map((Reserva) => (
-              <ContenedorReservas onShowModal={handleShowModal} key={Reserva.id} Reserva={Reserva} />
+          {Reserva &&
+            Reserva.map((Reserva) => (
+              <ContenedorReservas onShowModal={handleShowModal} key={Reserva._id} Reserva={Reserva} />
               ))}
           </Row>
           {/*Modal*/ }

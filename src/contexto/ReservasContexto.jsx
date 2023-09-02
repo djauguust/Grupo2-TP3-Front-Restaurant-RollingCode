@@ -35,8 +35,8 @@ export const ReservasProvider = ({children}) => {
         }
     }
 
-    console.log(Reserva);
     //TraerUnaReserva()
+
 //Constante para pasar todas las cosas del context, luego las simplifico mejor
     const PasarDatos = {
         Reservas,
