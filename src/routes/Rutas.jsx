@@ -27,6 +27,7 @@ const Rutas = () => {
         <Route path='/bandeja' element={<Bandeja />} />
         <Route path="/configurar-cuenta" element={<DatosCuenta />} />
         <Route path="/mis-reservas" element={<MisReservas />} />
+        <Route path="/administrador" />
       </Routes>
     </>
   );
