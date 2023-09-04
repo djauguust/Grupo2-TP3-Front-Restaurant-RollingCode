@@ -10,10 +10,12 @@ import {
   Row,
   Table,
 } from "react-bootstrap";
+import "./Administracion.css";
 import { FormSearch } from "./components/FormSearch";
 import { useForm } from "./hooks/useForm";
 import Swal from "sweetalert2";
 import axios from "axios";
+
 
 export const AdministrarUsuarios = () => {
   const [Usuarios, setUsuarios] = useState([]);
@@ -223,6 +225,9 @@ export const AdministrarUsuarios = () => {
     setErrores(array);
     return array.length == 0;
   };
+  
+  
+
   /* FIN Editar usuarios */
   return (
     <>
@@ -236,7 +241,7 @@ export const AdministrarUsuarios = () => {
           placeholder="Buscar Usuario"
           name="user"
         />
-        <Table striped responsive className="my-3">
+        <Table striped responsive className="my-3" >
           <thead>
             <tr>
               <th>#</th>
@@ -263,10 +268,10 @@ export const AdministrarUsuarios = () => {
                     onClick={() => handleEdit(r)}
                     className="me-3 mb-2"
                   >
-                    <i className="bi bi-pencil"></i>
+                    <i className="bi bi-pencil">Editar</i>
                   </Button>
-                  <Button variant="danger" onClick={() => handleDelete(r)}>
-                    <i className="bi bi-trash"></i>
+                  <Button className="btn-trash" variant="danger" onClick={() => handleDelete(r)}>
+                    <i className="bi bi-trash">Borrar</i>
                   </Button>
                 </td>
               </tr>
