@@ -3,6 +3,8 @@ import {
   Alert,
   Badge,
   Button,
+  ButtonGroup,
+  ButtonToolbar,
   Col,
   Container,
   Form,
@@ -50,7 +52,6 @@ export const AdministrarUsuarios = () => {
 
   /* handle */
   const handleDelete = (user) => {
-    console.log(user);
     Swal.fire({
       title: `¿Realmente deseas eliminar el usuario ${user.nombre} ${user.apellido}?`,
       text: "Este cambio es irreversible y el email quedará librado para crear un usuario nuevo",
@@ -76,7 +77,6 @@ export const AdministrarUsuarios = () => {
           .catch((error) => console.log(error));
       }
     });
-    /* TO DO */
   };
 
   const handleEdit = (user) => {
@@ -224,6 +224,63 @@ export const AdministrarUsuarios = () => {
     return array.length == 0;
   };
   /* FIN Editar usuarios */
+
+  /* Paginación */
+  let grupoDatos = [];
+  const filasPorPagina = 10;
+  const [currentPage, setCurrentPage] = useState(1);
+  for (let i = 0; i < userFiltered.length; i += filasPorPagina) {
+    const grupo = userFiltered.slice(i, i + filasPorPagina);
+    grupoDatos.push(grupo);
+  }
+  /* Fin Paginación */
+
+  /* Modal mostrar reservas de un usuario */
+  const [showReservas, setShowReservas] = useState(null);
+  const [reservasByUser, setReservasByUser] = useState(null);
+  const [ShowModalList, setShowModalList] = useState(false);
+  const handleCloseModalList = () => {
+    setShowModalList(false);
+    setShowReservas(null);
+  };
+
+  const handleShow = (user) => {
+    setReservasByUser(null);
+    setShowReservas(user);
+    setShowModalList(true);
+  };
+
+  useEffect(() => {
+    if (showReservas) {
+      axios
+        .get(`${url}/reservasByUsuario/${showReservas._id}`)
+        .then(({ data }) => {
+          setReservasByUser(data);
+        })
+        .catch((error) => console.log(error));
+    } else {
+      setReservasByUser(null);
+    }
+  }, [showReservas]);
+  /* FIN  Modal mostrar reservas de un usuario */
+
+  /* Badge de "fue usada" */
+  const fueUsada = (usada) => {
+    if (usada) {
+      return (
+        <>
+          <Badge bg="success">SI</Badge>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <Badge bg="secondary">NO</Badge>
+        </>
+      );
+    }
+  };
+  /* FIN Badge de "fue usada" */
   return (
     <>
       <Container>
@@ -244,20 +301,27 @@ export const AdministrarUsuarios = () => {
               <th>Nombre</th>
               <th>E-mail</th>
               <th>¿Activo?</th>
-              <th>¿Admin?</th>
+              <th>Rol</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
-            {userFiltered?.map((r, index) => (
+            {grupoDatos[currentPage - 1]?.map((r, index) => (
               <tr key={index}>
-                <td>{index + 1}</td>
+                <td>{index + 1 + (currentPage - 1) * filasPorPagina}</td>
                 <td>{r.apellido}</td>
                 <td>{r.nombre}</td>
                 <td>{r.email}</td>
                 <td>{esActivoTraduccion(r.esActivo)}</td>
                 <td>{adminComoString(r.esAdmin)}</td>
                 <td>
+                  <Button
+                    variant="danger"
+                    onClick={() => handleShow(r)}
+                    className="me-3 mb-2"
+                  >
+                    <i className="bi bi-card-list"></i>
+                  </Button>
                   <Button
                     variant="danger"
                     onClick={() => handleEdit(r)}
@@ -273,6 +337,24 @@ export const AdministrarUsuarios = () => {
             ))}
           </tbody>
         </Table>
+        <ButtonToolbar aria-label="Toolbar with button groups">
+          <ButtonGroup
+            className="mx-auto my-3 align-center"
+            aria-label="First group"
+          >
+            {grupoDatos?.map((r, index) => (
+              <Button
+                key={index}
+                className={`page-item ${
+                  currentPage === index + 1 ? "active" : ""
+                }`}
+                onClick={() => setCurrentPage(index + 1)}
+              >
+                {index + 1}
+              </Button>
+            ))}
+          </ButtonGroup>
+        </ButtonToolbar>
       </Container>
 
       <Modal
@@ -375,6 +457,59 @@ export const AdministrarUsuarios = () => {
             disabled={ButtonGuardarUsuario}
           >
             Guardar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal
+        show={ShowModalList}
+        onHide={handleCloseModalList}
+        backdropClassName="custom-backdrop"
+        className="modal-custom"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>
+            Reservas del usuario: {showReservas?.apellido},{" "}
+            {showReservas?.nombre}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {!reservasByUser ? (
+            <>
+              <Alert variant="danger">
+                ¡Usuario sin reservas registradas!
+              </Alert>
+            </>
+          ) : (
+            <>
+              <Table striped responsive className="my-3">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Cant. de comensales</th>
+                    <th>¿Fue usada?</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {reservasByUser?.map((r, index) => (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{r.fecha}</td>
+                      <td>{r.hora}</td>
+                      <td>{r.comensales}</td>
+                      <td>{fueUsada(r.fueUsada)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModalList}>
+            Cerrar
           </Button>
         </Modal.Footer>
       </Modal>
