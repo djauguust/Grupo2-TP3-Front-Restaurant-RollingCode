@@ -93,14 +93,14 @@ const configurarContraseña = () => {
                               'Los cambios que hiciste fueron implementados',
                               'success'
                             )
+                            //Funciones para volver a mostrar los datos y TraerUsuarios para actualizar todo
+                                setMostrarDatos(true)
+                                setMostrarConfigurarPerfil(false)
+                                setMostrarContraseña(false)
+                                traerUnUsuario()
                     } catch (error) {
                         console.log(error);
                     }
-                    //Funciones para volver a mostrar los datos y TraerUsuarios para actualizar todo
-                        setMostrarDatos(true)
-                        setMostrarConfigurarPerfil(false)
-                        setMostrarContraseña(false)
-                        traerUnUsuario()
                     }
                   })
             } catch (error) {
@@ -122,7 +122,9 @@ const configurarContraseña = () => {
                 <Stack gap={2}>
                     <Form.Group>
                         <Form.Label>Ingrese su contraseña actual :</Form.Label>
-                        <Form.Control type="password" placeholder='Contraseña Actual' id='ContraseñaActual' onInput={cambiarTipo} ref={CambiarTipo}
+                        <Form.Control type="password" placeholder='Contraseña Actual' id='ContraseñaActual'
+                        minLength={8} maxLength={16}
+                        onInput={cambiarTipo} ref={CambiarTipo}
                         {...formik.getFieldProps("ContraseñaActual")}
                         className={clsx(
                             "form-control",{
@@ -140,7 +142,9 @@ const configurarContraseña = () => {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Ingrese su nueva contraseña :</Form.Label>
-                        <Form.Control type='password' placeholder='Contraseña Nueva' id='Contraseña' onInput={cambiarTipo} ref={CambiarTipo2}
+                        <Form.Control type='password' placeholder='Contraseña Nueva' id='Contraseña'
+                        minLength={8} maxLength={16}
+                        onInput={cambiarTipo} ref={CambiarTipo2}
                         {...formik.getFieldProps("Contraseña")}
                         className={clsx(
                             "form-control",{
@@ -158,7 +162,9 @@ const configurarContraseña = () => {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Ingrese nuevamente su nueva contraseña :</Form.Label>
-                        <Form.Control type='password' placeholder='Repetir Nueva Contraseña' id='ConfirmarContraseña' onInput={cambiarTipo} ref={CambiarTipo3}
+                        <Form.Control type='password' placeholder='Repetir Nueva Contraseña' id='ConfirmarContraseña'
+                        minLength={8} maxLength={16}
+                        onInput={cambiarTipo} ref={CambiarTipo3}
                         {...formik.getFieldProps("ConfirmarContraseña")}
                         className={clsx(
                             "form-control",{

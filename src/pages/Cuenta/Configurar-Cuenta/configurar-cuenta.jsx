@@ -103,15 +103,15 @@ const configurarCuenta = () => {
                             'Usuario Modificado',
                             'Los cambios que hiciste fueron implementados',
                             'success'
-                          )
+                            )
+                            //Funciones para volver a mostrar los datos y TraerUsuarios para actualizar todo
+                            setMostrarDatos(true)
+                            setMostrarConfigurarPerfil(false)
+                            setMostrarContraseña(false)
+                            traerUnUsuario()
                     } catch (error) {
                         console.log(error);
                     }
-                    //Funciones para volver a mostrar los datos y TraerUsuarios para actualizar todo
-                    setMostrarDatos(true)
-                    setMostrarConfigurarPerfil(false)
-                    setMostrarContraseña(false)
-                    traerUnUsuario()
                     }
 
                   })

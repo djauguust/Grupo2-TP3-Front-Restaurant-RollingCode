@@ -47,7 +47,8 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
 
     CantidadDePersonas: Yup.string().required(
       "La cantidad de personas es requerida"
-    ),
+    )
+    .min(1,"Debes elegir al menos 1 persona"),
   });
 
   //Valores iniciales
@@ -119,9 +120,7 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
 
   //Funcion que solo sirve para desformatear la fecha para setear los valores en el form
   const parsearFecha = (customDate) => {
-    const [day, month, year] = customDate.split("-");
-    const fechaParseada = `${year}-${month}-${day}`;
-    return parseISO(fechaParseada);
+    return parseISO(customDate);
   };
 
   //Funcion para lo mismo pero con la hora
@@ -135,7 +134,7 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
   const EstablecerDatos = async () => {
     if (selectedReservaId) {
       const Fecha = (await parsearFecha(selectedReservaId.fecha)) || "";
-      console.log("Fecha es",Fecha);
+      console.log("Fecha es", Fecha);
       const Hora = (await parsearHora(selectedReservaId.hora)) || "";
       const CantidadDePersonas = (await selectedReservaId.comensales) || "";
       formik.setFieldValue("FechaReserva", Fecha);
@@ -195,10 +194,9 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
                 onChange={(date) => formik.setFieldValue("FechaReserva", date)}
                 closeOnScroll={true}
                 locale={es}
-                dateFormat="dd/MM/yyyy"
+                dateFormat="yyyy/MM/dd"
                 minDate={filterMinDay()}
                 maxDate={filterMaxDay()}
-                filterDate={isWeekday}
                 placeholderText="Selecciona una fecha"
                 className={clsx(
                   "form-control",
@@ -228,7 +226,7 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
                 onChange={(hora) => formik.setFieldValue("HoraReserva", hora)}
                 showTimeSelect
                 showTimeSelectOnly
-                timeIntervals={60}
+                timeIntervals={30}
                 timeCaption="Hora"
                 dateFormat="HH:mm"
                 locale={es}
