@@ -27,6 +27,12 @@ function Registro() {
       .min(4, "El nombre debe de ser menor a 4 letras")
       .max(25, "El nombre debe de ser menor a 25 letras"),
 
+      Apellido: Yup.string()
+      .required("El apellido es requerido")
+      .matches(soloLetras, "El apellido solo debe incluir letras")
+      .min(4, "El apellido debe de ser menor a 4 letras")
+      .max(25, "El apellido debe de ser menor a 25 letras"),  
+
     Email: Yup.string()
       .required("El email es requerido")
       .matches(email, "Ingrese un formato de email correcto")
@@ -48,6 +54,7 @@ function Registro() {
   //Valores iniciales
   const valoresIniciales = {
     Nombre: "",
+    Apellido: "",
     Email: "",
     Contraseña: "",
     ConfirmarContraseña: "",
@@ -76,6 +83,7 @@ function Registro() {
             //Guarda los valores del formulario
             const Usuario = {
               nombre: values.Nombre,
+              apellido: values.Apellido,
               email: values.Email,
               contrasenia: values.Contraseña,
             };
@@ -152,6 +160,42 @@ function Registro() {
                   
                 )}
               </Form.Group>
+
+              <Form.Group className="contenedorForm">
+                <Form.Label className="label-color">Apellido</Form.Label>
+                <div className="input-group">
+                  <img
+                    src="/src/assets/usuario.png"
+                    alt="Imagen"
+                    className="usuario-icono"
+                  />
+                  <Form.Control
+                    type="text"
+                    placeholder="Ej: Yudi"
+                    id="Apellido"
+                    {...formik.getFieldProps("Apellido")}
+                    className={clsx(
+                      "form-control",
+                      {
+                        "is-invalid":
+                          formik.touched.Apellido && formik.errors.Apellido,
+                      },
+                      {
+                        "is-valid":
+                          formik.touched.Apellido && !formik.errors.Apellido,
+                      }
+                    )}
+                  />
+                </div>
+                {formik.touched.Apellido && formik.errors.Apellido && (
+                  
+                    <span role="alert" className="text-danger">
+                      {formik.errors.Apellido}
+                    </span>
+                  
+                )}
+              </Form.Group> 
+
               <Form.Group className="contenedorForm">
                 <Form.Label className="label-color">
                   Correo Electrónico{" "}

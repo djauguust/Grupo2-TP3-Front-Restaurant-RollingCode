@@ -16,3 +16,33 @@
 .color-elegido:visited {
   color: black;
 }
+
+.dark-mode-table {
+  background-color: #333;
+  color: white;
+}
+
+.me-3  {
+  height: 28px;  
+  width: 130px; 
+ }
+ 
+ .btn-trash {
+  height: 28px;
+  width: 138px;
+  margin-bottom: 8px;
+ }
+
+ .btn-visto {
+  background-color: #ffeba7;
+  width: 118px;
+  height: 40px;
+  margin-left: 40px;
+ }
+
+ .btn-borrar {
+  width: 120px;
+  height: 40px;
+  margin-top: 5px;
+  margin-left: 40px;
+ }

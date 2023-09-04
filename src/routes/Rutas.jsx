@@ -10,7 +10,7 @@ import Registro from "../Pages/Registro/Registro"
 import Error404 from "../pages/Error404/Error404";
 import Bandeja from "../components/bandeja/Bandeja";
 import { Administracion } from "../Pages/Administración/Administracion";
-
+import configurarCuenta from "../Pages/Cuenta/Configurar-Cuenta/Configurar-cuenta";
 
 
 const Rutas = () => {
@@ -27,6 +27,7 @@ const Rutas = () => {
         <Route path='/bandeja' element={<Bandeja />} />
         <Route path='/administrador' element={<Administracion />} />
         <Route path='*' element={<Error404 />} />
+        <Route path='/configurarCuenta' element={<configurarCuenta />} />
       </Routes>
     </>
   );

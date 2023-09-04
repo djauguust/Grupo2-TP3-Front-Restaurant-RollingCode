@@ -1,4 +1,5 @@
 import axios from "axios";
+import "./Administracion.css";
 import React, { useEffect, useState } from "react";
 import { Badge, Button, Container, Table } from "react-bootstrap";
 import Swal from "sweetalert2";
@@ -109,18 +110,18 @@ export const BandejaDeEntrada = () => {
                     <Button
                       variant="success"
                       onClick={() => handleConfirm(r)}
-                      className="mx-2 my-1"
+                      className="btn-visto"
                     >
-                      <i className="bi bi-check2"></i>
+                      <i className="bi bi-check2">Visto</i>
                     </Button>
                   )}
 
                   <Button
                     variant="danger"
                     onClick={() => handleDelete(r)}
-                    className="mx-2 my-1"
+                    className="btn-borrar"
                   >
-                    <i className="bi bi-trash"></i>
+                    <i className="bi bi-trash">Borrar</i>
                   </Button>
                 </td>
               </tr>
