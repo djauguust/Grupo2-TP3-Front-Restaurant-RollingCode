@@ -33,6 +33,7 @@ function Registro() {
       .min(4, "El apellido debe de ser menor a 4 letras")
       .max(25, "El apellido debe de ser menor a 25 letras"),   
 
+
     Email: Yup.string()
       .required("El email es requerido")
       .matches(email, "Ingrese un formato de email correcto")
@@ -194,7 +195,9 @@ function Registro() {
                     </span>
                   
                 )}
+
               </Form.Group>
+
 
               <Form.Group className="contenedorForm">
                 <Form.Label className="label-color">
