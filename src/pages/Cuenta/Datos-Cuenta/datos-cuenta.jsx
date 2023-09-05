@@ -5,8 +5,13 @@ import ConfigurarContraseña from '../Configurar-Cuenta/configurar-contraseña'
 import { Col, Row, Stack } from 'react-bootstrap'
 import ConfigurarCuenta from '../Configurar-Cuenta/configurar-cuenta'
 import { UsuariosContext } from '../../../context/UserContext'
+import { useTranslation } from 'react-i18next'
 
 const DatosCuenta = () => {
+
+
+    const {t} = useTranslation();
+
 
   const { logout, traerUnUsuario, usuario, Token, pasarStates } = useContext(UsuariosContext);
 
@@ -57,17 +62,17 @@ const DatosCuenta = () => {
     {/*Expresion CondicionaL que muestra los datos si mostrarDatos es true */}
     {mostrarDatos === true && usuario  && (
     <div className='Contenedor-Para-Centrar'>
-    <div className='Contenedor-Datos'>
+    <div className={`Contenedor-Datos`}>
         <div>
-            <h3>Mi Perfil</h3>
+            <h3>{t('miPerfil')}</h3>
         </div>
         <div>
-            <p>Nombre : {usuario.nombre}</p>
-            <p>Apellido : {usuario.apellido}</p>
+            <p>{t('nombre')} : {usuario.nombre}</p>
+            <p>{t('apellido')} : {usuario.apellido}</p>
             <p>Email : {usuario.email}</p>
             
         </div>
-        <Link className='btn-Volver' onClick={MostrarConfigurarPerfil}>Editar Perfil</Link>
+        <Link className='btn-Volver' onClick={MostrarConfigurarPerfil}>{t('editarPerfil')}</Link>
     </div>
     </div>
     )}

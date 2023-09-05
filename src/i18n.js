@@ -60,6 +60,16 @@ i18n.use(initReactI18next).init({
         administrador: "Administrator",
         cliente: "Customer",
         portero: "Host",
+        miPerfil: "My Profile",
+        nombre : "Name",
+        apellido: "Lastname",
+        editarPerfil: "Edit Profile",
+        ingreseContraseña: "Enter your current password :",
+        ingreseContraseñaNueva: "Enter your new password :",
+        ingreseContraseñaNuevamente: "Enter your new password again :",
+        guardarCambios: "SAVE CHANGES",
+        cambiaDatos : "Change your account details :",
+        cambiaContraseña : "Change Password"
 
       },
     },
@@ -120,7 +130,15 @@ i18n.use(initReactI18next).init({
         administador: "Administrador",
         cliente: "Cliente",
         portero: "Portero",
-
+        miPerfil: "Mi Perfil",
+        nombre : "Nombre",
+        apellido: "Apellido",
+        editarPerfil: "Editar Perfil",
+        ingreseContraseña: "Ingrese su contraseña actual :",
+        ingreseContraseñaNueva: "Ingrese su nueva contraseña :",
+        ingreseContraseñaNuevamente: "Ingrese nuevamente su nueva contraseña :",
+        guardarCambios: "GUARDAR CAMBIOS",
+        cambiaDatos : "Cambia los datos de tu cuenta :"
       },
     },
   },

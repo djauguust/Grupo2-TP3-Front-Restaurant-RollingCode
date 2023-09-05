@@ -9,10 +9,13 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { UsuariosContext } from '../../../context/UserContext';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
 
 
 const configurarCuenta = () => {
+
+    const {t} = useTranslation();
     
 
 
@@ -125,14 +128,14 @@ const configurarCuenta = () => {
     <>
     <div className='Contenedor-Cuerpo mb-4'>
     <div className='text-center'>
-        <h1>Cambia los datos de tu cuenta :</h1>
+        <h1>{t('cambiaDatos')}</h1>
     </div>
     <Container>
         <div className='Contenedor-Form d-flex justify-content-center mt-3'>    
         <Form onSubmit={formik.handleSubmit} noValidate>
         <Stack gap={2}>
             <Form.Group>
-                <Form.Label>Nombre :</Form.Label>
+                <Form.Label>{t('nombre')} :</Form.Label>
                 <Form.Control type='text' placeholder='Ej: Lucas' id='Nombre' minLength={4} maxLength={25}
                 {...formik.getFieldProps("Nombre")}
                 className={clsx(
@@ -150,7 +153,7 @@ const configurarCuenta = () => {
                 )}
             </Form.Group>
             <Form.Group>
-                <Form.Label>Apellido :</Form.Label>
+                <Form.Label>{t('apellido')} :</Form.Label>
                 <Form.Control type='text' placeholder='Ej: Yudi' id='Apellido' minLength={4} maxLength={25}
                 {...formik.getFieldProps("Apellido")}
                 className={clsx(
@@ -186,7 +189,7 @@ const configurarCuenta = () => {
                 )}
             </Form.Group>
         </Stack>
-        <Button className='btn-Volver mt-3 ' type='submit'>Guardar Cambios</Button>
+        <Button className='btn-Volver mt-3 ' type='submit'>{t('guardarCambios')}</Button>
         </Form>
         </div>
     </Container>
