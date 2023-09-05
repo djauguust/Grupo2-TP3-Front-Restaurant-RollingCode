@@ -18,8 +18,8 @@ import { useForm } from "./hooks/useForm";
 import Swal from "sweetalert2";
 import axios from "axios";
 
-
-export const AdministrarUsuarios = () => {
+export const AdministrarUsuarios = ({ userToken }) => {
+  const useToken = { headers: { "auth-token": userToken } };
   const [Usuarios, setUsuarios] = useState([]);
   const initialForm = {
     apellido: "",
@@ -109,7 +109,7 @@ export const AdministrarUsuarios = () => {
 
   useEffect(() => {
     axios
-      .get(`${url}/usuarios/`)
+      .get(`${url}/usuarios/`, useToken)
       .then(({ data }) => {
         setUsuarios(data);
         setUserFiltered(data);
@@ -225,8 +225,6 @@ export const AdministrarUsuarios = () => {
     setErrores(array);
     return array.length == 0;
   };
-  
-  
 
   /* FIN Editar usuarios */
 
@@ -298,7 +296,7 @@ export const AdministrarUsuarios = () => {
           placeholder="Buscar Usuario"
           name="user"
         />
-        <Table striped responsive className="my-3" >
+        <Table striped responsive className="my-3">
           <thead>
             <tr>
               <th>#</th>
@@ -334,7 +332,11 @@ export const AdministrarUsuarios = () => {
                   >
                     <i className="bi bi-pencil">Editar</i>
                   </Button>
-                  <Button className="btn-trash" variant="danger" onClick={() => handleDelete(r)}>
+                  <Button
+                    className="btn-trash"
+                    variant="danger"
+                    onClick={() => handleDelete(r)}
+                  >
                     <i className="bi bi-trash">Borrar</i>
                   </Button>
                 </td>
@@ -481,9 +483,7 @@ export const AdministrarUsuarios = () => {
         <Modal.Body>
           {!reservasByUser ? (
             <>
-              <Alert variant="danger">
-                ¡Usuario sin reservas registradas!
-              </Alert>
+              <Alert variant="danger">¡Usuario sin reservas registradas!</Alert>
             </>
           ) : (
             <>
