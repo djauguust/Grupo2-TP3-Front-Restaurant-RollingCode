@@ -112,7 +112,7 @@ export const BandejaDeEntrada = () => {
                       onClick={() => handleConfirm(r)}
                       className="btn-visto"
                     >
-                      <i className="bi bi-check2">Visto</i>
+                      <i className="bi bi-check2"></i>
                     </Button>
                   )}
 
@@ -121,7 +121,7 @@ export const BandejaDeEntrada = () => {
                     onClick={() => handleDelete(r)}
                     className="btn-borrar"
                   >
-                    <i className="bi bi-trash">Borrar</i>
+                    <i className="bi bi-trash"></i>
                   </Button>
                 </td>
               </tr>

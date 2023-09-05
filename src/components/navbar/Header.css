@@ -34,15 +34,16 @@
   background-color: #191919;
   color: white;
   text-align: center;
-  display: flex;
-  align-items: center;
+  display: inline-block;
+  padding: 3px;
 }
 .oscuro .boton-reserva {
   background-color: #f0e5d8;
   color: #191919;
   text-align: center;
-  display: flex;
+  display:inline-block;
   align-items: center;
+  padding: 3px;
 }
 
 .claro .boton-reserva:hover {
@@ -76,6 +77,16 @@
   }
   .oscuro .collapse-custom {
     background-color: #191919;
+  }
+
+  .claro .boton-reserva {
+    background-color: #191919;
+    color: white;
+    position: center;
+    
+    
+    
+  
   }
 
 }
@@ -330,3 +341,6 @@ background-color: #dab276;
 .color-info-oscuro{
   color: white;
 }
+
+
+
