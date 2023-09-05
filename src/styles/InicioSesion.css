@@ -6,7 +6,7 @@
       width: 100% !important;
    }
    .contenedorForm{
-    width: auto !important;
+    width: 320px !important;
    }
    .Div-Contraseña{
     max-width: auto;
@@ -25,6 +25,23 @@
 .TituloInicioSesion{
   font-size: 27px !important;
 }
+
+.label-color {
+  margin-left: 50px;
+}
+
+.correo-icono {
+ margin-left: 10px;
+}
+
+.contraseña-icono {
+  margin-left: 10px;
+}
+
+.text-danger {
+ margin-left: 55px;
+}
+
 }
 
 /* Resolución para Pantallas de Tablet */
@@ -226,3 +243,5 @@ background-color: #dfd5ce;
 .toast-header{
   justify-content: space-between !important;
 }
+
+
