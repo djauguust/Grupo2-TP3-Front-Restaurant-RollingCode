@@ -24,10 +24,10 @@ const {usuarios} = useContext(UsuariosContext);
         localStorage.setItem("user", JSON.stringify(user))
         window.location.href = "/";
       } else{
-        console.log("usuario NO encontrado")
+        
       }
     } catch (error) {
-      console.log(error);
+      
     }
   };
 

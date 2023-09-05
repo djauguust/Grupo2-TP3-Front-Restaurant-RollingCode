@@ -4,24 +4,29 @@ import "../../../style/configurar-cuenta.css"
 import {useFormik} from "formik";
 import * as Yup from "yup" ;
 import clsx from "clsx";
-import { UsuariosContext } from '../../../context/context';
+
 import Swal from 'sweetalert2';
 import { useParams } from 'react-router';
+import { UsuariosContext } from '../../../context/UserContext';
+import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
 const configurarContraseña = () => {
+
+    const {t} = useTranslation();
 
     //Uso ref para referirme a los 3 Form.Control para guardarlos en una constante
     const CambiarTipo = useRef(null);
     const CambiarTipo2 = useRef(null);
     const CambiarTipo3 = useRef(null);
 
-    const {datosUsuarios, pasarStates, TraerUsuarios} = useContext(UsuariosContext)
-    //Guardo el valor de contraseña en una constante
-    const contraseñaActual = datosUsuarios.Contraseña
-    const {id} = useParams()
-    const URLUsuarios=import.meta.env.VITE_API_USUARIOS
-    //Desestructuro pasarStates
-    const { setMostrarDatos, setMostrarContraseña, setMostrarConfigurarPerfil } = pasarStates;
+    const { logout, traerUnUsuario, usuario, Token, pasarStates  } = useContext(UsuariosContext);
+
+    const url = import.meta.env.VITE_API;
+
+    const { setMostrarDatos, setMostrarContraseña, setMostrarConfigurarPerfil} = pasarStates
+
+
 
     //Funcion para cambiar el type de los input a password por mas que se borren desde inspeccionar
     function cambiarTipo () {
@@ -32,17 +37,17 @@ const configurarContraseña = () => {
     
 
     //Expresiones para validar
-    const contraseña= /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/
+    const contraseña = /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/;
 
     //Esquema de Yup para el formulario 
     const esquemaConfigurarContraseña = Yup.object().shape({
         ContraseñaActual: Yup.string()
         .required("Su contraseña actual es requerida")
-        .matches(contraseñaActual,"Debe ingresar una contraseña igual a la anterior"),
+        .matches(contraseña, "La contraseña debe de contener entre 8 y 16 carácteres, al menos un dígito, al menos una minuscula y al menos una mayuscula"),
 
         Contraseña: Yup.string()
         .required("La contraseña es requerida")
-        .matches(contraseña,"La contraseña debe de contener entre 8 y 16 carácteres, al menos un dígito, al menos una minuscula y al menos una mayuscula"),
+        .matches(contraseña, "La contraseña debe de contener entre 8 y 16 carácteres, al menos un dígito, al menos una minuscula y al menos una mayuscula"),
 
         ConfirmarContraseña: Yup.string()
         .required("Repetir la contraseña es requerido")
@@ -77,34 +82,28 @@ const configurarContraseña = () => {
                     cancelButtonText: 'Cancelar'
                   }).then(async (result) => {
                     if (result.isConfirmed) {
-                      Swal.fire(
-                        'Usuario Modificado',
-                        'Los cambios que hiciste fueron implementados',
-                        'success'
-                      )
-                    //Guarda los valores del formulario
-                      const ContraseñaActualizada ={
-                        ...datosUsuarios,
-                        Contraseña: values.Contraseña
-                    }
-
-                    try {
-                        //Solicitud para editar el usuario
-                        const res = await fetch(`${URLUsuarios}/${id}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type" : "application/json"
-                            },
-                            body : JSON.stringify(ContraseñaActualizada)
-                        });
+                        
+                        //Guarda los valores del formulario
+                        const ContraseñaActualizada ={
+                            oldPass : values.ContraseñaActual,
+                            newPass : values.ConfirmarContraseña
+                        }                        
+                        try {
+                            const respuesta = await axios.put(`${url}/contrasenia/${usuario._id}`,ContraseñaActualizada)
+                            console.log(respuesta.data);
+                            Swal.fire(
+                              'Usuario Modificado',
+                              'Los cambios que hiciste fueron implementados',
+                              'success'
+                            )
+                            //Funciones para volver a mostrar los datos y TraerUsuarios para actualizar todo
+                                setMostrarDatos(true)
+                                setMostrarConfigurarPerfil(false)
+                                setMostrarContraseña(false)
+                                traerUnUsuario()
                     } catch (error) {
                         console.log(error);
                     }
-                    //Funciones para volver a mostrar los datos y TraerUsuarios para actualizar todo
-                        setMostrarDatos(true)
-                        setMostrarConfigurarPerfil(false)
-                        setMostrarContraseña(false)
-                        TraerUsuarios()
                     }
                   })
             } catch (error) {
@@ -118,15 +117,17 @@ const configurarContraseña = () => {
     <>
     <div className='Contenedor-Cambiar-Contraseña mb-4'>
     <div>
-        <h1>Cambiar Contraseña</h1>
+        <h1>{t('cambiaContraseña')}</h1>
     </div>
     <Container>
         <div>
             <Form onSubmit={formik.handleSubmit} noValidate>
                 <Stack gap={2}>
                     <Form.Group>
-                        <Form.Label>Ingrese su contraseña actual :</Form.Label>
-                        <Form.Control type="password" placeholder='Contraseña Actual' id='ContraseñaActual' onInput={cambiarTipo} ref={CambiarTipo}
+                        <Form.Label>{t('ingreseContraseña')}</Form.Label>
+                        <Form.Control type="password" placeholder='Contraseña Actual' id='ContraseñaActual'
+                        minLength={8} maxLength={16}
+                        onInput={cambiarTipo} ref={CambiarTipo}
                         {...formik.getFieldProps("ContraseñaActual")}
                         className={clsx(
                             "form-control",{
@@ -143,8 +144,10 @@ const configurarContraseña = () => {
                         )}
                     </Form.Group>
                     <Form.Group>
-                        <Form.Label>Ingrese su nueva contraseña :</Form.Label>
-                        <Form.Control type='password' placeholder='Contraseña Nueva' id='Contraseña' onInput={cambiarTipo} ref={CambiarTipo2}
+                        <Form.Label>{t('ingreseContraseñaNueva')}</Form.Label>
+                        <Form.Control type='password' placeholder='Contraseña Nueva' id='Contraseña'
+                        minLength={8} maxLength={16}
+                        onInput={cambiarTipo} ref={CambiarTipo2}
                         {...formik.getFieldProps("Contraseña")}
                         className={clsx(
                             "form-control",{
@@ -161,8 +164,10 @@ const configurarContraseña = () => {
                         )}
                     </Form.Group>
                     <Form.Group>
-                        <Form.Label>Ingrese nuevamente su nueva contraseña :</Form.Label>
-                        <Form.Control type='password' placeholder='Repetir Nueva Contraseña' id='ConfirmarContraseña' onInput={cambiarTipo} ref={CambiarTipo3}
+                        <Form.Label>{t('ingreseContraseñaNuevamente')}</Form.Label>
+                        <Form.Control type='password' placeholder='Repetir Nueva Contraseña' id='ConfirmarContraseña'
+                        minLength={8} maxLength={16}
+                        onInput={cambiarTipo} ref={CambiarTipo3}
                         {...formik.getFieldProps("ConfirmarContraseña")}
                         className={clsx(
                             "form-control",{
@@ -179,7 +184,7 @@ const configurarContraseña = () => {
                         )}
                     </Form.Group>
                 </Stack>
-                <Button className='btn-Volver mt-3 ' type='submit'>Guardar Cambios</Button>
+                <Button className='btn-Volver mt-3 ' type='submit'>{t('guardarCambios')}</Button>
             </Form>
         </div>
     </Container>

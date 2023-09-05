@@ -35,7 +35,7 @@ export const UsuariosProvider = ({children}) => {
                       });
                     
                 } catch (error) {
-                    console.log(error);
+                    
                 }
     }
 

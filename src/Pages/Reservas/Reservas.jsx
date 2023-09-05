@@ -13,15 +13,19 @@ import Image from "react-bootstrap/Image";
 import axios from "axios";
 import Swal from "sweetalert2";
 import jwt_decode from "jwt-decode"
+import { use } from "i18next";
+import { UsuariosContext } from "../../context/UserContext";
+import { useTranslation } from "react-i18next";
+
 
 
 const Reservas = () => {
+
+  const {t} = useTranslation();
+
   let date = new Date();
 
-
-  //Token
-   const token = localStorage.getItem("user")
-   const decode = jwt_decode(token);
+  const {Token} = useContext(UsuariosContext)
    
   const Url = import.meta.env.VITE_API
 
@@ -52,10 +56,10 @@ const Reservas = () => {
         .get(`http://localhost:3000/reservas?fecha=${dates}`)
         .then((response) => {
           setFilterHour(response.data);
-          // console.log("Horas disponibles: ", response.data);
+          
         })
         .catch((error) => {
-          console.log("Error :", error);
+          
         });
     }
   }, [dates]);
@@ -70,9 +74,9 @@ const Reservas = () => {
           );
           // const response = await axios.get(`http://localhost:3000/reservas`);
           setFilterPeople(response.data);
-          console.log("Comensales disponibles: ", response);
+          
         } catch (error) {
-          console.log("Error: ", error);
+          
         }
       }
     };
@@ -105,10 +109,7 @@ const Reservas = () => {
 
     People: Yup.number()
       .required("La cantidad de personas es requerida")
-      .max(
-        filterPeople[0],
-        `Quedan disponibles ${filterPeople[0]} lugares en este horario`
-      )
+      //.max(filterPeople[0],`Quedan disponibles ${filterPeople[0]} lugares en este horario`)
       
       .min(1, "Debes elegir al menos 1 persona"),
   });
@@ -129,7 +130,7 @@ const Reservas = () => {
 
     //Submit
     onSubmit: async (values, { resetForm }) => {
-      console.log("Valores que llegan al form de formik: ", values);
+      
 
       try {
         const Reserva = {
@@ -149,17 +150,16 @@ const Reservas = () => {
           cancelButtonColor: "#d33",
           confirmButtonText: "Sí, guardar mi reserva!",
         });
-
         //Post a db
         if (result.isConfirmed) {
           const response = await axios.post(`${Url}/reservas`, {
             fecha: Reserva.Fecha,
             hora: Reserva.Hora,
             comensales: Reserva.CantidadDePersonas,
-             usuario: decode.id
+             usuario: Token.id
           });
 
-          console.log(response.data);
+          
 
           Swal.fire(
             "Reserva Guardada",
@@ -177,7 +177,7 @@ const Reservas = () => {
           resetForm(); 
         }
       } catch (error) {
-        console.log(error);
+        
         Swal.fire("Error", "Hubo un problema al guardar la reserva.", "error");
       }
     },
@@ -265,7 +265,7 @@ const Reservas = () => {
                     minDate={filterMinDay()}
                     maxDate={filterMaxDay()}
                     dateFormat="dd/MM/yyyy"
-                    placeholderText="Elige una fecha"
+                    placeholderText={t('eligeHora')}
                     className={clsx(
                       "form-control input-reservation",
                       {
@@ -315,7 +315,7 @@ const Reservas = () => {
                       (hour) => new Date(`2000-01-01 ${hour}`)
                     )}
                     // instancio cada elemento de mi array para setearle un formato date
-                    placeholderText="Elija un horario"
+                    placeholderText={t('eligeFecha')}
                     timeClassName={handleColor}
                     className={clsx(
                       "form-control input-reservation",
@@ -345,7 +345,7 @@ const Reservas = () => {
               <Col xs={12} md={3} className="p-0">
                 <Form.Group controlId="people">
                   <Form.Control
-                    placeholder="N° de Personas"
+                    placeholder={t('numeroPersonas')}
                     onChange={(e) => {
                       formik.setFieldValue("People", e.target.value);
                     }}
@@ -383,7 +383,7 @@ const Reservas = () => {
                   variant="primary"
                   type="submit"
                 >
-                  Reservar
+                  {t('reservar')}
                 </Button>
               </Col>
             </Row>

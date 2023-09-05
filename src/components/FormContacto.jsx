@@ -65,7 +65,7 @@ const Formulario = () =>{
                         mensaje : values.mensaje
                     })
                 } catch (error) {
-                    console.log(error);
+                    
                 }
                 if (result.isConfirmed) {
                   Swal.fire(

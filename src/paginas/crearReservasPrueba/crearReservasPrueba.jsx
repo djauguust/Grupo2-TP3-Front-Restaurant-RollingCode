@@ -41,9 +41,9 @@ let date = new Date();
       const horaFormateada = format(values.HoraReserva, "HH:mm",{
         locale: es
       })
-      console.log(values);
-      console.log(values.HoraReserva);
-      console.log("La fecha formateada es",horaFormateada);
+      
+      
+      
     },
   });
 

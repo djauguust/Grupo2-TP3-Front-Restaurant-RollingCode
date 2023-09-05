@@ -20,9 +20,9 @@ const Bandeja = () => {
         "https://rollingcode-comision46i-tp3-grupo2.onrender.com/api/mensajes"
       );
       setMensajes(response.data);
-      console.log(response.data);
+      
     } catch (error) {
-      console.log("Error al obtener mensajes:", error);
+      
     }
   };
 
@@ -43,7 +43,7 @@ const Bandeja = () => {
         closeModal();
       }
     } catch (error) {
-      console.log(error);
+      
     }
   };
 

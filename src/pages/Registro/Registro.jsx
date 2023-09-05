@@ -27,11 +27,12 @@ function Registro() {
       .min(4, "El nombre debe de ser menor a 4 letras")
       .max(25, "El nombre debe de ser menor a 25 letras"),
 
-      Apellido: Yup.string()
+    Apellido: Yup.string()
       .required("El apellido es requerido")
       .matches(soloLetras, "El apellido solo debe incluir letras")
       .min(4, "El apellido debe de ser menor a 4 letras")
-      .max(25, "El apellido debe de ser menor a 25 letras"),  
+      .max(25, "El apellido debe de ser menor a 25 letras"),   
+
 
     Email: Yup.string()
       .required("El email es requerido")
@@ -91,7 +92,7 @@ function Registro() {
             axios
               .post(`${url}/usuarios`, Usuario)
               .then((response) => {
-                console.log("Usuario creado con exito");
+                
                 Swal.fire(
                   "Usuario credo con exito",
                   "Tus datos ya fueron ingresados exitosamente",
@@ -104,15 +105,15 @@ function Registro() {
                   " ",
                   "warning"
                 );
-                console.error(error);
+                
               });
 
-            console.log(Usuario);
+            
             //Agregar funcion para redirigirte a inicio
           }
         });
       } catch (error) {
-        console.log(error);
+        
       }
     },
   });
@@ -194,7 +195,9 @@ function Registro() {
                     </span>
                   
                 )}
-              </Form.Group> 
+
+              </Form.Group>
+
 
               <Form.Group className="contenedorForm">
                 <Form.Label className="label-color">

@@ -1,49 +1,47 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, Container, Form, Stack } from 'react-bootstrap'
 import "../../../style/configurar-cuenta.css"
 import {useFormik} from "formik";
 import * as Yup from "yup" ;
 import clsx from "clsx";
-import { UsuariosContext } from '../../../context/context';
+
 import { useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { UsuariosContext } from '../../../context/UserContext';
+import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
 
 
 const configurarCuenta = () => {
+
+    const {t} = useTranslation();
     
 
 
-    const {datosUsuarios, pasarStates, TraerUsuarios} = useContext(UsuariosContext)
-    
-    const { setMostrarDatos, setMostrarContraseña, setMostrarConfigurarPerfil } = pasarStates;
-
-    const {id} = useParams()
+    const { traerUnUsuario, usuario, Token, pasarStates } = useContext(UsuariosContext);
+    const { setMostrarDatos, setMostrarContraseña, setMostrarConfigurarPerfil} = pasarStates
 
 
-    const URLUsuarios=import.meta.env.VITE_API_USUARIOS
+
+  const url = import.meta.env.VITE_API;
+
 
     //Funcion para setear los valores en los inputs cada vez que datos usuarios se cambie
     useEffect(() => {
-        async function mostrarValores () {
-            try {
-                const Usuario = await datosUsuarios
-                if (Usuario && Usuario.Nombre && Usuario.Apellido && Usuario.Email) {
-                    formik.setFieldValue('Nombre', Usuario.Nombre);
-                    formik.setFieldValue('Apellido', Usuario.Apellido);
-                    formik.setFieldValue('Email', Usuario.Email);
+                if (usuario && usuario.nombre && usuario.apellido && usuario.email) {
+                    formik.setFieldValue('Nombre', usuario.nombre);
+                    formik.setFieldValue('Apellido', usuario.apellido);
+                    formik.setFieldValue('Email', usuario.email);
                   }
-            } catch (error) {
-               console.log(error); 
-            }
-        }
-        mostrarValores()
-    },[datosUsuarios])
+    },[usuario])
+
+
 
     //Expresiones para validar 
     const soloLetras= /^[a-zA-Z ]+$/ 
     const email = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
-    const contraseña= /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/
+    
 
     //Esquema de Yup para el formulario 
     const esquemaConfigurarCuenta = Yup.object().shape({
@@ -93,41 +91,35 @@ const configurarCuenta = () => {
                     cancelButtonText: 'Cancelar'
                   }).then(async (result) => {
                     if (result.isConfirmed) {
-                      Swal.fire(
-                        'Usuario Modificado',
-                        'Los cambios que hiciste fueron implementados',
-                        'success'
-                      )
+                    
                       //Guarda los valores del formulario
                       const usuarioActualizado ={
-                        Nombre: values.Nombre,
-                        Apellido: values.Apellido,
-                        Email: values.Email,
-                        Contraseña: datosUsuarios.Contraseña
+                        nombre: values.Nombre,
+                        apellido: values.Apellido,
+                        email: values.Email
                     }
                     try {
                         //Solicitud para editar el usuario
-                        const res = await fetch(`${URLUsuarios}/${id}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type" : "application/json"
-                            },
-                            body : JSON.stringify(usuarioActualizado)
-                        });
-
+                        const respuesta = await axios.put(`${url}/usuarios/${usuario._id}`,usuarioActualizado)
+                        console.log(respuesta.data);
+                        Swal.fire(
+                            'Usuario Modificado',
+                            'Los cambios que hiciste fueron implementados',
+                            'success'
+                            )
+                            //Funciones para volver a mostrar los datos y TraerUsuarios para actualizar todo
+                            setMostrarDatos(true)
+                            setMostrarConfigurarPerfil(false)
+                            setMostrarContraseña(false)
+                            traerUnUsuario()
                     } catch (error) {
                         console.log(error);
                     }
-                    //Funciones para volver a mostrar los datos y TraerUsuarios para actualizar todo
-                    setMostrarDatos(true)
-                    setMostrarConfigurarPerfil(false)
-                    setMostrarContraseña(false)
-                    TraerUsuarios()
                     }
 
                   })
             } catch (error) {
-                console.log(error);
+                
             }
         }
     })
@@ -136,15 +128,15 @@ const configurarCuenta = () => {
     <>
     <div className='Contenedor-Cuerpo mb-4'>
     <div className='text-center'>
-        <h1>Cambia los datos de tu cuenta :</h1>
+        <h1>{t('cambiaDatos')}</h1>
     </div>
     <Container>
         <div className='Contenedor-Form d-flex justify-content-center mt-3'>    
         <Form onSubmit={formik.handleSubmit} noValidate>
         <Stack gap={2}>
             <Form.Group>
-                <Form.Label>Nombre :</Form.Label>
-                <Form.Control type='text' placeholder='Ej: Lucas' id='Nombre'
+                <Form.Label>{t('nombre')} :</Form.Label>
+                <Form.Control type='text' placeholder='Ej: Lucas' id='Nombre' minLength={4} maxLength={25}
                 {...formik.getFieldProps("Nombre")}
                 className={clsx(
                     "form-control",{
@@ -161,8 +153,8 @@ const configurarCuenta = () => {
                 )}
             </Form.Group>
             <Form.Group>
-                <Form.Label>Apellido :</Form.Label>
-                <Form.Control type='text' placeholder='Ej: Yudi' id='Apellido'
+                <Form.Label>{t('apellido')} :</Form.Label>
+                <Form.Control type='text' placeholder='Ej: Yudi' id='Apellido' minLength={4} maxLength={25}
                 {...formik.getFieldProps("Apellido")}
                 className={clsx(
                     "form-control",{
@@ -180,7 +172,7 @@ const configurarCuenta = () => {
             </Form.Group>
             <Form.Group>
                 <Form.Label>Email :</Form.Label>
-                <Form.Control type='email' placeholder='Ej: yudilucas@gmail.com' id='Email'
+                <Form.Control type='email' placeholder='Ej: yudilucas@gmail.com' id='Email' minLength={16} maxLength={40}
                 {...formik.getFieldProps("Email")}
                 className={clsx(
                     "form-control",{
@@ -197,7 +189,7 @@ const configurarCuenta = () => {
                 )}
             </Form.Group>
         </Stack>
-        <Button className='btn-Volver mt-3 ' type='submit'>Guardar Cambios</Button>
+        <Button className='btn-Volver mt-3 ' type='submit'>{t('guardarCambios')}</Button>
         </Form>
         </div>
     </Container>

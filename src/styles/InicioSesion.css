@@ -22,7 +22,7 @@
     flex-direction: column;
     align-items: center;
 }
-h3{
+.TituloInicioSesion{
   font-size: 27px !important;
 }
 }
@@ -69,7 +69,8 @@ align-items: center;
 
 .Carta {
   
-background-image: url('../assets/LoginBackground2.jpg');
+width: 61vh;  
+background-image: url('../assets/loginbackground3.jpg');
 background-position: bottom center;   
 border-radius: 26px;  
 background-size: cover;
@@ -78,8 +79,9 @@ margin-top: 5vh;
 margin-bottom: 5vh;
 }
 
-
-
+.Carta::before{
+  background-color: rgba(0, 0, 0, 2);
+}
 
 
 .center {  
@@ -87,7 +89,7 @@ padding: 0 35px;
 }
 
 
-h3 {  
+.TituloInicioSesion {  
 font-weight: 700; 
 color: #fff; 
 font-size: 30px;
@@ -204,4 +206,23 @@ background-color: #dfd5ce;
   
  }
 
+}
+
+.contenedor-toast{
+  position: fixed;
+  bottom: 0px; /* Ajusta este valor según sea necesario */
+  right: 0px; /* Ajusta este valor según sea necesario */
+  z-index: 9999; 
+}
+
+.icono-toast{
+  max-width: 4vh;
+}
+
+.contenedorToast{
+  width: fit-content;
+}
+
+.toast-header{
+  justify-content: space-between !important;
 }

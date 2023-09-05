@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import Navbar from './componentes/navbar'
-import { ReservasProvider } from './contexto/contexto'
+import { useState } from "react";
+import Navbar from "./componentes/navbar";
+
 import Footer from "./components/footer/Footer";
 import Header from "./components/navbar/Header";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -9,16 +9,21 @@ import "./i18n";
 import { useContext } from "react";
 import { NavbarContext, NavbarContexto } from "./context/NavbarContext.jsx";
 import Rutas from "./routes/Rutas";
+import Reservas from "./Pages/Reservas/Reservas";
+import { ReservasProvider } from "./contexto/ReservasContexto";
+import { Toaster } from "react-hot-toast";
 
 function App() {
-
   return (
     <>
       <NavbarContexto>
         <UserContext>
-           <Header/> 
-          <Rutas />
-      <Footer/>
+          <ReservasProvider>
+            <Header />
+            <Toaster />
+            <Rutas />
+            <Footer />
+          </ReservasProvider>
         </UserContext>
       </NavbarContexto>
     </>

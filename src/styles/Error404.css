@@ -1,8 +1,7 @@
 
 
-.Imagen-Fondo,
-.Imagen-Fondo h1,
-.Imagen-Fondo h3 {
+.tituloError404,
+.textoError404{
   color: #F1F1F1;
 }
 .Imagen-Fondo{
@@ -19,10 +18,10 @@
 }
 
 @media (min-width: 913px) {
-    h1{
+    .tituloError404{
         font-size: 12vh !important;
     }
-    h3{
+    .textoError404{
         font-size: 4vh !important;
     }
     .Imagen-Fondo{
@@ -36,10 +35,10 @@
   }
 
 @media (max-width: 767px) {
-    h1{
+    .tituloError404{
         font-size: 6vh !important;
     }
-    h3{
+    .textoError404{
         font-size: 3vh !important;
     }
     .Imagen-Fondo{
@@ -53,10 +52,10 @@
   }
 
 @media (min-width: 768px) and (max-width: 912px) {
-    h1{
+    .tituloError404{
         font-size: 7vh !important;
     }
-    h3{
+    .textoError404{
         font-size: 4vh !important;
     }
     .Imagen-Fondo{

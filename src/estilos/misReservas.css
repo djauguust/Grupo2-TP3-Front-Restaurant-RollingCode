@@ -15,7 +15,7 @@
 
 /* Resolución para Pantallas de Celulares */  
 @media (max-width: 767px) {
-    h3{
+    .TituloReservaParaDia{
         text-align: center ;
     }
     .Contenedor-Reservas{
@@ -46,4 +46,9 @@
 
 .Ubicar-Contenedor-Reservas{
     min-height: 50vh;
+    margin-top: 10vh;
+}
+
+.modal-backdrop{
+    z-index: 1 !important;
 }

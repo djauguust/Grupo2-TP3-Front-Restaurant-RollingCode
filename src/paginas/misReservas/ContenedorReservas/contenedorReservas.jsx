@@ -1,18 +1,19 @@
 import React, { useContext } from 'react'
 import { Button, Col, Stack } from 'react-bootstrap'
-import { ReservasContexto } from '../../../contexto/contexto'
+import { ReservasContexto } from '../../../contexto/ReservasContexto'
 import axios from 'axios'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 
+
 const contenedorReservas = ({ onShowModal, Reserva }) => {
 
-  const {TraerReservas} = useContext(ReservasContexto)
-  const UrlReservas = import.meta.env.VITE_API_RESERVAS
+  const url = import.meta.env.VITE_API;
 
-
-//Sirve para parasr el id al modal 
+  const {TraerUnaReserva} = useContext(ReservasContexto)
+  
+  //Sirve para parasr el id al modal 
     const clickEditar = () => {
-        onShowModal(Reserva.id)
+        onShowModal(Reserva)
     }
 
     const EliminarDatos = () =>{
@@ -26,15 +27,10 @@ const contenedorReservas = ({ onShowModal, Reserva }) => {
         confirmButtonText: 'Si, estoy seguro!',
         cancelButtonText: 'No'
       }).then((result) => {
+
         if (result.isConfirmed) {
-          axios.delete(`${UrlReservas}/${Reserva.id}`)
-          .then(response =>{
-            console.log("Reserva Eliminada con exito");
-          })
-          .catch(error => {
-            console.log("Error al eliminar la reserva");
-          })
-          TraerReservas()
+          axios.delete(`${url}/reservas/${Reserva._id}`)
+          TraerUnaReserva()
           Swal.fire(
             'Reserva eliminada con exito!',
             'Su reserva fue eliminada exitosamente.',
@@ -51,12 +47,12 @@ const contenedorReservas = ({ onShowModal, Reserva }) => {
               <div className="Contenedor-Reservas">
                 <Stack gap={3}>
                   <div className="Contenedor-Fecha">
-                    <h3>Reserva para el dia {Reserva.Fecha}</h3>
+                    <h3 className='TituloReservaParaDia'>Reserva para el dia {Reserva.fecha}</h3>
                   </div>
                   <div className="text-center">
-                    <h4>Hora : {Reserva.Hora}</h4>
+                    <h4>Hora : {Reserva.hora}</h4>
                     <h4 className="Contenedor-Cantidad-Personas">
-                      Cantidad de Personas : {Reserva.CantidadDePersonas}
+                      Cantidad de Personas : {Reserva.comensales}
                     </h4>
                     <div className="mt-2 d-flex justify-content-around">
                       <Button onClick={clickEditar}>Editar</Button>
