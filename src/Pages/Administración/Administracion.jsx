@@ -30,10 +30,13 @@ export const Administracion = () => {
   }
 
   const { usuario } = useContext(UsuariosContext);
-  
+
   useEffect(() => {
     if (usuario) {
-      setTokenValidate(true);
+      if (usuario.esAdmin > 0) {
+        setTokenValidate(true);
+      }
+      if (usuario.esAdmin == 1) setIsDoorman(true);
     } else {
       setTokenValidate(false);
     }

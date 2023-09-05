@@ -8,7 +8,6 @@ export const BandejaDeEntrada = () => {
   const fechaDelDate = (d) => {
     if (d) {
       let fecha = d.split("-");
-
       return `${fecha[0]}-${fecha[1]}-${fecha[2].split("T")[0]}`;
     }
   };
