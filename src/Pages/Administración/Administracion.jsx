@@ -6,10 +6,14 @@ import { AdministrarUsuarios } from "./AdministrarUsuarios";
 import { BandejaDeEntrada } from "./BandejaDeEntrada";
 import { AdministrarRestaurant } from "./AdministrarRestaurant";
 import Error404 from "../Error404/Error404";
+import { useEffect } from "react";
+import { useContext } from "react";
+import { UsuariosContext } from "../../context/UserContext";
 
 export const Administracion = () => {
   const [showInterface, setShowInterface] = useState(0); // Nos dice que interfaz debe mostrar
   const [isDoorman, setIsDoorman] = useState(false);
+  const [tokenValidate, setTokenValidate] = useState(false);
 
   const [activeTab, setActiveTab] = useState(0);
 
@@ -24,10 +28,20 @@ export const Administracion = () => {
   if (obtenerToken) {
     userToken = JSON.parse(obtenerToken) || null;
   }
-  console.log(userToken);
+
+  const { usuario } = useContext(UsuariosContext);
+  
+  useEffect(() => {
+    if (usuario) {
+      setTokenValidate(true);
+    } else {
+      setTokenValidate(false);
+    }
+  }, [usuario]);
+
   return (
     <>
-      {userToken ? (
+      {tokenValidate ? (
         <>
           <h2 className="about-title mb-3">Administracion</h2>
           <Nav fill variant="tabs" defaultActiveKey="/administrador">
@@ -80,7 +94,9 @@ export const Administracion = () => {
             )}
             {!isDoorman && (
               <>
-                {showInterface === 1 && <AdministrarUsuarios userToken={userToken} />}
+                {showInterface === 1 && (
+                  <AdministrarUsuarios userToken={userToken} />
+                )}
                 {showInterface === 2 && <BandejaDeEntrada />}
                 {showInterface === 3 && <AdministrarRestaurant />}
               </>
