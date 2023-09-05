@@ -15,7 +15,7 @@ import { NavbarContext } from "../../context/NavbarContext";
 import { Toaster, toast } from "react-hot-toast";
 
 function InicioSesion() {
-  const { getUsuarios, funcionPrueba } = useContext(UsuariosContext);
+  const { getUsuarios, funcionPrueba,traerUnUsuario, Token, usuarios,TokenPuro } = useContext(UsuariosContext);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -23,15 +23,14 @@ function InicioSesion() {
   /* const url = "http://localhost:8001/api/usuarios/login"; */
   const url = import.meta.env.VITE_API;
   const navigate = useNavigate();
-
+  
+  
   useEffect(() => {
     if (isLoggedIn === true) {
       toast("usuario logueado con exito");
-      getUsuarios();
       navigate("/");
     }
-  }, [isLoggedIn]);
-
+  },[isLoggedIn]);
   //UseState para mostrar un mensaje de que los datos ingresados no se encontraron
   const [UsuarioLogueadoError, setUsuarioLogueadoError] = useState(false);
 

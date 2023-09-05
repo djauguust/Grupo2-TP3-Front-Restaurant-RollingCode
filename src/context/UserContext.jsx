@@ -7,6 +7,7 @@ export const UsuariosContext = createContext(null);
 
 const UserContext = ({ children }) => {
   const [Token, setToken] = useState();
+  const [TokenPuro, setTokenPuro] = useState()
   const [usuarios, setUsuarios] = useState([]);
   const [usuario, setUsuario] = useState()
 
@@ -21,6 +22,7 @@ const UserContext = ({ children }) => {
     //Token
     if (localStorage.getItem("user")) {
       const token = localStorage.getItem("user");
+      setTokenPuro(token)
       const decode = jwt_decode(token);
       setToken(decode);
     }
@@ -32,24 +34,37 @@ const UserContext = ({ children }) => {
   const url = import.meta.env.VITE_API;
 
   const getUsuarios = async () => {
+    console.log("Funciona get usuarios");
     try {
-      const response = await axios.get(`${url}/usuarios`);
+      const response = await axios.get(`${url}/usuarios`,{
+        headers:{
+          "auth-token" : TokenPuro.replace(/^"(.*)"$/, '$1')
+        }
+      });
       setUsuarios(response.data);
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
   };
 
+
+  
   //Get de un usuario
   const traerUnUsuario = async () => {
     try {
-      const respuesta = await axios.get(`${url}/usuarios/${Token.id}`)
+      const respuesta = await axios.get(`${url}/usuarios/${Token.id}`,{
+        headers:{
+          "auth-token" : TokenPuro.replace(/^"(.*)"$/, '$1')
+        }
+      })
       setUsuario(respuesta.data)
+      console.log(respuesta);
     } catch (error) {
       console.log(error);
     }
   }
-  
+
 
   const logout = () => {
     localStorage.removeItem("user");
