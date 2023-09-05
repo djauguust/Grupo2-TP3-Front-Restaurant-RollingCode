@@ -15,10 +15,14 @@ import Swal from "sweetalert2";
 import jwt_decode from "jwt-decode"
 import { use } from "i18next";
 import { UsuariosContext } from "../../context/UserContext";
+import { useTranslation } from "react-i18next";
 
 
 
 const Reservas = () => {
+
+  const {t} = useTranslation();
+
   let date = new Date();
 
   const {Token} = useContext(UsuariosContext)
@@ -261,7 +265,7 @@ const Reservas = () => {
                     minDate={filterMinDay()}
                     maxDate={filterMaxDay()}
                     dateFormat="dd/MM/yyyy"
-                    placeholderText="Elige una fecha"
+                    placeholderText={t('eligeHora')}
                     className={clsx(
                       "form-control input-reservation",
                       {
@@ -311,7 +315,7 @@ const Reservas = () => {
                       (hour) => new Date(`2000-01-01 ${hour}`)
                     )}
                     // instancio cada elemento de mi array para setearle un formato date
-                    placeholderText="Elija un horario"
+                    placeholderText={t('eligeFecha')}
                     timeClassName={handleColor}
                     className={clsx(
                       "form-control input-reservation",
@@ -341,7 +345,7 @@ const Reservas = () => {
               <Col xs={12} md={3} className="p-0">
                 <Form.Group controlId="people">
                   <Form.Control
-                    placeholder="N° de Personas"
+                    placeholder={t('numeroPersonas')}
                     onChange={(e) => {
                       formik.setFieldValue("People", e.target.value);
                     }}
@@ -379,7 +383,7 @@ const Reservas = () => {
                   variant="primary"
                   type="submit"
                 >
-                  Reservar
+                  {t('reservar')}
                 </Button>
               </Col>
             </Row>

@@ -69,7 +69,11 @@ i18n.use(initReactI18next).init({
         ingreseContraseñaNuevamente: "Enter your new password again :",
         guardarCambios: "SAVE CHANGES",
         cambiaDatos : "Change your account details :",
-        cambiaContraseña : "Change Password"
+        cambiaContraseña : "Change Password",
+        numeroPersonas: "No. of people",
+        eligeFecha: "Choose a date",
+        eligeHora: "Choose a time",
+        reservar: "RESERVE"
 
       },
     },
@@ -138,7 +142,11 @@ i18n.use(initReactI18next).init({
         ingreseContraseñaNueva: "Ingrese su nueva contraseña :",
         ingreseContraseñaNuevamente: "Ingrese nuevamente su nueva contraseña :",
         guardarCambios: "GUARDAR CAMBIOS",
-        cambiaDatos : "Cambia los datos de tu cuenta :"
+        cambiaDatos : "Cambia los datos de tu cuenta :",
+        eligeFecha: "Elige una fecha",
+        eligeHora: "Elige un horario",
+        numeroPersonas: "N° de Personas",
+        reservar: "RESERVAR"
       },
     },
   },
