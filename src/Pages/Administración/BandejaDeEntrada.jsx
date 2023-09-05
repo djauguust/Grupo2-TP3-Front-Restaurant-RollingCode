@@ -1,7 +1,7 @@
 import axios from "axios";
 import "./Administracion.css";
 import React, { useEffect, useState } from "react";
-import { Badge, Button, Container, Table } from "react-bootstrap";
+import { Badge, Button, Container, Modal, Table } from "react-bootstrap";
 import Swal from "sweetalert2";
 
 export const BandejaDeEntrada = () => {
@@ -77,6 +77,34 @@ export const BandejaDeEntrada = () => {
   };
   /* FIN Handle confirm and delete */
 
+  /* Funcion para mostrar parcialmente el mensaje */
+  const recortarMensaje = (c, m) => {
+    //c:contenido,m:mensaje
+    let corteDeMensaje = 30;
+    if (c.length < corteDeMensaje) {
+      return <>{c}</>;
+    }
+    if (c.length >= corteDeMensaje) {
+      return (
+        <>
+          <Button variant="success" onClick={() => handleRead(m)}>
+            <i className="bi bi-chat-dots-fill"></i>
+          </Button>
+        </>
+      );
+    }
+  };
+  const [ShowModal, setShowModal] = useState(false);
+  const [messageToShow, setMessageToShow] = useState("");
+  const handleRead = (m) => {
+    setMessageToShow(m);
+    setShowModal(true);
+  };
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+  /* FIN Funcion para mostrar parcialmente el mensaje */
+
   /* TO DO FUNCIÓN PARA MOSTRAR LOS NUEVOS ARRIBA */
   return (
     <>
@@ -99,18 +127,22 @@ export const BandejaDeEntrada = () => {
               <tr key={index}>
                 <td className="text-center">
                   {index + 1}
-                  {!r.leido && <Badge bg="success">¡NUEVO!</Badge>}
+                  {!r.leido && (
+                    <p>
+                      <Badge bg="success">¡NUEVO!</Badge>
+                    </p>
+                  )}
                 </td>
                 <td>{fechaDelDate(r.date)}</td>
                 <td>{r.nombre}</td>
                 <td>{r.email}</td>
-                <td className="text-break">{r.mensaje}</td>
+                <td>{recortarMensaje(r.mensaje, r)}</td>
                 <td>
                   {!r.leido && (
                     <Button
                       variant="success"
+                      className="me-2 mb-2"
                       onClick={() => handleConfirm(r)}
-                      className="btn-visto"
                     >
                       <i className="bi bi-check2"></i>
                     </Button>
@@ -118,8 +150,8 @@ export const BandejaDeEntrada = () => {
 
                   <Button
                     variant="danger"
+                    className="mb-2"
                     onClick={() => handleDelete(r)}
-                    className="btn-borrar"
                   >
                     <i className="bi bi-trash"></i>
                   </Button>
@@ -129,6 +161,40 @@ export const BandejaDeEntrada = () => {
           </tbody>
         </Table>
       </Container>
+      <Modal
+        show={ShowModal}
+        onHide={handleCloseModal}
+        backdropClassName="custom-backdrop"
+        className="modal-custom"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Mensaje recibido</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Table striped responsive className="my-3">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Nombre</th>
+                <th>E-mail</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{fechaDelDate(messageToShow.date)}</td>
+                <td>{messageToShow.nombre}</td>
+                <td>{messageToShow.email}</td>
+              </tr>
+            </tbody>
+          </Table>
+          Mensaje: <h2>{messageToShow.mensaje}</h2>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Cerrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };

@@ -31,7 +31,7 @@ const Formulario = () =>{
         .trim(),
         mensaje: Yup.string()
         .required("Debe introducir el motivo de contacto")
-        .min(50, "Mínimo 50 caracteres")
+        .min(15, "Mínimo 15 caracteres")
         .max(1000,"Máximo 1000 caracteres")
         .trim()
     });
