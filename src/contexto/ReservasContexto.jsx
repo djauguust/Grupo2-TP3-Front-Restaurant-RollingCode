@@ -12,7 +12,7 @@ export const ReservasProvider = ({children}) => {
   const url = import.meta.env.VITE_API;
 
 
-    const {Token} = useContext(UsuariosContext)
+    const {Token,TokenPuro} = useContext(UsuariosContext)
    
 
 
@@ -27,7 +27,11 @@ export const ReservasProvider = ({children}) => {
     //Funcion para traer una sola reserva
     const TraerUnaReserva = async () =>{
         try {
-            const res = await axios.get(`${url}/reservasByUsuario/${Token.id}`)
+            const res = await axios.get(`${url}/reservasByUsuario/${Token.id}`,{
+                headers:{
+                  "auth-token" : TokenPuro.replace(/^"(.*)"$/, '$1')
+                }
+              })
             const reserva = await res.data
             setReserva(reserva)
         } catch (error) {
