@@ -6,6 +6,7 @@ import ContenedorReservas from "./ContenedorReservas/contenedorReservas";
 import ModalReservas from "./ModalReservas/modalReservas";
 import { UsuariosContext } from "../../context/UserContext";
 
+
 const MisReservas = () => {
 
 //Traigo todo esto del context
@@ -38,6 +39,7 @@ const MisReservas = () => {
 
   return (
     <>
+    <div className="text-dark">
       <div className="text-center mt-3">
         <h1>Mis Reservas</h1>
       </div>
@@ -53,6 +55,7 @@ const MisReservas = () => {
           {/*Modal*/ }
               <ModalReservas showModal={showModal} selectedReservaId={selectedReservaId} onCloseModal={handleCloseModal} />
         </Container>
+      </div>
       </div>
     </>
   );

@@ -10,8 +10,16 @@ import es from "date-fns/locale/es";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import Swal from "sweetalert2/dist/sweetalert2.js";
+import { NavbarContext } from "../../../context/NavbarContext";
+import './modalreservas.css'
 
 const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
+
+  const { theme } = useContext(NavbarContext);
+
+  const newTheme =
+    theme === "claro" ? "light" : theme === "oscuro" ? "dark" : theme;
+
   //Traer cosas dle context
   const { TraerUnaReserva, Reserva, TraerReservas } =
     useContext(ReservasContexto);
@@ -182,11 +190,11 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
     <>
       {/*Estructura del modal*/}
       <Modal show={showModal} onHide={onCloseModal}>
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className={`custom-${newTheme}`}>
           <Modal.Title>Edita tu Reserva</Modal.Title>
         </Modal.Header>
         <Form onSubmit={formik.handleSubmit} noValidate>
-          <Modal.Body className="d-flex flex-column">
+          <Modal.Body className={`d flex flex-column custom-${newTheme}`}>
             <Form.Group>
               <Form.Label>Edita la Fecha</Form.Label>
               <DatePicker
@@ -286,7 +294,7 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
                 )}
             </Form.Group>
           </Modal.Body>
-          <Modal.Footer>
+          <Modal.Footer className={`custom-${newTheme}`}>
             <Button type="sumbit"> Guardar Cambios </Button>
             <Button variant="secondary" onClick={onCloseModal}>
               Cerrar
