@@ -320,77 +320,80 @@ export const AdministrarReservas = ({ isDoorman = false }) => {
             </Table>
           </>
         )}
-
-        <Row className="my-3">
-          <Col sm={9}>
-            <h2>Buscar reservas por día: {formState.date}</h2>
-          </Col>
-          <Col>
-            <FormSearch
-              formState={formState}
-              funcionOnInputChange={onInputChange}
-            />
-          </Col>
-        </Row>
-        {reservaToShow.length == 0 ? (
-          sinReserva(`Sin reserva para el día ${formState.date}`)
-        ) : (
+        {!isDoorman && (
           <>
-            <Table striped responsive>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Hora</th>
-                  <th>Apellido y Nombre</th>
-                  <th>Cantidad</th>
-                  <th>Fue usada</th>
-                  <th>Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                {reservaToShow?.map((r, index) => (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{r.hora}</td>
-                    <td>
-                      {r.usuario.apellido
-                        ? `${r.usuario.apellido}, ${r.usuario.nombre}`
-                        : `${r.usuario.nombre}`}
-                    </td>
-                    <td>{r.comensales}</td>
-                    <td>{fueUsada(r.fueUsada)}</td>
-                    <td>
-                      {!r.fueUsada && (
-                        <Button
-                          variant="success"
-                          onClick={() => handleConfirm(r)}
-                          className="mx-2"
-                        >
-                          <i className="bi bi-check2"></i>
-                        </Button>
-                      )}
-                      {!isDoorman && (
-                        <>
-                          <Button
-                            variant="danger"
-                            onClick={() => handleEdit(r)}
-                          >
-                            <i className="bi bi-pencil"></i>
-                          </Button>
-                          <Button
-                            variant="danger"
-                            onClick={() => handleDelete(r)}
-                            className="mx-2"
-                          >
-                            <i className="bi bi-trash"></i>
-                          </Button>
-                        </>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
+            <Row className="my-3">
+              <Col sm={9}>
+                <h2>Buscar reservas por día: {formState.date}</h2>
+              </Col>
+              <Col>
+                <FormSearch
+                  formState={formState}
+                  funcionOnInputChange={onInputChange}
+                />
+              </Col>
+            </Row>
+            {reservaToShow.length == 0 ? (
+              sinReserva(`Sin reserva para el día ${formState.date}`)
+            ) : (
+              <>
+                <Table striped responsive>
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Hora</th>
+                      <th>Apellido y Nombre</th>
+                      <th>Cantidad</th>
+                      <th>Fue usada</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {reservaToShow?.map((r, index) => (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>{r.hora}</td>
+                        <td>
+                          {r.usuario.apellido
+                            ? `${r.usuario.apellido}, ${r.usuario.nombre}`
+                            : `${r.usuario.nombre}`}
+                        </td>
+                        <td>{r.comensales}</td>
+                        <td>{fueUsada(r.fueUsada)}</td>
+                        <td>
+                          {!r.fueUsada && (
+                            <Button
+                              variant="success"
+                              onClick={() => handleConfirm(r)}
+                              className="mx-2"
+                            >
+                              <i className="bi bi-check2"></i>
+                            </Button>
+                          )}
+                          {!isDoorman && (
+                            <>
+                              <Button
+                                variant="danger"
+                                onClick={() => handleEdit(r)}
+                              >
+                                <i className="bi bi-pencil"></i>
+                              </Button>
+                              <Button
+                                variant="danger"
+                                onClick={() => handleDelete(r)}
+                                className="mx-2"
+                              >
+                                <i className="bi bi-trash"></i>
+                              </Button>
+                            </>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              </>
+            )}
           </>
         )}
       </Container>
