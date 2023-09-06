@@ -139,6 +139,19 @@ const Reservas = () => {
           CantidadDePersonas: parseInt(formik.values.People),
         };
 
+        //Get para saber si el usuario ya realizo 2 reservas
+        const reservationByUser = await axios.get(`${url}//reservasByUsuario/${Token.id}`)
+        const userReservation = reservationByUser.data
+
+        if(userReservation.length >= 2) {
+          Swal.fire(
+            "Error",
+            "El usuario ya ha realizado dos reservas.",
+            "error"
+          );
+          return;
+        }
+
         //Swal fire para confirmacion de reserva
         const result = await Swal.fire({
           title: "Estás por realizar una reserva",
