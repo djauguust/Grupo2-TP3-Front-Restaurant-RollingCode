@@ -46,3 +46,7 @@
   margin-top: 5px;
   margin-left: 40px;
  }
+ 
+ .swal2-container{
+  z-index: 99999;
+ }

@@ -27,11 +27,7 @@ export const ReservasProvider = ({children}) => {
     //Funcion para traer una sola reserva
     const TraerUnaReserva = async () =>{
         try {
-            const res = await axios.get(`${url}/reservasByUsuario/${Token.id}`,{
-                headers:{
-                  "auth-token" : TokenPuro.replace(/^"(.*)"$/, '$1')
-                }
-              })
+            const res = await axios.get(`${url}/reservasByUsuario/${Token.id}`)
             const reserva = await res.data
             setReserva(reserva)
         } catch (error) {
