@@ -22,31 +22,44 @@
   color: white;
 }
 
-.me-3  {
-  height: 28px;  
-  width: 130px; 
- }
- 
- .btn-trash {
+.me-3 {
+  height: 28px;
+  width: 130px;
+}
+
+.btn-trash {
   height: 28px;
   width: 138px;
   margin-bottom: 8px;
- }
+}
 
- .btn-visto {
+.btn-visto {
   background-color: #ffeba7;
   width: 60px;
   height: 40px;
   margin-left: 40px;
- }
+}
 
- .btn-borrar {
+.btn-borrar {
   width: 60px;
   height: 40px;
   margin-top: 5px;
   margin-left: 40px;
- }
- 
- .swal2-container{
+}
+
+.swal2-container {
   z-index: 99999;
- }
+}
+
+.custom-oscuro {
+  background-color: #191919;
+  color: white;
+}
+
+.letra-custom {
+  font-size: medium;
+}
+
+.modificar-usuario-custom {
+  margin-top: 10px;
+}

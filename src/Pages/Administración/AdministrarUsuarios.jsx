@@ -1,5 +1,17 @@
-import React, { useEffect, useState } from "react";
-import {Alert,Badge,Button,ButtonGroup,ButtonToolbar,Col,Container,Form,Modal,Row,Table,} from "react-bootstrap";
+import React, { useContext, useEffect, useState } from "react";
+import {
+  Alert,
+  Badge,
+  Button,
+  ButtonGroup,
+  ButtonToolbar,
+  Col,
+  Container,
+  Form,
+  Modal,
+  Row,
+  Table,
+} from "react-bootstrap";
 import "./Administracion.css";
 import { FormSearch } from "./components/FormSearch";
 import { useForm } from "./hooks/useForm";
@@ -8,8 +20,14 @@ import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import clsx from "clsx";
+import { NavbarContext } from "../../context/NavbarContext";
 
 export const AdministrarUsuarios = ({ userToken }) => {
+  const { theme } = useContext(NavbarContext);
+
+  const newTheme =
+    theme === "claro" ? "light" : theme === "oscuro" ? "dark" : theme;
+
   const useToken = { headers: { "auth-token": userToken } };
   const [Usuarios, setUsuarios] = useState([]);
   const initialForm = {
@@ -22,7 +40,6 @@ export const AdministrarUsuarios = ({ userToken }) => {
     _id: "",
   };
   const { formState, onInputChange, setFormState } = useForm(initialForm);
-  
 
   const adminComoString = (a) => {
     if (a == 0) {
@@ -43,7 +60,7 @@ export const AdministrarUsuarios = ({ userToken }) => {
       return `No`;
     }
   };
-  
+
   //Expresiones para validar
   const soloLetras = /^[a-zA-Z ]+$/;
   const email =
@@ -61,8 +78,7 @@ export const AdministrarUsuarios = ({ userToken }) => {
       .required("El apellido es requerido")
       .matches(soloLetras, "El apellido solo debe incluir letras")
       .min(4, "El apellido debe de ser menor a 4 letras")
-      .max(25, "El apellido debe de ser menor a 25 letras"),   
-
+      .max(25, "El apellido debe de ser menor a 25 letras"),
 
     Email: Yup.string()
       .required("El email es requerido")
@@ -70,12 +86,10 @@ export const AdministrarUsuarios = ({ userToken }) => {
       .min(16, "Ingrese un email mayor a 16 carácteres")
       .max(40, "Ingrese un email menor a 40 carácteres"),
 
-    EsActivo: Yup.string()
-    .required("El campo es requerido"),
+    EsActivo: Yup.string().required("El campo es requerido"),
 
-    Rol: Yup.string()
-    .required("Este campo es requerido")
-  })
+    Rol: Yup.string().required("Este campo es requerido"),
+  });
 
   //Valores iniciales
   const valoresIniciales = {
@@ -83,7 +97,7 @@ export const AdministrarUsuarios = ({ userToken }) => {
     Apellido: "",
     Email: "",
     EsActivo: false,
-    Rol: 0
+    Rol: 0,
   };
 
   //Validacion con Formik
@@ -94,70 +108,67 @@ export const AdministrarUsuarios = ({ userToken }) => {
     validateOnBlur: true,
     onSubmit: (values) => {
       Swal.fire({
-        title: 'Esta seguro que desea editar el usuario?',
+        title: "Esta seguro que desea editar el usuario?",
         text: "Los cambios los puede editar luego",
-        icon: 'warning',
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Si, estoy seguro!',
-        cancelButtonText: 'No, mejor no'
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, estoy seguro!",
+        cancelButtonText: "No, mejor no",
       }).then((result) => {
         if (result.isConfirmed) {
           axios
-        .put(`${url}/usuarios/${formState._id}`, {
-          apellido: values.Apellido,
-          email: values.Email,
-          esActivo: values.EsActivo,
-          esAdmin: values.Rol,
-          nombre: values.Nombre,
-          user : "",
-          _id : formState._id
-        })
-        .then(({ data }) => {
-          console.log(data);
-          setShowModalEdit(false);
-          Swal.fire(
-            "Usuario modificado con éxito",
-            "Tus modificaciones ya fueron integradas exitosamente",
-            "success"
-          ).then(async (result) => {
-            actualizar();
-          });
-        })
-        .catch(({ response }) => {
-          console.log(response);
-          setShowModalRestaurant(false);
-          Swal.fire("Error con servidor", `Error: ${response}`, "warning").then(
-            async (result) => {
-              actualizar();
-            }
-          );
-        });
+            .put(`${url}/usuarios/${formState._id}`, {
+              apellido: values.Apellido,
+              email: values.Email,
+              esActivo: values.EsActivo,
+              esAdmin: values.Rol,
+              nombre: values.Nombre,
+              user: "",
+              _id: formState._id,
+            })
+            .then(({ data }) => {
+              console.log(data);
+              setShowModalEdit(false);
+              Swal.fire(
+                "Usuario modificado con éxito",
+                "Tus modificaciones ya fueron integradas exitosamente",
+                "success"
+              ).then(async (result) => {
+                actualizar();
+              });
+            })
+            .catch(({ response }) => {
+              console.log(response);
+              setShowModalRestaurant(false);
+              Swal.fire(
+                "Error con servidor",
+                `Error: ${response}`,
+                "warning"
+              ).then(async (result) => {
+                actualizar();
+              });
+            });
         }
-      })
-    }
-  })
-
-
+      });
+    },
+  });
 
   //Setear valores con formik
 
-  const establecerDatos =  () => {
-    formik.setFieldValue("Nombre",formState.nombre)
-    formik.setFieldValue("Apellido",formState.apellido)
-    formik.setFieldValue("Email",formState.email)
-    formik.setFieldValue("EsActivo",formState.esActivo)
-    formik.setFieldValue("Rol",formState.esAdmin)
-  }
-  
+  const establecerDatos = () => {
+    formik.setFieldValue("Nombre", formState.nombre);
+    formik.setFieldValue("Apellido", formState.apellido);
+    formik.setFieldValue("Email", formState.email);
+    formik.setFieldValue("EsActivo", formState.esActivo);
+    formik.setFieldValue("Rol", formState.esAdmin);
+  };
+
   //UseEffect que sirve para establecer los datos
   useEffect(() => {
     establecerDatos();
   }, [formState._id]);
-
-
-
 
   /* handle */
   const handleDelete = (user) => {
@@ -226,8 +237,6 @@ export const AdministrarUsuarios = ({ userToken }) => {
   /* FIN Backend */
   /* FIN AXIOS */
 
-
-
   /* Buscador de usuarios */
 
   const [userFiltered, setUserFiltered] = useState([]);
@@ -279,8 +288,6 @@ export const AdministrarUsuarios = ({ userToken }) => {
 
   /* FIN Buscador de usuarios */
 
-
-
   /* Editar usuarios */
   const [ShowModalEdit, setShowModalEdit] = useState(false);
   const [ButtonGuardarUsuario, setButtonGuardarUsuario] = useState(false);
@@ -288,7 +295,6 @@ export const AdministrarUsuarios = ({ userToken }) => {
     setShowModalEdit(false);
   };
 
-  
   const [errores, setErrores] = useState([]);
   const validarForm = (form) => {
     let array = [];
@@ -309,8 +315,6 @@ export const AdministrarUsuarios = ({ userToken }) => {
     setErrores(array);
     return array.length == 0;
   };
-
-
 
   /* FIN Editar usuarios */
 
@@ -382,7 +386,12 @@ export const AdministrarUsuarios = ({ userToken }) => {
           placeholder="Buscar Usuario"
           name="user"
         />
-        <Table striped responsive className="my-3">
+        <Table
+          striped
+          responsive
+          className="my-3"
+          data-bs-theme={`${newTheme}`}
+        >
           <thead>
             <tr>
               <th>#</th>
@@ -454,56 +463,69 @@ export const AdministrarUsuarios = ({ userToken }) => {
         show={ShowModalEdit}
         onHide={handleCloseModal}
         backdropClassName="custom-backdrop"
-        className="modal-custom"
+        className="modal-custom modificar-usuario-custom"
+        data-bs-theme={`${newTheme}`}
       >
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className={`custom-${theme}`}>
           <Modal.Title>Modificar Usuario</Modal.Title>
         </Modal.Header>
-          <Form onSubmit={formik.handleSubmit} noValidate>
-        <Modal.Body>
+        <Form
+          onSubmit={formik.handleSubmit}
+          data-bs-theme={`${newTheme}`}
+          noValidate
+        >
+          <Modal.Body className={`custom-${theme}`}>
             <Row>
               <Col>
-                  <Form.Group className="mb-3" >
-                    <Form.Label>Nombre:</Form.Label>
-                    <Form.Control
-                      type="text"
-                      id="Nombre"
-                      placeholder="Ej: Lucas"
-                      minLength={4}
-                      maxLength={25}
-                      {...formik.getFieldProps("Nombre")}
-                      className={clsx(
-                        "form-control",{
-                          "is-invalid" : formik.touched.Nombre && formik.errors.Nombre
-                        },{
-                          "is-valid" : formik.touched.Nombre && !formik.errors.Nombre
-                        }
-                      )}
-                    />
-                  </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label>Nombre:</Form.Label>
+                  <Form.Control
+                    type="text"
+                    id="Nombre"
+                    placeholder="Ej: Lucas"
+                    minLength={4}
+                    maxLength={25}
+                    {...formik.getFieldProps("Nombre")}
+                    className={clsx(
+                      "form-control",
+                      {
+                        "is-invalid":
+                          formik.touched.Nombre && formik.errors.Nombre,
+                      },
+                      {
+                        "is-valid":
+                          formik.touched.Nombre && !formik.errors.Nombre,
+                      }
+                    )}
+                  />
+                </Form.Group>
               </Col>
               <Col>
-                <Form.Group className="mb-3" >
+                <Form.Group className="mb-3">
                   <Form.Label>Apellido:</Form.Label>
                   <Form.Control
                     type="text"
-                        id="Apellido"
-                        placeholder="Ej: Yudi"
-                        minLength={4}
-                        maxLength={25}
-                        {...formik.getFieldProps("Apellido")}
-                        className={clsx(
-                          "form-control",{
-                            "is-invalid" : formik.touched.Apellido && formik.errors.Apellido
-                          },{
-                            "is-valid" : formik.touched.Apellido && !formik.errors.Apellido
-                          }
-                        )}
+                    id="Apellido"
+                    placeholder="Ej: Yudi"
+                    minLength={4}
+                    maxLength={25}
+                    {...formik.getFieldProps("Apellido")}
+                    className={clsx(
+                      "form-control",
+                      {
+                        "is-invalid":
+                          formik.touched.Apellido && formik.errors.Apellido,
+                      },
+                      {
+                        "is-valid":
+                          formik.touched.Apellido && !formik.errors.Apellido,
+                      }
+                    )}
                   />
                 </Form.Group>
               </Col>
             </Row>
-            <Form.Group className="mb-3" >
+            <Form.Group className="mb-3">
               <Form.Label>E-mail:</Form.Label>
               <Form.Control
                 type="email"
@@ -513,10 +535,12 @@ export const AdministrarUsuarios = ({ userToken }) => {
                 maxLength={40}
                 {...formik.getFieldProps("Email")}
                 className={clsx(
-                  "form-control",{
-                    "is-invalid" : formik.touched.Email && formik.errors.Email
-                  },{
-                    "is-valid" : formik.touched.Email && !formik.errors.Email
+                  "form-control",
+                  {
+                    "is-invalid": formik.touched.Email && formik.errors.Email,
+                  },
+                  {
+                    "is-valid": formik.touched.Email && !formik.errors.Email,
                   }
                 )}
               />
@@ -533,10 +557,14 @@ export const AdministrarUsuarios = ({ userToken }) => {
                     placeholder="Seleccione una Opcion"
                     {...formik.getFieldProps("EsActivo")}
                     className={clsx(
-                      "form-control",{
-                        "is-invalid" : formik.touched.EsActivo && formik.errors.EsActivo
-                      },{
-                        "is-valid" : formik.touched.EsActivo && !formik.errors.EsActivo
+                      "form-control",
+                      {
+                        "is-invalid":
+                          formik.touched.EsActivo && formik.errors.EsActivo,
+                      },
+                      {
+                        "is-valid":
+                          formik.touched.EsActivo && !formik.errors.EsActivo,
                       }
                     )}
                   >
@@ -546,7 +574,7 @@ export const AdministrarUsuarios = ({ userToken }) => {
                 </Col>
               </Row>
             </Form.Group>
-            <Form.Group className="mb-3" >
+            <Form.Group className="mb-3">
               <Row>
                 <Col>
                   <Form.Label>Rol:</Form.Label>
@@ -558,10 +586,12 @@ export const AdministrarUsuarios = ({ userToken }) => {
                     placeholder="Seleccione una opcion"
                     {...formik.getFieldProps("Rol")}
                     className={clsx(
-                      "form-control",{
-                        "is-invalid" : formik.touched.Rol && formik.errors.Rol
-                      },{
-                        "is-valid" : formik.touched.Rol && formik.errors.Rol
+                      "form-control",
+                      {
+                        "is-invalid": formik.touched.Rol && formik.errors.Rol,
+                      },
+                      {
+                        "is-valid": formik.touched.Rol && formik.errors.Rol,
                       }
                     )}
                   >
@@ -572,53 +602,43 @@ export const AdministrarUsuarios = ({ userToken }) => {
                 </Col>
               </Row>
             </Form.Group>
-          {/*errores.length != 0 && (
+            {/*errores.length != 0 && (
             <Alert variant="warning">
               {errores.map((f) => (
                 <p key={f.index}>{f}</p>
                 ))}
             </Alert>
           )*/}
-          {formik.touched.Nombre && formik.errors.Nombre && (
-            <Alert variant="warning">
-              {formik.errors.Nombre}
-            </Alert>
-          )}
-          {formik.touched.Apellido && formik.errors.Apellido && (
-            <Alert variant="warning">
-              {formik.errors.Apellido}
-            </Alert>
-          )}
-          {formik.touched.Email && formik.errors.Email && (
-            <Alert variant="warning">
-              {formik.errors.Email}
-            </Alert>
-          )}
-          {formik.touched.EsActivo && formik.errors.EsActivo && (
-            <Alert variant="warning">
-              {formik.errors.EsActivo}
-            </Alert>
-          )}
-          {formik.touched.Rol && formik.errors.Rol && (
-            <Alert variant="warninig">
-              {formik.errors.Rol}
-            </Alert>
-          )}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
-            Cerrar
-          </Button>
-          <Button
-            variant="sucess"
-            //onClick={handleSubmit}
-            disabled={ButtonGuardarUsuario}
-            type="sumbit"
+            {formik.touched.Nombre && formik.errors.Nombre && (
+              <Alert variant="warning">{formik.errors.Nombre}</Alert>
+            )}
+            {formik.touched.Apellido && formik.errors.Apellido && (
+              <Alert variant="warning">{formik.errors.Apellido}</Alert>
+            )}
+            {formik.touched.Email && formik.errors.Email && (
+              <Alert variant="warning">{formik.errors.Email}</Alert>
+            )}
+            {formik.touched.EsActivo && formik.errors.EsActivo && (
+              <Alert variant="warning">{formik.errors.EsActivo}</Alert>
+            )}
+            {formik.touched.Rol && formik.errors.Rol && (
+              <Alert variant="warninig">{formik.errors.Rol}</Alert>
+            )}
+          </Modal.Body>
+          <Modal.Footer className={`custom-${theme}`}>
+            <Button variant="secondary" onClick={handleCloseModal}>
+              Cerrar
+            </Button>
+            <Button
+              variant="sucess"
+              //onClick={handleSubmit}
+              disabled={ButtonGuardarUsuario}
+              type="sumbit"
             >
-            Guardar
-          </Button>
-        </Modal.Footer>
-            </Form>
+              Guardar
+            </Button>
+          </Modal.Footer>
+        </Form>
       </Modal>
 
       <Modal
@@ -626,14 +646,15 @@ export const AdministrarUsuarios = ({ userToken }) => {
         onHide={handleCloseModalList}
         backdropClassName="custom-backdrop"
         className="modal-custom"
+        data-bs-theme={`${newTheme}`}
       >
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className={`custom-${theme}`}>
           <Modal.Title>
             Reservas del usuario: {showReservas?.apellido},{" "}
             {showReservas?.nombre}
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className={`custom-${theme}`}>
           {!reservasByUser ? (
             <>
               <Alert variant="danger">¡Usuario sin reservas registradas!</Alert>
@@ -665,7 +686,7 @@ export const AdministrarUsuarios = ({ userToken }) => {
             </>
           )}
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className={`custom-${theme}`}>
           <Button variant="secondary" onClick={handleCloseModalList}>
             Cerrar
           </Button>

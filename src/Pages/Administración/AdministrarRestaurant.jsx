@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   Alert,
   Button,
@@ -15,6 +15,7 @@ import Swal from "sweetalert2";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import clsx from "clsx";
+import { NavbarContext } from "../../context/NavbarContext";
 
 function despuesDe(obj, value) {
   try {
@@ -36,6 +37,11 @@ function despuesDe(obj, value) {
 }
 
 export const AdministrarRestaurant = () => {
+  const { theme } = useContext(NavbarContext);
+
+  const newTheme =
+    theme === "claro" ? "light" : theme === "oscuro" ? "dark" : theme;
+
   const initialForm = {
     nombre: "",
     maximoComensales: 0,
@@ -388,7 +394,11 @@ export const AdministrarRestaurant = () => {
       <Container>
         <h2 className="text-center mt-5">Administrar Restaurante</h2>
 
-        <Form onSubmit={formik.handleSubmit} noValidate>
+        <Form
+          onSubmit={formik.handleSubmit}
+          data-bs-theme={`${newTheme}`}
+          noValidate
+        >
           <Form.Group className="mb-3" controlId="formOrganizacion">
             <Form.Label>Nombre del Restaurant:</Form.Label>
             <Form.Control
@@ -449,7 +459,12 @@ export const AdministrarRestaurant = () => {
           </Form.Group>
         </Form>
         <h5 className="mt-3">Fechas NO disponibles para hacer reservas</h5>
-        <Table striped responsive className="mb-3">
+        <Table
+          striped
+          responsive
+          className="mb-3"
+          data-bs-theme={`${newTheme}`}
+        >
           <thead>
             <tr>
               <th>#</th>
@@ -495,13 +510,14 @@ export const AdministrarRestaurant = () => {
         show={showModal}
         onHide={handleCloseModal}
         backdropClassName="custom-backdrop"
-        className="modal-custom"
+        className="modal-custom customizacion"
+        data-bs-theme={`${newTheme}`}
       >
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className={`custom-${theme}`}>
           <Modal.Title>Agregar Fecha No Disponible</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <Form>
+        <Modal.Body className={`custom-${theme}`}>
+          <Form data-bs-theme={`${newTheme}`}>
             <Form.Group className="mb-3" controlId="formOrganizacion">
               <Form.Label>Fecha:</Form.Label>
               <Form.Control
@@ -514,7 +530,7 @@ export const AdministrarRestaurant = () => {
           </Form>
           {showAlert && alertFechaIncorrecta()}
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className={`custom-${theme}`}>
           <Button variant="secondary" onClick={handleCloseModal}>
             Cerrar
           </Button>
@@ -532,13 +548,14 @@ export const AdministrarRestaurant = () => {
         show={ShowModalRestaurant}
         onHide={handleCloseModalRestaurant}
         backdropClassName="custom-backdrop"
-        className="modal-custom"
+        className="modal-custom letra-custom"
+        data-bs-theme={`${newTheme}`}
       >
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className={`custom-${theme}`}>
           <Modal.Title>Administrar Restaurant</Modal.Title>
         </Modal.Header>
-        <Form onSubmit={handleSubmit}>
-          <Modal.Body>
+        <Form onSubmit={handleSubmit} data-bs-theme={`${newTheme}`}>
+          <Modal.Body className={`custom-${theme}`}>
             <Row>
               <Col>
                 <Form.Group className="mb-3">
@@ -705,7 +722,7 @@ export const AdministrarRestaurant = () => {
               </Alert>
             )}
           </Modal.Body>
-          <Modal.Footer>
+          <Modal.Footer className={`custom-${theme}`}>
             <Button variant="secondary" onClick={handleCloseModalRestaurant}>
               Cerrar
             </Button>

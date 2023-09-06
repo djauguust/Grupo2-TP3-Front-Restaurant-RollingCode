@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   Alert,
   Badge,
@@ -14,8 +14,14 @@ import { FormSearch } from "./components/FormSearch";
 import { useForm } from "./hooks/useForm";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { NavbarContext } from "../../context/NavbarContext";
 
 export const AdministrarReservas = ({ isDoorman = false }) => {
+  const { theme } = useContext(NavbarContext);
+
+  const newTheme =
+    theme === "claro" ? "light" : theme === "oscuro" ? "dark" : theme;
+
   const today = new Date();
   const mesComoString = () => {
     let aux = today.getMonth() + 1;
@@ -263,7 +269,12 @@ export const AdministrarReservas = ({ isDoorman = false }) => {
           sinReserva("Sin reservas para el día de hoy")
         ) : (
           <>
-            <Table striped responsive className="mb-5">
+            <Table
+              striped
+              responsive
+              className="mb-5"
+              data-bs-theme={`${newTheme}`}
+            >
               <thead>
                 <tr>
                   <th>#</th>
@@ -337,7 +348,7 @@ export const AdministrarReservas = ({ isDoorman = false }) => {
               sinReserva(`Sin reserva para el día ${formState.date}`)
             ) : (
               <>
-                <Table striped responsive>
+                <Table striped responsive data-bs-theme={`${newTheme}`}>
                   <thead>
                     <tr>
                       <th>#</th>
@@ -402,13 +413,14 @@ export const AdministrarReservas = ({ isDoorman = false }) => {
         show={ShowModalEdit}
         onHide={handleCloseModal}
         backdropClassName="custom-backdrop"
-        className="modal-custom"
+        className="modal-custom letra-custom"
+        data-bs-theme={`${newTheme}`}
       >
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className={`custom-${theme}`}>
           <Modal.Title>Modificar Reserva</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleSubmit}>
+        <Modal.Body className={`custom-${theme}`}>
+          <Form onSubmit={handleSubmit} data-bs-theme={`${newTheme}`}>
             <Row>
               <Col>
                 <Form.Group className="mb-3" controlId="formOrganizacion">
@@ -470,15 +482,11 @@ export const AdministrarReservas = ({ isDoorman = false }) => {
             </Alert>
           )}
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className={`custom-${theme}`}>
           <Button variant="secondary" onClick={handleCloseModal}>
             Cerrar
           </Button>
-          <Button
-            variant="sucess"
-            onClick={handleSubmit}
-            disabled={ButtonGuardarReserva}
-          >
+          <Button variant="sucess" onClick={handleSubmit}>
             Guardar
           </Button>
         </Modal.Footer>

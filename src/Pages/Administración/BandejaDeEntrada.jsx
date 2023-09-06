@@ -3,8 +3,15 @@ import "./Administracion.css";
 import React, { useEffect, useState } from "react";
 import { Badge, Button, Container, Modal, Table } from "react-bootstrap";
 import Swal from "sweetalert2";
+import { NavbarContext } from "../../context/NavbarContext";
+import { useContext } from "react";
 
 export const BandejaDeEntrada = () => {
+  const { theme } = useContext(NavbarContext);
+
+  const newTheme =
+    theme === "claro" ? "light" : theme === "oscuro" ? "dark" : theme;
+
   const fechaDelDate = (d) => {
     if (d) {
       let fecha = d.split("-");
@@ -110,7 +117,12 @@ export const BandejaDeEntrada = () => {
       <Container>
         <h2 className="text-center mt-5">Mensajes recibidos</h2>
 
-        <Table striped responsive className="my-3">
+        <Table
+          striped
+          responsive
+          className="my-3"
+          data-bs-theme={`${newTheme}`}
+        >
           <thead>
             <tr>
               <th>#</th>
@@ -165,12 +177,18 @@ export const BandejaDeEntrada = () => {
         onHide={handleCloseModal}
         backdropClassName="custom-backdrop"
         className="modal-custom"
+        data-bs-theme={`${newTheme}`}
       >
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className={`custom-${theme}`}>
           <Modal.Title>Mensaje recibido</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <Table striped responsive className="my-3">
+        <Modal.Body className={`custom-${theme}`}>
+          <Table
+            striped
+            responsive
+            className="my-3"
+            data-bs-theme={`${newTheme}`}
+          >
             <thead>
               <tr>
                 <th>Fecha</th>
@@ -186,9 +204,9 @@ export const BandejaDeEntrada = () => {
               </tr>
             </tbody>
           </Table>
-          Mensaje: <h2>{messageToShow.mensaje}</h2>
+          Mensaje: <h4>{messageToShow.mensaje}</h4>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className={`custom-${theme}`}>
           <Button variant="secondary" onClick={handleCloseModal}>
             Cerrar
           </Button>
