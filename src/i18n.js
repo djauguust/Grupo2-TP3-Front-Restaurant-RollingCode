@@ -146,7 +146,8 @@ i18n.use(initReactI18next).init({
         eligeFecha: "Elige una fecha",
         eligeHora: "Elige un horario",
         numeroPersonas: "N° de Personas",
-        reservar: "RESERVAR"
+        reservar: "RESERVAR",
+        cambiaContraseña: "Cambiar Contraseña",
       },
     },
   },
