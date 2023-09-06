@@ -93,7 +93,6 @@ export const AdministrarUsuarios = ({ userToken }) => {
     validateOnChange: true,
     validateOnBlur: true,
     onSubmit: (values) => {
-      console.log("Valores de formik",values);
       Swal.fire({
         title: 'Esta seguro que desea editar el usuario?',
         text: "Los cambios los puede editar luego",
@@ -140,7 +139,7 @@ export const AdministrarUsuarios = ({ userToken }) => {
     }
   })
 
-console.log(formState);
+
 
   //Setear valores con formik
 
@@ -289,34 +288,7 @@ console.log(formState);
     setShowModalEdit(false);
   };
 
-  const handleSubmit = () => {
-    if (validarForm()) {
-      setButtonGuardarUsuario(true);
-
-      axios
-        .put(`${url}/usuarios/${formState._id}`, formState)
-        .then(({ data }) => {
-          console.log(data);
-          setShowModalEdit(false);
-          Swal.fire(
-            "Usuario modificado con éxito",
-            "Tus modificaciones ya fueron integradas exitosamente",
-            "success"
-          ).then(async (result) => {
-            actualizar();
-          });
-        })
-        .catch(({ response }) => {
-          console.log(response);
-          setShowModalRestaurant(false);
-          Swal.fire("Error con servidor", `Error: ${response}`, "warning").then(
-            async (result) => {
-              actualizar();
-            }
-          );
-        });
-    }
-  };
+  
   const [errores, setErrores] = useState([]);
   const validarForm = (form) => {
     let array = [];

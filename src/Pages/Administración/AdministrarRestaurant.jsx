@@ -12,6 +12,9 @@ import {
 import { useForm } from "./hooks/useForm";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import clsx from "clsx";
 
 function despuesDe(obj, value) {
   try {
@@ -47,6 +50,81 @@ export const AdministrarRestaurant = () => {
   const { formState, setFormState, onInputChange, onResetForm } =
     useForm(initialForm);
 
+  //Expresiones para validar
+  const soloLetras = /^[a-zA-Z ]+$/;
+
+  //Esquema de Yup
+  const esquemaRestaurante = Yup.object().shape({
+    Nombre: Yup.string()
+      .required("El nombre es requerido")
+      .matches(soloLetras, "El nombre solo debe incluir letras")
+      .min(4, "El nombre debe de ser menor a 4 letras")
+      .max(25, "El nombre debe de ser menor a 25 letras"),
+
+    CantidadMaximaComensales: Yup.number()
+      .required("La cantidad es requerida")
+      .min(1, "La cantidad Maxima de comensales debe de ser al menos 1"),
+    HorarioRestauranteDesde: Yup.string().required("La hora es requerida"),
+
+    HorarioRestauranteHasta: Yup.string().required("La hora es requerida"),
+
+    CantidadMaximaDeReservas: Yup.number()
+      .required("La cantidad maxima es requerida")
+      .min(1, "La cantidad maxima de reservas tiene que ser al menos 1"),
+
+    TiempoEntreTurnos: Yup.number()
+      .required("El tiempo es requerido")
+      .min(1, "El tiempo tiene que ser al menos 1"),
+  });
+
+  //Valores Iniciales
+  const valoresIniciales = {
+    Nombre: "",
+    CantidadMaximaComensales: 0,
+    HorarioRestauranteDesde: "",
+    HorarioRestauranteHasta: "",
+    CantidadMaximaDeReservas: 0,
+    TiempoEntreTurnos: 0,
+  };
+
+  //Validar con formik
+  const formik = useFormik({
+    initialValues: valoresIniciales,
+    validationSchema: esquemaRestaurante,
+    validateOnChange: true,
+    validateOnBlur: true,
+    onSubmit: (values) => {
+      console.log(values);
+      //Falta poner aqui todo el contenido de handleSubmit, y que pase los values de los input
+    },
+  });
+
+  //Funcion para setear los valores a los input
+
+  const establecerDatos = async () => {
+    //If para que espere a que formState.horarior.desde exista
+    if (formState.horario && formState.horario.desde) {
+      formik.setFieldValue("Nombre", formState.nombre);
+      formik.setFieldValue(
+        "CantidadMaximaComensales",
+        formState.maximoComensales
+      );
+      formik.setFieldValue("HorarioRestauranteDesde", formState.horario.desde);
+      formik.setFieldValue("HorarioRestauranteHasta", formState.horario.hasta);
+      formik.setFieldValue(
+        "CantidadMaximaDeReservas",
+        formState.reservasMaxima
+      );
+      formik.setFieldValue("TiempoEntreTurnos", formState.tiempoMaximoReserva);
+    }
+  };
+
+  //UseEffect que sirve para establecer los datos
+  useEffect(() => {
+    establecerDatos();
+  }, [formState._id]);
+
+  console.log(formState);
   const handleSubmit = () => {
     let init = formState.horario.desde.split(":");
     let fin = formState.horario.hasta.split(":");
@@ -310,7 +388,7 @@ export const AdministrarRestaurant = () => {
       <Container>
         <h2 className="text-center mt-5">Administrar Restaurante</h2>
 
-        <Form>
+        <Form onSubmit={formik.handleSubmit} noValidate>
           <Form.Group className="mb-3" controlId="formOrganizacion">
             <Form.Label>Nombre del Restaurant:</Form.Label>
             <Form.Control
@@ -459,55 +537,107 @@ export const AdministrarRestaurant = () => {
         <Modal.Header closeButton>
           <Modal.Title>Administrar Restaurant</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
+          <Modal.Body>
             <Row>
               <Col>
-                <Form.Group className="mb-3" controlId="formOrganizacion">
+                <Form.Group className="mb-3">
                   <Form.Label>Nombre del Restaurant:</Form.Label>
                   <Form.Control
                     type="text"
-                    value={formState.nombre}
-                    name="nombre"
-                    onChange={onInputChange}
+                    id="Nombre"
+                    placeholder="Ej: Gusteau´s"
+                    min={4}
+                    max={25}
+                    {...formik.getFieldProps("Nombre")}
+                    className={clsx(
+                      "form-control",
+                      {
+                        "is-invalid":
+                          formik.touched.Nombre && formik.errors.Nombre,
+                      },
+                      {
+                        "is-valid":
+                          formik.touched.Nombre && !formik.errors.Nombre,
+                      }
+                    )}
                   />
                 </Form.Group>
               </Col>
               <Col>
-                <Form.Group className="mb-3" controlId="formOrganizacion">
+                <Form.Group className="mb-3">
                   <Form.Label>Cantidad máxima de comensales:</Form.Label>
                   <Form.Control
                     type="number"
-                    value={formState.maximoComensales}
-                    name="maximoComensales"
-                    onChange={onInputChange}
+                    id="CantidadMaximaComensales"
+                    placeholder="Ej: 1"
+                    {...formik.getFieldProps("CantidadMaximaComensales")}
+                    className={clsx(
+                      "form-control",
+                      {
+                        "is-invalid":
+                          formik.touched.CantidadMaximaComensales &&
+                          formik.errors.CantidadMaximaComensales,
+                      },
+                      {
+                        "is-valid":
+                          formik.touched.CantidadMaximaComensales &&
+                          !formik.errors.CantidadMaximaComensales,
+                      }
+                    )}
                   />
                 </Form.Group>
               </Col>
             </Row>
-            <Form.Group className="mb-3" controlId="formOrganizacion">
+            <Form.Group className="mb-3">
               <Form.Label>Horarios del Restaurant:</Form.Label>
               <Row>
                 <Col>
                   <Form.Control
                     type="time"
-                    value={formState.desde}
-                    name="desde"
-                    onChange={onInputChange}
+                    id="HorarioRestauranteDesde"
+                    placeholder="Eliga una hora"
+                    {...formik.getFieldProps("HorarioRestauranteDesde")}
+                    className={clsx(
+                      "form-control",
+                      {
+                        "is-invalid":
+                          formik.touched.HorarioRestauranteDesde &&
+                          formik.errors.HorarioRestauranteDesde,
+                      },
+                      {
+                        "is-valid":
+                          formik.touched.HorarioRestauranteDesde &&
+                          !formik.errors.HorarioRestauranteDesde,
+                      }
+                    )}
                   />
                 </Col>
                 a
                 <Col>
                   <Form.Control
                     type="time"
-                    value={formState.hasta}
-                    name="hasta"
-                    onChange={onInputChange}
+                    id="HorarioRestauranteHasta"
+                    placeholder="Elige una hora"
+                    {...formik.getFieldProps("HorarioRestauranteHasta")}
+                    className={clsx(
+                      "form-control",
+                      {
+                        "is-invalid":
+                          formik.touched.HorarioRestauranteHasta &&
+                          formik.errors.HorarioRestauranteHasta,
+                      },
+                      {
+                        "is-valid":
+                          formik.touched.HorarioRestauranteHasta &&
+                          !formik.errors.HorarioRestauranteHasta,
+                      }
+                    )}
                   />
                 </Col>
               </Row>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formOrganizacion">
+            <Form.Group className="mb-3">
               <Row>
                 <Col>
                   <Form.Label>
@@ -517,14 +647,27 @@ export const AdministrarRestaurant = () => {
                 <Col>
                   <Form.Control
                     type="number"
-                    value={formState.reservasMaxima}
-                    name="reservasMaxima"
-                    onChange={onInputChange}
+                    id="CantidadMaximaDeReservas"
+                    placeholder="Eliga una cantidad maxima"
+                    {...formik.getFieldProps("CantidadMaximaDeReservas")}
+                    className={clsx(
+                      "form-control",
+                      {
+                        "is-invalid":
+                          formik.touched.CantidadMaximaDeReservas &&
+                          formik.errors.CantidadMaximaDeReservas,
+                      },
+                      {
+                        "is-valid":
+                          formik.touched.CantidadMaximaDeReservas &&
+                          !formik.errors.CantidadMaximaDeReservas,
+                      }
+                    )}
                   />
                 </Col>
               </Row>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formOrganizacion">
+            <Form.Group className="mb-3">
               <Row>
                 <Col>
                   <Form.Label>
@@ -534,34 +677,49 @@ export const AdministrarRestaurant = () => {
                 <Col>
                   <Form.Control
                     type="number"
-                    value={formState.tiempoMaximoReserva}
-                    name="tiempoMaximoReserva"
-                    onChange={onInputChange}
+                    id="TiempoEntreTurnos"
+                    placeholder="Elige un tiempo maximo"
+                    {...formik.getFieldProps("TiempoEntreTurnos")}
+                    className={clsx(
+                      "form-control",
+                      {
+                        "is-invalid":
+                          formik.touched.TiempoEntreTurnos &&
+                          formik.errors.TiempoEntreTurnos,
+                      },
+                      {
+                        "is-valid":
+                          formik.touched.TiempoEntreTurnos &&
+                          !formik.errors.TiempoEntreTurnos,
+                      }
+                    )}
                   />
                 </Col>
               </Row>
             </Form.Group>
-          </Form>
-          {errores.length != 0 && (
-            <Alert variant="warning">
-              {errores.map((f) => (
-                <p>{f}</p>
-              ))}
-            </Alert>
-          )}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModalRestaurant}>
-            Cerrar
-          </Button>
-          <Button
-            variant="sucess"
-            onClick={handleSubmit}
-            disabled={ButtonGuardarRestaurant}
-          >
-            Guardar
-          </Button>
-        </Modal.Footer>
+            {errores.length != 0 && (
+              <Alert variant="warning">
+                {errores.map((f) => (
+                  <p>{f}</p>
+                ))}
+              </Alert>
+            )}
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseModalRestaurant}>
+              Cerrar
+            </Button>
+            <Button
+              variant="sucess"
+              onClick={handleSubmit}
+              disabled={ButtonGuardarRestaurant}
+              //Cuando ya se pase el contenido de handleSubmit al formik descomente el type y comente la funcion onClick
+              //type="sumbit"
+            >
+              Guardar
+            </Button>
+          </Modal.Footer>
+        </Form>
       </Modal>
     </>
   );
