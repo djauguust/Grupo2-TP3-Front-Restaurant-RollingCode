@@ -1,59 +1,10 @@
-  
-
-  /* Resolución para Pantallas de Celulares */  
-@media (max-width: 767px) {
-    .Carta{
-      width: 100% !important;
-   }
-   .contenedorForm{
-    width: 320px !important;
-   }
-   .Div-Contraseña{
-    max-width: auto;
-   }
-   .Carta{
-    padding: 0 !important;
+h3 {
+  color: #fff;
 }
-.form-control{
-    width: auto ;
-}
-.contenedorForm{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.TituloInicioSesion{
-  font-size: 27px !important;
-}
-
-.label-color {
-  margin-left: 50px;
-}
-
-.correo-icono {
- margin-left: 10px;
-}
-
-.contraseña-icono {
-  margin-left: 10px;
-}
-
-.text-danger {
- margin-left: 55px;
-}
-
-}
-
-/* Resolución para Pantallas de Tablet */
-@media (min-width: 768px) and (max-width: 912px) {
-  
-  
-}  
-
   
 .contenedorForm {
-width: 45vh;
-margin-left: 10px;
+width: 43vh;
+margin-left: 18px;
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -84,9 +35,8 @@ justify-content: center;
 align-items: center;
 }
 
-.Carta {
-  
-width: 61vh;  
+.Carta {  
+width: 54vh;  
 background-image: url('../assets/loginbackground3.jpg');
 background-position: bottom center;   
 border-radius: 26px;  
@@ -146,7 +96,6 @@ font-size: 18px;
 line-height: 1.7;  
 color: #ffffff;  
 background-color: #1f2029;  
-
 background-position: center;
 background-size: 350%;
 overflow-x: hidden;  
@@ -191,7 +140,6 @@ width: 27vh;
 height: 4vh;
 top: -8vh;
 left: 24px;
-/* background-color: #ffb4a7; */
 background-color: #dfd5ce;
 
 
@@ -204,44 +152,36 @@ background-color: #dfd5ce;
   height: 4vh;
   top: -8vh;
   left: 24px;
-  /* background-color: #ffb4a7; */
   background-color: #dfd5ce;
   
   
   
   }
 
-@media (max-width: 390px) {
-.Contenedor-Error {
-  position: relative;  
-  width: 36vh;
-  height: 5vh;
-  top: -9vh;
-  left: 24px;
-  /* background-color: #ffb4a7; */
-  background-color: #dfd5ce;
+@media (max-width: 414px) {
+  .ubicarCarta {
+    width: 100%;
+  }
+  .Carta {
+    width: 100%;
+  }
+  .contenedorForm {
+    width: 100%;
+    margin-left: 1px;
+  }
+  .background-image {
+    width: 100%;
+  }
+}
+
+/* Resolución para Pantallas de Tablet */
+@media (min-width: 912px) and (max-width: 1368px) {
+  .contenedorForm {
+    width: 41vh;
+    margin-left: 18px;
+    }  
+  .background-image {
+    width: 100%;
+    }
   
- }
-
-}
-
-.contenedor-toast{
-  position: fixed;
-  bottom: 0px; /* Ajusta este valor según sea necesario */
-  right: 0px; /* Ajusta este valor según sea necesario */
-  z-index: 9999; 
-}
-
-.icono-toast{
-  max-width: 4vh;
-}
-
-.contenedorToast{
-  width: fit-content;
-}
-
-.toast-header{
-  justify-content: space-between !important;
-}
-
-
+}  
