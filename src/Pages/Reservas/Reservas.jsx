@@ -278,7 +278,7 @@ const Reservas = () => {
                     minDate={filterMinDay()}
                     maxDate={filterMaxDay()}
                     dateFormat="dd/MM/yyyy"
-                    placeholderText={t('eligeHora')}
+                    placeholderText={t('eligeFecha')}
                     className={clsx(
                       "form-control input-reservation",
                       {
@@ -328,7 +328,7 @@ const Reservas = () => {
                       (hour) => new Date(`2000-01-01 ${hour}`)
                     )}
                     // instancio cada elemento de mi array para setearle un formato date
-                    placeholderText={t('eligeFecha')}
+                    placeholderText={t('eligeHora')}
                     timeClassName={handleColor}
                     className={clsx(
                       "form-control input-reservation",
