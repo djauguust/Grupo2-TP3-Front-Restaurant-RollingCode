@@ -66,3 +66,9 @@
 .react-datepicker-wrapper{
   width: 100%;
 } 
+
+@media (min-width: 767px) {
+  .reservation-boton{
+    margin-left: 5px;
+  }
+}
