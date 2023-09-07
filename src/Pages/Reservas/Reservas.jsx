@@ -390,7 +390,7 @@ const Reservas = () => {
                 </Form.Group>
               </Col>
 
-              <Col xs={12} md={3} className="p-0">
+              {/* <Col xs={12} md={3} className="p-0">
                 <Button
                   className="reservation-boton"
                   variant="primary"
@@ -398,7 +398,7 @@ const Reservas = () => {
                 >
                   {t('reservar')}
                 </Button>
-              </Col>
+              </Col> */}
             </Row>
           </Form>
         </Container>
