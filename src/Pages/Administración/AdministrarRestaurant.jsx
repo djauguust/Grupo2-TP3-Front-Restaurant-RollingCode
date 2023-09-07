@@ -57,7 +57,7 @@ export const AdministrarRestaurant = () => {
     useForm(initialForm);
 
   //Expresiones para validar
-  const soloLetras = /^[a-zA-Z ]+$/;
+  const soloLetras = /^[a-zA-Z ']+$/;
 
   //Esquema de Yup
   const esquemaRestaurante = Yup.object().shape({
@@ -100,8 +100,53 @@ export const AdministrarRestaurant = () => {
     validateOnChange: true,
     validateOnBlur: true,
     onSubmit: (values) => {
-      console.log(values);
-      //Falta poner aqui todo el contenido de handleSubmit, y que pase los values de los input
+      Swal.fire({
+        title: "Esta seguro que desea actualizar los datos del restaurante?",
+        text: "Los cambios los puede editar luego",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, estoy seguro!",
+        cancelButtonText: "No, mejor no",
+      }).then((result) => {
+        if (result.isConfirmed) {
+
+          let init = values.HorarioRestauranteDesde.split(":");
+        let fin = values.HorarioRestauranteHasta.split(":");
+        axios
+            .put(`${url}/restaurant/`, {
+              nombre: values.Nombre,
+          maximoComensales: values.CantidadMaximaComensales,
+          horario: {
+            desde: parseInt(`${init[0]}${init[1]}`),
+            hasta: parseInt(`${fin[0]}${fin[1]}`),
+          },
+          reservasMaxima: values.CantidadMaximaDeReservas,
+          tiempoMaximoReserva: values.TiempoEntreTurnos
+            
+            })
+            .then(({ data }) => {
+              console.log(data);
+              setShowModalRestaurant(false);
+              Swal.fire(
+                "Restaurant modificado con éxito",
+                "Tus modificaciones ya fueron integradas exitosamente",
+                "success"
+              ).then(async (result) => {
+                actualizar();
+              });
+            })
+            .catch(({ response }) => {
+              console.log(response);
+              setShowModalRestaurant(false);
+              Swal.fire("Error con servidor", `Error: ${response}`, "warning").then(
+                async (result) => {
+                  actualizar();
+                }
+              );
+            });
+        }})
     },
   });
 
@@ -130,7 +175,7 @@ export const AdministrarRestaurant = () => {
     establecerDatos();
   }, [formState._id]);
 
-  console.log(formState);
+
   const handleSubmit = () => {
     let init = formState.horario.desde.split(":");
     let fin = formState.horario.hasta.split(":");
@@ -264,36 +309,48 @@ export const AdministrarRestaurant = () => {
   };
 
   const handleSubmitModal = () => {
-    setShowAlert(false);
-    setButtonGuardarFecha(true);
-    let aux = {
-      fecha: formState.fecha,
-      idAdmin: "64e6934cab45fce72db39fda", // TO DO Tiene que ser el id del admin logueado!!
-      idRestaurant: "64e6a45a0367aebe3bef0158",
-    };
-    if (despuesDe(formState.fecha, today2)) {
-      //La fecha es posterior a hoy
-      axios
-        .post(`${url}/fechasnd/`, aux)
-        .then(({ data }) => {
-          console.log(data);
+    Swal.fire({
+      title: "Esta seguro que desea crear la fehcha no disponible?",
+      text: "La fecha la puede eliminar luego",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, estoy seguro!",
+      cancelButtonText: "No, mejor no",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setShowAlert(false);
+        setButtonGuardarFecha(true);
+        let aux = {
+          fecha: formState.fecha,
+          idAdmin: "64e6934cab45fce72db39fda", // TO DO Tiene que ser el id del admin logueado!!
+          idRestaurant: "64e6a45a0367aebe3bef0158",
+        };
+        if (despuesDe(formState.fecha, today2)) {
+          //La fecha es posterior a hoy
+          axios
+            .post(`${url}/fechasnd/`, aux)
+            .then(({ data }) => {
+              console.log(data);
+              setButtonGuardarFecha(false);
+              // TO DO mostrar cartel que fue agregado con éxito
+              setShowModal(false);
+              actualizar();
+            })
+            .catch(({ response }) => {
+              console.log(response);
+              setButtonGuardarFecha(false);
+              // TO DO mostrar cartel que hubo problemas.
+              setShowModal(false);
+              actualizar();
+            });
+        } else {
+          //La fecha es anterior a hoy
+          setShowAlert(true);
           setButtonGuardarFecha(false);
-          // TO DO mostrar cartel que fue agregado con éxito
-          setShowModal(false);
-          actualizar();
-        })
-        .catch(({ response }) => {
-          console.log(response);
-          setButtonGuardarFecha(false);
-          // TO DO mostrar cartel que hubo problemas.
-          setShowModal(false);
-          actualizar();
-        });
-    } else {
-      //La fecha es anterior a hoy
-      setShowAlert(true);
-      setButtonGuardarFecha(false);
-    }
+        }
+      }})
   };
 
   useEffect(() => {
@@ -554,7 +611,7 @@ export const AdministrarRestaurant = () => {
         <Modal.Header closeButton className={`custom-${theme}`}>
           <Modal.Title>Administrar Restaurant</Modal.Title>
         </Modal.Header>
-        <Form onSubmit={handleSubmit} data-bs-theme={`${newTheme}`}>
+        <Form onSubmit={formik.handleSubmit} noValidate data-bs-theme={`${newTheme}`}>
           <Modal.Body className={`custom-${theme}`}>
             <Row>
               <Col>
@@ -728,10 +785,10 @@ export const AdministrarRestaurant = () => {
             </Button>
             <Button
               variant="sucess"
-              onClick={handleSubmit}
+              //onClick={handleSubmit}
               disabled={ButtonGuardarRestaurant}
               //Cuando ya se pase el contenido de handleSubmit al formik descomente el type y comente la funcion onClick
-              //type="sumbit"
+              type="sumbit"
             >
               Guardar
             </Button>
