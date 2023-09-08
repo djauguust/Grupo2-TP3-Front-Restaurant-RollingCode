@@ -1,5 +1,4 @@
 # Logs
-.env
 logs
 *.log
 npm-debug.log*
@@ -10,6 +9,8 @@ lerna-debug.log*
 .vite/deps
 
 .vite
+vite.config.js
+vite.config.js.timestamp-*
 
 node_modules
 dist
