@@ -6,8 +6,10 @@ import Swal from "sweetalert2";
 import { NavbarContext } from "../../context/NavbarContext";
 import { useContext } from "react";
 
-export const BandejaDeEntrada = () => {
+export const BandejaDeEntrada = ({ userToken }) => {
   const { theme } = useContext(NavbarContext);
+
+  const useToken = { headers: { "auth-token": userToken } };
 
   const newTheme =
     theme === "claro" ? "light" : theme === "oscuro" ? "dark" : theme;
@@ -31,7 +33,7 @@ export const BandejaDeEntrada = () => {
 
   useEffect(() => {
     axios
-      .get(`${url}/mensajes/`)
+      .get(`${url}/mensajes/`,useToken)
       .then(({ data }) => {
         setMensajesBackend(data);
       })
@@ -53,7 +55,7 @@ export const BandejaDeEntrada = () => {
       if (result.isConfirmed) {
         let aux = { leido: true };
         axios
-          .put(`${url}/mensajes/${mensaje._id}`, aux)
+          .put(`${url}/mensajes/${mensaje._id}`, aux,useToken)
           .then(({ data }) => {
             actualizar();
           })
@@ -73,7 +75,7 @@ export const BandejaDeEntrada = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${url}/mensajes/${mensaje._id}`)
+          .delete(`${url}/mensajes/${mensaje._id}`,useToken)
           .then(({ data }) => {
             actualizar();
           })

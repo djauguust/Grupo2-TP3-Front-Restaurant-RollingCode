@@ -8,7 +8,6 @@ import Galeria from "../components/galeria/Galeria";
 import InicioSesion from "../Pages/Login/InicioSesion";
 import Registro from "../Pages/Registro/Registro";
 import Error404 from "../pages/Error404/Error404";
-import Bandeja from "../components/bandeja/Bandeja";
 import { Administracion } from "../Pages/Administración/Administracion";
 import DatosCuenta from "../Pages/Cuenta/Datos-Cuenta/datos-cuenta";
 import MisReservas from "../Pages/misReservas/misReservas"
@@ -35,7 +34,6 @@ const Rutas = () => {
             <Route path="/configurar-cuenta" element={<DatosCuenta />} />
             {(Token.rol === 1 || Token.rol === 2) && (
               <>
-                <Route path="/bandeja" element={<Bandeja />} />,
                 <Route path="/administrador" element={<Administracion />} />
               </>
             )}

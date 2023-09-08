@@ -100,7 +100,7 @@ export const Administracion = () => {
                 {showInterface === 1 && (
                   <AdministrarUsuarios userToken={userToken} />
                 )}
-                {showInterface === 2 && <BandejaDeEntrada />}
+                {showInterface === 2 && <BandejaDeEntrada userToken={userToken} />}
                 {showInterface === 3 && <AdministrarRestaurant userToken={userToken} />}
               </>
             )}
