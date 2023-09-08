@@ -11,7 +11,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import { NavbarContext } from "../../../context/NavbarContext";
-import './modalreservas.css'
+import '../../../styles/modalreservas.css'
 
 const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
 

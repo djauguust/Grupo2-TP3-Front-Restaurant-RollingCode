@@ -40,7 +40,6 @@ export const AdministrarRestaurant = ({ userToken }) => {
   const { theme } = useContext(NavbarContext);
   const useToken = { headers: { "auth-token": userToken } };
 
-
   const newTheme =
     theme === "claro" ? "light" : theme === "oscuro" ? "dark" : theme;
 
@@ -152,32 +151,6 @@ export const AdministrarRestaurant = ({ userToken }) => {
     },
   });
 
-  //Funcion para setear los valores a los input
-
-  const establecerDatos = async () => {
-    //If para que espere a que formState.horarior.desde exista
-    if (formState.horario && formState.horario.desde) {
-      formik.setFieldValue("Nombre", formState.nombre);
-      formik.setFieldValue(
-        "CantidadMaximaComensales",
-        formState.maximoComensales
-      );
-      formik.setFieldValue("HorarioRestauranteDesde", formState.horario.desde);
-      formik.setFieldValue("HorarioRestauranteHasta", formState.horario.hasta);
-      formik.setFieldValue(
-        "CantidadMaximaDeReservas",
-        formState.reservasMaxima
-      );
-      formik.setFieldValue("TiempoEntreTurnos", formState.tiempoMaximoReserva);
-    }
-  };
-
-  //UseEffect que sirve para establecer los datos
-  useEffect(() => {
-    establecerDatos();
-  }, [formState._id]);
-
-
   const handleDelete = (id) => {
     Swal.fire({
       title: "¿Realmente deseas eliminar la fecha no disponible?",
@@ -196,39 +169,40 @@ export const AdministrarRestaurant = ({ userToken }) => {
             actualizar();
           })
           .catch((error) => console.log(error));
-      }
-    });
-  };
+        }
+      });
+    };
+    
+    const [ButtonGuardarRestaurant, setButtonGuardarRestaurant] = useState(false);
+    const [ShowModalRestaurant, setShowModalRestaurant] = useState(false);
+    const handleRestaurant = () => {
+      setErrores([]);
+      setButtonGuardarRestaurant(false);
+      onResetForm();
+      setShowModalRestaurant(true);
+      setFormState({
+        ...restaurant,
+        desde: restaurant.horario.desde,
+        hasta: restaurant.horario.hasta,
+      });
+    };
+    const handleCloseModalRestaurant = () => {
+      setShowModalRestaurant(false);
+    };
+    
+    /* Backend */
+    const url = import.meta.env.VITE_API;
+    const [restaurant, setRestaurant] = useState();
+    const [fechasND, setfechasND] = useState([]);
+    
+    const [actualizador, setActualizador] = useState(false);
+    const actualizar = () => {
+      setActualizador(!actualizador);
+    };
 
-  const [ButtonGuardarRestaurant, setButtonGuardarRestaurant] = useState(false);
-  const [ShowModalRestaurant, setShowModalRestaurant] = useState(false);
-  const handleRestaurant = () => {
-    setErrores([]);
-    setButtonGuardarRestaurant(false);
-    onResetForm();
-    setShowModalRestaurant(true);
-    setFormState({
-      ...restaurant,
-      desde: restaurant.horario.desde,
-      hasta: restaurant.horario.hasta,
-    });
-  };
-  const handleCloseModalRestaurant = () => {
-    setShowModalRestaurant(false);
-  };
-
-  /* Backend */
-  const url = import.meta.env.VITE_API;
-  const [restaurant, setRestaurant] = useState();
-  const [fechasND, setfechasND] = useState([]);
-
-  const [actualizador, setActualizador] = useState(false);
-  const actualizar = () => {
-    setActualizador(!actualizador);
-  };
-
-  useEffect(() => {
-    axios
+    //Axios para traer valores del Restaurante
+    useEffect(() => {
+      axios
       .get(`${url}/restaurant/`,useToken)
       .then(({ data }) => {
         data[0] = {
@@ -247,8 +221,33 @@ export const AdministrarRestaurant = ({ userToken }) => {
         setfechasND(data);
       })
       .catch((error) => console.log(error));
-  }, [actualizador]);
-  /* FIN Backend */
+    }, [formState._id]);
+    /* FIN Backend */
+    
+    //Funcion para setear los valores a los input
+  
+    const establecerDatos = async () => {
+      //If para que espere a que formState.horarior.desde exista
+      if (restaurant && restaurant.horario.desde) {
+        formik.setFieldValue("Nombre", restaurant.nombre);
+        formik.setFieldValue(
+          "CantidadMaximaComensales",
+          restaurant.maximoComensales
+        );
+        formik.setFieldValue("HorarioRestauranteDesde", restaurant.horario.desde);
+        formik.setFieldValue("HorarioRestauranteHasta", restaurant.horario.hasta);
+        formik.setFieldValue(
+          "CantidadMaximaDeReservas",
+          restaurant.reservasMaxima
+        );
+        formik.setFieldValue("TiempoEntreTurnos", restaurant.tiempoMaximoReserva);
+      }
+    };
+
+    //UseEffect que sirve para establecer los datos
+    useEffect(() => {
+      establecerDatos()  
+    }, [restaurant]);
 
   const numberToHour = (h) => {
     let aux = `${h}`.split("");
@@ -355,58 +354,6 @@ export const AdministrarRestaurant = ({ userToken }) => {
   /* VALIDACIÓN FORM RESTAURANT */
   const [errores, setErrores] = useState([]);
 
-  const validarForm = (aux) => {
-    let array = [];
-    if (formState.nombre.length <= 3) {
-      array = [...array, "Nombre demasiado corto"];
-    }
-    if (formState.nombre.length > 20) {
-      array = [...array, "Nombre demasiado largo"];
-    }
-    if (formState.maximoComensales < 1) {
-      array = [...array, "Cantidad máxima de comensales debe ser positiva"];
-    }
-    if (formState.maximoComensales == "") {
-      array = [...array, "Debe ingresar cantidad máxima de comensales"];
-    }
-    if (formState.maximoComensales > 200) {
-      array = [
-        ...array,
-        "Cantidad máxima de comensales demasiado grande (límite del plan: 200)",
-      ];
-    }
-    if (aux.horario.desde > aux.horario.hasta) {
-      array = [
-        ...array,
-        "La hora de cierre no puede ser anterior a la hora de apertura",
-      ];
-    }
-    if (formState.reservasMaxima < 1) {
-      array = [...array, "Reservas máximas por comensales debe ser positiva"];
-    }
-    if (formState.reservasMaxima == "") {
-      array = [
-        ...array,
-        "Debe ingresar cantidad máxima de reservas por usuario",
-      ];
-    }
-    if (formState.tiempoMaximoReserva < 1) {
-      array = [...array, "Tiempo de turno de una reserva debe ser positivo"];
-    }
-    if (!Number.isInteger(formState.tiempoMaximoReserva)) {
-      array = [
-        ...array,
-        "Tiempo de turno de una reserva en horas, debe ser un número entero",
-      ];
-    }
-    if (formState.tiempoMaximoReserva == "") {
-      array = [...array, "Debe ingresar tiempo máximo de una reserva"];
-    }
-    setErrores(array);
-    return array.length == 0;
-  };
-  /* FIN VALIDACIÓN FORM RESTAURANT */
-
   return (
     <>
       <Container>
@@ -417,21 +364,21 @@ export const AdministrarRestaurant = ({ userToken }) => {
           data-bs-theme={`${newTheme}`}
           noValidate
         >
-          <Form.Group className="mb-3" controlId="formOrganizacion">
+          <Form.Group className="mb-3">
             <Form.Label>Nombre del Restaurant:</Form.Label>
             <Form.Control
               type="text"
-              value={restaurant?.nombre}
-              name="nombre"
+              id="Nombre"
+              {...formik.getFieldProps("Nombre")}
               disabled
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formOrganizacion">
+          <Form.Group className="mb-3" >
             <Form.Label>Cantidad máxima de comensales:</Form.Label>
             <Form.Control
               type="text"
-              value={restaurant?.maximoComensales}
-              name="maximoComensales"
+              id="CantidadMaximaComensales"
+              {...formik.getFieldProps("CantidadMaximaComensales")}
               disabled
             />
           </Form.Group>

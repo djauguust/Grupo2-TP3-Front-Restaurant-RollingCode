@@ -5,7 +5,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
-import "./aCercaDeNosotros.css";
+import "../../styles/aCercaDeNosotros.css";
 import augusto from "./img/augusto.jpeg"
 import leo from "./img/leo.jpeg"
 import lucas from "./img/lucas.jpeg"

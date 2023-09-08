@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./administracion.css";
+import "../../styles/administracion.css";
 import { Container, Nav } from "react-bootstrap";
 import { AdministrarReservas } from "./AdministrarReservas";
 import { AdministrarUsuarios } from "./AdministrarUsuarios";

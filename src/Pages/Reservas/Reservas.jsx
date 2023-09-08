@@ -8,7 +8,7 @@ import { format, getDay, setHours } from "date-fns";
 import es from "date-fns/locale/es";
 import "react-datepicker/dist/react-datepicker.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./reserva.css";
+import "../../styles/reserva.css";
 import Image from "react-bootstrap/Image";
 import axios from "axios";
 import Swal from "sweetalert2";

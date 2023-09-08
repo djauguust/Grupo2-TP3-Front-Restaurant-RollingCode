@@ -1,5 +1,5 @@
 import Mapa from "../../components/Mapa"
-import style from "./Contacto.module.css"
+import style from "../../styles/Contacto.module.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Formulario from "./FormularioContacto/FormContacto";
 import { useTranslation } from "react-i18next";

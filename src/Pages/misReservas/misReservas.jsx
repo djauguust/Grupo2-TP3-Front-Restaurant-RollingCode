@@ -16,13 +16,8 @@ const MisReservas = () => {
 //Digo que si reservas no tiene valor me traiga todas la reservas para poder mostrarlas con el map
 
 useEffect(() => {
-
-    TraerUnaReserva(),
-    console.log(Reserva)
-                                         
-  
+    TraerUnaReserva()  
 },[])
-
 
   //Funcion para el modal
   const [showModal, setShowModal] = useState(false);
@@ -38,7 +33,6 @@ useEffect(() => {
     setSelectedReservaId("");
     setShowModal(false);
   };
-
 
   return (
     <>
