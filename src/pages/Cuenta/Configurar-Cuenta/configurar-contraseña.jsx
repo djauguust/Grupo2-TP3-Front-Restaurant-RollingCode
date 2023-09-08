@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useState } from 'react'
 import { Container, Stack, Form, Button } from 'react-bootstrap'
-import "../../../style/configurar-cuenta.css"
+import "../../../styles/configurar-cuenta.css"
 import {useFormik} from "formik";
 import * as Yup from "yup" ;
 import clsx from "clsx";
@@ -14,6 +14,8 @@ import { useTranslation } from 'react-i18next';
 const configurarContraseña = () => {
 
     const {t} = useTranslation();
+
+    const TokenPuro = localStorage.getItem("user")
 
     //Uso ref para referirme a los 3 Form.Control para guardarlos en una constante
     const CambiarTipo = useRef(null);
@@ -61,6 +63,7 @@ const configurarContraseña = () => {
         ConfirmarContraseña : ""
     }
 
+
     //Validacion de todo el formulario y acciones para cuando este listo para enviarse
     const formik = useFormik({
         initialValues: valoresIniciales,
@@ -89,7 +92,11 @@ const configurarContraseña = () => {
                             newPass : values.ConfirmarContraseña
                         }                        
                         try {
-                            const respuesta = await axios.put(`${url}/contrasenia/${usuario._id}`,ContraseñaActualizada)
+                            const respuesta = await axios.put(`${url}/contrasenia/${usuario._id}`,ContraseñaActualizada,{
+                                headers:{
+                                  "auth-token" : TokenPuro.replace(/^"(.*)"$/, '$1')
+                                }
+                              })
                             console.log(respuesta.data);
                             Swal.fire(
                               'Usuario Modificado',

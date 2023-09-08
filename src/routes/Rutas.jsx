@@ -11,7 +11,7 @@ import Error404 from "../pages/Error404/Error404";
 import Bandeja from "../components/bandeja/Bandeja";
 import { Administracion } from "../Pages/Administración/Administracion";
 import DatosCuenta from "../Pages/Cuenta/Datos-Cuenta/datos-cuenta";
-import MisReservas from "../paginas/misReservas/misReservas";
+import MisReservas from "../Pages/misReservas/misReservas"
 import { UsuariosContext } from "../context/UserContext";
 
 const Rutas = () => {

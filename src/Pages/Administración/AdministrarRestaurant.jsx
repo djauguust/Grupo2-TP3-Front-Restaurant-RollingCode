@@ -36,8 +36,10 @@ function despuesDe(obj, value) {
   }
 }
 
-export const AdministrarRestaurant = () => {
+export const AdministrarRestaurant = ({ userToken }) => {
   const { theme } = useContext(NavbarContext);
+  const useToken = { headers: { "auth-token": userToken } };
+
 
   const newTheme =
     theme === "claro" ? "light" : theme === "oscuro" ? "dark" : theme;
@@ -125,7 +127,7 @@ export const AdministrarRestaurant = () => {
           reservasMaxima: values.CantidadMaximaDeReservas,
           tiempoMaximoReserva: values.TiempoEntreTurnos
             
-            })
+            },useToken)
             .then(({ data }) => {
               console.log(data);
               setShowModalRestaurant(false);
@@ -176,47 +178,6 @@ export const AdministrarRestaurant = () => {
   }, [formState._id]);
 
 
-  const handleSubmit = () => {
-    let init = formState.horario.desde.split(":");
-    let fin = formState.horario.hasta.split(":");
-    let aux = {
-      nombre: formState.nombre,
-      maximoComensales: formState.maximoComensales,
-      horario: {
-        desde: parseInt(`${init[0]}${init[1]}`),
-        hasta: parseInt(`${fin[0]}${fin[1]}`),
-      },
-      reservasMaxima: formState.reservasMaxima,
-      tiempoMaximoReserva: formState.tiempoMaximoReserva,
-    };
-
-    if (validarForm(aux)) {
-      setButtonGuardarRestaurant(true);
-
-      axios
-        .put(`${url}/restaurant/`, aux)
-        .then(({ data }) => {
-          console.log(data);
-          setShowModalRestaurant(false);
-          Swal.fire(
-            "Restaurant modificado con éxito",
-            "Tus modificaciones ya fueron integradas exitosamente",
-            "success"
-          ).then(async (result) => {
-            actualizar();
-          });
-        })
-        .catch(({ response }) => {
-          console.log(response);
-          setShowModalRestaurant(false);
-          Swal.fire("Error con servidor", `Error: ${response}`, "warning").then(
-            async (result) => {
-              actualizar();
-            }
-          );
-        });
-    }
-  };
   const handleDelete = (id) => {
     Swal.fire({
       title: "¿Realmente deseas eliminar la fecha no disponible?",
@@ -230,7 +191,7 @@ export const AdministrarRestaurant = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${url}/fechasnd/${id}`)
+          .delete(`${url}/fechasnd/${id}`,useToken)
           .then(({ data }) => {
             actualizar();
           })
@@ -268,7 +229,7 @@ export const AdministrarRestaurant = () => {
 
   useEffect(() => {
     axios
-      .get(`${url}/restaurant/`)
+      .get(`${url}/restaurant/`,useToken)
       .then(({ data }) => {
         data[0] = {
           ...data[0],
@@ -281,7 +242,7 @@ export const AdministrarRestaurant = () => {
       })
       .catch((error) => console.log(error));
     axios
-      .get(`${url}/fechasnd/`)
+      .get(`${url}/fechasnd/`,useToken)
       .then(({ data }) => {
         setfechasND(data);
       })
@@ -330,7 +291,7 @@ export const AdministrarRestaurant = () => {
         if (despuesDe(formState.fecha, today2)) {
           //La fecha es posterior a hoy
           axios
-            .post(`${url}/fechasnd/`, aux)
+            .post(`${url}/fechasnd/`, aux,useToken)
             .then(({ data }) => {
               console.log(data);
               setButtonGuardarFecha(false);

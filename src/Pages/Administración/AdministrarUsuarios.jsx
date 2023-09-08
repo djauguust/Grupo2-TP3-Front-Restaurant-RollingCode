@@ -127,7 +127,7 @@ export const AdministrarUsuarios = ({ userToken }) => {
               nombre: values.Nombre,
               user: "",
               _id: formState._id,
-            })
+            },useToken)
             .then(({ data }) => {
               console.log(data);
               setShowModalEdit(false);
@@ -184,7 +184,7 @@ export const AdministrarUsuarios = ({ userToken }) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${url}/usuarios/${user._id}`)
+          .delete(`${url}/usuarios/${user._id}`,useToken)
           .then(({ data }) => {
             Swal.fire(
               "Eliminación exitosa",
@@ -346,7 +346,7 @@ export const AdministrarUsuarios = ({ userToken }) => {
   useEffect(() => {
     if (showReservas) {
       axios
-        .get(`${url}/reservasByUsuario/${showReservas._id}`)
+        .get(`${url}/reservasByUsuario/${showReservas._id}`,useToken)
         .then(({ data }) => {
           setReservasByUser(data);
         })

@@ -11,11 +11,12 @@ import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import { NavbarContext } from "../../../context/NavbarContext";
-import './modalreservas.css'
+//import './modalreservas.css'
 
 const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
 
   const { theme } = useContext(NavbarContext);
+  const TokenPuro = localStorage.getItem("user")
 
   const newTheme =
     theme === "claro" ? "light" : theme === "oscuro" ? "dark" : theme;
@@ -107,7 +108,11 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
           const Url = `${url}/reservas/${selectedReservaId._id}`;
           //Peticion para editar la reserva
           axios
-            .put(Url, Reserva)
+            .put(Url, Reserva,{
+              headers:{
+                "auth-token" : TokenPuro.replace(/^"(.*)"$/, '$1')
+              }
+            } )
             .then((Response) => {
               
               onCloseModal();
@@ -142,7 +147,6 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
   const EstablecerDatos = async () => {
     if (selectedReservaId) {
       const Fecha = (await parsearFecha(selectedReservaId.fecha)) || "";
-      console.log("Fecha es", Fecha);
       const Hora = (await parsearHora(selectedReservaId.hora)) || "";
       const CantidadDePersonas = (await selectedReservaId.comensales) || "";
       formik.setFieldValue("FechaReserva", Fecha);

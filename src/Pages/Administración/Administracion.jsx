@@ -93,7 +93,7 @@ export const Administracion = () => {
           </Nav>
           <Container fluid>
             {showInterface === 0 && (
-              <AdministrarReservas isDoorman={isDoorman} />
+              <AdministrarReservas isDoorman={isDoorman} userToken={userToken} />
             )}
             {!isDoorman && (
               <>
@@ -101,7 +101,7 @@ export const Administracion = () => {
                   <AdministrarUsuarios userToken={userToken} />
                 )}
                 {showInterface === 2 && <BandejaDeEntrada />}
-                {showInterface === 3 && <AdministrarRestaurant />}
+                {showInterface === 3 && <AdministrarRestaurant userToken={userToken} />}
               </>
             )}
           </Container>

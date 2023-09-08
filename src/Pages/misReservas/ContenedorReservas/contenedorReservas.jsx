@@ -9,6 +9,9 @@ const contenedorReservas = ({ onShowModal, Reserva }) => {
 
   const url = import.meta.env.VITE_API;
 
+  const TokenPuro = localStorage.getItem("user")
+
+
   const {TraerUnaReserva} = useContext(ReservasContexto)
   
   //Sirve para parasr el id al modal 
@@ -29,7 +32,11 @@ const contenedorReservas = ({ onShowModal, Reserva }) => {
       }).then((result) => {
 
         if (result.isConfirmed) {
-          axios.delete(`${url}/reservas/${Reserva._id}`)
+          axios.delete(`${url}/reservas/${Reserva._id}`,{
+            headers:{
+              "auth-token" : TokenPuro.replace(/^"(.*)"$/, '$1')
+            }
+          })
           TraerUnaReserva()
           Swal.fire(
             'Reserva eliminada con exito!',

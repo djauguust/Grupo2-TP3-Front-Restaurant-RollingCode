@@ -16,8 +16,10 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { NavbarContext } from "../../context/NavbarContext";
 
-export const AdministrarReservas = ({ isDoorman = false }) => {
+export const AdministrarReservas = ({ isDoorman = false , userToken }) => {
   const { theme } = useContext(NavbarContext);
+  const useToken = { headers: { "auth-token": userToken } };
+
 
   const newTheme =
     theme === "claro" ? "light" : theme === "oscuro" ? "dark" : theme;
@@ -64,7 +66,7 @@ export const AdministrarReservas = ({ isDoorman = false }) => {
 
   useEffect(() => {
     axios
-      .get(`${url}/reservas/${formState.date}`)
+      .get(`${url}/reservas/${formState.date}`,useToken)
       .then(({ data }) => {
         setReservaToShow(data);
       })
@@ -73,7 +75,7 @@ export const AdministrarReservas = ({ isDoorman = false }) => {
 
   useEffect(() => {
     axios
-      .get(`${url}/reservas/${today2}`)
+      .get(`${url}/reservas/${today2}`,useToken)
       .then(({ data }) => {
         setReservasToday(data);
       })
@@ -95,7 +97,7 @@ export const AdministrarReservas = ({ isDoorman = false }) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${url}/reservas/${reserva._id}`)
+          .delete(`${url}/reservas/${reserva._id}`,useToken)
           .then(({ data }) => {
             Swal.fire(
               "Eliminación exitosa",
@@ -126,7 +128,7 @@ export const AdministrarReservas = ({ isDoorman = false }) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         axios
-          .put(`${url}/reservas/usada/${reserva._id}`, { fueUsada: true })
+          .put(`${url}/reservas/usada/${reserva._id}`, { fueUsada: true },useToken)
           .then(({ data }) => {
             console.log(data);
             /* setShowModalEdit(false); */
@@ -206,7 +208,7 @@ export const AdministrarReservas = ({ isDoorman = false }) => {
     setButtonGuardarReserva(true);
     if (validarForm()) {
       axios
-        .put(`${url}/reservas/${formState._id}`, formState)
+        .put(`${url}/reservas/${formState._id}`, formState,useToken)
         .then(({ data }) => {
           console.log(data);
           setShowModalEdit(false);

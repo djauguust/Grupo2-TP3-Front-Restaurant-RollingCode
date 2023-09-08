@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Button, Container, Form, Stack } from 'react-bootstrap'
-import "../../../style/configurar-cuenta.css"
+import "../../../styles/configurar-cuenta.css"
 import {useFormik} from "formik";
 import * as Yup from "yup" ;
 import clsx from "clsx";
@@ -16,8 +16,8 @@ import { useTranslation } from 'react-i18next';
 const configurarCuenta = () => {
 
     const {t} = useTranslation();
-    
 
+    const TokenPuro = localStorage.getItem("user")
 
     const { traerUnUsuario, usuario, Token, pasarStates } = useContext(UsuariosContext);
     const { setMostrarDatos, setMostrarContraseña, setMostrarConfigurarPerfil} = pasarStates
@@ -100,7 +100,11 @@ const configurarCuenta = () => {
                     }
                     try {
                         //Solicitud para editar el usuario
-                        const respuesta = await axios.put(`${url}/usuarios/${usuario._id}`,usuarioActualizado)
+                        const respuesta = await axios.put(`${url}/usuarios/${usuario._id}`,usuarioActualizado,{
+                            headers:{
+                              "auth-token" : TokenPuro.replace(/^"(.*)"$/, '$1')
+                            }
+                          })
                         console.log(respuesta.data);
                         Swal.fire(
                             'Usuario Modificado',

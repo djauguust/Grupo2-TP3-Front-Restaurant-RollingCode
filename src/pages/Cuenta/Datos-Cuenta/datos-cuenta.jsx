@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-
 import ConfigurarContraseña from "../Configurar-Cuenta/configurar-contraseña";
 import { Col, Container, Row, Stack } from "react-bootstrap";
 import ConfigurarCuenta from "../Configurar-Cuenta/configurar-cuenta";
 import { UsuariosContext } from "../../../context/UserContext";
 import { useTranslation } from "react-i18next";
+import "../../../styles/configurar-cuenta.css"
 
 const DatosCuenta = () => {
   const { t } = useTranslation();

@@ -26,7 +26,11 @@ const Reservas = () => {
   let date = new Date();
 
   const {Token} = useContext(UsuariosContext)
-   
+  
+  const TokenPuro = localStorage.getItem("user")
+
+
+
   const Url = import.meta.env.VITE_API
 
   //Estado de fecha seleccionada
@@ -140,8 +144,22 @@ const Reservas = () => {
         };
 
         //Get para saber si el usuario ya realizo 2 reservas
-        const reservationByUser = await axios.get(`${url}//reservasByUsuario/${Token.id}`)
-        const userReservation = reservationByUser.data
+
+        let userReservation = [];
+
+        try {
+          const reservationByUser = await axios.get(`${url}/reservasByUsuario/${Token.id}`,{
+            headers:{
+              "auth-token" : TokenPuro.replace(/^"(.*)"$/, '$1')
+            }
+          })
+            userReservation = reservationByUser.data 
+        } catch (error) {
+          console.log(error);
+        }
+
+
+        console.log(userReservation);
 
         if(userReservation.length >= 2) {
           Swal.fire(
@@ -170,6 +188,10 @@ const Reservas = () => {
             hora: Reserva.Hora,
             comensales: Reserva.CantidadDePersonas,
              usuario: Token.id
+          },{
+            headers:{
+              "auth-token" : TokenPuro.replace(/^"(.*)"$/, '$1')
+            }
           });
 
           
@@ -198,7 +220,7 @@ const Reservas = () => {
 
   //Funcion para formatear fecha
   const fechaFormateada = (date) => {
-    return format(date, "dd-MM-yyyy", {
+    return format(date, "yyyy-MM-dd", {
       locale: es,
     });
   };
