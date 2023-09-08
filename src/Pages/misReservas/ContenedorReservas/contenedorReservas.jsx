@@ -1,16 +1,24 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, Col, Stack } from 'react-bootstrap'
 import { ReservasContexto } from '../../../context/ReservasContexto'
 import axios from 'axios'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
+import { NavbarContext } from '../../../context/NavbarContext'
 
 
 const contenedorReservas = ({ onShowModal, Reserva }) => {
 
   const url = import.meta.env.VITE_API;
 
+  const { theme } = useContext(NavbarContext);
+
+  const newTheme =
+    theme === "claro" ? "light" : theme === "oscuro" ? "dark" : theme;
+
+
   const TokenPuro = localStorage.getItem("user")
 
+  const [valorExtero,setValorExterno] = useState(false)
 
   const {TraerUnaReserva} = useContext(ReservasContexto)
   
@@ -18,6 +26,14 @@ const contenedorReservas = ({ onShowModal, Reserva }) => {
     const clickEditar = () => {
         onShowModal(Reserva)
     }
+
+
+    useEffect(() => {
+        TraerUnaReserva()
+        setValorExterno(false)
+      },[valorExtero])
+
+
 
     const EliminarDatos = () =>{
       Swal.fire({
@@ -37,7 +53,7 @@ const contenedorReservas = ({ onShowModal, Reserva }) => {
               "auth-token" : TokenPuro.replace(/^"(.*)"$/, '$1')
             }
           })
-          TraerUnaReserva()
+          setValorExterno(true)
           Swal.fire(
             'Reserva eliminada con exito!',
             'Su reserva fue eliminada exitosamente.',
@@ -51,7 +67,7 @@ const contenedorReservas = ({ onShowModal, Reserva }) => {
   return (
     <>
         <Col xs={12} md={6} lg={6}>
-              <div className="Contenedor-Reservas">
+              <div className={`Contenedor-Reservas custom-${newTheme}`}>
                 <Stack gap={3}>
                   <div className="Contenedor-Fecha">
                     <h3 className='TituloReservaParaDia'>Reserva para el dia {Reserva.fecha}</h3>

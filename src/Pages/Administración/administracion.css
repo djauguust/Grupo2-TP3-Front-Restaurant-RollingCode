@@ -1,5 +1,13 @@
 /* ADMINISTRACIÓN */
 
+.bi{
+  font-size: initial;
+}
+
+.textoBotonUsuario{
+  font-size: 3vh;
+}
+
 .about-title {
   margin-top: 150px;
   text-align: center;
@@ -22,16 +30,16 @@
   color: white;
 }
 
-.me-3 {
+/* .me-3 {
   height: 55px;
   width: 130px;
-}
+} */
 
-.btn-trash {
+/* .btn-trash {
   height: 55px;
   width: 138px;
   margin-bottom: 8px;
-}
+} */
 
 .btn-visto {
   background-color: #ffeba7;
