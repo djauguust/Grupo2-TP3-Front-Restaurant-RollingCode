@@ -1,5 +1,5 @@
 import axios from "axios";
-import "./Administracion.css";
+import "../../styles/administracion.css";
 import React, { useEffect, useState } from "react";
 import { Badge, Button, Container, Modal, Table } from "react-bootstrap";
 import Swal from "sweetalert2";

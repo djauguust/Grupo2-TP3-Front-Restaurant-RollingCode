@@ -382,14 +382,14 @@ export const AdministrarRestaurant = ({ userToken }) => {
               disabled
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formOrganizacion">
+          <Form.Group className="mb-3">
             <Form.Label>Horarios del Restaurant:</Form.Label>
             <Row>
               <Col>
                 <Form.Control
                   type="time"
-                  value={restaurant?.horario.desde}
-                  name="desde"
+                  id="HorarioRestauranteDesde"
+                  {...formik.getFieldProps("HorarioRestauranteDesde")}
                   disabled
                 />
               </Col>
@@ -397,28 +397,28 @@ export const AdministrarRestaurant = ({ userToken }) => {
               <Col>
                 <Form.Control
                   type="time"
-                  value={restaurant?.horario.hasta}
-                  name="hasta"
+                  id="HorarioRestauranteHasta"
+                  {...formik.getFieldProps("HorarioRestauranteHasta")}
                   disabled
                 />
               </Col>
             </Row>
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formOrganizacion">
+          <Form.Group className="mb-3">
             <Form.Label>Cantidad máxima de reservas por Usuario:</Form.Label>
             <Form.Control
               type="text"
-              value={restaurant?.reservasMaxima}
-              name="reservasMaxima"
+              id="CantidadMaximaDeReservas"
+              {...formik.getFieldProps("CantidadMaximaDeReservas")}
               disabled
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formOrganizacion">
+          <Form.Group className="mb-3">
             <Form.Label>Tiempo máximo de cada turno: (en horas)</Form.Label>
             <Form.Control
               type="text"
-              value={restaurant?.tiempoMaximoReserva}
-              name="tiempoMaximoReserva"
+              id="TiempoEntreTurnos"
+              {...formik.getFieldProps("TiempoEntreTurnos")}
               disabled
             />
           </Form.Group>

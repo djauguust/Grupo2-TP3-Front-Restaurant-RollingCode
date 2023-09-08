@@ -12,7 +12,7 @@ import {
   Row,
   Table,
 } from "react-bootstrap";
-import "./Administracion.css";
+import "../../styles/administracion.css";
 import { FormSearch } from "./components/FormSearch";
 import { useForm } from "./hooks/useForm";
 import Swal from "sweetalert2";
