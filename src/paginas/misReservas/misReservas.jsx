@@ -45,7 +45,7 @@ const MisReservas = () => {
       </div>
       <div className="Ubicar-Contenedor-Reservas">
         <Container className="d-flex justify-content-center">
-          <Row>
+          <Row className="rowDeMisReservas">
             {/*Map para que recorra el id y me muestre las reservas*/}
           {Reserva &&
             Reserva.map((Reserva) => (

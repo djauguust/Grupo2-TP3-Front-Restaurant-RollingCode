@@ -5,7 +5,7 @@
 
 /* Resolución para Pantallas de Tablet */
 @media (min-width: 768px) and (max-width: 912px) {
-    .row{
+    .rowDeMisReservas{
         display: block !important;
     }
     .Contenedor-Reservas{

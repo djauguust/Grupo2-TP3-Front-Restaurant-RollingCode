@@ -195,7 +195,7 @@ export const AdministrarReservas = ({ isDoorman = false , userToken }) => {
     setShowModalEdit(true);
     let aux = {
       _id: reserva._id,
-      date: today2,
+      date: formState.date,
       hora: reserva.hora,
       fecha: reserva.fecha,
       comensales: reserva.comensales,

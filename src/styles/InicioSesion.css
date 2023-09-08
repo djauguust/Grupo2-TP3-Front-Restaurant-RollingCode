@@ -119,6 +119,25 @@ overflow-x: hidden;
   margin-right: 10px;
 }
 
+.btn-btn-light {  
+  width: 1px;
+}
+
+.btn-btn-light:hover {
+  background-color: #ffeba7;
+}
+
+.btn-btn-light:hover i {
+  color: white;
+}
+
+
+.bi  {
+  font-size: large;
+}
+
+
+
 .text-after-input {
   color: #fff;
 }

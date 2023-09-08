@@ -7,7 +7,7 @@
 }
 
 .reservation-container {
-  width: 75%;
+  width: 85%;
   padding-top: 40px;
   padding-bottom: 70px;
   padding-left: 40px;
@@ -67,9 +67,8 @@
   width: 100%;
 } 
 
-@media screen and (max-width: 768px) {
-  .reservation-container {
-    padding-top: 30px;
+@media (min-width: 767px) {
+  .reservation-boton{
+    margin-left: 5px;
   }
 }
-

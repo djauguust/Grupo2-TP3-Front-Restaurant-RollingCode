@@ -18,6 +18,8 @@ function InicioSesion() {
   const { getUsuarios, funcionPrueba,traerUnUsuario, Token, usuarios,TokenPuro } = useContext(UsuariosContext);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
+  
 
   //Url de un back de prueba para que la funcion de logueo quede guardada para cuando usemos el back
   /* const url = "http://localhost:8001/api/usuarios/login"; */
@@ -189,14 +191,10 @@ function InicioSesion() {
             </Form.Group>
 
             <ButtonDefault namebtn="ingresar" TipoBoton="sumbit" />
-
-            {/* <button className="btn mt-3 mb-3" type="submit">
-              Ingresar
-            </button>  */}
+        
           </Form>
           <br />
 
-          {/* Botón link 'olvidaste tu contrasenia' */}
           <div className="mb-3 text-center">
             <Link to={"/registro"} className="link ">
               ¿No tienes cuenta? ¡Crea una!
