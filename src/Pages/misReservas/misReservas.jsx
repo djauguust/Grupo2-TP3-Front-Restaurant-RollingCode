@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Button, Col, Container, Row, Stack } from "react-bootstrap";
-import { ReservasContexto } from "../../contexto/ReservasContexto";
+import { ReservasContexto } from "../../context/ReservasContexto";
 import "../../styles/misReservas.css"
 import ContenedorReservas from "./ContenedorReservas/contenedorReservas";
 import ModalReservas from "./ModalReservas/modalReservas";

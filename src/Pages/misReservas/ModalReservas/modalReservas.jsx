@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-import { ReservasContexto } from "../../../contexto/ReservasContexto";
+import { ReservasContexto } from "../../../context/ReservasContexto";
 import { format, getDay, parse, parseISO, setHours, setMinutes } from "date-fns";
 import DatePicker from "react-datepicker";
 import { useFormik } from "formik";
@@ -11,7 +11,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import { NavbarContext } from "../../../context/NavbarContext";
-//import './modalreservas.css'
+import './modalreservas.css'
 
 const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
 

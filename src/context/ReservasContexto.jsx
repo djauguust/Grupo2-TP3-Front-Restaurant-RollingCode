@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import jwt_decode from "jwt-decode";
-import { UsuariosContext } from '../context/UserContext';
+import { UsuariosContext } from './UserContext';
 
 
 export const ReservasContexto = createContext()

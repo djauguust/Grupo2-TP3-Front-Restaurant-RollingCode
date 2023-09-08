@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Button, Col, Stack } from 'react-bootstrap'
-import { ReservasContexto } from '../../../contexto/ReservasContexto'
+import { ReservasContexto } from '../../../context/ReservasContexto'
 import axios from 'axios'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 

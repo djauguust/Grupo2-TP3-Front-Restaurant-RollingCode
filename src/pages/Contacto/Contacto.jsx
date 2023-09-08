@@ -1,7 +1,7 @@
 import Mapa from "../../components/Mapa"
 import style from "./Contacto.module.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Formulario from "../../components/FormContacto";
+import Formulario from "./FormularioContacto/FormContacto";
 import { useTranslation } from "react-i18next";
 
 const Contacto = () =>{
