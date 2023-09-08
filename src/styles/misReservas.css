@@ -52,3 +52,7 @@
 .modal-backdrop{
     z-index: 1 !important;
 }
+
+.custom-dark{
+    background-color: #191919;
+}
