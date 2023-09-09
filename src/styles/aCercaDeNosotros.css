@@ -20,6 +20,13 @@
 .about-card:hover{
   background-color: #B08D59;
 }
+.about-card-body{
+  text-align: center;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+  width: 100%;
+}
 .about-img{
   margin-top: 20px;
   width: 80%;

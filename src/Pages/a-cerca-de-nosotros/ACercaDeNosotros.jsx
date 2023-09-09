@@ -34,12 +34,10 @@ const ACercaDeNosotros = () => {
                 src={augusto}
                 roundedCircle
               />
-              <Card.Body className="text-center">
-                <Card.Title>Nombre</Card.Title>
+              <Card.Body className="about-card-body">
+                <Card.Title>Augusto</Card.Title>
                 <Card.Text>
-                  Descripcion breve. Lorem ipsum dolor sit amet consectetur
-                  adipisicing elit. Dicta non voluptate dolore dolores unde
-                  similique sequi assumenda ducimus laudantium enim.
+                Hola, soy Augusto.Mi principal objetivo es mantenernos en el camino correcto y asegurarme de que trabajemos de manera ágil y eficiente. Creo en la importancia de la colaboración y la comunicación constante para alcanzar nuestros objetivos. Estoy emocionado por ser parte de este proyecto.
                 </Card.Text>
                 <div>
                   <a href="">
@@ -65,12 +63,10 @@ const ACercaDeNosotros = () => {
                 src={leo}
                 roundedCircle
               />
-              <Card.Body className="text-center">
-                <Card.Title>Nombre</Card.Title>
+              <Card.Body className="about-card-body">
+                <Card.Title>Leo</Card.Title>
                 <Card.Text>
-                  Descripcion breve. Lorem ipsum dolor sit amet consectetur
-                  adipisicing elit. Dicta non voluptate dolore dolores unde
-                  similique sequi assumenda ducimus laudantium enim.
+                Hola, soy Leo. Mi enfoque es el apoyo constante al equipo. Siempre estoy dispuesto a ayudar y aportar mi experiencia en cualquier área que se necesite. Creo que el compañerismo y la colaboración son esenciales para lograr nuestros objetivos.
                 </Card.Text>
                 <div>
                   <a href="">
@@ -96,12 +92,10 @@ const ACercaDeNosotros = () => {
                 src={lucas}
                 roundedCircle
               />
-              <Card.Body className="text-center">
-                <Card.Title>Nombre</Card.Title>
+              <Card.Body className="about-card-body">
+                <Card.Title>Lucas</Card.Title>
                 <Card.Text>
-                  Descripcion breve. Lorem ipsum dolor sit amet consectetur
-                  adipisicing elit. Dicta non voluptate dolore dolores unde
-                  similique sequi assumenda ducimus laudantium enim.
+                ¡Hola! Soy Lucas y me encanta codificar. Tengo un enfoque meticuloso para resolver problemas y una pasión por el desarrollo web. Mi objetivo es asegurarme de que nuestra página web sea técnicamente sólida y ofrezca una experiencia excepcional a los usuarios.
                 </Card.Text>
                 <div>
                   <a href="">
@@ -127,12 +121,10 @@ const ACercaDeNosotros = () => {
                 src={mauro}
                 roundedCircle
               />
-              <Card.Body className="text-center">
-                <Card.Title>Nombre</Card.Title>
+              <Card.Body className="about-card-body">
+                <Card.Title>Mauro</Card.Title>
                 <Card.Text>
-                  Descripcion breve. Lorem ipsum dolor sit amet consectetur
-                  adipisicing elit. Dicta non voluptate dolore dolores unde
-                  similique sequi assumenda ducimus laudantium enim.
+                ¡Hola, soy Mauro! Mi energía positiva es contagiosa, y siempre trato de mantener un ambiente de trabajo optimista. Creo que el trabajo en equipo y la actitud positiva son clave para superar cualquier obstáculo.
                 </Card.Text>
                 <div>
                   <a href="">
@@ -158,12 +150,10 @@ const ACercaDeNosotros = () => {
                 src={pedro}
                 roundedCircle
               />
-              <Card.Body className="text-center">
-                <Card.Title>Nombre</Card.Title>
+              <Card.Body className="about-card-body">
+                <Card.Title>Pedro</Card.Title>
                 <Card.Text>
-                  Descripcion breve. Lorem ipsum dolor sit amet consectetur
-                  adipisicing elit. Dicta non voluptate dolore dolores unde
-                  similique sequi assumenda ducimus laudantium enim.
+                Soy Pedro. Mi pasión es crear experiencias visuales impactantes. Cada elemento visual en nuestra página web es cuidadosamente diseñado para atraer y cautivar a los visitantes. Mi objetivo es que cada detalle sea estéticamente atractivo.
                 </Card.Text>
                 <div>
                   <a href="">
@@ -188,12 +178,10 @@ const ACercaDeNosotros = () => {
                 src={lucasy}
                 roundedCircle
               />
-              <Card.Body className="text-center">
+              <Card.Body className="about-card-body">
                 <Card.Title>Nombre</Card.Title>
                 <Card.Text>
-                  Descripcion breve. Lorem ipsum dolor sit amet consectetur
-                  adipisicing elit. Dicta non voluptate dolore dolores unde
-                  similique sequi assumenda ducimus laudantium enim.
+                  Hola soy lucasy
                 </Card.Text>
                 <div>
                   <a href="">
