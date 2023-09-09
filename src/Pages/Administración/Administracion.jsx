@@ -9,6 +9,7 @@ import Error404 from "../Error404/Error404";
 import { useEffect } from "react";
 import { useContext } from "react";
 import { UsuariosContext } from "../../context/UserContext";
+import { useTranslation } from "react-i18next";
 
 export const Administracion = () => {
   const [showInterface, setShowInterface] = useState(0); // Nos dice que interfaz debe mostrar
@@ -41,6 +42,8 @@ export const Administracion = () => {
       setTokenValidate(false);
     }
   }, [usuario]);
+
+  const {t} = useTranslation();
 
   return (
     <>
