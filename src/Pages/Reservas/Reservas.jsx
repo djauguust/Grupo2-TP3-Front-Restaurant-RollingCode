@@ -12,26 +12,21 @@ import "../../styles/reserva.css";
 import Image from "react-bootstrap/Image";
 import axios from "axios";
 import Swal from "sweetalert2";
-import jwt_decode from "jwt-decode"
+import jwt_decode from "jwt-decode";
 import { use } from "i18next";
 import { UsuariosContext } from "../../context/UserContext";
 import { useTranslation } from "react-i18next";
 
-
-
 const Reservas = () => {
-
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   let date = new Date();
 
-  const {Token} = useContext(UsuariosContext)
-  
-  const TokenPuro = localStorage.getItem("user")
+  const { Token } = useContext(UsuariosContext);
 
+  const TokenPuro = localStorage.getItem("user");
 
-
-  const Url = import.meta.env.VITE_API
+  const Url = import.meta.env.VITE_API;
 
   //Estado de fecha seleccionada
   const [dates, setDates] = useState(null);
@@ -43,44 +38,51 @@ const Reservas = () => {
   //Estado para deshabilitar inputs
   const [diseablePeople, setDiseablePeople] = useState(false);
 
-
   //Estado para filtrar horarios disponibles
   const [filterHour, setFilterHour] = useState([]);
 
   //Estado para filtrar cant de comensales dispnibles
   const [filterPeople, setFilterPeople] = useState([]);
 
-
-
-
   //Get para solicitar si una fecha esta disponible o no
   useEffect(() => {
-    if (dates) {
-      axios
-        .get(`http://localhost:3000/reservas?fecha=${dates}`)
-        .then((response) => {
-          setFilterHour(response.data);
-          
-        })
-        .catch((error) => {
-          
-        });
-    }
+    const fetchData = async () => {
+      if (dates) {
+        try {
+          const respone = await axios.get(`${Url}/${dates}`);
+          setFilterHour(respone.data);
+        } catch (error) {
+          console.error("Error al cargar datos:", error);
+        }
+      }
+    };
   }, [dates]);
-  const url = import.meta.env.VITE_API
+
+  // useEffect(() => {
+  //   if (dates) {
+  //     axios
+  //       .get(`http://localhost:3000/reservas?fecha=${dates}`)
+  //       .then((response) => {
+  //         setFilterHour(response.data);
+
+  //       })
+  //       .catch((error) => {
+
+  //       });
+  //   }
+  // }, [dates]);
+
+  const url = import.meta.env.VITE_API;
   //Get para solicitar la cantidad de comensales disponibles
   useEffect(() => {
     const fetchData = async () => {
       if (time) {
         try {
-          const response = await axios.get(
-            `${url}/${dates}/${time}`
-          );
+          const response = await axios.get(`${url}/${dates}/${time}`);
           // const response = await axios.get(`http://localhost:3000/reservas`);
           setFilterPeople(response.data);
-          
         } catch (error) {
-          
+          console.error("Error al cargar datos:", error);
         }
       }
     };
@@ -92,18 +94,15 @@ const Reservas = () => {
     setTime(null);
     formik.setFieldValue("ReservationTime", ""); // Limpio input de tiempo
     formik.setFieldValue("People", ""); // Limpio input de personas
-    formik.touched.ReservationTime = false
-    formik.touched.People = false
-    
+    formik.touched.ReservationTime = false;
+    formik.touched.People = false;
   };
 
   //Funcion para resetear valores de input people
   const resetInputsFromTime = (date) => {
     formik.setFieldValue("People", ""); // Limpio input de personas
-    formik.touched.People = false
-    
+    formik.touched.People = false;
   };
-
 
   //Yup
   const validationSchema = Yup.object().shape({
@@ -114,7 +113,7 @@ const Reservas = () => {
     People: Yup.number()
       .required("La cantidad de personas es requerida")
       //.max(filterPeople[0],`Quedan disponibles ${filterPeople[0]} lugares en este horario`)
-      
+
       .min(1, "Debes elegir al menos 1 persona"),
   });
 
@@ -134,8 +133,6 @@ const Reservas = () => {
 
     //Submit
     onSubmit: async (values, { resetForm }) => {
-      
-
       try {
         const Reserva = {
           Fecha: fechaFormateada(values.ReservationDate),
@@ -148,20 +145,22 @@ const Reservas = () => {
         let userReservation = [];
 
         try {
-          const reservationByUser = await axios.get(`${url}/reservasByUsuario/${Token.id}`,{
-            headers:{
-              "auth-token" : TokenPuro.replace(/^"(.*)"$/, '$1')
+          const reservationByUser = await axios.get(
+            `${url}/reservasByUsuario/${Token.id}`,
+            {
+              headers: {
+                "auth-token": TokenPuro.replace(/^"(.*)"$/, "$1"),
+              },
             }
-          })
-            userReservation = reservationByUser.data 
+          );
+          userReservation = reservationByUser.data;
         } catch (error) {
           console.log(error);
         }
 
-
         console.log(userReservation);
 
-        if(userReservation.length >= 2) {
+        if (userReservation.length >= 2) {
           Swal.fire(
             "Error",
             "El usuario ya ha realizado dos reservas.",
@@ -183,18 +182,20 @@ const Reservas = () => {
         });
         //Post a db
         if (result.isConfirmed) {
-          const response = await axios.post(`${Url}/reservas`, {
-            fecha: Reserva.Fecha,
-            hora: Reserva.Hora,
-            comensales: Reserva.CantidadDePersonas,
-             usuario: Token.id
-          },{
-            headers:{
-              "auth-token" : TokenPuro.replace(/^"(.*)"$/, '$1')
+          const response = await axios.post(
+            `${Url}/reservas`,
+            {
+              fecha: Reserva.Fecha,
+              hora: Reserva.Hora,
+              comensales: Reserva.CantidadDePersonas,
+              usuario: Token.id,
+            },
+            {
+              headers: {
+                "auth-token": TokenPuro.replace(/^"(.*)"$/, "$1"),
+              },
             }
-          });
-
-          
+          );
 
           Swal.fire(
             "Reserva Guardada",
@@ -209,10 +210,9 @@ const Reservas = () => {
             "Tu reserva no ha sido guardada.",
             "info"
           );
-          resetForm(); 
+          resetForm();
         }
       } catch (error) {
-        
         Swal.fire("Error", "Hubo un problema al guardar la reserva.", "error");
       }
     },
@@ -300,7 +300,7 @@ const Reservas = () => {
                     minDate={filterMinDay()}
                     maxDate={filterMaxDay()}
                     dateFormat="dd/MM/yyyy"
-                    placeholderText={t('eligeFecha')}
+                    placeholderText={t("eligeFecha")}
                     className={clsx(
                       "form-control input-reservation",
                       {
@@ -350,19 +350,19 @@ const Reservas = () => {
                       (hour) => new Date(`2000-01-01 ${hour}`)
                     )}
                     // instancio cada elemento de mi array para setearle un formato date
-                    placeholderText={t('eligeHora')}
+                    placeholderText={t("eligeHora")}
                     timeClassName={handleColor}
                     className={clsx(
                       "form-control input-reservation",
                       {
                         "is-invalid":
                           formik.touched.ReservationTime &&
-                          formik.errors.ReservationTime ,
+                          formik.errors.ReservationTime,
                       },
                       {
                         "is-valid":
                           formik.touched.ReservationTime &&
-                          !formik.errors.ReservationTime
+                          !formik.errors.ReservationTime,
                       }
                     )}
                   />
@@ -380,7 +380,7 @@ const Reservas = () => {
               <Col xs={12} md={3} className="p-0">
                 <Form.Group controlId="people">
                   <Form.Control
-                    placeholder={t('numeroPersonas')}
+                    placeholder={t("numeroPersonas")}
                     onChange={(e) => {
                       formik.setFieldValue("People", e.target.value);
                     }}
@@ -392,13 +392,11 @@ const Reservas = () => {
                       "form-control input-reservation",
                       {
                         "is-invalid":
-                          formik.touched.People &&
-                          formik.errors.People 
+                          formik.touched.People && formik.errors.People,
                       },
                       {
                         "is-valid":
-                          formik.touched.People &&
-                          !formik.errors.People 
+                          formik.touched.People && !formik.errors.People,
                       }
                     )}
                   />
@@ -418,7 +416,7 @@ const Reservas = () => {
                   variant="primary"
                   type="submit"
                 >
-                  {t('reservar')}
+                  {t("reservar")}
                 </Button>
               </Col>
             </Row>
