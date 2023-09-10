@@ -1,6 +1,6 @@
 
 .container{
-    background-image: url(../../../public/contactofondo.jpg);
+    /* background-image: url(https://live.staticflickr.com/65535/53172155089_1cdc30da93_o.jpg); */
     margin-top: 22vh;
     background-size: cover;
     background-position: center;
@@ -14,7 +14,7 @@
     display: grid;
     grid-template-columns: 50% 50%;
     /*background-color: rgba(51, 51, 51, 0.76);*/
-    background-image: url(../../../public/contactoTexturaMadera.avif);
+    background-image: url(https://live.staticflickr.com/65535/53178005747_53b8919e21_o.jpg);
     border-radius: 30px;
     box-shadow: 10px 10px 41px 0px rgba(0,0,0,0.75);
 }

@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import "../../styles/InicioSesion.css";
 import ButtonDefault from "../../components/ButtonDefault";
-import logo from "../../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Container, Form } from "react-bootstrap";
 import { useFormik } from "formik";
@@ -29,7 +28,16 @@ function InicioSesion() {
   
   useEffect(() => {
     if (isLoggedIn === true) {
-      toast("usuario logueado con exito");
+      toast.success('Usuario logueado con exito', {
+        style: {
+          border: '1px solid #B08D59',
+          color: '#B08D59',
+        },
+        iconTheme: {
+          primary: '#B08D59',
+          secondary: '#FFFAEE',
+        },
+      });
       navigate("/");
     }
   },[isLoggedIn]);
@@ -106,7 +114,7 @@ function InicioSesion() {
       <Container className="ubicarCarta">
         <div className="Carta mt-3 mb-3 text-center">
           <h3 className="mt-3 TituloInicioSesion">Bienvenido!</h3>
-          <img src={logo} alt="Logo de la pagina" className="img-fluid" />
+          <img src={"https://live.staticflickr.com/65535/53172154974_d7af7b89f9_o.png"} alt="Logo de la pagina" className="img-fluid" />
           {UsuarioLogueadoError === true && (
             <div className="d-flex justify-content-center">
               <span role="alert" className="text-danger">
@@ -121,7 +129,7 @@ function InicioSesion() {
               </Form.Label>
               <div className="input-group">
                 <img
-                  src="/src/assets/iconoCorreo.png"
+                  src="https://live.staticflickr.com/65535/53171958241_c5697c9a28_o.png"
                   alt="Imagen"
                   className="correo-icono"
                 />
@@ -157,7 +165,7 @@ function InicioSesion() {
               </Form.Label>
               <div className="input-group">
                 <img
-                  src="/src/assets/contraseña.png"
+                  src="https://live.staticflickr.com/65535/53171369387_6ff310ac34_o.png"
                   alt="Imagen"
                   className="contraseña-icono"
                 />

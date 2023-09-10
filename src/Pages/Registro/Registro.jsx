@@ -1,17 +1,18 @@
 import { useState } from "react";
 import "../../styles/InicioSesion.css";
 import ButtonDefault from "../../components/ButtonDefault";
-import logo from "../../assets/logo.png";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { Container, Form } from "react-bootstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import clsx from "clsx";
 import Swal from "sweetalert2";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 function Registro() {
   const url = import.meta.env.VITE_API;
+  const navigate = useNavigate()
 
   //Expresiones para validar
   const soloLetras = /^[a-zA-Z ]+$/;
@@ -93,11 +94,17 @@ function Registro() {
               .post(`${url}/usuarios`, Usuario)
               .then((response) => {
                 
-                Swal.fire(
-                  "Usuario credo con exito",
-                  "Tus datos ya fueron ingresados exitosamente",
-                  "success"
-                );
+                toast.success('Usuario registrado con exito', {
+                  style: {
+                    border: '1px solid #B08D59',
+                    color: '#B08D59',
+                  },
+                  iconTheme: {
+                    primary: '#B08D59',
+                    secondary: '#FFFAEE',
+                  },
+                });
+                navigate(("/Login"))
               })
               .catch((error) => {
                 Swal.fire(
@@ -124,14 +131,14 @@ function Registro() {
         <div className="Carta text-center">
           <h3 className="mt-3">No tienes cuenta?</h3>
           <h3 className="">Create una!</h3>
-          <img src={logo} alt="Logo de la pagina" className="img-fluid" />
+          <img src={"https://live.staticflickr.com/65535/53172154974_d7af7b89f9_o.png"} alt="Logo de la pagina" className="img-fluid" />
           <div className="section text-center">
             <Form onSubmit={formik.handleSubmit} noValidate>
               <Form.Group className="contenedorForm">
                 <Form.Label className="label-color">Nombre</Form.Label>
                 <div className="input-group">
                   <img
-                    src="/src/assets/usuario.png"
+                    src="https://live.staticflickr.com/65535/53172154969_6c2b8bcf1a_o.png"
                     alt="Imagen"
                     className="usuario-icono"
                   />
@@ -166,7 +173,7 @@ function Registro() {
                 <Form.Label className="label-color">Apellido</Form.Label>
                 <div className="input-group">
                   <img
-                    src="/src/assets/usuario.png"
+                    src="https://live.staticflickr.com/65535/53172154969_6c2b8bcf1a_o.png"
                     alt="Imagen"
                     className="usuario-icono"
                   />
@@ -205,7 +212,7 @@ function Registro() {
                 </Form.Label>
                 <div className="input-group">
                   <img
-                    src="/src/assets/iconoCorreo.png"
+                    src="https://live.staticflickr.com/65535/53171958241_c5697c9a28_o.png"
                     alt="Imagen"
                     className="correo-icono"
                   />
@@ -239,7 +246,7 @@ function Registro() {
                 <Form.Label className="label-color">Contraseña </Form.Label>
                 <div className="input-group">
                   <img
-                    src="/src/assets/contraseña.png"
+                    src="https://live.staticflickr.com/65535/53171369387_6ff310ac34_o.png"
                     alt="Imagen"
                     className="contraseña-icono"
                   />
@@ -275,7 +282,7 @@ function Registro() {
                 </Form.Label>
                 <div className="input-group">
                   <img
-                    src="/src/assets/contraseña.png"
+                    src="https://live.staticflickr.com/65535/53171369387_6ff310ac34_o.png"
                     alt="Imagen"
                     className="contraseña-icono"
                   />
@@ -309,7 +316,7 @@ function Registro() {
                   )}
               </Form.Group>
 
-              <ButtonDefault namebtn="Crear cuenta" />
+              <ButtonDefault namebtn="Crear cuenta" TipoBoton={"sumbit"} />
 
               <div className=" text-center mb-3">
                 <Link to={"/Login"} className="link ">

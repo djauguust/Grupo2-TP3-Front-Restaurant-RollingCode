@@ -11,6 +11,7 @@ import { UsuariosContext } from '../../../context/UserContext';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import ButtonDefault from '../../../components/ButtonDefault';
+import toast from 'react-hot-toast';
 
 const configurarContraseña = () => {
 
@@ -99,11 +100,16 @@ const configurarContraseña = () => {
                                 }
                               })
                             console.log(respuesta.data);
-                            Swal.fire(
-                              'Usuario Modificado',
-                              'Los cambios que hiciste fueron implementados',
-                              'success'
-                            )
+                            toast.success('Contraseña actualizada con exito', {
+                                style: {
+                                  border: '1px solid #B08D59',
+                                  color: '#B08D59',
+                                },
+                                iconTheme: {
+                                  primary: '#B08D59',
+                                  secondary: '#FFFAEE',
+                                },
+                              });
                             //Funciones para volver a mostrar los datos y TraerUsuarios para actualizar todo
                                 setMostrarDatos(true)
                                 setMostrarConfigurarPerfil(false)

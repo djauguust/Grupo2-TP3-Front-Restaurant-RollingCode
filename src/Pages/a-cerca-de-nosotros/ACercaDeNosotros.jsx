@@ -6,12 +6,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import "../../styles/aCercaDeNosotros.css";
-import augusto from "./img/augusto.jpeg";
-import leo from "./img/leo.jpeg";
-import lucas from "./img/lucas.jpeg";
-import mauro from "./img/mauro.jpeg";
-import pedro from "./img/pedro.jpeg";
-import lucasy from "./img/lucasy.jpeg";
 import { useTranslation } from "react-i18next";
 
 const ACercaDeNosotros = () => {
@@ -28,7 +22,7 @@ const ACercaDeNosotros = () => {
             <Card className="about-card shadow-lg">
               <Image
                 className="about-img img-fluid"
-                src={augusto}
+                src={"https://live.staticflickr.com/65535/53173891373_6e8db5215a_o.jpg"}
                 roundedCircle
               />
               <Card.Body className="about-card-body">
@@ -50,7 +44,7 @@ const ACercaDeNosotros = () => {
           </Col>
           <Col className="about-col" xs={12} md={6} lg={4}>
             <Card className="about-card shadow-lg">
-              <Image className="about-img" src={leo} roundedCircle />
+              <Image className="about-img" src={"https://live.staticflickr.com/65535/53172811067_c629b85396_o.jpg"} roundedCircle />
               <Card.Body className="about-card-body">
                 <Card.Title>Leo</Card.Title>
                 <Card.Text>{t("descripcionLeo")}</Card.Text>
@@ -70,7 +64,7 @@ const ACercaDeNosotros = () => {
           </Col>
           <Col className="about-col" xs={12} md={6} lg={4}>
             <Card className="about-card shadow-lg">
-              <Image className="about-img" src={lucas} roundedCircle />
+              <Image className="about-img" src={"https://live.staticflickr.com/65535/53173891353_c27a6f303d_o.jpg"} roundedCircle />
               <Card.Body className="about-card-body">
                 <Card.Title>Lucas</Card.Title>
                 <Card.Text>{t("descripcionLucasY")}</Card.Text>
@@ -90,7 +84,7 @@ const ACercaDeNosotros = () => {
           </Col>
           <Col className="about-col mb-5" xs={12} md={6} lg={4}>
             <Card className="about-card shadow-lg">
-              <Image className="about-img" src={mauro} roundedCircle />
+              <Image className="about-img" src={"https://live.staticflickr.com/65535/53173841815_49ae4ae428_o.jpg"} roundedCircle />
               <Card.Body className="about-card-body">
                 <Card.Title>Mauro</Card.Title>
                 <Card.Text>
@@ -113,7 +107,7 @@ const ACercaDeNosotros = () => {
           </Col>
           <Col className="about-col mb-5" xs={12} md={6} lg={4}>
             <Card className="about-card shadow-lg">
-              <Image className="about-img" src={pedro} roundedCircle />
+              <Image className="about-img" src={"https://live.staticflickr.com/65535/53172811077_7aee04067f_o.jpg"} roundedCircle />
               <Card.Body className="about-card-body">
                 <Card.Title>Pedro</Card.Title>
                 <Card.Text>
@@ -136,7 +130,7 @@ const ACercaDeNosotros = () => {
           </Col>
           <Col className="about-col mb-5" xs={12} md={6} lg={4}>
             <Card className="about-card shadow-lg">
-              <Image className="about-img" src={lucasy} roundedCircle />
+              <Image className="about-img" src={""} roundedCircle />
               <Card.Body className="about-card-body">
                 <Card.Title>Nombre</Card.Title>
                 <Card.Text>Hola soy lucasy</Card.Text>

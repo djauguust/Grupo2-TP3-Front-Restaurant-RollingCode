@@ -16,7 +16,7 @@ const Footer = () => {
         <Row className="text-center">
           <Col sm={12} lg={3}>
             <img
-              src="public\chef-sin-fondo.png"
+              src="https://live.staticflickr.com/65535/53172155044_e9ab74c26d_o.png"
               height="200px"
               width="100%"
               alt=""
@@ -109,7 +109,7 @@ const Footer = () => {
           </Col>
           <Col sm={12} lg={3} className="fw-bold fs-5 mt-3">
             <img
-              src="public\World_50Best_Rest_2023_Logo-removebg-preview.png"
+              src="https://live.staticflickr.com/65535/53172389465_828595a2b0_o.png"
               alt=""
               height="180px"
             />

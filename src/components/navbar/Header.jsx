@@ -48,10 +48,10 @@ const Header = () => {
   }, [theme]);
 
   useEffect(() => {
-    if (toast) {
+    if (!usuario) {
       setMiCuenta(false);
     }
-  }, [toast]);
+  }, [traerUnUsuario]);
 
   return (
     <>
@@ -59,7 +59,7 @@ const Header = () => {
         <Navbar.Brand as={Link} to="/" className="ms-4">
           <img
             alt=""
-            src="public\Gusteau_s-removebg-preview.png"
+            src="https://live.staticflickr.com/65535/53172155019_44ee8269d6_o.png"
             width=""
             height="80"
             className="d-inline-block align-top m-0 logo-custom"
@@ -110,14 +110,14 @@ const Header = () => {
                   <Dropdown.Item onClick={() => i18n.changeLanguage("es")}>
                     {t("español")}{" "}
                     <img
-                      src="public\Bandera_de_España.svg.png"
+                      src="https://live.staticflickr.com/65535/53172389455_3517c7eb95_o.png"
                       height="15px"
                     ></img>
                   </Dropdown.Item>
                   <Dropdown.Item onClick={() => i18n.changeLanguage("en")}>
                     {t("ingles")}{" "}
                     <img
-                      src="public\Bandera-de-inglaterra-400x240.png"
+                      src="https://live.staticflickr.com/65535/53172155079_967a69234f_o.png"
                       height="15px"
                     ></img>
                   </Dropdown.Item>
@@ -159,17 +159,13 @@ const Header = () => {
                   <Offcanvas.Header closeButton />
                   <Offcanvas.Body className="text-center">
                     <img
-                      src="public\cocinero-icono-plano-chef-avatar-ilustracion-vectorial-diseno-dibujos-animados-chef-bigotudo-gorra-u-removebg-preview-removebg-preview (1).png"
+                      src="https://live.staticflickr.com/65535/53172389450_c3750cc261_o.png"
                       alt=""
                       height="200px"
                     />
                     <p>
-                      {t("tipoUsuario")}{" "}
-                      {usuario.esAdmin === 0
-                        ? t("cliente")
-                        : usuario.esAdmin === 1
-                        ? t("Portero")
-                        : t("administrador")}
+                      {t("Nombre  ")}{``}
+                      {`${usuario.nombre} ${usuario.apellido}`}
                     </p>
                     <Button
                       variant="success"

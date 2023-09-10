@@ -10,7 +10,7 @@ const {toast, setToast} = useContext(NavbarContext)
   return (
     <>
      <div className=" contenedor-toast">
-      <Toast onClose={() => setToast(false)} show={toast} delay={3000} autohide className="contenedorToast">
+      <Toast onClose={() => setToast(false)} show={toast} delay={30000} autohide className="contenedorToast">
           <Toast.Header>
             <img
               src="../../../public/Diseño-Final-Final.png"

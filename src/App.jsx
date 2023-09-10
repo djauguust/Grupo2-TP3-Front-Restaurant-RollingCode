@@ -20,7 +20,7 @@ function App() {
         <UserContext>
           <ReservasProvider>
             <Header />
-            <Toaster />
+            <Toaster position="bottom-right"/>
             <Rutas />
             <Footer />
           </ReservasProvider>

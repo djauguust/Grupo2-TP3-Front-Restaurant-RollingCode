@@ -9,7 +9,7 @@ section{
 }
 
 .info-custom{
-    background-image: url("../public/el-mercado.jpg") ;
+    background-image: url("https://live.staticflickr.com/65535/53172442433_a3ff0ebff1_o.jpg") ;
     background-size: cover;
     height: 600px;
     display: flex;

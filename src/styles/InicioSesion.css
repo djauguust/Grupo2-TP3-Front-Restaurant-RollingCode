@@ -22,7 +22,7 @@ top: 0;
 left: 0;
 width: 100%;
 height: 100%;
-background-image: url(../assets/LoginBackground.jpg);
+background-image: url(https://live.staticflickr.com/65535/53172389435_94098f58dd_o.jpg);
 background-size: cover;
 background-repeat: no-repeat;
 z-index: -1; 
@@ -37,7 +37,7 @@ align-items: center;
 
 .Carta {  
 width: 54vh;  
-background-image: url('../assets/loginbackground3.jpg');
+background-image: url(https://live.staticflickr.com/65535/53172442338_46fd0a0db4_o.jpg);
 background-position: bottom center;   
 border-radius: 26px;  
 background-size: cover;

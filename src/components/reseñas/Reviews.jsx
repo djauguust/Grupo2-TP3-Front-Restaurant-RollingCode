@@ -15,7 +15,7 @@ const Reviews = () => {
         <div className="contenedor">
           <div className="carta">
             <div className="imgBx">
-            <img src="public\donato2.jpg" height="260px" alt="" />
+            <img src="https://live.staticflickr.com/65535/53171958311_0e93603d52_o.jpg" height="260px" alt="" />
             </div>
             <div className="content">
               <h3 className="nombre-cocinero">Donato De Santis</h3>
@@ -26,7 +26,7 @@ const Reviews = () => {
           </div>
           <div className="carta">
             <div className="imgBx">
-              <img src="public\GordonRamsay.jpg" alt="" />
+              <img src="https://live.staticflickr.com/65535/53172442418_18036984fa_o.jpg" alt="" />
             </div>
             <div className="content">
               <h3 className="nombre-cocinero">Gordon Ramsay</h3>
@@ -37,7 +37,7 @@ const Reviews = () => {
           </div>
           <div className="carta">
             <div className="imgBx">
-              <img src="public\Massimo-Bottura.jpg" alt="" />
+              <img src="https://live.staticflickr.com/65535/53172389370_b4630e4432_o.jpg" alt="" />
             </div>
             <div className="content">
               <h3 className="nombre-cocinero">Massimo Bottura</h3>
