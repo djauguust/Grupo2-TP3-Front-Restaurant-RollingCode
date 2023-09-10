@@ -73,9 +73,9 @@ function InicioSesion() {
           email: values.email,
           contrasenia: values.contrasenia,
         };
-        console.log(`${url}/login`);
         // Hago el pedido con axios
         const response = await axios.post(`${url}/login`, usuarioLogueado);
+        console.log(response);
 
         // Si la petición es exitosa
 

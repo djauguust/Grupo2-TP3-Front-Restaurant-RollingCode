@@ -10,6 +10,7 @@ import { useParams } from 'react-router';
 import { UsuariosContext } from '../../../context/UserContext';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
+import ButtonDefault from '../../../components/ButtonDefault';
 
 const configurarContraseña = () => {
 
@@ -191,7 +192,7 @@ const configurarContraseña = () => {
                         )}
                     </Form.Group>
                 </Stack>
-                <Button className='btn-Volver mt-3 ' type='submit'>{t('guardarCambios')}</Button>
+                <ButtonDefault namebtn={t('guardarCambios')} TipoBoton={"sumbit"} />
             </Form>
         </div>
     </Container>

@@ -1,8 +1,17 @@
 import React from 'react';
 import "../../styles/Error404.css"
-import { Button } from 'react-bootstrap';
+import ButtonDefault from '../../components/ButtonDefault';
+import { useNavigate } from 'react-router-dom';
+
 
 const Error404 = () => {
+
+  const navigate = useNavigate()
+
+  const volverInicio = () => {
+    navigate("/")
+  }
+
   return (
     <>
      <div className='Imagen-Fondo'>
@@ -14,7 +23,7 @@ const Error404 = () => {
 	            siempre puedes volver a la página de inicio para encontrar el camino de regreso a la auténtica experiencia italiana que ofrecemos.</h3>
           </div>
           <div className='d-flex justify-content-center '>
-          <Button className='btn-Volver'>Volver al Inicio</Button>
+            <ButtonDefault namebtn="Volver al inicio" Funcion={volverInicio} />
           </div>
           </div>
         </div>

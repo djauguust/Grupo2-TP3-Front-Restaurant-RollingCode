@@ -6,6 +6,7 @@ import ConfigurarCuenta from "../Configurar-Cuenta/configurar-cuenta";
 import { UsuariosContext } from "../../../context/UserContext";
 import { useTranslation } from "react-i18next";
 import "../../../styles/configurar-cuenta.css"
+import ButtonDefault from "../../../components/ButtonDefault";
 
 const DatosCuenta = () => {
   const { t } = useTranslation();
@@ -101,9 +102,7 @@ const DatosCuenta = () => {
                   </p>
                   <p>Email : {usuario.email}</p>
                 </div>
-                <Link className="btn-Volver" onClick={MostrarConfigurarPerfil}>
-                  {t("editarPerfil")}
-                </Link>
+                <ButtonDefault namebtn={t("editarPerfil")} Funcion={MostrarConfigurarPerfil} />
               </div>
             </div>
           )}

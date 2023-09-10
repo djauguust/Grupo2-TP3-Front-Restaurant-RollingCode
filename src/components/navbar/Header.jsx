@@ -86,7 +86,7 @@ const Header = () => {
             <Nav.Link as={Link} to="/reservas" className=" m-2 boton-reserva">
               {t("reserva")}
             </Nav.Link>
-            <Nav.Link>
+            <Nav>
               <Dropdown className="drop-idioma">
                 <Dropdown.Toggle
                   className="boton-izq-custom-idioma"
@@ -123,7 +123,7 @@ const Header = () => {
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
-            </Nav.Link>
+            </Nav>
           </Nav>
           <Nav
             style={{ display: "block", position: "relative" }}
