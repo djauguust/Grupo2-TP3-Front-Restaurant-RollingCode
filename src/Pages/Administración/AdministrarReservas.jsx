@@ -16,10 +16,9 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { NavbarContext } from "../../context/NavbarContext";
 
-export const AdministrarReservas = ({ isDoorman = false , userToken }) => {
+export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
   const { theme } = useContext(NavbarContext);
   const useToken = { headers: { "auth-token": userToken } };
-
 
   const newTheme =
     theme === "claro" ? "light" : theme === "oscuro" ? "dark" : theme;
@@ -66,7 +65,7 @@ export const AdministrarReservas = ({ isDoorman = false , userToken }) => {
 
   useEffect(() => {
     axios
-      .get(`${url}/reservas/${formState.date}`,useToken)
+      .get(`${url}/reservas/${formState.date}`, useToken)
       .then(({ data }) => {
         setReservaToShow(data);
       })
@@ -75,7 +74,7 @@ export const AdministrarReservas = ({ isDoorman = false , userToken }) => {
 
   useEffect(() => {
     axios
-      .get(`${url}/reservas/${today2}`,useToken)
+      .get(`${url}/reservas/${today2}`, useToken)
       .then(({ data }) => {
         setReservasToday(data);
       })
@@ -97,7 +96,7 @@ export const AdministrarReservas = ({ isDoorman = false , userToken }) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${url}/reservas/${reserva._id}`,useToken)
+          .delete(`${url}/reservas/${reserva._id}`, useToken)
           .then(({ data }) => {
             Swal.fire(
               "Eliminación exitosa",
@@ -128,10 +127,12 @@ export const AdministrarReservas = ({ isDoorman = false , userToken }) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         axios
-          .put(`${url}/reservas/usada/${reserva._id}`, { fueUsada: true },useToken)
+          .put(
+            `${url}/reservas/usada/${reserva._id}`,
+            { fueUsada: true },
+            useToken
+          )
           .then(({ data }) => {
-            console.log(data);
-            /* setShowModalEdit(false); */
             Swal.fire("Reserva marcada como usada", "", "success").then(
               async (result) => {
                 actualizar();
@@ -139,8 +140,6 @@ export const AdministrarReservas = ({ isDoorman = false , userToken }) => {
             );
           })
           .catch(({ response }) => {
-            console.log(response);
-            /* setShowModalRestaurant(false); */
             Swal.fire(
               "Error con servidor",
               `Error: ${response.data.message}`,
@@ -191,7 +190,6 @@ export const AdministrarReservas = ({ isDoorman = false , userToken }) => {
     setShowModalEdit(false);
   };
   const handleEdit = (reserva) => {
-    console.log(reserva);
     setShowModalEdit(true);
     let aux = {
       _id: reserva._id,
@@ -208,9 +206,8 @@ export const AdministrarReservas = ({ isDoorman = false , userToken }) => {
     setButtonGuardarReserva(true);
     if (validarForm()) {
       axios
-        .put(`${url}/reservas/${formState._id}`, formState,useToken)
+        .put(`${url}/reservas/${formState._id}`, formState, useToken)
         .then(({ data }) => {
-          console.log(data);
           setShowModalEdit(false);
           Swal.fire(
             "Reserva modificada con éxito",
@@ -221,7 +218,6 @@ export const AdministrarReservas = ({ isDoorman = false , userToken }) => {
           });
         })
         .catch(({ response }) => {
-          console.log(response);
           setShowModalEdit(false);
           Swal.fire(
             "Error con servidor",

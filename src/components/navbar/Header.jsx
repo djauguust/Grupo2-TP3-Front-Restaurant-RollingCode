@@ -10,8 +10,7 @@ import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Dropdown from "react-bootstrap/Dropdown";
 import i18n from "i18next";
-import Form from "react-bootstrap/Form";
-import { useTranslation, initReactI18next } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 import { NavbarContext } from "../../context/NavbarContext";
 
@@ -164,7 +163,8 @@ const Header = () => {
                       height="200px"
                     />
                     <p>
-                      {t("Nombre  ")}{``}
+                      {t("Nombre  ")}
+                      {``}
                       {`${usuario.nombre} ${usuario.apellido}`}
                     </p>
                     <Button

@@ -119,17 +119,20 @@ export const AdministrarUsuarios = ({ userToken }) => {
       }).then((result) => {
         if (result.isConfirmed) {
           axios
-            .put(`${url}/usuarios/${formState._id}`, {
-              apellido: values.Apellido,
-              email: values.Email,
-              esActivo: values.EsActivo,
-              esAdmin: values.Rol,
-              nombre: values.Nombre,
-              user: "",
-              _id: formState._id,
-            },useToken)
+            .put(
+              `${url}/usuarios/${formState._id}`,
+              {
+                apellido: values.Apellido,
+                email: values.Email,
+                esActivo: values.EsActivo,
+                esAdmin: values.Rol,
+                nombre: values.Nombre,
+                user: "",
+                _id: formState._id,
+              },
+              useToken
+            )
             .then(({ data }) => {
-              console.log(data);
               setShowModalEdit(false);
               Swal.fire(
                 "Usuario modificado con éxito",
@@ -140,7 +143,6 @@ export const AdministrarUsuarios = ({ userToken }) => {
               });
             })
             .catch(({ response }) => {
-              console.log(response);
               setShowModalRestaurant(false);
               Swal.fire(
                 "Error con servidor",
@@ -184,7 +186,7 @@ export const AdministrarUsuarios = ({ userToken }) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${url}/usuarios/${user._id}`,useToken)
+          .delete(`${url}/usuarios/${user._id}`, useToken)
           .then(({ data }) => {
             Swal.fire(
               "Eliminación exitosa",
@@ -346,7 +348,7 @@ export const AdministrarUsuarios = ({ userToken }) => {
   useEffect(() => {
     if (showReservas) {
       axios
-        .get(`${url}/reservasByUsuario/${showReservas._id}`,useToken)
+        .get(`${url}/reservasByUsuario/${showReservas._id}`, useToken)
         .then(({ data }) => {
           setReservasByUser(data);
         })

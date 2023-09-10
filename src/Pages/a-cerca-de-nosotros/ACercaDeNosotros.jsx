@@ -22,7 +22,9 @@ const ACercaDeNosotros = () => {
             <Card className="about-card shadow-lg">
               <Image
                 className="about-img img-fluid"
-                src={"https://live.staticflickr.com/65535/53173891373_6e8db5215a_o.jpg"}
+                src={
+                  "https://live.staticflickr.com/65535/53173891373_6e8db5215a_o.jpg"
+                }
                 roundedCircle
               />
               <Card.Body className="about-card-body">
@@ -44,7 +46,13 @@ const ACercaDeNosotros = () => {
           </Col>
           <Col className="about-col" xs={12} md={6} lg={4}>
             <Card className="about-card shadow-lg">
-              <Image className="about-img" src={"https://live.staticflickr.com/65535/53172811067_c629b85396_o.jpg"} roundedCircle />
+              <Image
+                className="about-img"
+                src={
+                  "https://live.staticflickr.com/65535/53172811067_c629b85396_o.jpg"
+                }
+                roundedCircle
+              />
               <Card.Body className="about-card-body">
                 <Card.Title>Leo</Card.Title>
                 <Card.Text>{t("descripcionLeo")}</Card.Text>
@@ -64,7 +72,13 @@ const ACercaDeNosotros = () => {
           </Col>
           <Col className="about-col" xs={12} md={6} lg={4}>
             <Card className="about-card shadow-lg">
-              <Image className="about-img" src={"https://live.staticflickr.com/65535/53173891353_c27a6f303d_o.jpg"} roundedCircle />
+              <Image
+                className="about-img"
+                src={
+                  "https://live.staticflickr.com/65535/53173891353_c27a6f303d_o.jpg"
+                }
+                roundedCircle
+              />
               <Card.Body className="about-card-body">
                 <Card.Title>Lucas</Card.Title>
                 <Card.Text>{t("descripcionLucasY")}</Card.Text>
@@ -84,13 +98,16 @@ const ACercaDeNosotros = () => {
           </Col>
           <Col className="about-col mb-5" xs={12} md={6} lg={4}>
             <Card className="about-card shadow-lg">
-              <Image className="about-img" src={"https://live.staticflickr.com/65535/53173841815_49ae4ae428_o.jpg"} roundedCircle />
+              <Image
+                className="about-img"
+                src={
+                  "https://live.staticflickr.com/65535/53173841815_49ae4ae428_o.jpg"
+                }
+                roundedCircle
+              />
               <Card.Body className="about-card-body">
                 <Card.Title>Mauro</Card.Title>
-                <Card.Text>
-                {t('descripcionMauro')}
-
-                </Card.Text>
+                <Card.Text>{t("descripcionMauro")}</Card.Text>
                 <div>
                   <a href="">
                     <i className="bi bi-github m-2"></i>
@@ -107,13 +124,16 @@ const ACercaDeNosotros = () => {
           </Col>
           <Col className="about-col mb-5" xs={12} md={6} lg={4}>
             <Card className="about-card shadow-lg">
-              <Image className="about-img" src={"https://live.staticflickr.com/65535/53172811077_7aee04067f_o.jpg"} roundedCircle />
+              <Image
+                className="about-img"
+                src={
+                  "https://live.staticflickr.com/65535/53172811077_7aee04067f_o.jpg"
+                }
+                roundedCircle
+              />
               <Card.Body className="about-card-body">
                 <Card.Title>Pedro</Card.Title>
-                <Card.Text>
-                {t('descripcionPedro')}
-
-                </Card.Text>
+                <Card.Text>{t("descripcionPedro")}</Card.Text>
                 <div>
                   <a href="">
                     <i className="bi bi-github m-2"></i>

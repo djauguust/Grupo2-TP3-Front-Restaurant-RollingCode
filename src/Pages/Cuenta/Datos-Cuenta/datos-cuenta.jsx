@@ -1,17 +1,16 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useContext } from "react";
 import ConfigurarContraseña from "../Configurar-Cuenta/configurar-contraseña";
-import { Col, Container, Row, Stack } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import ConfigurarCuenta from "../Configurar-Cuenta/configurar-cuenta";
 import { UsuariosContext } from "../../../context/UserContext";
 import { useTranslation } from "react-i18next";
-import "../../../styles/configurar-cuenta.css"
+import "../../../styles/configurar-cuenta.css";
 import ButtonDefault from "../../../components/ButtonDefault";
 
 const DatosCuenta = () => {
   const { t } = useTranslation();
 
-  const { logout, traerUnUsuario, usuario, Token, pasarStates } =
+  const { traerUnUsuario, usuario, Token, pasarStates } =
     useContext(UsuariosContext);
 
   {
@@ -102,7 +101,10 @@ const DatosCuenta = () => {
                   </p>
                   <p>Email : {usuario.email}</p>
                 </div>
-                <ButtonDefault namebtn={t("editarPerfil")} Funcion={MostrarConfigurarPerfil} />
+                <ButtonDefault
+                  namebtn={t("editarPerfil")}
+                  Funcion={MostrarConfigurarPerfil}
+                />
               </div>
             </div>
           )}

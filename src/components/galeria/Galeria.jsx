@@ -3,8 +3,7 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import { useTranslation } from "react-i18next";
 
-const Galeria = ({theme}) => {
-
+const Galeria = ({ theme }) => {
   const { t } = useTranslation();
 
   const [imagenSeleccionada, setImagenSeleccionada] = useState(null);
@@ -19,10 +18,11 @@ const Galeria = ({theme}) => {
 
   return (
     <>
-    <hr />
+      <hr />
       <div className={`body-galeria${theme} container`}>
         <h2 className="text-center titulo-galeria">
-          <br></br>{t('galeria')}
+          <br></br>
+          {t("galeria")}
         </h2>
         <div className="grid-container">
           <div

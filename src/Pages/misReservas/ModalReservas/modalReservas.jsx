@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { ReservasContexto } from "../../../context/ReservasContexto";
-import { format, getDay, parse, parseISO, setHours, setMinutes } from "date-fns";
+import { format, getDay, parseISO, setHours, setMinutes } from "date-fns";
 import DatePicker from "react-datepicker";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -12,11 +12,9 @@ import axios from "axios";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import { NavbarContext } from "../../../context/NavbarContext";
 
-
 const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
-
   const { theme } = useContext(NavbarContext);
-  const TokenPuro = localStorage.getItem("user")
+  const TokenPuro = localStorage.getItem("user");
 
   const newTheme =
     theme === "claro" ? "light" : theme === "oscuro" ? "dark" : theme;
@@ -54,10 +52,9 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
 
     HoraReserva: Yup.string().required("La hora es requerida"),
 
-    CantidadDePersonas: Yup.string().required(
-      "La cantidad de personas es requerida"
-    )
-    .min(1,"Debes elegir al menos 1 persona"),
+    CantidadDePersonas: Yup.string()
+      .required("La cantidad de personas es requerida")
+      .min(1, "Debes elegir al menos 1 persona"),
   });
 
   //Valores iniciales
@@ -78,8 +75,6 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
       const fechaFormateada = format(values.FechaReserva, "yyyy-MM-dd", {
         locale: es,
       });
-
-      console.log("Fecha formateada es",fechaFormateada);
 
       //Para formatear la hora a un valor Hora/Minutos
       const horaFormateada = format(values.HoraReserva, "HH:mm", {
@@ -108,19 +103,16 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
           const Url = `${url}/reservas/${selectedReservaId._id}`;
           //Peticion para editar la reserva
           axios
-            .put(Url, Reserva,{
-              headers:{
-                "auth-token" : TokenPuro.replace(/^"(.*)"$/, '$1')
-              }
-            } )
+            .put(Url, Reserva, {
+              headers: {
+                "auth-token": TokenPuro.replace(/^"(.*)"$/, "$1"),
+              },
+            })
             .then((Response) => {
-              
               onCloseModal();
               TraerUnaReserva();
             })
-            .catch((error) => {
-              
-            });
+            .catch((error) => {});
           Swal.fire(
             "Reserva actualizada con éxito!",
             "La reserva se realizo exitosamente.",
@@ -187,7 +179,7 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
 
   const filterTime = (time) => {
     const hours = new Date(time).getHours();
-    return hours >= 12 && hours <= 23 
+    return hours >= 12 && hours <= 23;
   };
 
   return (
@@ -268,11 +260,10 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
             <Form.Group>
               <Form.Label>Cantidad de Personas :</Form.Label>
               <Form.Control
-                    placeholder="N° de Personas"
-                    type="number"
+                placeholder="N° de Personas"
+                type="number"
                 id="CantidadDePersonas"
                 min={1}
-
                 {...formik.getFieldProps("CantidadDePersonas")}
                 className={clsx(
                   "form-control",

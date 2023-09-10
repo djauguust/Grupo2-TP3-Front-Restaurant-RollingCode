@@ -1,7 +1,6 @@
-import { useState } from "react";
 import "../../styles/InicioSesion.css";
 import ButtonDefault from "../../components/ButtonDefault";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Container, Form } from "react-bootstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -12,7 +11,7 @@ import toast from "react-hot-toast";
 
 function Registro() {
   const url = import.meta.env.VITE_API;
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   //Expresiones para validar
   const soloLetras = /^[a-zA-Z ]+$/;
@@ -32,8 +31,7 @@ function Registro() {
       .required("El apellido es requerido")
       .matches(soloLetras, "El apellido solo debe incluir letras")
       .min(4, "El apellido debe de ser menor a 4 letras")
-      .max(25, "El apellido debe de ser menor a 25 letras"),   
-
+      .max(25, "El apellido debe de ser menor a 25 letras"),
 
     Email: Yup.string()
       .required("El email es requerido")
@@ -93,35 +91,24 @@ function Registro() {
             axios
               .post(`${url}/usuarios`, Usuario)
               .then((response) => {
-                
-                toast.success('Usuario registrado con exito', {
+                toast.success("Usuario registrado con exito", {
                   style: {
-                    border: '1px solid #B08D59',
-                    color: '#B08D59',
+                    border: "1px solid #B08D59",
+                    color: "#B08D59",
                   },
                   iconTheme: {
-                    primary: '#B08D59',
-                    secondary: '#FFFAEE',
+                    primary: "#B08D59",
+                    secondary: "#FFFAEE",
                   },
                 });
-                navigate(("/Login"))
+                navigate("/Login");
               })
               .catch((error) => {
-                Swal.fire(
-                  "No se pudo crear el usuario",
-                  " ",
-                  "warning"
-                );
-                
+                Swal.fire("No se pudo crear el usuario", " ", "warning");
               });
-
-            
-            //Agregar funcion para redirigirte a inicio
           }
         });
-      } catch (error) {
-        
-      }
+      } catch (error) {}
     },
   });
 
@@ -131,7 +118,13 @@ function Registro() {
         <div className="Carta text-center">
           <h3 className="mt-3">No tienes cuenta?</h3>
           <h3 className="">Create una!</h3>
-          <img src={"https://live.staticflickr.com/65535/53172154974_d7af7b89f9_o.png"} alt="Logo de la pagina" className="img-fluid" />
+          <img
+            src={
+              "https://live.staticflickr.com/65535/53172154974_d7af7b89f9_o.png"
+            }
+            alt="Logo de la pagina"
+            className="img-fluid"
+          />
           <div className="section text-center">
             <Form onSubmit={formik.handleSubmit} noValidate>
               <Form.Group className="contenedorForm">
@@ -161,11 +154,9 @@ function Registro() {
                   />
                 </div>
                 {formik.touched.Nombre && formik.errors.Nombre && (
-                  
-                    <span role="alert" className="text-danger">
-                      {formik.errors.Nombre}
-                    </span>
-                  
+                  <span role="alert" className="text-danger">
+                    {formik.errors.Nombre}
+                  </span>
                 )}
               </Form.Group>
 
@@ -196,15 +187,11 @@ function Registro() {
                   />
                 </div>
                 {formik.touched.Apellido && formik.errors.Apellido && (
-                  
-                    <span role="alert" className="text-danger">
-                      {formik.errors.Apellido}
-                    </span>
-                  
+                  <span role="alert" className="text-danger">
+                    {formik.errors.Apellido}
+                  </span>
                 )}
-
               </Form.Group>
-
 
               <Form.Group className="contenedorForm">
                 <Form.Label className="label-color">
@@ -235,11 +222,9 @@ function Registro() {
                   />
                 </div>
                 {formik.touched.Email && formik.errors.Email && (
-                  
-                    <span role="alert" className="text-danger">
-                      {formik.errors.Email}
-                    </span>
-                  
+                  <span role="alert" className="text-danger">
+                    {formik.errors.Email}
+                  </span>
                 )}
               </Form.Group>
               <Form.Group className="contenedorForm">
@@ -269,11 +254,9 @@ function Registro() {
                   />
                 </div>
                 {formik.touched.Contraseña && formik.errors.Contraseña && (
-                  
-                    <span role="alert" className="text-danger">
-                      {formik.errors.Contraseña}
-                    </span>
-                  
+                  <span role="alert" className="text-danger">
+                    {formik.errors.Contraseña}
+                  </span>
                 )}
               </Form.Group>
               <Form.Group className="contenedorForm">
@@ -308,11 +291,9 @@ function Registro() {
                 </div>
                 {formik.touched.ConfirmarContraseña &&
                   formik.errors.ConfirmarContraseña && (
-                    
-                      <span role="alert" className="text-danger">
-                        {formik.errors.ConfirmarContraseña}
-                      </span>
-                    
+                    <span role="alert" className="text-danger">
+                      {formik.errors.ConfirmarContraseña}
+                    </span>
                   )}
               </Form.Group>
 

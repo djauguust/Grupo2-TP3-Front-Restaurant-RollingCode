@@ -43,7 +43,7 @@ export const Administracion = () => {
     }
   }, [usuario]);
 
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <>
@@ -96,15 +96,22 @@ export const Administracion = () => {
           </Nav>
           <Container fluid>
             {showInterface === 0 && (
-              <AdministrarReservas isDoorman={isDoorman} userToken={userToken} />
+              <AdministrarReservas
+                isDoorman={isDoorman}
+                userToken={userToken}
+              />
             )}
             {!isDoorman && (
               <>
                 {showInterface === 1 && (
                   <AdministrarUsuarios userToken={userToken} />
                 )}
-                {showInterface === 2 && <BandejaDeEntrada userToken={userToken} />}
-                {showInterface === 3 && <AdministrarRestaurant userToken={userToken} />}
+                {showInterface === 2 && (
+                  <BandejaDeEntrada userToken={userToken} />
+                )}
+                {showInterface === 3 && (
+                  <AdministrarRestaurant userToken={userToken} />
+                )}
               </>
             )}
           </Container>

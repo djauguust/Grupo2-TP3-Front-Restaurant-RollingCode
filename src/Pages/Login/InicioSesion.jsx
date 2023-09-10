@@ -2,45 +2,38 @@ import { useContext, useEffect, useState } from "react";
 import "../../styles/InicioSesion.css";
 import ButtonDefault from "../../components/ButtonDefault";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Container, Form } from "react-bootstrap";
+import { Container, Form } from "react-bootstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import clsx from "clsx";
 import Swal from "sweetalert2";
 import axios from "axios";
-import UserContext, { UsuariosContext } from "../../context/UserContext";
-import Alerta from "../../components/Alerta";
-import { NavbarContext } from "../../context/NavbarContext";
-import { Toaster, toast } from "react-hot-toast";
+import { UsuariosContext } from "../../context/UserContext";
+import { toast } from "react-hot-toast";
 
 function InicioSesion() {
-  const { getUsuarios, funcionPrueba,traerUnUsuario, Token, usuarios,TokenPuro } = useContext(UsuariosContext);
-
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  
-  
 
   //Url de un back de prueba para que la funcion de logueo quede guardada para cuando usemos el back
-  /* const url = "http://localhost:8001/api/usuarios/login"; */
+
   const url = import.meta.env.VITE_API;
   const navigate = useNavigate();
-  
-  
+
   useEffect(() => {
     if (isLoggedIn === true) {
-      toast.success('Usuario logueado con exito', {
+      toast.success("Usuario logueado con exito", {
         style: {
-          border: '1px solid #B08D59',
-          color: '#B08D59',
+          border: "1px solid #B08D59",
+          color: "#B08D59",
         },
         iconTheme: {
-          primary: '#B08D59',
-          secondary: '#FFFAEE',
+          primary: "#B08D59",
+          secondary: "#FFFAEE",
         },
       });
       navigate("/");
     }
-  },[isLoggedIn]);
+  }, [isLoggedIn]);
   //UseState para mostrar un mensaje de que los datos ingresados no se encontraron
   const [UsuarioLogueadoError, setUsuarioLogueadoError] = useState(false);
 
@@ -83,7 +76,6 @@ function InicioSesion() {
         };
         // Hago el pedido con axios
         const response = await axios.post(`${url}/login`, usuarioLogueado);
-        console.log(response);
 
         // Si la petición es exitosa
 
@@ -114,7 +106,13 @@ function InicioSesion() {
       <Container className="ubicarCarta">
         <div className="Carta mt-3 mb-3 text-center">
           <h3 className="mt-3 TituloInicioSesion">Bienvenido!</h3>
-          <img src={"https://live.staticflickr.com/65535/53172154974_d7af7b89f9_o.png"} alt="Logo de la pagina" className="img-fluid" />
+          <img
+            src={
+              "https://live.staticflickr.com/65535/53172154974_d7af7b89f9_o.png"
+            }
+            alt="Logo de la pagina"
+            className="img-fluid"
+          />
           {UsuarioLogueadoError === true && (
             <div className="d-flex justify-content-center">
               <span role="alert" className="text-danger">
@@ -199,7 +197,6 @@ function InicioSesion() {
             </Form.Group>
 
             <ButtonDefault namebtn="ingresar" TipoBoton="sumbit" />
-        
           </Form>
           <br />
 

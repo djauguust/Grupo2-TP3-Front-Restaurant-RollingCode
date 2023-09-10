@@ -1,12 +1,9 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useState } from "react";
 
 export const NavbarContext = createContext();
 
 export const NavbarContexto = ({ children }) => {
   const [theme, settheme] = useState("claro");
-
-
-  
 
   const handleSwitch = (e) => {
     if (e.target.checked) {
@@ -14,10 +11,9 @@ export const NavbarContexto = ({ children }) => {
     } else {
       settheme("claro");
     }
-    
   };
 
-  const datos = { 
+  const datos = {
     theme,
     handleSwitch,
   };
@@ -27,5 +23,3 @@ export const NavbarContexto = ({ children }) => {
     </>
   );
 };
-
-

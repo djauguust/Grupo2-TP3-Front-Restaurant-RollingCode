@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import clsx from "clsx";
 import DatePicker from "react-datepicker";
-import { format, getDay, setHours } from "date-fns";
+import { format } from "date-fns";
 import es from "date-fns/locale/es";
 import "react-datepicker/dist/react-datepicker.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -12,8 +12,6 @@ import "../../styles/reserva.css";
 import Image from "react-bootstrap/Image";
 import axios from "axios";
 import Swal from "sweetalert2";
-import jwt_decode from "jwt-decode";
-import { use } from "i18next";
 import { UsuariosContext } from "../../context/UserContext";
 import { useTranslation } from "react-i18next";
 
@@ -78,7 +76,11 @@ const Reservas = () => {
     const fetchData = async () => {
       if (time) {
         try {
-          const response = await axios.get(`${url}/${dates}/${time}`);
+          const response = await axios.get(`${url}/reservas/${dates}/${time}`, {
+            headers: {
+              "auth-token": TokenPuro.replace(/^"(.*)"$/, "$1"),
+            },
+          });
           // const response = await axios.get(`http://localhost:3000/reservas`);
           setFilterPeople(response.data);
         } catch (error) {
@@ -157,8 +159,6 @@ const Reservas = () => {
         } catch (error) {
           console.log(error);
         }
-
-        console.log(userReservation);
 
         if (userReservation.length >= 2) {
           Swal.fire(

@@ -112,23 +112,24 @@ export const AdministrarRestaurant = ({ userToken }) => {
         cancelButtonText: "No, mejor no",
       }).then((result) => {
         if (result.isConfirmed) {
-
           let init = values.HorarioRestauranteDesde.split(":");
-        let fin = values.HorarioRestauranteHasta.split(":");
-        axios
-            .put(`${url}/restaurant/`, {
-              nombre: values.Nombre,
-          maximoComensales: values.CantidadMaximaComensales,
-          horario: {
-            desde: parseInt(`${init[0]}${init[1]}`),
-            hasta: parseInt(`${fin[0]}${fin[1]}`),
-          },
-          reservasMaxima: values.CantidadMaximaDeReservas,
-          tiempoMaximoReserva: values.TiempoEntreTurnos
-            
-            },useToken)
+          let fin = values.HorarioRestauranteHasta.split(":");
+          axios
+            .put(
+              `${url}/restaurant/`,
+              {
+                nombre: values.Nombre,
+                maximoComensales: values.CantidadMaximaComensales,
+                horario: {
+                  desde: parseInt(`${init[0]}${init[1]}`),
+                  hasta: parseInt(`${fin[0]}${fin[1]}`),
+                },
+                reservasMaxima: values.CantidadMaximaDeReservas,
+                tiempoMaximoReserva: values.TiempoEntreTurnos,
+              },
+              useToken
+            )
             .then(({ data }) => {
-              console.log(data);
               setShowModalRestaurant(false);
               Swal.fire(
                 "Restaurant modificado con éxito",
@@ -139,15 +140,17 @@ export const AdministrarRestaurant = ({ userToken }) => {
               });
             })
             .catch(({ response }) => {
-              console.log(response);
               setShowModalRestaurant(false);
-              Swal.fire("Error con servidor", `Error: ${response}`, "warning").then(
-                async (result) => {
-                  actualizar();
-                }
-              );
+              Swal.fire(
+                "Error con servidor",
+                `Error: ${response}`,
+                "warning"
+              ).then(async (result) => {
+                actualizar();
+              });
             });
-        }})
+        }
+      });
     },
   });
 
@@ -164,46 +167,46 @@ export const AdministrarRestaurant = ({ userToken }) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${url}/fechasnd/${id}`,useToken)
+          .delete(`${url}/fechasnd/${id}`, useToken)
           .then(({ data }) => {
             actualizar();
           })
           .catch((error) => console.log(error));
-        }
-      });
-    };
-    
-    const [ButtonGuardarRestaurant, setButtonGuardarRestaurant] = useState(false);
-    const [ShowModalRestaurant, setShowModalRestaurant] = useState(false);
-    const handleRestaurant = () => {
-      setErrores([]);
-      setButtonGuardarRestaurant(false);
-      onResetForm();
-      setShowModalRestaurant(true);
-      setFormState({
-        ...restaurant,
-        desde: restaurant.horario.desde,
-        hasta: restaurant.horario.hasta,
-      });
-    };
-    const handleCloseModalRestaurant = () => {
-      setShowModalRestaurant(false);
-    };
-    
-    /* Backend */
-    const url = import.meta.env.VITE_API;
-    const [restaurant, setRestaurant] = useState();
-    const [fechasND, setfechasND] = useState([]);
-    
-    const [actualizador, setActualizador] = useState(false);
-    const actualizar = () => {
-      setActualizador(!actualizador);
-    };
+      }
+    });
+  };
 
-    //Axios para traer valores del Restaurante
-    useEffect(() => {
-      axios
-      .get(`${url}/restaurant/`,useToken)
+  const [ButtonGuardarRestaurant, setButtonGuardarRestaurant] = useState(false);
+  const [ShowModalRestaurant, setShowModalRestaurant] = useState(false);
+  const handleRestaurant = () => {
+    setErrores([]);
+    setButtonGuardarRestaurant(false);
+    onResetForm();
+    setShowModalRestaurant(true);
+    setFormState({
+      ...restaurant,
+      desde: restaurant.horario.desde,
+      hasta: restaurant.horario.hasta,
+    });
+  };
+  const handleCloseModalRestaurant = () => {
+    setShowModalRestaurant(false);
+  };
+
+  /* Backend */
+  const url = import.meta.env.VITE_API;
+  const [restaurant, setRestaurant] = useState();
+  const [fechasND, setfechasND] = useState([]);
+
+  const [actualizador, setActualizador] = useState(false);
+  const actualizar = () => {
+    setActualizador(!actualizador);
+  };
+
+  //Axios para traer valores del Restaurante
+  useEffect(() => {
+    axios
+      .get(`${url}/restaurant/`, useToken)
       .then(({ data }) => {
         data[0] = {
           ...data[0],
@@ -216,38 +219,38 @@ export const AdministrarRestaurant = ({ userToken }) => {
       })
       .catch((error) => console.log(error));
     axios
-      .get(`${url}/fechasnd/`,useToken)
+      .get(`${url}/fechasnd/`, useToken)
       .then(({ data }) => {
         setfechasND(data);
       })
       .catch((error) => console.log(error));
-    }, [formState._id]);
-    /* FIN Backend */
-    
-    //Funcion para setear los valores a los input
-  
-    const establecerDatos = async () => {
-      //If para que espere a que formState.horarior.desde exista
-      if (restaurant && restaurant.horario.desde) {
-        formik.setFieldValue("Nombre", restaurant.nombre);
-        formik.setFieldValue(
-          "CantidadMaximaComensales",
-          restaurant.maximoComensales
-        );
-        formik.setFieldValue("HorarioRestauranteDesde", restaurant.horario.desde);
-        formik.setFieldValue("HorarioRestauranteHasta", restaurant.horario.hasta);
-        formik.setFieldValue(
-          "CantidadMaximaDeReservas",
-          restaurant.reservasMaxima
-        );
-        formik.setFieldValue("TiempoEntreTurnos", restaurant.tiempoMaximoReserva);
-      }
-    };
+  }, [formState._id]);
+  /* FIN Backend */
 
-    //UseEffect que sirve para establecer los datos
-    useEffect(() => {
-      establecerDatos()  
-    }, [restaurant]);
+  //Funcion para setear los valores a los input
+
+  const establecerDatos = async () => {
+    //If para que espere a que formState.horarior.desde exista
+    if (restaurant && restaurant.horario.desde) {
+      formik.setFieldValue("Nombre", restaurant.nombre);
+      formik.setFieldValue(
+        "CantidadMaximaComensales",
+        restaurant.maximoComensales
+      );
+      formik.setFieldValue("HorarioRestauranteDesde", restaurant.horario.desde);
+      formik.setFieldValue("HorarioRestauranteHasta", restaurant.horario.hasta);
+      formik.setFieldValue(
+        "CantidadMaximaDeReservas",
+        restaurant.reservasMaxima
+      );
+      formik.setFieldValue("TiempoEntreTurnos", restaurant.tiempoMaximoReserva);
+    }
+  };
+
+  //UseEffect que sirve para establecer los datos
+  useEffect(() => {
+    establecerDatos();
+  }, [restaurant]);
 
   const numberToHour = (h) => {
     let aux = `${h}`.split("");
@@ -290,16 +293,14 @@ export const AdministrarRestaurant = ({ userToken }) => {
         if (despuesDe(formState.fecha, today2)) {
           //La fecha es posterior a hoy
           axios
-            .post(`${url}/fechasnd/`, aux,useToken)
+            .post(`${url}/fechasnd/`, aux, useToken)
             .then(({ data }) => {
-              console.log(data);
               setButtonGuardarFecha(false);
               // TO DO mostrar cartel que fue agregado con éxito
               setShowModal(false);
               actualizar();
             })
             .catch(({ response }) => {
-              console.log(response);
               setButtonGuardarFecha(false);
               // TO DO mostrar cartel que hubo problemas.
               setShowModal(false);
@@ -310,7 +311,8 @@ export const AdministrarRestaurant = ({ userToken }) => {
           setShowAlert(true);
           setButtonGuardarFecha(false);
         }
-      }})
+      }
+    });
   };
 
   useEffect(() => {
@@ -373,7 +375,7 @@ export const AdministrarRestaurant = ({ userToken }) => {
               disabled
             />
           </Form.Group>
-          <Form.Group className="mb-3" >
+          <Form.Group className="mb-3">
             <Form.Label>Cantidad máxima de comensales:</Form.Label>
             <Form.Control
               type="text"
@@ -519,7 +521,11 @@ export const AdministrarRestaurant = ({ userToken }) => {
         <Modal.Header closeButton className={`custom-${theme}`}>
           <Modal.Title>Administrar Restaurant</Modal.Title>
         </Modal.Header>
-        <Form onSubmit={formik.handleSubmit} noValidate data-bs-theme={`${newTheme}`}>
+        <Form
+          onSubmit={formik.handleSubmit}
+          noValidate
+          data-bs-theme={`${newTheme}`}
+        >
           <Modal.Body className={`custom-${theme}`}>
             <Row>
               <Col>
