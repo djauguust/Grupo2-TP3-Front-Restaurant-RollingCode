@@ -35,5 +35,8 @@ Tambien esta disponible el modo oscuro y el idioma en Ingles.
 
 
 ### Integrantes:
-[Mauro Simon Jose](http://github.com/MauroSJ "Mauro Simon Jose")
-[Lucas Yudi](http://github.com/Yudi454 "Lucas Yudi")
+-- [Mauro Simon Jose](http://github.com/MauroSJ "Mauro Simon Jose") --
+-- [Lucas Yudi](http://github.com/Yudi454 "Lucas Yudi") --
+-- [Augusto Ismael](http://github.com/djauguust "Augusto Ismael") --
+-- [Pedro Antich](http://github.com/PedroAntich "Pedro Antich") --
+-- [Leo](http://github.com/LeoAc92 "Leo") --
