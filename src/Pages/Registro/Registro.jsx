@@ -116,8 +116,8 @@ function Registro() {
     <div className="background-image">
       <Container className="ubicarCarta mt-4 mb-4">
         <div className="Carta text-center">
-          <h3 className="mt-3">No tienes cuenta?</h3>
-          <h3 className="">Create una!</h3>
+          <h3 className="mt-3 TituloInicioSesion">No tienes cuenta?</h3>
+          <h3 className="TituloInicioSesion">Create una!</h3>
           <img
             src={
               "https://live.staticflickr.com/65535/53172154974_d7af7b89f9_o.png"
