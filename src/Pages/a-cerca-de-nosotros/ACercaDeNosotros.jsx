@@ -17,8 +17,8 @@ const ACercaDeNosotros = () => {
       <p className="text-center px-5">{t("aboutDescripcion")}</p>
 
       <Container>
-        <Row>
-          <Col className="about-col" xs={12} md={6} lg={4}>
+        <Row className="justify-content-center">
+          <Col className="about-col mb-md-5" xs={12} md={6} lg={4}>
             <Card className="about-card shadow-lg">
               <Image
                 className="about-img img-fluid"
@@ -31,7 +31,7 @@ const ACercaDeNosotros = () => {
                 <Card.Title>Augusto</Card.Title>
                 <Card.Text>{t("descripcionAugusto")}</Card.Text>
                 <div>
-                  <a href="">
+                  <a href="http://github.com/djauguust" target="blank">
                     <i className="bi bi-github m-2"></i>
                   </a>
                   <a href="">
@@ -44,7 +44,7 @@ const ACercaDeNosotros = () => {
               </Card.Body>
             </Card>
           </Col>
-          <Col className="about-col" xs={12} md={6} lg={4}>
+          <Col className="about-col mb-md-5" xs={12} md={6} lg={4}>
             <Card className="about-card shadow-lg">
               <Image
                 className="about-img"
@@ -57,7 +57,7 @@ const ACercaDeNosotros = () => {
                 <Card.Title>Leo</Card.Title>
                 <Card.Text>{t("descripcionLeo")}</Card.Text>
                 <div>
-                  <a href="">
+                  <a href="http://github.com/LeoAc92" target="blank">
                     <i className="bi bi-github m-2"></i>
                   </a>
                   <a href="">
@@ -70,7 +70,7 @@ const ACercaDeNosotros = () => {
               </Card.Body>
             </Card>
           </Col>
-          <Col className="about-col" xs={12} md={6} lg={4}>
+          <Col className="about-col mb-md-5" xs={12} md={6} lg={4}>
             <Card className="about-card shadow-lg">
               <Image
                 className="about-img"
@@ -83,7 +83,7 @@ const ACercaDeNosotros = () => {
                 <Card.Title>Lucas</Card.Title>
                 <Card.Text>{t("descripcionLucasY")}</Card.Text>
                 <div>
-                  <a href="">
+                  <a href="http://github.com/Yudi454" target="blank">
                     <i className="bi bi-github m-2"></i>
                   </a>
                   <a href="">
@@ -96,7 +96,7 @@ const ACercaDeNosotros = () => {
               </Card.Body>
             </Card>
           </Col>
-          <Col className="about-col mb-5" xs={12} md={6} lg={4}>
+          <Col className="about-col mb-md-5" xs={12} md={6} lg={6}>
             <Card className="about-card shadow-lg">
               <Image
                 className="about-img"
@@ -109,7 +109,7 @@ const ACercaDeNosotros = () => {
                 <Card.Title>Mauro</Card.Title>
                 <Card.Text>{t("descripcionMauro")}</Card.Text>
                 <div>
-                  <a href="">
+                  <a href="http://github.com/MauroSJ" target="blank">
                     <i className="bi bi-github m-2"></i>
                   </a>
                   <a href="">
@@ -122,7 +122,7 @@ const ACercaDeNosotros = () => {
               </Card.Body>
             </Card>
           </Col>
-          <Col className="about-col mb-5" xs={12} md={6} lg={4}>
+          <Col className="about-col mb-md-5" xs={12} md={6} lg={6}>
             <Card className="about-card shadow-lg">
               <Image
                 className="about-img"
@@ -135,27 +135,7 @@ const ACercaDeNosotros = () => {
                 <Card.Title>Pedro</Card.Title>
                 <Card.Text>{t("descripcionPedro")}</Card.Text>
                 <div>
-                  <a href="">
-                    <i className="bi bi-github m-2"></i>
-                  </a>
-                  <a href="">
-                    <i className="bi bi-linkedin m-2"></i>
-                  </a>
-                  <a href="">
-                    <i className="bi bi-instagram m-2"></i>
-                  </a>
-                </div>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col className="about-col mb-5" xs={12} md={6} lg={4}>
-            <Card className="about-card shadow-lg">
-              <Image className="about-img" src={""} roundedCircle />
-              <Card.Body className="about-card-body">
-                <Card.Title>Nombre</Card.Title>
-                <Card.Text>Hola soy lucasy</Card.Text>
-                <div>
-                  <a href="">
+                  <a href="http://github.com/PedroAntich" target="blank">
                     <i className="bi bi-github m-2"></i>
                   </a>
                   <a href="">
