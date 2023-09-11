@@ -33,7 +33,6 @@ const UserContext = ({ children }) => {
   const url = import.meta.env.VITE_API;
 
   const getUsuarios = async () => {
-    console.log("Funciona get usuarios");
     try {
       const response = await axios.get(`${url}/usuarios`, {
         headers: {
@@ -41,7 +40,6 @@ const UserContext = ({ children }) => {
         },
       });
       setUsuarios(response.data);
-      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -56,7 +54,6 @@ const UserContext = ({ children }) => {
         },
       });
       setUsuario(respuesta.data);
-      console.log(respuesta);
     } catch (error) {
       console.log(error);
     }

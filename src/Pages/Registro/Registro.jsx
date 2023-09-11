@@ -8,10 +8,13 @@ import clsx from "clsx";
 import Swal from "sweetalert2";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 function Registro() {
   const url = import.meta.env.VITE_API;
   const navigate = useNavigate();
+  const { t } = useTranslation();
+
 
   //Expresiones para validar
   const soloLetras = /^[a-zA-Z ]+$/;
@@ -116,8 +119,7 @@ function Registro() {
     <div className="background-image">
       <Container className="ubicarCarta mt-4 mb-4">
         <div className="Carta text-center">
-          <h3 className="mt-3 TituloInicioSesion">No tienes cuenta?</h3>
-          <h3 className="TituloInicioSesion">Create una!</h3>
+          <h3 className="mt-3 TituloInicioSesion">{t("CreateUnaCuenta")}</h3>
           <img
             src={
               "https://live.staticflickr.com/65535/53172154974_d7af7b89f9_o.png"
@@ -128,7 +130,7 @@ function Registro() {
           <div className="section text-center">
             <Form onSubmit={formik.handleSubmit} noValidate>
               <Form.Group className="contenedorForm">
-                <Form.Label className="label-color">Nombre</Form.Label>
+                <Form.Label className="label-color">{t("nombre")}</Form.Label>
                 <div className="input-group">
                   <img
                     src="https://live.staticflickr.com/65535/53172154969_6c2b8bcf1a_o.png"
@@ -137,7 +139,7 @@ function Registro() {
                   />
                   <Form.Control
                     type="text"
-                    placeholder="Ej: Lucas"
+                    placeholder={`${t("Ejemplo")}: Lucas`}
                     id="Nombre"
                     {...formik.getFieldProps("Nombre")}
                     className={clsx(
@@ -161,7 +163,7 @@ function Registro() {
               </Form.Group>
 
               <Form.Group className="contenedorForm">
-                <Form.Label className="label-color">Apellido</Form.Label>
+                <Form.Label className="label-color">{t("apellido")}</Form.Label>
                 <div className="input-group">
                   <img
                     src="https://live.staticflickr.com/65535/53172154969_6c2b8bcf1a_o.png"
@@ -170,7 +172,7 @@ function Registro() {
                   />
                   <Form.Control
                     type="text"
-                    placeholder="Ej: Yudi"
+                    placeholder={`${t("Ejemplo")}: Yudi`}
                     id="Apellido"
                     {...formik.getFieldProps("Apellido")}
                     className={clsx(
@@ -195,7 +197,7 @@ function Registro() {
 
               <Form.Group className="contenedorForm">
                 <Form.Label className="label-color">
-                  Correo Electrónico{" "}
+                  {t("email")}
                 </Form.Label>
                 <div className="input-group">
                   <img
@@ -205,7 +207,7 @@ function Registro() {
                   />
                   <Form.Control
                     type="text"
-                    placeholder="Ej: lucas@gmail.com"
+                    placeholder={`${t("Ejemplo")}: lucas@gmail.com`}
                     id="Email"
                     {...formik.getFieldProps("Email")}
                     className={clsx(
@@ -228,7 +230,7 @@ function Registro() {
                 )}
               </Form.Group>
               <Form.Group className="contenedorForm">
-                <Form.Label className="label-color">Contraseña </Form.Label>
+                <Form.Label className="label-color">{t("Contraseña")} </Form.Label>
                 <div className="input-group">
                   <img
                     src="https://live.staticflickr.com/65535/53171369387_6ff310ac34_o.png"
@@ -237,7 +239,7 @@ function Registro() {
                   />
                   <Form.Control
                     type="password"
-                    placeholder="Ej: Lucas1234"
+                    placeholder={`${t("Ejemplo")}: Lucas1234`}
                     id="Contraseña"
                     {...formik.getFieldProps("Contraseña")}
                     className={clsx(
@@ -261,7 +263,7 @@ function Registro() {
               </Form.Group>
               <Form.Group className="contenedorForm">
                 <Form.Label className="label-color">
-                  Repite tu contraseña{" "}
+                  {t("RepetirContraseña")}
                 </Form.Label>
                 <div className="input-group">
                   <img
@@ -271,7 +273,7 @@ function Registro() {
                   />
                   <Form.Control
                     type="password"
-                    placeholder="Ingresa nuevamente la contraseña"
+                    placeholder={t("RepetirContraseña")}
                     id="ConfirmarContraseña"
                     {...formik.getFieldProps("ConfirmarContraseña")}
                     className={clsx(
@@ -297,11 +299,11 @@ function Registro() {
                   )}
               </Form.Group>
 
-              <ButtonDefault namebtn="Crear cuenta" TipoBoton={"sumbit"} />
+              <ButtonDefault namebtn={t("CrearCuenta")} TipoBoton={"sumbit"} />
 
               <div className=" text-center mb-3">
                 <Link to={"/Login"} className="link ">
-                  Ya tienes una cuenta? Inicia Sesion!
+                  {t("YaTienesCuenta")}
                 </Link>
               </div>
             </Form>

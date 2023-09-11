@@ -10,9 +10,12 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { UsuariosContext } from "../../context/UserContext";
 import { toast } from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 function InicioSesion() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const { t } = useTranslation();
 
   //Url de un back de prueba para que la funcion de logueo quede guardada para cuando usemos el back
 
@@ -105,7 +108,7 @@ function InicioSesion() {
     <div className="background-image">
       <Container className="ubicarCarta">
         <div className="Carta mt-3 mb-3 text-center">
-          <h3 className="mt-3 TituloInicioSesion">Bienvenido!</h3>
+          <h3 className="mt-3 TituloInicioSesion">{t("bienvenido")}</h3>
           <img
             src={
               "https://live.staticflickr.com/65535/53172154974_d7af7b89f9_o.png"
@@ -123,7 +126,7 @@ function InicioSesion() {
           <Form onSubmit={formik.handleSubmit} noValidate>
             <Form.Group className="contenedorForm">
               <Form.Label className="label-color">
-                Ingresa tu correo electronico{" "}
+                {t("IngresaCorreo")}
               </Form.Label>
               <div className="input-group">
                 <img
@@ -133,7 +136,7 @@ function InicioSesion() {
                 />
                 <Form.Control
                   type="text"
-                  placeholder="Ej: Lucas@gmail.com"
+                  placeholder={`${t("Ejemplo")}: Lucas@gmail.com`}
                   id="email"
                   minLength="15"
                   maxLength="30"
@@ -159,17 +162,17 @@ function InicioSesion() {
             </Form.Group>
             <Form.Group className="contenedorForm">
               <Form.Label className="label-color">
-                Ingresa tu contrasenia{" "}
+                {t("IngresaContraseña")}
               </Form.Label>
               <div className="input-group">
                 <img
                   src="https://live.staticflickr.com/65535/53171369387_6ff310ac34_o.png"
                   alt="Imagen"
                   className="contraseña-icono"
-                />
+                  />
                 <Form.Control
                   type="password"
-                  placeholder="Ej: Lucas1234"
+                  placeholder={`${t("Ejemplo")}: Lucas1234`}
                   id="contrasenia"
                   minLength="8"
                   maxLength="16"
@@ -196,13 +199,13 @@ function InicioSesion() {
               )}
             </Form.Group>
 
-            <ButtonDefault namebtn="ingresar" TipoBoton="sumbit" />
+            <ButtonDefault namebtn={t("Ingresar")} TipoBoton="sumbit" />
           </Form>
           <br />
 
           <div className="mb-3 text-center">
             <Link to={"/registro"} className="link ">
-              ¿No tienes cuenta? ¡Crea una!
+              {t("CreateUnaCuenta")}
             </Link>
           </div>
         </div>

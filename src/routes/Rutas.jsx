@@ -26,9 +26,9 @@ const Rutas = () => {
         <Route path="/login" element={<InicioSesion />} />
         <Route path="/registro" element={<Registro />} />
         <Route path="*" element={<Error404 />} />
+        <Route path="/contacto" element={<Contacto />} />
         {Token && ( // Si Token existe
           <>
-            <Route path="/contacto" element={<Contacto />} />
             <Route path="/reservas" element={<Reservas />} />
             <Route path="/mis-reservas" element={<MisReservas />} />
             <Route path="/configurar-cuenta" element={<DatosCuenta />} />

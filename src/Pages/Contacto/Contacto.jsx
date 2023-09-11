@@ -3,13 +3,21 @@ import style from "../../styles/Contacto.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Formulario from "./FormularioContacto/FormContacto";
 import { useTranslation } from "react-i18next";
+import { NavbarContext } from "../../context/NavbarContext";
+import { useContext } from "react";
 
 const Contacto = () => {
   const { t } = useTranslation();
 
+  const { theme } = useContext(NavbarContext);
+
+  const newTheme =
+  theme === "claro" ? "light" : theme === "oscuro" ? "dark" : theme;
+
+
   return (
     <>
-      <div className={style.container}>
+      <div className={`custom-${newTheme} ${style.container}`}>
         <div className={`text-center ${style.banner}`}>
           <p>{t("contacto")}</p>
         </div>
