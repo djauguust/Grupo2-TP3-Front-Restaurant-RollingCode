@@ -4,9 +4,11 @@ import { ReservasContexto } from "../../../context/ReservasContexto";
 import axios from "axios";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import { NavbarContext } from "../../../context/NavbarContext";
+import { useTranslation } from "react-i18next";
 
 const contenedorReservas = ({ onShowModal, Reserva }) => {
   const url = import.meta.env.VITE_API;
+  const { t } = useTranslation();
 
   const { theme } = useContext(NavbarContext);
 
@@ -64,17 +66,17 @@ const contenedorReservas = ({ onShowModal, Reserva }) => {
           <Stack gap={3}>
             <div className="Contenedor-Fecha">
               <h3 className="TituloReservaParaDia">
-                Reserva para el dia {Reserva.fecha}
+                {`${t("reservasDia")} ${Reserva.fecha}`}
               </h3>
             </div>
             <div className="text-center">
-              <h4>Hora : {Reserva.hora}</h4>
+              <h4>{`${t("hora")}: ${Reserva.hora}`}</h4>
               <h4 className="Contenedor-Cantidad-Personas">
-                Cantidad de Personas : {Reserva.comensales}
+                {`${t("cantidadComensales")}: ${Reserva.comensales}`}
               </h4>
               <div className="mt-2 d-flex justify-content-around">
-                <Button onClick={clickEditar} className="me-1">Editar</Button>
-                <Button onClick={EliminarDatos} className="ms-1">Eliminar</Button>
+                <Button onClick={clickEditar} className="me-1">{t("editar")}</Button>
+                <Button onClick={EliminarDatos} className="ms-1">{t("borrar")}</Button>
               </div>
             </div>
           </Stack>

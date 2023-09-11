@@ -140,7 +140,7 @@ const configurarCuenta = () => {
                   <Form.Label>{t("nombre")} :</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="Ej: Lucas"
+                    placeholder={`${t("Ejemplo")}: Lucas`}
                     id="Nombre"
                     minLength={4}
                     maxLength={25}
@@ -169,7 +169,7 @@ const configurarCuenta = () => {
                   <Form.Label>{t("apellido")} :</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="Ej: Yudi"
+                    placeholder={`${t("Ejemplo")}: Yudi`}
                     id="Apellido"
                     minLength={4}
                     maxLength={25}
@@ -198,7 +198,7 @@ const configurarCuenta = () => {
                   <Form.Label>Email :</Form.Label>
                   <Form.Control
                     type="email"
-                    placeholder="Ej: yudilucas@gmail.com"
+                    placeholder={`${t("Ejemplo")}: yudilucas@gmail.com|`}
                     id="Email"
                     minLength={16}
                     maxLength={40}

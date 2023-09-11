@@ -5,6 +5,7 @@ import "../../styles/misReservas.css";
 import ContenedorReservas from "./ContenedorReservas/contenedorReservas";
 import ModalReservas from "./ModalReservas/modalReservas";
 import { UsuariosContext } from "../../context/UserContext";
+import { useTranslation } from "react-i18next";
 
 const MisReservas = () => {
   //Traigo todo esto del context
@@ -15,6 +16,8 @@ const MisReservas = () => {
     setSelectedReservaId,
     Reservas,
   } = useContext(ReservasContexto);
+
+  const { t } = useTranslation();
 
   //Digo que si reservas no tiene valor me traiga todas la reservas para poder mostrarlas con el map
 
@@ -41,7 +44,7 @@ const MisReservas = () => {
     <>
       <section className="contenedorMisReservas">
         <div className="text-center mt-3">
-          <h1>Mis Reservas</h1>
+          <h1>{t("misreservas")}</h1>
         </div>
         <article className="Ubicar-Contenedor-Reservas">
           <div className="d-flex justify-content-center">

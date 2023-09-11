@@ -105,7 +105,7 @@ i18n.use(initReactI18next).init({
         cerrar: "Close",
         adminRestaurant: "Manage Restaurant",
         nombreRestaurant: "Restaurant Name",
-        cantidadComensales: "Maximum number of diners",
+        cantidadMaximaComensales: "Maximum number of diners",
         horariosRestaurant: "Restaurant hours",
         cantidadMaxima: "Maximum number of reservations per user",
         tiempoMaximo: "Maximum time of each shift: (in hours)",
@@ -143,6 +143,21 @@ i18n.use(initReactI18next).init({
         RepetirContraseña: "Re-enter your password",
         CrearCuenta: "Create an account",
         YaTienesCuenta: "Already have an account? Log in!",
+        editarReserva : "Edit your Reservation",
+        datosUsuarios : "User Data",
+        cambiarDatos : "Change Information",
+        ContraseñaActual : "Current Password",
+        ContraseñaNueva : "New Password",
+        RepetirNuevaContraseña : "Confirm New Password",
+
+
+
+
+
+
+
+
+
       },
     },
     es: {
@@ -246,7 +261,7 @@ i18n.use(initReactI18next).init({
         cerrar: "Cerrar",
         adminRestaurant: "Administrar Restaurante",
         nombreRestaurant: "Nombre del Restaurant",
-        cantidadComensales: "Cantidad maxima de comensales",
+        cantidadMaximaComensales: "Cantidad maxima de comensales",
         horariosRestaurant: "Horarios del restaurant",
         cantidadMaxima: "Cantidad maximas de reservas por usuario",
         tiempoMaximo: "Tiempo máximo de cada turno: (en horas)",
@@ -284,6 +299,21 @@ i18n.use(initReactI18next).init({
         RepetirContraseña: "Repita su contraseña",
         CrearCuenta: "Crear Cuenta",
         YaTienesCuenta: "Ya tienes una cuenta? Inicia Sesion!",
+        editarReserva : "Edita tu Resrva",
+        datosUsuarios : "Datos de Usuario",
+        cambiarDatos : "Cambiar Datos",
+        ContraseñaActual : "Contraseña Actual",
+        ContraseñaNueva : "Contraseña Nueva",
+        RepetirNuevaContraseña : "Repetir Nueva Contraseña",
+
+
+
+
+
+
+
+
+
       },
     },
   },

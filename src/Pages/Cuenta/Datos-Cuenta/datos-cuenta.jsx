@@ -62,7 +62,7 @@ const DatosCuenta = () => {
                 mostrarDatos ? "boton-seleccionado" : "boton-desSeleccionado"
               }`}
             >
-              Datos de Usuario
+              {t("datosUsuarios")}
             </p>
             <p
               onClick={MostrarContraseña}
@@ -72,7 +72,7 @@ const DatosCuenta = () => {
                   : "boton-desSeleccionado"
               }`}
             >
-              Cambiar Contraseña
+              {t("cambiaContraseña")}
             </p>
             {mostrarConfigurarPerfil === true && (
               <p
@@ -82,7 +82,7 @@ const DatosCuenta = () => {
                     : "boton-desSeleccionado"
                 }`}
               >
-                Cambiar Datos
+                {t("cambiarDatos")}
               </p>
             )}
           </article>

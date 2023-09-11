@@ -142,7 +142,7 @@ const configurarContraseña = () => {
                   <Form.Label>{t("ingreseContraseña")}</Form.Label>
                   <Form.Control
                     type="password"
-                    placeholder="Contraseña Actual"
+                    placeholder={t("ContraseñaActual")}
                     id="ContraseñaActual"
                     minLength={8}
                     maxLength={16}
@@ -176,7 +176,7 @@ const configurarContraseña = () => {
                   <Form.Label>{t("ingreseContraseñaNueva")}</Form.Label>
                   <Form.Control
                     type="password"
-                    placeholder="Contraseña Nueva"
+                    placeholder={t("ContraseñaNueva")}
                     id="Contraseña"
                     minLength={8}
                     maxLength={16}
@@ -208,7 +208,7 @@ const configurarContraseña = () => {
                   <Form.Label>{t("ingreseContraseñaNuevamente")}</Form.Label>
                   <Form.Control
                     type="password"
-                    placeholder="Repetir Nueva Contraseña"
+                    placeholder={t("RepetirNuevaContraseña")}
                     id="ConfirmarContraseña"
                     minLength={8}
                     maxLength={16}

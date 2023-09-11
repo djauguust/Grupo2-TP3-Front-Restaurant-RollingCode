@@ -11,10 +11,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import { NavbarContext } from "../../../context/NavbarContext";
+import { useTranslation } from "react-i18next";
 
 const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
   const { theme } = useContext(NavbarContext);
   const TokenPuro = localStorage.getItem("user");
+  const { t } = useTranslation();
+
 
   const newTheme =
     theme === "claro" ? "light" : theme === "oscuro" ? "dark" : theme;
@@ -187,12 +190,12 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
       {/*Estructura del modal*/}
       <Modal show={showModal} onHide={onCloseModal}>
         <Modal.Header closeButton className={`custom-${newTheme}`}>
-          <Modal.Title>Edita tu Reserva</Modal.Title>
+          <Modal.Title>{t("editarReserva")}</Modal.Title>
         </Modal.Header>
         <Form onSubmit={formik.handleSubmit} noValidate>
           <Modal.Body className={`d flex flex-column custom-${newTheme}`}>
             <Form.Group>
-              <Form.Label>Edita la Fecha</Form.Label>
+              <Form.Label>{t("eligeFecha")} :</Form.Label>
               <DatePicker
                 selected={formik.values.FechaReserva}
                 onChange={(date) => formik.setFieldValue("FechaReserva", date)}
@@ -201,7 +204,7 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
                 dateFormat="yyyy/MM/dd"
                 minDate={filterMinDay()}
                 maxDate={filterMaxDay()}
-                placeholderText="Selecciona una fecha"
+                placeholderText={t("eligeFecha")}
                 className={clsx(
                   "form-control",
                   {
@@ -224,7 +227,7 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
               )}
             </Form.Group>
             <Form.Group>
-              <Form.Label>Hora :</Form.Label>
+              <Form.Label>{t("hora")} :</Form.Label>
               <DatePicker
                 selected={formik.values.HoraReserva}
                 onChange={(hora) => formik.setFieldValue("HoraReserva", hora)}
@@ -236,7 +239,7 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
                 locale={es}
                 timeClassName={handleColor}
                 filterTime={filterTime}
-                placeholderText="Selecciona una hora"
+                placeholderText={t("eligeHora")}
                 className={clsx(
                   "form-control",
                   {
@@ -258,9 +261,9 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
               )}
             </Form.Group>
             <Form.Group>
-              <Form.Label>Cantidad de Personas :</Form.Label>
+              <Form.Label>{t("cantidadComensales")} :</Form.Label>
               <Form.Control
-                placeholder="N° de Personas"
+                placeholder={t("cantidadComensales")}
                 type="number"
                 id="CantidadDePersonas"
                 min={1}
@@ -290,9 +293,9 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
             </Form.Group>
           </Modal.Body>
           <Modal.Footer className={`custom-${newTheme}`}>
-            <Button type="sumbit"> Guardar Cambios </Button>
+            <Button type="sumbit"> {t("guardarCambios")} </Button>
             <Button variant="secondary" onClick={onCloseModal}>
-              Cerrar
+              {t("cerrar")}
             </Button>
           </Modal.Footer>
         </Form>
