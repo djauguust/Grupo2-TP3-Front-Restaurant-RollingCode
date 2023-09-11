@@ -39,4 +39,4 @@ Tambien esta disponible el modo oscuro y el idioma en Ingles.
 -- [Lucas Yudi](http://github.com/Yudi454 "Lucas Yudi") --
 -- [Augusto Ismael](http://github.com/djauguust "Augusto Ismael") --
 -- [Pedro Antich](http://github.com/PedroAntich "Pedro Antich") --
--- [Leo](http://github.com/LeoAc92 "Leo") --
+-- [Leonardo Castro](http://github.com/LeoAc92 "Leo") --
