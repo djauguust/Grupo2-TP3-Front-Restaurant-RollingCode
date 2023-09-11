@@ -12,6 +12,7 @@ const Menu = ({ theme }) => {
 
   return (
     <>
+    <article>
       <div className="custom-menu">
         <div className={`contenedor-tabs${theme} mt-4`}>
           <h2 className="text-center mt-4">Menu</h2>
@@ -153,6 +154,7 @@ const Menu = ({ theme }) => {
           </Tabs>
         </div>
       </div>
+    </article>
     </>
   );
 };

@@ -8,10 +8,11 @@ const Info = ({ theme }) => {
 
   return (
     <>
-      <section className="mt-4 mb-4 text-center">
+    <article>
+      <div className="ContenedorInfo mt-4 mb-4 text-center">
         <h3 className="titulo-custom">Gusteau's</h3>
         <p>{t("descripcion")}</p>
-      </section>
+      </div>
       <div className="info-custom">
         <div className={`cartel-custom${theme}`}>
           <h3 className={`text-center mt-3 color-info${theme}`}>
@@ -39,6 +40,7 @@ const Info = ({ theme }) => {
           </Link>
         </div>
       </div>
+    </article>
     </>
   );
 };

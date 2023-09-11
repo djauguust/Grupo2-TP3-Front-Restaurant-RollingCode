@@ -2,7 +2,7 @@ import { useState } from "react";
 
 
 import Footer from "./components/footer/Footer";
-import Header from "./components/navbar/Header";
+import NavBar from "./components/navbar/Header";
 import "bootstrap/dist/css/bootstrap.min.css";
 import UserContext from "./context/UserContext";
 import "./i18n";
@@ -19,10 +19,18 @@ function App() {
       <NavbarContexto>
         <UserContext>
           <ReservasProvider>
-            <Header />
-            <Toaster position="bottom-right"/>
+          <header>
+            <NavBar />
+          </header>
+            <main>
             <Rutas />
+            </main>
+            <aside>
+            <Toaster position="bottom-right"/>
+            </aside>
+            <footer >
             <Footer />
+            </footer>
           </ReservasProvider>
         </UserContext>
       </NavbarContexto>

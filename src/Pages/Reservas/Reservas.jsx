@@ -261,7 +261,8 @@ const Reservas = () => {
 
   return (
     <>
-      <main className="reservation-main">
+      <section className="reservation-main">
+        <article>
         <Container fluid className="reservation-container">
           <Row className="d-flex justify-content-between align-items-center pb-3">
             <Col>
@@ -422,7 +423,8 @@ const Reservas = () => {
             </Row>
           </Form>
         </Container>
-      </main>
+        </article>
+      </section>
     </>
   );
 };

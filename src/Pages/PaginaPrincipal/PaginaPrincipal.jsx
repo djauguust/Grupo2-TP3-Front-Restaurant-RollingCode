@@ -11,11 +11,13 @@ const PaginaPrincipal = () => {
   const { theme } = useContext(NavbarContext);
   return (
     <>
+    <section>
       <CarruselPrincipal />
       <Info theme={theme} />
       <Menu theme={theme} />
       <Reviews theme={theme} />
       <Galeria theme={theme} />
+    </section>
     </>
   );
 };

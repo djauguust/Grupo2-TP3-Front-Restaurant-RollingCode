@@ -15,6 +15,8 @@ const Error404 = () => {
 
   return (
     <>
+    <section>
+      <article>
       <div className="Imagen-Fondo">
         <div className="Fondo-Oscuro">
           <div className="Cuerpo-Error">
@@ -33,6 +35,8 @@ const Error404 = () => {
           </div>
         </div>
       </div>
+      </article>
+    </section>
     </>
   );
 };

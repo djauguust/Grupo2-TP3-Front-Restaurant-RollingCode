@@ -47,9 +47,11 @@ export const Administracion = () => {
 
   return (
     <>
+    <section>
       {tokenValidate ? (
         <>
           <h2 className="about-title mb-3">Administracion</h2>
+          <article>
           <Nav fill variant="tabs" defaultActiveKey="/administrador">
             <Nav.Item>
               <Nav.Link
@@ -94,6 +96,8 @@ export const Administracion = () => {
               </>
             )}
           </Nav>
+          </article>
+          <article>  
           <Container fluid>
             {showInterface === 0 && (
               <AdministrarReservas
@@ -115,10 +119,12 @@ export const Administracion = () => {
               </>
             )}
           </Container>
+          </article>
         </>
       ) : (
         <Error404 />
       )}
+    </section>
     </>
   );
 };

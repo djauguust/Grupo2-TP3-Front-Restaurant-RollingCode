@@ -100,14 +100,10 @@ function InicioSesion() {
     },
   });
 
-  const MandarARegistro = () => {
-    useNavigate("/Registro");
-  };
-
   return (
-    <div className="background-image">
+    <section className="background-image">
       <Container className="ubicarCarta">
-        <div className="Carta mt-3 mb-3 text-center">
+        <article className="Carta mt-3 mb-3 text-center">
           <h3 className="mt-3 TituloInicioSesion">{t("bienvenido")}</h3>
           <img
             src={
@@ -208,10 +204,10 @@ function InicioSesion() {
               {t("CreateUnaCuenta")}
             </Link>
           </div>
-        </div>
+        </article>
       </Container>
       <div></div>
-    </div>
+    </section>
   );
 }
 

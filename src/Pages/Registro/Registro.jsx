@@ -116,9 +116,9 @@ function Registro() {
   });
 
   return (
-    <div className="background-image">
+    <section className="background-image">
       <Container className="ubicarCarta mt-4 mb-4">
-        <div className="Carta text-center">
+        <article className="Carta text-center">
           <h3 className="mt-3 TituloInicioSesion">{t("CreateUnaCuenta")}</h3>
           <img
             src={
@@ -308,9 +308,9 @@ function Registro() {
               </div>
             </Form>
           </div>
-        </div>
+        </article>
       </Container>
-    </div>
+    </section>
   );
 }
 

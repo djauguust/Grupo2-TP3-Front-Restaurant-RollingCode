@@ -5,6 +5,7 @@ import "./CarruselPrincipal.css";
 const CarruselPrincipal = () => {
   return (
     <>
+    <article>
       <Carousel fade className="carrusel-custom">
         <Carousel.Item>
           <img
@@ -34,6 +35,7 @@ const CarruselPrincipal = () => {
           />
         </Carousel.Item>
       </Carousel>
+    </article>
     </>
   );
 };

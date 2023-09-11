@@ -51,9 +51,10 @@ const DatosCuenta = () => {
 
   return (
     <>
+    <section>
       <Container className="mx-5">
         <div className="ContenedorPerfil px-5">
-          <div className="ContenedorCambiarUsuario-Contraseña">
+          <article className="ContenedorCambiarUsuario-Contraseña">
             {/*Links para acceder a las distintas secciones */}
             <p
               onClick={MostrarDatos}
@@ -84,10 +85,10 @@ const DatosCuenta = () => {
                 Cambiar Datos
               </p>
             )}
-          </div>
+          </article>
           {/*Expresion CondicionaL que muestra los datos si mostrarDatos es true */}
           {mostrarDatos === true && usuario && (
-            <div className="Contenedor-Para-Centrar">
+            <article className="Contenedor-Para-Centrar">
               <div className={`Contenedor-Datos`}>
                 <div>
                   <h3>{t("miPerfil")}</h3>
@@ -106,7 +107,7 @@ const DatosCuenta = () => {
                   Funcion={MostrarConfigurarPerfil}
                 />
               </div>
-            </div>
+            </article>
           )}
           {/*Expresion CondicionaL que muestra el contenedor para cambiar la contraseña si mostrarContraseña es true */}
           {mostrarContraseña === true && <ConfigurarContraseña />}
@@ -114,6 +115,7 @@ const DatosCuenta = () => {
           {mostrarConfigurarPerfil === true && <ConfigurarCuenta />}
         </div>
       </Container>
+    </section>
     </>
   );
 };

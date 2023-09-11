@@ -23,6 +23,12 @@
         width: auto !important;
 
     }
+    .ColMisReservas{
+        padding: 0 !important;
+    }
+    .rowDeMisReservas{
+        width: min-content;
+    }
 }
 
 /*Resolución para Pantallas de Celulares Fold*/
@@ -46,7 +52,6 @@
 
 .Ubicar-Contenedor-Reservas{
     min-height: 50vh;
-    margin-top: 10vh;
 }
 
 .modal-backdrop{
@@ -55,4 +60,8 @@
 
 .custom-dark{
     background-color: #191919;
+}
+
+.contenedorMisReservas{
+    margin-top: 17vh;
 }

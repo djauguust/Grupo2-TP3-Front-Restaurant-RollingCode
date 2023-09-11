@@ -14,7 +14,7 @@ import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 import { NavbarContext } from "../../context/NavbarContext";
 
-const Header = () => {
+const NavBar = () => {
   const { logout, traerUnUsuario, usuario, Token, setUsuario } =
     useContext(UsuariosContext);
 
@@ -322,4 +322,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default NavBar;

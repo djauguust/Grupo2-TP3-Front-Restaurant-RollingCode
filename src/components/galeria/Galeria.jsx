@@ -18,6 +18,7 @@ const Galeria = ({ theme }) => {
 
   return (
     <>
+    <article>
       <hr />
       <div className={`body-galeria${theme} container`}>
         <h2 className="text-center titulo-galeria">
@@ -129,6 +130,7 @@ const Galeria = ({ theme }) => {
           </div>
         )}
       </div>
+    </article>
     </>
   );
 };

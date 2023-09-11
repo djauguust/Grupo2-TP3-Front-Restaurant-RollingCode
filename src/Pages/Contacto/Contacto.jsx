@@ -17,6 +17,7 @@ const Contacto = () => {
 
   return (
     <>
+    <section>
       <div className={`custom-${newTheme} ${style.container}`}>
         <div className={`text-center ${style.banner}`}>
           <p>{t("contacto")}</p>
@@ -28,15 +29,19 @@ const Contacto = () => {
           >
             {t("contacto")}
           </h4>
+          <article>
           <div className={`p-5 ${style.formContacto}`}>
             <Formulario />
           </div>
-
+          </article>
+          <article>
           <div className={`p-5 ${style.mapa}`}>
             <Mapa />
           </div>
+          </article>
         </div>
       </div>
+    </section>
     </>
   );
 };

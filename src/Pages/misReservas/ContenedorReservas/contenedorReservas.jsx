@@ -59,7 +59,7 @@ const contenedorReservas = ({ onShowModal, Reserva }) => {
   //Todo abajo es el contenido de las reservas, para el diseño
   return (
     <>
-      <Col xs={12} md={6} lg={6}>
+      <Col xs={12} md={6} lg={6} className="ColMisReservas">
         <div className={`Contenedor-Reservas custom-${newTheme}`}>
           <Stack gap={3}>
             <div className="Contenedor-Fecha">
@@ -73,8 +73,8 @@ const contenedorReservas = ({ onShowModal, Reserva }) => {
                 Cantidad de Personas : {Reserva.comensales}
               </h4>
               <div className="mt-2 d-flex justify-content-around">
-                <Button onClick={clickEditar}>Editar</Button>
-                <Button onClick={EliminarDatos}>Eliminar</Button>
+                <Button onClick={clickEditar} className="me-1">Editar</Button>
+                <Button onClick={EliminarDatos} className="ms-1">Eliminar</Button>
               </div>
             </div>
           </Stack>

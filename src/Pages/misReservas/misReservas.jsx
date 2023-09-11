@@ -39,12 +39,12 @@ const MisReservas = () => {
 
   return (
     <>
-      <div className="text-dark">
+      <section className="contenedorMisReservas">
         <div className="text-center mt-3">
           <h1>Mis Reservas</h1>
         </div>
-        <div className="Ubicar-Contenedor-Reservas">
-          <Container className="d-flex justify-content-center">
+        <article className="Ubicar-Contenedor-Reservas">
+          <div className="d-flex justify-content-center">
             <Row className="rowDeMisReservas">
               {/*Map para que recorra el id y me muestre las reservas*/}
               {Reserva &&
@@ -62,9 +62,9 @@ const MisReservas = () => {
               selectedReservaId={selectedReservaId}
               onCloseModal={handleCloseModal}
             />
-          </Container>
-        </div>
-      </div>
+          </div>
+        </article>
+      </section>
     </>
   );
 };

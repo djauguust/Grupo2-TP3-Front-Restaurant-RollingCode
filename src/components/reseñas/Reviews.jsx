@@ -7,6 +7,7 @@ const Reviews = () => {
 
   return (
     <>
+    <article>
       <hr />
       <h1 className="titulo font-weight-bold mt-4">{t("reseñas")}</h1>
       <div className="cuerpo">
@@ -50,6 +51,7 @@ const Reviews = () => {
           </div>
         </div>
       </div>
+    </article>
     </>
   );
 };
