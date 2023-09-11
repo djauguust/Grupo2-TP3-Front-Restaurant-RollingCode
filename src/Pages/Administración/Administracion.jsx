@@ -50,7 +50,7 @@ export const Administracion = () => {
     <section>
       {tokenValidate ? (
         <>
-          <h2 className="about-title mb-3">Administracion</h2>
+          <h2 className="about-title mb-3">{t("Administracion")}</h2>
           <article>
           <Nav fill variant="tabs" defaultActiveKey="/administrador">
             <Nav.Item>
@@ -58,7 +58,7 @@ export const Administracion = () => {
                 className={`color-elegido ${activeTab === 0 ? "active" : ""}`}
                 onClick={() => handleTabClick(0)}
               >
-                Reservas
+                {t("reservas")}
               </Nav.Link>
             </Nav.Item>
             {!isDoorman && (
@@ -70,7 +70,7 @@ export const Administracion = () => {
                     }`}
                     onClick={() => handleTabClick(1)}
                   >
-                    Usuarios
+                    {t("usuarios")}
                   </Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
@@ -80,7 +80,7 @@ export const Administracion = () => {
                     }`}
                     onClick={() => handleTabClick(2)}
                   >
-                    Bandeja de Entrada
+                    {t("bandeja")}
                   </Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
@@ -90,7 +90,7 @@ export const Administracion = () => {
                     }`}
                     onClick={() => handleTabClick(3)}
                   >
-                    Restaurant
+                    {t("Restaurante")}
                   </Nav.Link>
                 </Nav.Item>
               </>

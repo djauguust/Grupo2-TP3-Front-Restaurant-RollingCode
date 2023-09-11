@@ -15,10 +15,12 @@ import { useForm } from "./hooks/useForm";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { NavbarContext } from "../../context/NavbarContext";
+import { useTranslation } from "react-i18next";
 
 export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
   const { theme } = useContext(NavbarContext);
   const useToken = { headers: { "auth-token": userToken } };
+  const { t } = useTranslation();
 
   const newTheme =
     theme === "claro" ? "light" : theme === "oscuro" ? "dark" : theme;
@@ -157,13 +159,13 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
     if (usada) {
       return (
         <>
-          <Badge bg="success">SI</Badge>
+          <Badge bg="success">{t("si").toUpperCase()}</Badge>
         </>
       );
     } else {
       return (
         <>
-          <Badge bg="secondary">NO</Badge>
+          <Badge bg="secondary">{t("no").toUpperCase()}</Badge>
         </>
       );
     }
@@ -260,9 +262,9 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
 
   return (
     <>
-      <h2 className="text-center mt-5">Administrar Reservas</h2>
+      <h2 className="text-center mt-5">{t("adminReservas")}</h2>
       <Container className="mb-5">
-        <h2>Reservas del día</h2>
+        <h2>{t("reservasDia")}</h2>
         {reservasToday?.length == 0 ? (
           sinReserva("Sin reservas para el día de hoy")
         ) : (
@@ -276,11 +278,11 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Hora</th>
-                  <th>Apellido y Nombre</th>
-                  <th>Cantidad</th>
-                  <th>Fue usada</th>
-                  <th>Acciones</th>
+                  <th>{t("hora")}</th>
+                  <th>{t("apellidoynombre")}</th>
+                  <th>{t("cantidad")}</th>
+                  <th>{t("fueUsada")}</th>
+                  <th>{t("acciones")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -333,7 +335,7 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
           <>
             <Row className="my-3">
               <Col sm={9}>
-                <h2>Buscar reservas por día: {formState.date}</h2>
+                <h2>{t("buscarReservas")}: {formState.date}</h2>
               </Col>
               <Col>
                 <FormSearch
@@ -350,11 +352,11 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>Hora</th>
-                      <th>Apellido y Nombre</th>
-                      <th>Cantidad</th>
-                      <th>Fue usada</th>
-                      <th>Acciones</th>
+                      <th>{t("hora")}</th>
+                      <th>{t("apellidoynombre")}</th>
+                      <th>{t("cantidad")}</th>
+                      <th>{t("fueUsada")}</th>
+                      <th>{t("acciones")}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -415,14 +417,14 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
         data-bs-theme={`${newTheme}`}
       >
         <Modal.Header closeButton className={`custom-${theme}`}>
-          <Modal.Title>Modificar Reserva</Modal.Title>
+          <Modal.Title>{t("modificarReserva")}</Modal.Title>
         </Modal.Header>
         <Modal.Body className={`custom-${theme}`}>
           <Form onSubmit={handleSubmit} data-bs-theme={`${newTheme}`}>
             <Row>
               <Col>
                 <Form.Group className="mb-3" controlId="formOrganizacion">
-                  <Form.Label>Fecha:</Form.Label>
+                  <Form.Label>{t("fecha")}:</Form.Label>
                   <Form.Control
                     type="date"
                     value={formState.fecha}
@@ -433,7 +435,7 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
               </Col>
               <Col>
                 <Form.Group className="mb-3" controlId="formOrganizacion">
-                  <Form.Label>Hora:</Form.Label>
+                  <Form.Label>{t("hora")}:</Form.Label>
                   <Form.Control
                     type="time"
                     value={formState.hora}
@@ -445,7 +447,7 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
               </Col>
             </Row>
             <Form.Group className="mb-3" controlId="formOrganizacion">
-              <Form.Label>Cantidad de comensales:</Form.Label>
+              <Form.Label>{t("cantidadComensales")}:</Form.Label>
               <Form.Control
                 type="number"
                 value={formState.comensales}
@@ -456,7 +458,7 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
             <Form.Group className="mb-3" controlId="formOrganizacion">
               <Row>
                 <Col>
-                  <Form.Label>¿Fue usada?</Form.Label>
+                  <Form.Label>¿{t("fueUsada")}?</Form.Label>
                 </Col>
                 <Col>
                   <Form.Select
@@ -465,8 +467,8 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
                     value={formState.fueUsada}
                     onChange={onInputChange}
                   >
-                    <option value="true">Sí</option>
-                    <option value="false">No</option>
+                    <option value="true">{t("si")}</option>
+                    <option value="false">{t("no")}</option>
                   </Form.Select>
                 </Col>
               </Row>
@@ -482,10 +484,10 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
         </Modal.Body>
         <Modal.Footer className={`custom-${theme}`}>
           <Button variant="secondary" onClick={handleCloseModal}>
-            Cerrar
+            {t("cerrar")}
           </Button>
           <Button variant="sucess" onClick={handleSubmit}>
-            Guardar
+            {t("Guardar")}
           </Button>
         </Modal.Footer>
       </Modal>

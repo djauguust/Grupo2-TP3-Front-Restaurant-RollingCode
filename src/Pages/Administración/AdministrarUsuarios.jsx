@@ -21,9 +21,11 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import clsx from "clsx";
 import { NavbarContext } from "../../context/NavbarContext";
+import { useTranslation } from "react-i18next";
 
 export const AdministrarUsuarios = ({ userToken }) => {
   const { theme } = useContext(NavbarContext);
+  const { t } = useTranslation();
 
   const newTheme =
     theme === "claro" ? "light" : theme === "oscuro" ? "dark" : theme;
@@ -379,13 +381,13 @@ export const AdministrarUsuarios = ({ userToken }) => {
   return (
     <>
       <Container>
-        <h2 className="text-center mt-5">Administrar Usuarios</h2>
-        <h2>Usuarios</h2>
+        <h2 className="text-center mt-5">{t("AdminsitrarUsuarios")}</h2>
+        <h2>{t("usuarios")}</h2>
         <FormSearch
           formState={formState}
           funcionOnInputChange={onInputChange}
           tipo="text"
-          placeholder="Buscar Usuario"
+          placeholder={t("BuscarUsuarios")}
           name="user"
         />
         <Table
@@ -397,12 +399,12 @@ export const AdministrarUsuarios = ({ userToken }) => {
           <thead>
             <tr>
               <th>#</th>
-              <th>Apellido</th>
-              <th>Nombre</th>
-              <th>E-mail</th>
-              <th>¿Activo?</th>
-              <th>Rol</th>
-              <th>Acciones</th>
+              <th>{t("apellido")}</th>
+              <th>{t("nombre")}</th>
+              <th>{t("email")}</th>
+              <th>¿{t("activo")}?</th>
+              <th>{t("rol")}</th>
+              <th>{t("acciones")}</th>
             </tr>
           </thead>
           <tbody>
@@ -427,14 +429,14 @@ export const AdministrarUsuarios = ({ userToken }) => {
                     onClick={() => handleEdit(r)}
                     className="me-3 mb-2"
                   >
-                    <i className="bi bi-pencil">Editar</i>
+                    <i className="bi bi-pencil">{t("editar")}</i>
                   </Button>
                   <Button
                     className="btn-trash"
                     variant="danger"
                     onClick={() => handleDelete(r)}
                   >
-                    <i className="bi bi-trash">Borrar</i>
+                    <i className="bi bi-trash">{t("borrar")}</i>
                   </Button>
                 </td>
               </tr>
@@ -469,7 +471,7 @@ export const AdministrarUsuarios = ({ userToken }) => {
         data-bs-theme={`${newTheme}`}
       >
         <Modal.Header closeButton className={`custom-${theme}`}>
-          <Modal.Title>Modificar Usuario</Modal.Title>
+          <Modal.Title>{t("modificarUsuario")}</Modal.Title>
         </Modal.Header>
         <Form
           onSubmit={formik.handleSubmit}
@@ -480,11 +482,11 @@ export const AdministrarUsuarios = ({ userToken }) => {
             <Row>
               <Col>
                 <Form.Group className="mb-3">
-                  <Form.Label>Nombre:</Form.Label>
+                  <Form.Label>{t("nombre")}:</Form.Label>
                   <Form.Control
                     type="text"
                     id="Nombre"
-                    placeholder="Ej: Lucas"
+                    placeholder={`${t("Ejemplo")}: Lucas`}
                     minLength={4}
                     maxLength={25}
                     {...formik.getFieldProps("Nombre")}
@@ -504,11 +506,11 @@ export const AdministrarUsuarios = ({ userToken }) => {
               </Col>
               <Col>
                 <Form.Group className="mb-3">
-                  <Form.Label>Apellido:</Form.Label>
+                  <Form.Label>{t("apellido")}:</Form.Label>
                   <Form.Control
                     type="text"
                     id="Apellido"
-                    placeholder="Ej: Yudi"
+                    placeholder={`${t("Ejemplo")}: Yudi`}
                     minLength={4}
                     maxLength={25}
                     {...formik.getFieldProps("Apellido")}
@@ -528,11 +530,11 @@ export const AdministrarUsuarios = ({ userToken }) => {
               </Col>
             </Row>
             <Form.Group className="mb-3">
-              <Form.Label>E-mail:</Form.Label>
+              <Form.Label>{t("email")}:</Form.Label>
               <Form.Control
                 type="email"
                 id="Email"
-                placeholder="Ej: ejemplo@gmail.com"
+                placeholder={`${t("Ejemplo")}: ejemplo@gmail.com`}
                 minLength={16}
                 maxLength={40}
                 {...formik.getFieldProps("Email")}
@@ -550,13 +552,13 @@ export const AdministrarUsuarios = ({ userToken }) => {
             <Form.Group className="mb-3">
               <Row>
                 <Col>
-                  <Form.Label>¿Es activo?</Form.Label>
+                  <Form.Label>¿{t("esActivo")}?</Form.Label>
                 </Col>
                 <Col>
                   <Form.Select
                     aria-label="Default select example"
                     id="EsActivo"
-                    placeholder="Seleccione una Opcion"
+                    placeholder={t("seleccioneUnaOpcion")}
                     {...formik.getFieldProps("EsActivo")}
                     className={clsx(
                       "form-control",
@@ -570,8 +572,8 @@ export const AdministrarUsuarios = ({ userToken }) => {
                       }
                     )}
                   >
-                    <option value="true">Sí</option>
-                    <option value="false">No</option>
+                    <option value="true">{t("si")}</option>
+                    <option value="false">{t("no")}</option>
                   </Form.Select>
                 </Col>
               </Row>
@@ -579,7 +581,7 @@ export const AdministrarUsuarios = ({ userToken }) => {
             <Form.Group className="mb-3">
               <Row>
                 <Col>
-                  <Form.Label>Rol:</Form.Label>
+                  <Form.Label>{t("rol")}:</Form.Label>
                 </Col>
                 <Col>
                   <Form.Select
@@ -597,9 +599,9 @@ export const AdministrarUsuarios = ({ userToken }) => {
                       }
                     )}
                   >
-                    <option value="2">Administrador</option>
-                    <option value="1">Portero</option>
-                    <option value="0">Usuario</option>
+                    <option value="2">{t("administrador")}</option>
+                    <option value="1">{t("portero")}</option>
+                    <option value="0">{t("usuario")}</option>
                   </Form.Select>
                 </Col>
               </Row>
@@ -629,7 +631,7 @@ export const AdministrarUsuarios = ({ userToken }) => {
           </Modal.Body>
           <Modal.Footer className={`custom-${theme}`}>
             <Button variant="secondary" onClick={handleCloseModal}>
-              Cerrar
+              {t("cerrar")}
             </Button>
             <Button
               variant="sucess"
@@ -637,7 +639,7 @@ export const AdministrarUsuarios = ({ userToken }) => {
               disabled={ButtonGuardarUsuario}
               type="sumbit"
             >
-              Guardar
+              {t("Guardar")}
             </Button>
           </Modal.Footer>
         </Form>
@@ -652,14 +654,14 @@ export const AdministrarUsuarios = ({ userToken }) => {
       >
         <Modal.Header closeButton className={`custom-${theme}`}>
           <Modal.Title>
-            Reservas del usuario: {showReservas?.apellido},{" "}
+            {t("reservasUsuario")}: {showReservas?.apellido},{" "}
             {showReservas?.nombre}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className={`custom-${theme}`}>
           {!reservasByUser ? (
             <>
-              <Alert variant="danger">¡Usuario sin reservas registradas!</Alert>
+              <Alert variant="danger">¡{t("sinReservas")}!</Alert>
             </>
           ) : (
             <>
@@ -667,10 +669,10 @@ export const AdministrarUsuarios = ({ userToken }) => {
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Fecha</th>
-                    <th>Hora</th>
-                    <th>Cant. de comensales</th>
-                    <th>¿Fue usada?</th>
+                    <th>{t("fecha")}</th>
+                    <th>{t("hora")}</th>
+                    <th>{t("cantidadComensales")}</th>
+                    <th>¿{t("fueUsada")}?</th>
                   </tr>
                 </thead>
                 <tbody>

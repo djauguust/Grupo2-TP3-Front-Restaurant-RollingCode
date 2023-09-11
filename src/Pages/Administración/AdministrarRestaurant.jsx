@@ -16,6 +16,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import clsx from "clsx";
 import { NavbarContext } from "../../context/NavbarContext";
+import { useTranslation } from "react-i18next";
 
 function despuesDe(obj, value) {
   try {
@@ -39,6 +40,8 @@ function despuesDe(obj, value) {
 export const AdministrarRestaurant = ({ userToken }) => {
   const { theme } = useContext(NavbarContext);
   const useToken = { headers: { "auth-token": userToken } };
+  const { t } = useTranslation();
+
 
   const newTheme =
     theme === "claro" ? "light" : theme === "oscuro" ? "dark" : theme;
@@ -359,7 +362,7 @@ export const AdministrarRestaurant = ({ userToken }) => {
   return (
     <>
       <Container>
-        <h2 className="text-center mt-5">Administrar Restaurante</h2>
+        <h2 className="text-center mt-5">{t("adminRestaurant")}</h2>
 
         <Form
           onSubmit={formik.handleSubmit}
@@ -367,7 +370,7 @@ export const AdministrarRestaurant = ({ userToken }) => {
           noValidate
         >
           <Form.Group className="mb-3">
-            <Form.Label>Nombre del Restaurant:</Form.Label>
+            <Form.Label>{t("nombreRestaurant")}:</Form.Label>
             <Form.Control
               type="text"
               id="Nombre"
@@ -376,7 +379,7 @@ export const AdministrarRestaurant = ({ userToken }) => {
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Cantidad máxima de comensales:</Form.Label>
+            <Form.Label>{t("cantidadMaximaComensales")}:</Form.Label>
             <Form.Control
               type="text"
               id="CantidadMaximaComensales"
@@ -385,7 +388,7 @@ export const AdministrarRestaurant = ({ userToken }) => {
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Horarios del Restaurant:</Form.Label>
+            <Form.Label>{t("horariosRestaurant")}:</Form.Label>
             <Row>
               <Col>
                 <Form.Control
@@ -407,7 +410,7 @@ export const AdministrarRestaurant = ({ userToken }) => {
             </Row>
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Cantidad máxima de reservas por Usuario:</Form.Label>
+            <Form.Label>{t("cantidadMaxima")}:</Form.Label>
             <Form.Control
               type="text"
               id="CantidadMaximaDeReservas"
@@ -416,7 +419,7 @@ export const AdministrarRestaurant = ({ userToken }) => {
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Tiempo máximo de cada turno: (en horas)</Form.Label>
+            <Form.Label>{t("tiempoMaximo")}</Form.Label>
             <Form.Control
               type="text"
               id="TiempoEntreTurnos"
@@ -425,7 +428,7 @@ export const AdministrarRestaurant = ({ userToken }) => {
             />
           </Form.Group>
         </Form>
-        <h5 className="mt-3">Fechas NO disponibles para hacer reservas</h5>
+        <h5 className="mt-3">{t("fechasNoDisponibles")}</h5>
         <Table
           striped
           responsive
@@ -435,9 +438,9 @@ export const AdministrarRestaurant = ({ userToken }) => {
           <thead>
             <tr>
               <th>#</th>
-              <th>Fecha</th>
-              <th>Creado por:</th>
-              <th>Acciones</th>
+              <th>{t("fecha")}</th>
+              <th>{t("creadoPor")}:</th>
+              <th>{t("acciones")}</th>
             </tr>
           </thead>
           <tbody>
@@ -464,12 +467,12 @@ export const AdministrarRestaurant = ({ userToken }) => {
         </Table>
         <div className="col-12 mb-4 d-grid">
           <Button type="submit" variant="warning" onClick={handleRestaurant}>
-            <strong>Administrar Restaurant</strong>
+            <strong>{t("adminRestaurant")}</strong>
           </Button>
         </div>
         <div className="col-12 mb-4 d-grid">
           <Button type="submit" variant="warning" onClick={handleShowModal}>
-            <strong>Agregar fecha No disponible</strong>
+            <strong>{t("agregarFechaNoDisponible")}</strong>
           </Button>
         </div>
       </Container>
@@ -481,12 +484,12 @@ export const AdministrarRestaurant = ({ userToken }) => {
         data-bs-theme={`${newTheme}`}
       >
         <Modal.Header closeButton className={`custom-${theme}`}>
-          <Modal.Title>Agregar Fecha No Disponible</Modal.Title>
+          <Modal.Title>{t("agregarFechaNoDisponible")}</Modal.Title>
         </Modal.Header>
         <Modal.Body className={`custom-${theme}`}>
           <Form data-bs-theme={`${newTheme}`}>
             <Form.Group className="mb-3" controlId="formOrganizacion">
-              <Form.Label>Fecha:</Form.Label>
+              <Form.Label>{t("fecha")}:</Form.Label>
               <Form.Control
                 type="date"
                 value={formState.fecha}
@@ -499,14 +502,14 @@ export const AdministrarRestaurant = ({ userToken }) => {
         </Modal.Body>
         <Modal.Footer className={`custom-${theme}`}>
           <Button variant="secondary" onClick={handleCloseModal}>
-            Cerrar
+            {t("cerrar")}
           </Button>
           <Button
             variant="sucess"
             onClick={handleSubmitModal}
             disabled={buttonGuardarFecha}
           >
-            Guardar
+            {t("Guardar")}
           </Button>
         </Modal.Footer>
       </Modal>
@@ -519,7 +522,7 @@ export const AdministrarRestaurant = ({ userToken }) => {
         data-bs-theme={`${newTheme}`}
       >
         <Modal.Header closeButton className={`custom-${theme}`}>
-          <Modal.Title>Administrar Restaurant</Modal.Title>
+          <Modal.Title>{t("adminRestaurant")}</Modal.Title>
         </Modal.Header>
         <Form
           onSubmit={formik.handleSubmit}
@@ -530,11 +533,11 @@ export const AdministrarRestaurant = ({ userToken }) => {
             <Row>
               <Col>
                 <Form.Group className="mb-3">
-                  <Form.Label>Nombre del Restaurant:</Form.Label>
+                  <Form.Label>{t("nombreRestaurant")}:</Form.Label>
                   <Form.Control
                     type="text"
                     id="Nombre"
-                    placeholder="Ej: Gusteau´s"
+                    placeholder={`${t("Ejemplo")}: Gusteau´s`}
                     min={4}
                     max={25}
                     {...formik.getFieldProps("Nombre")}
@@ -554,11 +557,11 @@ export const AdministrarRestaurant = ({ userToken }) => {
               </Col>
               <Col>
                 <Form.Group className="mb-3">
-                  <Form.Label>Cantidad máxima de comensales:</Form.Label>
+                  <Form.Label>{t("cantidadMaximaComensales")}:</Form.Label>
                   <Form.Control
                     type="number"
                     id="CantidadMaximaComensales"
-                    placeholder="Ej: 1"
+                    placeholder={`${t("Ejemplo")}: 1`}
                     {...formik.getFieldProps("CantidadMaximaComensales")}
                     className={clsx(
                       "form-control",
@@ -578,13 +581,13 @@ export const AdministrarRestaurant = ({ userToken }) => {
               </Col>
             </Row>
             <Form.Group className="mb-3">
-              <Form.Label>Horarios del Restaurant:</Form.Label>
+              <Form.Label>{t("horariosRestaurant")}:</Form.Label>
               <Row>
                 <Col>
                   <Form.Control
                     type="time"
                     id="HorarioRestauranteDesde"
-                    placeholder="Eliga una hora"
+                    placeholder={t("eligeHora")}
                     {...formik.getFieldProps("HorarioRestauranteDesde")}
                     className={clsx(
                       "form-control",
@@ -629,14 +632,14 @@ export const AdministrarRestaurant = ({ userToken }) => {
               <Row>
                 <Col>
                   <Form.Label>
-                    Cantidad máxima de reservas por Usuario:
+                    {t("cantidadMaxima")}:
                   </Form.Label>
                 </Col>
                 <Col>
                   <Form.Control
                     type="number"
                     id="CantidadMaximaDeReservas"
-                    placeholder="Eliga una cantidad maxima"
+                    placeholder={t("EligeUnaCantidadMaxima")}
                     {...formik.getFieldProps("CantidadMaximaDeReservas")}
                     className={clsx(
                       "form-control",
@@ -659,14 +662,14 @@ export const AdministrarRestaurant = ({ userToken }) => {
               <Row>
                 <Col>
                   <Form.Label>
-                    Tiempo máximo de cada turno: (en horas)
+                    {t("tiempoMaximo")}
                   </Form.Label>
                 </Col>
                 <Col>
                   <Form.Control
                     type="number"
                     id="TiempoEntreTurnos"
-                    placeholder="Elige un tiempo maximo"
+                    placeholder={t("EligeTiempoMaximo")}
                     {...formik.getFieldProps("TiempoEntreTurnos")}
                     className={clsx(
                       "form-control",
@@ -695,7 +698,7 @@ export const AdministrarRestaurant = ({ userToken }) => {
           </Modal.Body>
           <Modal.Footer className={`custom-${theme}`}>
             <Button variant="secondary" onClick={handleCloseModalRestaurant}>
-              Cerrar
+              {t("cerrar")}
             </Button>
             <Button
               variant="sucess"
@@ -704,7 +707,7 @@ export const AdministrarRestaurant = ({ userToken }) => {
               //Cuando ya se pase el contenido de handleSubmit al formik descomente el type y comente la funcion onClick
               type="sumbit"
             >
-              Guardar
+              {t("Guardar")}
             </Button>
           </Modal.Footer>
         </Form>

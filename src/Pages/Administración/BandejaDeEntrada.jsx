@@ -5,11 +5,14 @@ import { Badge, Button, Container, Modal, Table } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { NavbarContext } from "../../context/NavbarContext";
 import { useContext } from "react";
+import { useTranslation } from "react-i18next";
 
 export const BandejaDeEntrada = ({ userToken }) => {
   const { theme } = useContext(NavbarContext);
 
   const useToken = { headers: { "auth-token": userToken } };
+  const { t } = useTranslation();
+
 
   const newTheme =
     theme === "claro" ? "light" : theme === "oscuro" ? "dark" : theme;
@@ -117,7 +120,7 @@ export const BandejaDeEntrada = ({ userToken }) => {
   return (
     <>
       <Container>
-        <h2 className="text-center mt-5">Mensajes recibidos</h2>
+        <h2 className="text-center mt-5">{t("MensajesRecibidos")}</h2>
 
         <Table
           striped
@@ -128,11 +131,11 @@ export const BandejaDeEntrada = ({ userToken }) => {
           <thead>
             <tr>
               <th>#</th>
-              <th>Fecha</th>
-              <th>Nombre</th>
-              <th>E-mail</th>
-              <th>Mensaje</th>
-              <th>Acciones</th>
+              <th>{t("fecha")}</th>
+              <th>{t("nombre")}</th>
+              <th>{t("emal")}</th>
+              <th>{t("mensaje")}</th>
+              <th>{t("acciones")}</th>
             </tr>
           </thead>
           <tbody>
@@ -142,7 +145,7 @@ export const BandejaDeEntrada = ({ userToken }) => {
                   {index + 1}
                   {!r.leido && (
                     <p>
-                      <Badge bg="success">¡NUEVO!</Badge>
+                      <Badge bg="success">¡{t("Nuevo").toUpperCase()}!</Badge>
                     </p>
                   )}
                 </td>
@@ -182,7 +185,7 @@ export const BandejaDeEntrada = ({ userToken }) => {
         data-bs-theme={`${newTheme}`}
       >
         <Modal.Header closeButton className={`custom-${theme}`}>
-          <Modal.Title>Mensaje recibido</Modal.Title>
+          <Modal.Title>{t("mensajeRecibido")}</Modal.Title>
         </Modal.Header>
         <Modal.Body className={`custom-${theme}`}>
           <Table
@@ -193,9 +196,9 @@ export const BandejaDeEntrada = ({ userToken }) => {
           >
             <thead>
               <tr>
-                <th>Fecha</th>
-                <th>Nombre</th>
-                <th>E-mail</th>
+                <th>{t("fecha")}</th>
+                <th>{t("nombre")}</th>
+                <th>{t("email")}</th>
               </tr>
             </thead>
             <tbody>
@@ -206,11 +209,11 @@ export const BandejaDeEntrada = ({ userToken }) => {
               </tr>
             </tbody>
           </Table>
-          Mensaje: <h4>{messageToShow.mensaje}</h4>
+          {t("mensaje")}: <h4>{messageToShow.mensaje}</h4>
         </Modal.Body>
         <Modal.Footer className={`custom-${theme}`}>
           <Button variant="secondary" onClick={handleCloseModal}>
-            Cerrar
+           {t("close")}
           </Button>
         </Modal.Footer>
       </Modal>

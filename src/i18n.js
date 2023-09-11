@@ -118,7 +118,7 @@ i18n.use(initReactI18next).init({
         borrar: "Delete",
         esActivo: "Is active",
         reservasUsuario: "User Reservations",
-        sinReservas: "User without registered reservations!",
+        sinReservas: "User without registered reservations",
         mensajeRecibido: "Message received",
         descripcionAugusto:
           "Hello, I'm Augusto. My main goal is to keep us on the right track and ensure that we work in an agile and efficient manner. I believe in the importance of collaboration and constant communication to achieve our objectives. I'm excited to be part of this project.",
@@ -149,14 +149,21 @@ i18n.use(initReactI18next).init({
         ContraseñaActual : "Current Password",
         ContraseñaNueva : "New Password",
         RepetirNuevaContraseña : "Confirm New Password",
+        Administracion : "Administration",
+        Restaurante : "Restaurant",
+        no : "No",
+        Guardar : "Save",
+        AdminsitrarUsuarios : "Manage Users",
+        BuscarUsuarios : "Search Users",
+        modificarUsuario : "Edit User",
+        seleccioneUnaOpcion : "Select an Option",
+        usuario : "User",
+        MensajesRecibidos : "Received Messages",
+        Nuevo : "New",
+        EligeUnaCantidadMaxima: "Select a Maximum Amount",
+        EligeTiempoMaximo: "Choose a Maximum Time",
 
-
-
-
-
-
-
-
+        
 
       },
     },
@@ -257,10 +264,10 @@ i18n.use(initReactI18next).init({
         modificarReserva: "Modificar Reserva",
         fecha: "Fecha",
         cantidadComensales: "Cantidad de comensales",
-        si: "Si",
+        si: "SI",
         cerrar: "Cerrar",
         adminRestaurant: "Administrar Restaurante",
-        nombreRestaurant: "Nombre del Restaurant",
+        nombreRestaurant: "Nombre del Restaurante",
         cantidadMaximaComensales: "Cantidad maxima de comensales",
         horariosRestaurant: "Horarios del restaurant",
         cantidadMaxima: "Cantidad maximas de reservas por usuario",
@@ -274,7 +281,7 @@ i18n.use(initReactI18next).init({
         borrar: "Borrar",
         esActivo: "Es activo",
         reservasUsuario: "Reservas del usuario",
-        sinReservas: "¡Usuario sin reservas registradas!",
+        sinReservas: "Usuario sin reservas registradas",
         mensajeRecibido: "Mensaje recibido",
         descripcionAugusto:
           "Hola, soy Augusto.Mi principal objetivo es mantenernos en el camino correcto y asegurarme de que trabajemos de manera ágil y eficiente. Creo en la importancia de la colaboración y la comunicación constante para alcanzar nuestros objetivos. Estoy emocionado por ser parte de este proyecto.",
@@ -305,14 +312,19 @@ i18n.use(initReactI18next).init({
         ContraseñaActual : "Contraseña Actual",
         ContraseñaNueva : "Contraseña Nueva",
         RepetirNuevaContraseña : "Repetir Nueva Contraseña",
-
-
-
-
-
-
-
-
+        Administracion: "Administración",
+        Restaurante : "Restaurante",
+        no : "No",
+        Guardar : "Guardar",
+        AdminsitrarUsuarios : "Administrar Usuarios",
+        BuscarUsuarios : "Buscar Usuarios",
+        modificarUsuario: "Modificar Usuario",
+        seleccioneUnaOpcion : "Seleccione una Opcion",
+        usuario : "Usuario",
+        MensajesRecibidos : "Mensajes Recibidos",
+        Nuevo: "Nuevo",
+        EligeUnaCantidadMaxima: "Elige una Cantidad Maxima",
+        EligeTiempoMaximo: "Elige un tiempo máximo",
 
       },
     },
