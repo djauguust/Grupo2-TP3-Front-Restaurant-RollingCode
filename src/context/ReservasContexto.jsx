@@ -18,6 +18,9 @@ export const ReservasProvider = ({ children }) => {
   const [Reserva, setReserva] = useState();
   //Constante que guarda el valor del Id para pasarlo al modal
   const [selectedReservaId, setSelectedReservaId] = useState("");
+  //State para fechas no disponibles
+  const [fechasNoDisponibles, setFechasNoDisponibles] = useState([])
+
 
   //Funcion para traer una sola reserva
   const TraerUnaReserva = async () => {
@@ -34,6 +37,23 @@ export const ReservasProvider = ({ children }) => {
     }
   };
 
+  const traerFechasNoDisponibles = async () => {
+    try {
+      const response = await axios.get(`${url}/fechasnd`,{
+        headers: {
+          "auth-token" : TokenPuro.replace(/^"(.*)"$/, "$1")
+        }
+      })
+      setFechasNoDisponibles( response.data.map((res) => {
+        const fecha = new Date(res.fecha);
+        fecha.setDate(fecha.getDate() + 1); // Suma un día a la fecha
+        return fecha.toISOString().slice(0, 10); // Formatea la fecha como "YYYY-MM-DD"
+      }))
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   //TraerUnaReserva()
 
   //Constante para pasar todas las cosas del context, luego las simplifico mejor
@@ -44,6 +64,9 @@ export const ReservasProvider = ({ children }) => {
     setSelectedReservaId,
     TraerUnaReserva,
     Reserva,
+    traerFechasNoDisponibles,
+    fechasNoDisponibles,
+    setFechasNoDisponibles
   };
 
   return (

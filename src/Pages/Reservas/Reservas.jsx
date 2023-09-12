@@ -14,6 +14,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { UsuariosContext } from "../../context/UserContext";
 import { useTranslation } from "react-i18next";
+import { ReservasContexto } from "../../context/ReservasContexto";
 
 const Reservas = () => {
   const { t } = useTranslation();
@@ -21,6 +22,11 @@ const Reservas = () => {
   let date = new Date();
 
   const { Token } = useContext(UsuariosContext);
+  const {
+    traerFechasNoDisponibles,
+    fechasNoDisponibles,
+    setFechasNoDisponibles,
+  } = useContext(ReservasContexto);
 
   const TokenPuro = localStorage.getItem("user");
 
@@ -56,19 +62,10 @@ const Reservas = () => {
     };
   }, [dates]);
 
-  // useEffect(() => {
-  //   if (dates) {
-  //     axios
-  //       .get(`http://localhost:3000/reservas?fecha=${dates}`)
-  //       .then((response) => {
-  //         setFilterHour(response.data);
-
-  //       })
-  //       .catch((error) => {
-
-  //       });
-  //   }
-  // }, [dates]);
+  //useEffect para traer las fechas no disponibles
+  useEffect(() => {
+    traerFechasNoDisponibles();
+  }, []);
 
   const url = import.meta.env.VITE_API;
   //Get para solicitar la cantidad de comensales disponibles
@@ -263,166 +260,170 @@ const Reservas = () => {
     <>
       <section className="reservation-main">
         <article>
-        <Container fluid className="reservation-container">
-          <Row className="d-flex justify-content-between align-items-center pb-3">
-            <Col>
-              <Image
-                src="https://trello.com/1/cards/64b73c636625809102489870/attachments/64e189b71cf6c64059cf2edc/previews/64e189b81cf6c64059cf2ef8/download/Texto_del_p%C3%A1rrafo__2_-removebg-preview_%281%29.png"
-                rounded
-                width={80}
-                height={80}
-              />
-            </Col>
-          </Row>
-
-          <Form
-            onSubmit={formik.handleSubmit}
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "100%",
-            }}
-          >
-            <Row>
-              <Col xs={12} md={3} className="p-0">
-                <Form.Group controlId="date">
-                  <DatePicker
-                    onFocus={(e) => e.target.blur()}
-                    selected={formik.values.ReservationDate}
-                    onChange={(date) => {
-                      formik.setFieldValue("ReservationDate", date);
-                      if (date) {
-                        setEnableDate(true);
-                        setDates(fechaFormateada(date));
-                        resetInputsFromDate();
-                      }
-                    }}
-                    minDate={filterMinDay()}
-                    maxDate={filterMaxDay()}
-                    dateFormat="dd/MM/yyyy"
-                    placeholderText={t("eligeFecha")}
-                    className={clsx(
-                      "form-control input-reservation",
-                      {
-                        "is-invalid":
-                          formik.touched.ReservationDate &&
-                          formik.errors.ReservationDate,
-                      },
-                      {
-                        "is-valid":
-                          formik.touched.ReservationDate &&
-                          !formik.errors.ReservationDate,
-                      }
-                    )}
-                  />
-                  {formik.touched.ReservationDate &&
-                    formik.errors.ReservationDate && (
-                      <div className="text-center">
-                        <span role="alert" className="text-danger text-span">
-                          {formik.errors.ReservationDate}
-                        </span>
-                      </div>
-                    )}
-                </Form.Group>
-              </Col>
-
-              <Col xs={12} md={3} className="p-0">
-                <Form.Group controlId="time">
-                  <DatePicker
-                    onFocus={(e) => e.target.blur()}
-                    selected={formik.values.ReservationTime}
-                    onChange={(time) => {
-                      formik.setFieldValue("ReservationTime", time);
-                      if (time) {
-                        resetInputsFromTime();
-                        setDiseablePeople(true);
-                        setTime(horaFormateada(time));
-                      }
-                    }}
-                    disabled={!enableDate}
-                    showTimeSelect
-                    showTimeSelectOnly
-                    timeIntervals={30}
-                    timeCaption="Time"
-                    dateFormat="HH:mm"
-                    filterTime={filterTime}
-                    excludeTimes={filterHour.map(
-                      (hour) => new Date(`2000-01-01 ${hour}`)
-                    )}
-                    // instancio cada elemento de mi array para setearle un formato date
-                    placeholderText={t("eligeHora")}
-                    timeClassName={handleColor}
-                    className={clsx(
-                      "form-control input-reservation",
-                      {
-                        "is-invalid":
-                          formik.touched.ReservationTime &&
-                          formik.errors.ReservationTime,
-                      },
-                      {
-                        "is-valid":
-                          formik.touched.ReservationTime &&
-                          !formik.errors.ReservationTime,
-                      }
-                    )}
-                  />
-                  {formik.touched.ReservationTime &&
-                    formik.errors.ReservationTime && (
-                      <div className="text-center">
-                        <span role="alert" className="text-danger text-span">
-                          {formik.errors.ReservationTime}
-                        </span>
-                      </div>
-                    )}
-                </Form.Group>
-              </Col>
-
-              <Col xs={12} md={3} className="p-0">
-                <Form.Group controlId="people">
-                  <Form.Control
-                    placeholder={t("numeroPersonas")}
-                    onChange={(e) => {
-                      formik.setFieldValue("People", e.target.value);
-                    }}
-                    disabled={!diseablePeople || !time}
-                    type="number"
-                    min={1}
-                    value={formik.values.People}
-                    className={clsx(
-                      "form-control input-reservation",
-                      {
-                        "is-invalid":
-                          formik.touched.People && formik.errors.People,
-                      },
-                      {
-                        "is-valid":
-                          formik.touched.People && !formik.errors.People,
-                      }
-                    )}
-                  />
-                  {formik.touched.People && formik.errors.People && (
-                    <div className="text-center">
-                      <span role="alert" className="text-danger text-span">
-                        {formik.errors.People}
-                      </span>
-                    </div>
-                  )}
-                </Form.Group>
-              </Col>
-
-              <Col xs={12} md={3} className="p-0 d-flex align-items-center">
-                <Button
-                  className="reservation-boton"
-                  variant="primary"
-                  type="submit"
-                >
-                  {t("reservar")}
-                </Button>
+          <Container fluid className="reservation-container">
+            <Row className="d-flex justify-content-between align-items-center pb-3">
+              <Col>
+                <Image
+                  src="https://trello.com/1/cards/64b73c636625809102489870/attachments/64e189b71cf6c64059cf2edc/previews/64e189b81cf6c64059cf2ef8/download/Texto_del_p%C3%A1rrafo__2_-removebg-preview_%281%29.png"
+                  rounded
+                  width={80}
+                  height={80}
+                />
               </Col>
             </Row>
-          </Form>
-        </Container>
+
+            <Form
+              onSubmit={formik.handleSubmit}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+              }}
+            >
+              <Row>
+                <Col xs={12} md={3} className="p-0">
+                  <Form.Group controlId="date">
+                    <DatePicker
+                      onFocus={(e) => e.target.blur()}
+                      selected={formik.values.ReservationDate}
+                      onChange={(date) => {
+                        formik.setFieldValue("ReservationDate", date);
+
+                        if (date) {
+                          setEnableDate(true);
+                          setDates(fechaFormateada(date));
+                          resetInputsFromDate();
+                        }
+                      }}
+                      excludeDates={fechasNoDisponibles.map(
+                        (fecha) => new Date(fecha)
+                      )}
+                      minDate={filterMinDay()}
+                      maxDate={filterMaxDay()}
+                      dateFormat="dd/MM/yyyy"
+                      placeholderText={t("eligeFecha")}
+                      className={clsx(
+                        "form-control input-reservation",
+                        {
+                          "is-invalid":
+                            formik.touched.ReservationDate &&
+                            formik.errors.ReservationDate,
+                        },
+                        {
+                          "is-valid":
+                            formik.touched.ReservationDate &&
+                            !formik.errors.ReservationDate,
+                        }
+                      )}
+                    />
+                    {formik.touched.ReservationDate &&
+                      formik.errors.ReservationDate && (
+                        <div className="text-center">
+                          <span role="alert" className="text-danger text-span">
+                            {formik.errors.ReservationDate}
+                          </span>
+                        </div>
+                      )}
+                  </Form.Group>
+                </Col>
+
+                <Col xs={12} md={3} className="p-0">
+                  <Form.Group controlId="time">
+                    <DatePicker
+                      onFocus={(e) => e.target.blur()}
+                      selected={formik.values.ReservationTime}
+                      onChange={(time) => {
+                        formik.setFieldValue("ReservationTime", time);
+                        if (time) {
+                          resetInputsFromTime();
+                          setDiseablePeople(true);
+                          setTime(horaFormateada(time));
+                        }
+                      }}
+                      disabled={!enableDate}
+                      showTimeSelect
+                      showTimeSelectOnly
+                      timeIntervals={30}
+                      timeCaption="Time"
+                      dateFormat="HH:mm"
+                      filterTime={filterTime}
+                      excludeTimes={filterHour.map(
+                        (hour) => new Date(`2000-01-01 ${hour}`)
+                      )}
+                      // instancio cada elemento de mi array para setearle un formato date
+                      placeholderText={t("eligeHora")}
+                      timeClassName={handleColor}
+                      className={clsx(
+                        "form-control input-reservation",
+                        {
+                          "is-invalid":
+                            formik.touched.ReservationTime &&
+                            formik.errors.ReservationTime,
+                        },
+                        {
+                          "is-valid":
+                            formik.touched.ReservationTime &&
+                            !formik.errors.ReservationTime,
+                        }
+                      )}
+                    />
+                    {formik.touched.ReservationTime &&
+                      formik.errors.ReservationTime && (
+                        <div className="text-center">
+                          <span role="alert" className="text-danger text-span">
+                            {formik.errors.ReservationTime}
+                          </span>
+                        </div>
+                      )}
+                  </Form.Group>
+                </Col>
+
+                <Col xs={12} md={3} className="p-0">
+                  <Form.Group controlId="people">
+                    <Form.Control
+                      placeholder={t("numeroPersonas")}
+                      onChange={(e) => {
+                        formik.setFieldValue("People", e.target.value);
+                      }}
+                      disabled={!diseablePeople || !time}
+                      type="number"
+                      min={1}
+                      value={formik.values.People}
+                      className={clsx(
+                        "form-control input-reservation",
+                        {
+                          "is-invalid":
+                            formik.touched.People && formik.errors.People,
+                        },
+                        {
+                          "is-valid":
+                            formik.touched.People && !formik.errors.People,
+                        }
+                      )}
+                    />
+                    {formik.touched.People && formik.errors.People && (
+                      <div className="text-center">
+                        <span role="alert" className="text-danger text-span">
+                          {formik.errors.People}
+                        </span>
+                      </div>
+                    )}
+                  </Form.Group>
+                </Col>
+
+                <Col xs={12} md={3} className="p-0 d-flex align-items-center">
+                  <Button
+                    className="reservation-boton"
+                    variant="primary"
+                    type="submit"
+                  >
+                    {t("reservar")}
+                  </Button>
+                </Col>
+              </Row>
+            </Form>
+          </Container>
         </article>
       </section>
     </>

@@ -15,9 +15,13 @@ import { useTranslation } from "react-i18next";
 
 const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
   const { theme } = useContext(NavbarContext);
+  const {
+    traerFechasNoDisponibles,
+    fechasNoDisponibles,
+    setFechasNoDisponibles,
+  } = useContext(ReservasContexto);
   const TokenPuro = localStorage.getItem("user");
   const { t } = useTranslation();
-
 
   const newTheme =
     theme === "claro" ? "light" : theme === "oscuro" ? "dark" : theme;
@@ -48,6 +52,11 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
       setExternalChange(true);
     }
   }, [selectedReservaId]);
+
+  //UseEffect para traer las fehcas no disponibles
+  useEffect(() => {
+    traerFechasNoDisponibles();
+  }, []);
 
   //Esquema simple y sencillo
   const esquema = Yup.object().shape({
@@ -199,6 +208,9 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
               <DatePicker
                 selected={formik.values.FechaReserva}
                 onChange={(date) => formik.setFieldValue("FechaReserva", date)}
+                excludeDates={fechasNoDisponibles.map(
+                  (fecha) => new Date(fecha)
+                )}
                 closeOnScroll={true}
                 locale={es}
                 dateFormat="yyyy/MM/dd"
