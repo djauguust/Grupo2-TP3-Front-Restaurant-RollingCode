@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { UsuariosContext } from "./UserContext";
 
 export const ReservasContexto = createContext();
@@ -20,6 +20,8 @@ export const ReservasProvider = ({ children }) => {
   const [selectedReservaId, setSelectedReservaId] = useState("");
   //State para fechas no disponibles
   const [fechasNoDisponibles, setFechasNoDisponibles] = useState([])
+  //State para horarios disponibles
+  const [horariosDisponibles, setHorariosDisponibles] = useState([])
 
 
   //Funcion para traer una sola reserva
@@ -37,6 +39,7 @@ export const ReservasProvider = ({ children }) => {
     }
   };
 
+  //Funcion para traer las fechas no disponibles
   const traerFechasNoDisponibles = async () => {
     try {
       const response = await axios.get(`${url}/fechasnd`,{
@@ -44,6 +47,7 @@ export const ReservasProvider = ({ children }) => {
           "auth-token" : TokenPuro.replace(/^"(.*)"$/, "$1")
         }
       })
+      //funcion para que por cada fecha le sume un dia por un bug que te toma la fecha anterior a la que pones
       setFechasNoDisponibles( response.data.map((res) => {
         const fecha = new Date(res.fecha);
         fecha.setDate(fecha.getDate() + 1); // Suma un día a la fecha
@@ -54,8 +58,35 @@ export const ReservasProvider = ({ children }) => {
     }
   }
 
-  //TraerUnaReserva()
-
+  //Funcion para traer las horas disponibles
+  const traerHorasDisponibles = async () => {
+    //guardo las fechas disponibles aca para no tener que setear 2 veces los valores en el State
+    let guardarHorariosDisponibles = ""
+    try {
+      const response = await axios.get(`${url}/restaurant`,{
+        headers: {
+          "auth-token" : TokenPuro.replace(/^"(.*)"$/, "$1")
+        }
+      })
+      //ForEach para que pasar los horarios de array a objeto
+      response.data.forEach(datos => {
+        guardarHorariosDisponibles = datos.horario
+      });
+      //Todo esto es para poder pasar las horas desde numeros a string con : para separarlas entre horas y minutos
+      const horarioDesdeString = guardarHorariosDisponibles.desde.toString()
+      const horarioDesdeFormateado = `${horarioDesdeString.slice(0, 2)}:${horarioDesdeString.slice(2)}`
+      const horarioHastaString = guardarHorariosDisponibles.hasta.toString()
+      const horarioHastaFormateado = `${horarioHastaString.slice(0, 2)}:${horarioHastaString.slice(2)}`
+      //Guardo los datos en el state con el : entre horas y minutos
+      setHorariosDisponibles({
+        desde : horarioDesdeFormateado,
+        hasta : horarioHastaFormateado
+      })  
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
   //Constante para pasar todas las cosas del context, luego las simplifico mejor
   const PasarDatos = {
     Reservas,
@@ -66,7 +97,9 @@ export const ReservasProvider = ({ children }) => {
     Reserva,
     traerFechasNoDisponibles,
     fechasNoDisponibles,
-    setFechasNoDisponibles
+    setFechasNoDisponibles,
+    traerHorasDisponibles,
+    horariosDisponibles
   };
 
   return (

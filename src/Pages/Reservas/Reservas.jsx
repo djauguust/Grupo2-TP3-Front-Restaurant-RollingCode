@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import clsx from "clsx";
 import DatePicker from "react-datepicker";
-import { format } from "date-fns";
+import { addMinutes, format, parse, setHours, setMinutes, subMinutes } from "date-fns";
 import es from "date-fns/locale/es";
 import "react-datepicker/dist/react-datepicker.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -18,19 +18,20 @@ import { ReservasContexto } from "../../context/ReservasContexto";
 
 const Reservas = () => {
   const { t } = useTranslation();
-
   let date = new Date();
+  const Url = import.meta.env.VITE_API;
 
   const { Token } = useContext(UsuariosContext);
   const {
     traerFechasNoDisponibles,
     fechasNoDisponibles,
     setFechasNoDisponibles,
+    traerHorasDisponibles,
+    horariosDisponibles
   } = useContext(ReservasContexto);
 
   const TokenPuro = localStorage.getItem("user");
-
-  const Url = import.meta.env.VITE_API;
+  
 
   //Estado de fecha seleccionada
   const [dates, setDates] = useState(null);
@@ -67,13 +68,22 @@ const Reservas = () => {
     traerFechasNoDisponibles();
   }, []);
 
-  const url = import.meta.env.VITE_API;
+  //useEffect para traer el horario disponible
+  useEffect(() => {
+    traerHorasDisponibles()
+  },[])
+  
+  //Guardo la hora minima que seria en la que abrimos el local mas 30 minutos
+  const minTime = addMinutes(parse(horariosDisponibles.desde, `HH:mm`, new Date()),30)
+  //Guardo la hora maxima que sera en la que cerramos el local menos 30 minutos
+  const maxTime = subMinutes(parse(horariosDisponibles.hasta, `HH:mm`, new Date()),30)
+
   //Get para solicitar la cantidad de comensales disponibles
   useEffect(() => {
     const fetchData = async () => {
       if (time) {
         try {
-          const response = await axios.get(`${url}/reservas/${dates}/${time}`, {
+          const response = await axios.get(`${Url}/reservas/${dates}/${time}`, {
             headers: {
               "auth-token": TokenPuro.replace(/^"(.*)"$/, "$1"),
             },
@@ -145,7 +155,7 @@ const Reservas = () => {
 
         try {
           const reservationByUser = await axios.get(
-            `${url}/reservasByUsuario/${Token.id}`,
+            `${Url}/reservasByUsuario/${Token.id}`,
             {
               headers: {
                 "auth-token": TokenPuro.replace(/^"(.*)"$/, "$1"),
@@ -253,7 +263,11 @@ const Reservas = () => {
 
   //Funcion para que solo se vean las horas que son validas
   let handleColor = (time) => {
-    return time.getHours() > 11 ? "" : "d-none";
+    if(time >= minTime && time <= maxTime) {
+      return ""
+    } else {
+      return "d-none"
+    }
   };
 
   return (
@@ -347,10 +361,10 @@ const Reservas = () => {
                       timeIntervals={30}
                       timeCaption="Time"
                       dateFormat="HH:mm"
-                      filterTime={filterTime}
-                      excludeTimes={filterHour.map(
-                        (hour) => new Date(`2000-01-01 ${hour}`)
-                      )}
+                      //filterTime={filterTime}
+                      minTime={minTime}
+                      maxTime={maxTime}
+                      //excludeTimes={filterHour.map((hour) => new Date(`2000-01-01 ${hour}`))}
                       // instancio cada elemento de mi array para setearle un formato date
                       placeholderText={t("eligeHora")}
                       timeClassName={handleColor}
