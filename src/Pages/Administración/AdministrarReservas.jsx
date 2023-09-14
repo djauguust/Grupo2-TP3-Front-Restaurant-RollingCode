@@ -16,11 +16,33 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { NavbarContext } from "../../context/NavbarContext";
 import { useTranslation } from "react-i18next";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import clsx from "clsx";
+import DatePicker from "react-datepicker";
+import es from "date-fns/locale/es";
+import { ReservasContexto } from "../../context/ReservasContexto";
+import {
+  addMinutes,
+  format,
+  parse,
+  parseISO,
+  setHours,
+  setMinutes,
+  subMinutes,
+} from "date-fns";
 
 export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
   const { theme } = useContext(NavbarContext);
   const useToken = { headers: { "auth-token": userToken } };
   const { t } = useTranslation();
+  let date = new Date();
+  const {
+    traerFechasNoDisponibles,
+    fechasNoDisponibles,
+    traerHorasDisponibles,
+    horariosDisponibles,
+  } = useContext(ReservasContexto);
 
   const newTheme =
     theme === "claro" ? "light" : theme === "oscuro" ? "dark" : theme;
@@ -204,60 +226,150 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
     setFormState(aux);
   };
 
-  const handleSubmit = () => {
-    setButtonGuardarReserva(true);
-    if (validarForm()) {
+  //Regex para validar
+  const valoresMenores1 = /^[1-9]\d*$/; // Asegura que el número sea un entero positivo mayor que cero
+
+  //Esquema de validación
+  const esquemaReserva = Yup.object().shape({
+    Fecha: Yup.date().required("La fecha es requerida"),
+
+    Hora: Yup.string().required("La hora es requerida"),
+
+    CantidadDeComensales: Yup.string()
+      .matches(valoresMenores1,"No se permiten valores menores a 1")
+      .required("La cantidad de comensales es requerida"),
+
+    FueUsada: Yup.string().required("Este campo es requerido"),
+  });
+
+  //Valores iniciales
+  const valoresiniciales = {
+    Fecha: null,
+    Hora: "",
+    CantidadDeComensales: "",
+    FueUsada: false,
+  };
+  //Validación con formik
+  const formik = useFormik({
+    initialValues: valoresiniciales,
+    validationSchema: esquemaReserva,
+    validateOnChange: true,
+    validateOnBlur: true,
+    onSubmit: (values) => {
+      //Para formatear la fecha a un valor año/mes/dia
+      const fechaFormateada = format(values.Fecha, "yyyy-MM-dd", {
+        locale: es,
+      });
+      
+      //Para formatear la hora a un valor Hora/Minutos
+      const horaFormateada = format(values.Hora, "HH:mm", {
+        locale: es,
+      });
       axios
-        .put(`${url}/reservas/${formState._id}`, formState, useToken)
-        .then(({ data }) => {
-          setShowModalEdit(false);
-          Swal.fire(
-            "Reserva modificada con éxito",
-            "La reserva fue modificada pero el usuario no fue notificado de esto.",
-            "success"
-          ).then(async (result) => {
-            actualizar();
-          });
-        })
-        .catch(({ response }) => {
-          setShowModalEdit(false);
-          Swal.fire(
-            "Error con servidor",
-            `Error: ${response.data.message}`,
-            "warning"
-          ).then(async (result) => {
-            setFormState({ date: formState.fecha });
-            setButtonGuardarReserva(false);
-            actualizar();
-          });
+      .put(`${url}/reservas/${formState._id}`, {fecha : fechaFormateada,
+        hora : horaFormateada,
+        date : formState.date,
+        comensales : values.CantidadDeComensales,
+        fueUsada : values.FueUsada,
+        _id : formState._id}, useToken)
+      .then(({ data }) => {
+        setShowModalEdit(false);
+        Swal.fire(
+          "Reserva modificada con éxito",
+          "La reserva fue modificada pero el usuario no fue notificado de esto.",
+          "success"
+        ).then(async (result) => {
+          actualizar();
         });
+      })
+      .catch(({ response }) => {
+        setShowModalEdit(false);
+        Swal.fire(
+          "Error con servidor",
+          `Error: ${response.data.message}`,
+          "warning"
+        ).then(async (result) => {
+          setFormState({ date: formState.fecha });
+          setButtonGuardarReserva(false);
+          actualizar();
+        });
+      });
+    },
+  });
+
+  //UseEffect para traer las fehcas no disponibles
+  useEffect(() => {
+    traerFechasNoDisponibles();
+  }, []);
+
+  //useEffect para traer el horario disponible
+  useEffect(() => {
+    traerHorasDisponibles();
+  }, []);
+
+  //Funcion para que el usuario no pueda elegir fechas de dias anteriores o del mismo dia
+  const filterMinDay = () => {
+    const nextDay = new Date();
+    nextDay.setDate(date.getDate() + 1);
+    return nextDay;
+  };
+
+  //Fucnion para que el usuario no pueda elegir fechas mas de 1 mes
+  const filterMaxDay = () => {
+    const limitDate = new Date();
+    limitDate.setMonth(date.getMonth() + 1);
+    return limitDate;
+  };
+
+  //Guardo la hora minima que seria en la que abrimos el local mas 30 minutos
+  const minTime = addMinutes(
+    parse(horariosDisponibles.desde, `HH:mm`, new Date()),
+    30
+  );
+  //Guardo la hora maxima que sera en la que cerramos el local menos 30 minutos
+  const maxTime = subMinutes(
+    parse(horariosDisponibles.hasta, `HH:mm`, new Date()),
+    30
+  );
+
+  //Funcion para que solo se vean las horas que son validas
+  let handleColor = (time) => {
+    if (time >= minTime && time <= maxTime) {
+      return "";
     } else {
-      setButtonGuardarReserva(false);
+      return "d-none";
     }
   };
 
-  const validarForm = () => {
-    setErrores([]);
-    let array = [];
-    if (formState.fecha == "" || formState.fecha == null) {
-      array = [...array, "Debe ingresar una fecha"];
-    }
-    if (formState.hora == "" || formState.hora == null) {
-      array = [...array, "Debe ingresar una hora"];
-    }
-    if (
-      formState.comensales == "" ||
-      formState.comensales == null ||
-      formState.comensales < 1
-    ) {
-      array = [
-        ...array,
-        "La cantidad de comensales debe ser un número positivo",
-      ];
-    }
-    setErrores(array);
-    return array.length == 0;
+  //Funcion que solo sirve para desformatear la fecha para setear los valores en el form
+  const parsearFecha = (customDate) => {
+    return parseISO(customDate);
   };
+
+  //Funcion para lo mismo pero con la hora
+  const parsearHora = (customTime) => {
+    const [hour, minute] = customTime.split(":");
+    const horaParseada = setMinutes(setHours(new Date(), hour), minute);
+    return horaParseada;
+  };
+
+  //Setear valores con formik
+  const establecerDatos = async () => {
+    if (formState.fecha && formState.hora) {
+      const Fecha = (await parsearFecha(formState.fecha)) || "";
+      const Hora = (await parsearHora(formState.hora)) || "";
+      formik.setFieldValue("Fecha", Fecha);
+      formik.setFieldValue("Hora", Hora);
+      formik.setFieldValue("CantidadDeComensales", formState.comensales);
+      formik.setFieldValue("FueUsada", formState.fueUsada);
+    }
+  };
+
+  //UseEffect que sirve para establecer los datos
+  useEffect(() => {
+    establecerDatos();
+  }, [formState._id]);
+
   /* FIN EDITAR RESERVA */
 
   return (
@@ -335,7 +447,9 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
           <>
             <Row className="my-3">
               <Col sm={9}>
-                <h2>{t("buscarReservas")}: {formState.date}</h2>
+                <h2>
+                  {t("buscarReservas")}: {formState.date}
+                </h2>
               </Col>
               <Col>
                 <FormSearch
@@ -419,43 +533,95 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
         <Modal.Header closeButton className={`custom-${theme}`}>
           <Modal.Title>{t("modificarReserva")}</Modal.Title>
         </Modal.Header>
-        <Modal.Body className={`custom-${theme}`}>
-          <Form onSubmit={handleSubmit} data-bs-theme={`${newTheme}`}>
+        <Form
+          onSubmit={formik.handleSubmit}
+          data-bs-theme={`${newTheme}`}
+          noValidate
+        >
+          <Modal.Body className={`custom-${theme}`}>
             <Row>
               <Col>
-                <Form.Group className="mb-3" controlId="formOrganizacion">
+                <Form.Group className="mb-3">
                   <Form.Label>{t("fecha")}:</Form.Label>
-                  <Form.Control
-                    type="date"
-                    value={formState.fecha}
-                    name="fecha"
-                    onChange={onInputChange}
+                  <DatePicker
+                    selected={formik.values.Fecha}
+                    onChange={(date) => formik.setFieldValue("Fecha", date)}
+                    excludeDates={fechasNoDisponibles.map(
+                      (fecha) => new Date(fecha)
+                    )}
+                    closeOnScroll={true}
+                    locale={es}
+                    dateFormat="yyyy/MM/dd"
+                    minDate={filterMinDay()}
+                    maxDate={filterMaxDay()}
+                    placeholderText={t("eligeFecha")}
+                    className={clsx(
+                      "form-control",
+                      {
+                        "is-invalid":
+                          formik.touched.Fecha && formik.errors.Fecha,
+                      },
+                      {
+                        "is-valid":
+                          formik.touched.Fecha && !formik.errors.Fecha,
+                      }
+                    )}
                   />
                 </Form.Group>
               </Col>
               <Col>
-                <Form.Group className="mb-3" controlId="formOrganizacion">
+                <Form.Group className="mb-3">
                   <Form.Label>{t("hora")}:</Form.Label>
-                  <Form.Control
-                    type="time"
-                    value={formState.hora}
-                    name="hora"
-                    onChange={onInputChange}
-                    step="1800"
+                  <DatePicker
+                    selected={formik.values.Hora}
+                    onChange={(hora) => formik.setFieldValue("Hora", hora)}
+                    showTimeSelect
+                    showTimeSelectOnly
+                    timeIntervals={30}
+                    timeCaption="Hora"
+                    dateFormat="HH:mm"
+                    locale={es}
+                    minTime={minTime}
+                    maxTime={maxTime}
+                    timeClassName={handleColor}
+                    //filterTime={filterTime}
+                    placeholderText={t("eligeHora")}
+                    className={clsx(
+                      "form-control",
+                      {
+                        "is-invalid": formik.touched.Hora && formik.errors.Hora,
+                      },
+                      {
+                        "is-valid": formik.touched.Hora && !formik.errors.Hora,
+                      }
+                    )}
                   />
                 </Form.Group>
               </Col>
             </Row>
-            <Form.Group className="mb-3" controlId="formOrganizacion">
+            <Form.Group className="mb-3">
               <Form.Label>{t("cantidadComensales")}:</Form.Label>
               <Form.Control
                 type="number"
-                value={formState.comensales}
-                name="comensales"
-                onChange={onInputChange}
+                placeholder={`${t("Ejemplo")}: 1`}
+                id="CantidadDeComensales"
+                {...formik.getFieldProps("CantidadDeComensales")}
+                className={clsx(
+                  "form-control",
+                  {
+                    "is-invalid":
+                      formik.touched.CantidadDeComensales &&
+                      formik.errors.CantidadDeComensales,
+                  },
+                  {
+                    "is-valid":
+                      formik.touched.CantidadDeComensales &&
+                      !formik.errors.CantidadDeComensales,
+                  }
+                )}
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formOrganizacion">
+            <Form.Group className="mb-3">
               <Row>
                 <Col>
                   <Form.Label>¿{t("fueUsada")}?</Form.Label>
@@ -463,9 +629,20 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
                 <Col>
                   <Form.Select
                     aria-label="Default select example"
-                    name="fueUsada"
-                    value={formState.fueUsada}
-                    onChange={onInputChange}
+                    id="FueUsada"
+                    placeholder="Seleccione una opcion"
+                    {...formik.getFieldProps("FueUsada")}
+                    className={clsx(
+                      "form-control",
+                      {
+                        "is-invalid":
+                          formik.touched.FueUsada && formik.errors.FueUsada,
+                      },
+                      {
+                        "is-valid":
+                          formik.touched.FueUsada && !formik.errors.FueUsada,
+                      }
+                    )}
                   >
                     <option value="true">{t("si")}</option>
                     <option value="false">{t("no")}</option>
@@ -473,23 +650,23 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
                 </Col>
               </Row>
             </Form.Group>
-          </Form>
-          {errores.length != 0 && (
-            <Alert variant="warning">
-              {errores.map((f) => (
-                <p key={f.index}>{f}</p>
-              ))}
-            </Alert>
-          )}
-        </Modal.Body>
-        <Modal.Footer className={`custom-${theme}`}>
-          <Button variant="secondary" onClick={handleCloseModal}>
-            {t("cerrar")}
-          </Button>
-          <Button variant="sucess" onClick={handleSubmit}>
-            {t("Guardar")}
-          </Button>
-        </Modal.Footer>
+            {errores.length != 0 && (
+              <Alert variant="warning">
+                {errores.map((f) => (
+                  <p key={f.index}>{f}</p>
+                ))}
+              </Alert>
+            )}
+          </Modal.Body>
+          <Modal.Footer className={`custom-${theme}`}>
+            <Button variant="secondary" onClick={handleCloseModal}>
+              {t("cerrar")}
+            </Button>
+            <Button variant="sucess" type="submit">
+              {t("Guardar")}
+            </Button>
+          </Modal.Footer>
+        </Form>
       </Modal>
       {/* FIN Modales para confirmar/eliminar/editar reservas */}
     </>
