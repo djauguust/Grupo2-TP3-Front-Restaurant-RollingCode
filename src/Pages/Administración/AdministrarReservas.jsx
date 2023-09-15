@@ -458,10 +458,18 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
                 </h2>
               </Col>
               <Col>
-                <FormSearch
-                  formState={formState}
-                  funcionOnInputChange={onInputChange}
-                />
+              <DatePicker
+                    selected={parsearFecha(formState.date)}
+                    onChange={((date) => setFormState({...formState, "date" : format(date, "yyyy-MM-dd", {
+                      locale: es,
+                    })}))}
+                    closeOnScroll={true}
+                    locale={es}
+                    dateFormat="yyyy/MM/dd"
+                    placeholderText={t("eligeFecha")}
+                    className="form-control"
+                    
+                  />
               </Col>
             </Row>
             {reservaToShow.length == 0 ? (

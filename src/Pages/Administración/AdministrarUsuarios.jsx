@@ -595,7 +595,7 @@ export const AdministrarUsuarios = ({ userToken }) => {
                         "is-invalid": formik.touched.Rol && formik.errors.Rol,
                       },
                       {
-                        "is-valid": formik.touched.Rol && formik.errors.Rol,
+                        "is-valid": formik.touched.Rol && !formik.errors.Rol,
                       }
                     )}
                   >

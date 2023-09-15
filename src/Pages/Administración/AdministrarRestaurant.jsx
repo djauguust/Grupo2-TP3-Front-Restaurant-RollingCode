@@ -17,6 +17,10 @@ import * as Yup from "yup";
 import clsx from "clsx";
 import { NavbarContext } from "../../context/NavbarContext";
 import { useTranslation } from "react-i18next";
+import DatePicker from "react-datepicker";
+import es from "date-fns/locale/es";
+import { setHours, setMinutes } from "date-fns";
+
 
 function despuesDe(obj, value) {
   try {
@@ -229,18 +233,28 @@ export const AdministrarRestaurant = ({ userToken }) => {
       });
     },
   });
+
+  //Funcion para lo mismo pero con la hora
+  const parsearHora = (customTime) => {
+    const [hour, minute] = customTime.split(":");
+    const horaParseada = setMinutes(setHours(new Date(), hour), minute);
+    return horaParseada;
+  };
+
   //Funcion para setear los valores a los input
 
   const establecerDatos = async () => {
     //If para que espere a que formState.horarior.desde exista
     if (restaurant && restaurant.horario.desde) {
+      const HoraDesde = (await parsearHora(restaurant.horario.desde)) || "";
+      const HoraHasta = (await parsearHora(restaurant.horario.hasta)) || "";
       formik.setFieldValue("Nombre", restaurant.nombre);
       formik.setFieldValue(
         "CantidadMaximaComensales",
         restaurant.maximoComensales
       );
-      formik.setFieldValue("HorarioRestauranteDesde", restaurant.horario.desde);
-      formik.setFieldValue("HorarioRestauranteHasta", restaurant.horario.hasta);
+      formik.setFieldValue("HorarioRestauranteDesde", HoraDesde);
+      formik.setFieldValue("HorarioRestauranteHasta", HoraHasta);
       formik.setFieldValue(
         "CantidadMaximaDeReservas",
         restaurant.reservasMaxima
@@ -390,21 +404,21 @@ export const AdministrarRestaurant = ({ userToken }) => {
             <Form.Label>{t("horariosRestaurant")}:</Form.Label>
             <Row>
               <Col>
-                <Form.Control
-                  type="time"
-                  id="HorarioRestauranteDesde"
-                  {...formik.getFieldProps("HorarioRestauranteDesde")}
-                  disabled
-                />
+                  <DatePicker
+                    selected={formik.values.HorarioRestauranteDesde}
+                    disabled
+                    dateFormat="HH:mm"
+                    className="form-control"
+                  />
               </Col>
               a
               <Col>
-                <Form.Control
-                  type="time"
-                  id="HorarioRestauranteHasta"
-                  {...formik.getFieldProps("HorarioRestauranteHasta")}
-                  disabled
-                />
+              <DatePicker
+                    selected={formik.values.HorarioRestauranteHasta}
+                    disabled
+                    dateFormat="HH:mm"
+                    className="form-control"
+                  />
               </Col>
             </Row>
           </Form.Group>
@@ -584,46 +598,32 @@ export const AdministrarRestaurant = ({ userToken }) => {
               <Form.Label>{t("horariosRestaurant")}:</Form.Label>
               <Row>
                 <Col>
-                  <Form.Control
-                    type="time"
-                    id="HorarioRestauranteDesde"
-                    placeholder={t("eligeHora")}
-                    {...formik.getFieldProps("HorarioRestauranteDesde")}
-                    className={clsx(
-                      "form-control",
-                      {
-                        "is-invalid":
-                          formik.touched.HorarioRestauranteDesde &&
-                          formik.errors.HorarioRestauranteDesde,
-                      },
-                      {
-                        "is-valid":
-                          formik.touched.HorarioRestauranteDesde &&
-                          !formik.errors.HorarioRestauranteDesde,
-                      }
-                    )}
+                <DatePicker
+                    selected={formik.values.HorarioRestauranteDesde}
+                    onChange={(hora) => formik.setFieldValue("HorarioRestauranteDesde", hora)}
+                    showTimeSelect
+                    showTimeSelectOnly
+                    timeIntervals={30}
+                    timeCaption="Hora"
+                    dateFormat="HH:mm"
+                    locale={es}
+                    placeholderText={t("eligeHora")}
+                    className="form-control"
                   />
                 </Col>
                 a
                 <Col>
-                  <Form.Control
-                    type="time"
-                    id="HorarioRestauranteHasta"
-                    placeholder="Elige una hora"
-                    {...formik.getFieldProps("HorarioRestauranteHasta")}
-                    className={clsx(
-                      "form-control",
-                      {
-                        "is-invalid":
-                          formik.touched.HorarioRestauranteHasta &&
-                          formik.errors.HorarioRestauranteHasta,
-                      },
-                      {
-                        "is-valid":
-                          formik.touched.HorarioRestauranteHasta &&
-                          !formik.errors.HorarioRestauranteHasta,
-                      }
-                    )}
+                <DatePicker
+                    selected={formik.values.HorarioRestauranteHasta}
+                    onChange={(hora) => formik.setFieldValue("HorarioRestauranteHasta", hora)}
+                    showTimeSelect
+                    showTimeSelectOnly
+                    timeIntervals={30}
+                    timeCaption="Hora"
+                    dateFormat="HH:mm"
+                    locale={es}
+                    placeholderText={t("eligeHora")}
+                    className="form-control"
                   />
                 </Col>
               </Row>
