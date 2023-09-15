@@ -19,6 +19,8 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
     traerFechasNoDisponibles,
     fechasNoDisponibles,
     setFechasNoDisponibles,
+    traerHorasDisponibles,
+    horariosDisponibles
   } = useContext(ReservasContexto);
   const TokenPuro = localStorage.getItem("user");
   const { t } = useTranslation();
@@ -64,9 +66,10 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
 
     HoraReserva: Yup.string().required("La hora es requerida"),
 
-    CantidadDePersonas: Yup.string()
+    CantidadDePersonas: Yup.number()
       .required("La cantidad de personas es requerida")
-      .min(1, "Debes elegir al menos 1 persona"),
+      .min(1, "Debes elegir al menos 1 persona")
+      .max(horariosDisponibles.maximoComensales, "La cantidad ingresada supera a la cantidad de comensales"),
   });
 
   //Valores iniciales
@@ -98,7 +101,8 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
         fecha: fechaFormateada,
         hora: horaFormateada,
         comensales: values.CantidadDePersonas,
-        comensalesInicial : selectedReservaId.comensales
+        comensalesInicial : selectedReservaId.comensales,
+        maximoComensales : horariosDisponibles.maximoComensales
       };
 
       //Alert para preguntar si el usuario esta seguro
@@ -280,6 +284,7 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
                 type="number"
                 id="CantidadDePersonas"
                 min={1}
+                max={horariosDisponibles.maximoComensales}
                 {...formik.getFieldProps("CantidadDePersonas")}
                 className={clsx(
                   "form-control",

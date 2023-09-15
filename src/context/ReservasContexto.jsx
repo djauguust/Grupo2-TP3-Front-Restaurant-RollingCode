@@ -62,15 +62,18 @@ export const ReservasProvider = ({ children }) => {
   const traerHorasDisponibles = async () => {
     //guardo las fechas disponibles aca para no tener que setear 2 veces los valores en el State
     let guardarHorariosDisponibles = ""
+    let maximoComensales = 0
     try {
       const response = await axios.get(`${url}/restaurant`,{
         headers: {
           "auth-token" : TokenPuro.replace(/^"(.*)"$/, "$1")
         }
       })
+
       //ForEach para que pasar los horarios de array a objeto
       response.data.forEach(datos => {
         guardarHorariosDisponibles = datos.horario
+        maximoComensales = datos.maximoComensales
       });
       //Todo esto es para poder pasar las horas desde numeros a string con : para separarlas entre horas y minutos
       const horarioDesdeString = guardarHorariosDisponibles.desde.toString()
@@ -80,7 +83,8 @@ export const ReservasProvider = ({ children }) => {
       //Guardo los datos en el state con el : entre horas y minutos
       setHorariosDisponibles({
         desde : horarioDesdeFormateado,
-        hasta : horarioHastaFormateado
+        hasta : horarioHastaFormateado,
+        maximoComensales : maximoComensales
       })  
     } catch (error) {
       console.log(error);

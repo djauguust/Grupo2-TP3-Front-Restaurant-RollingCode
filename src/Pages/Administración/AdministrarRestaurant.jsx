@@ -42,7 +42,6 @@ export const AdministrarRestaurant = ({ userToken }) => {
   const useToken = { headers: { "auth-token": userToken } };
   const { t } = useTranslation();
 
-
   const newTheme =
     theme === "claro" ? "light" : theme === "oscuro" ? "dark" : theme;
 
@@ -60,6 +59,80 @@ export const AdministrarRestaurant = ({ userToken }) => {
   const { formState, setFormState, onInputChange, onResetForm } =
     useForm(initialForm);
 
+    
+    const handleDelete = (id) => {
+      Swal.fire({
+        title: "¿Realmente deseas eliminar la fecha no disponible?",
+      text: "Para deshacer este cambio deberás clickear en el botón 'Agregar fecha no disponible'",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si",
+      cancelButtonText: "No",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`${url}/fechasnd/${id}`, useToken)
+          .then(({ data }) => {
+            actualizar();
+          })
+          .catch((error) => console.log(error));
+      }
+    });
+  };
+  
+  const [ButtonGuardarRestaurant, setButtonGuardarRestaurant] = useState(false);
+  const [ShowModalRestaurant, setShowModalRestaurant] = useState(false);
+  const handleRestaurant = () => {
+    setErrores([]);
+    setButtonGuardarRestaurant(false);
+    onResetForm();
+    setShowModalRestaurant(true);
+    setFormState({
+      ...restaurant,
+      desde: restaurant.horario.desde,
+      hasta: restaurant.horario.hasta,
+    });
+  };
+  const handleCloseModalRestaurant = () => {
+    setShowModalRestaurant(false);
+  };
+
+  /* Backend */
+  const url = import.meta.env.VITE_API;
+  const [restaurant, setRestaurant] = useState();
+  const [fechasND, setfechasND] = useState([]);
+
+  const [actualizador, setActualizador] = useState(false);
+  const actualizar = () => {
+    setActualizador(!actualizador);
+  };
+
+  //Axios para traer valores del Restaurante
+  useEffect(() => {
+    axios
+    .get(`${url}/restaurant/`, useToken)
+    .then(({ data }) => {
+      data[0] = {
+        ...data[0],
+        horario: {
+          desde: numberToHour(data[0].horario.desde),
+          hasta: numberToHour(data[0].horario.hasta),
+        },
+      };
+      setRestaurant(data[0]);
+    })
+    .catch((error) => console.log(error));
+    axios
+    .get(`${url}/fechasnd/`, useToken)
+    .then(({ data }) => {
+      setfechasND(data);
+    })
+    .catch((error) => console.log(error));
+  }, [formState._id]);
+  /* FIN Backend */
+  
   //Expresiones para validar
   const soloLetras = /^[a-zA-Z ']+$/;
 
@@ -156,80 +229,6 @@ export const AdministrarRestaurant = ({ userToken }) => {
       });
     },
   });
-
-  const handleDelete = (id) => {
-    Swal.fire({
-      title: "¿Realmente deseas eliminar la fecha no disponible?",
-      text: "Para deshacer este cambio deberás clickear en el botón 'Agregar fecha no disponible'",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Si",
-      cancelButtonText: "No",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        axios
-          .delete(`${url}/fechasnd/${id}`, useToken)
-          .then(({ data }) => {
-            actualizar();
-          })
-          .catch((error) => console.log(error));
-      }
-    });
-  };
-
-  const [ButtonGuardarRestaurant, setButtonGuardarRestaurant] = useState(false);
-  const [ShowModalRestaurant, setShowModalRestaurant] = useState(false);
-  const handleRestaurant = () => {
-    setErrores([]);
-    setButtonGuardarRestaurant(false);
-    onResetForm();
-    setShowModalRestaurant(true);
-    setFormState({
-      ...restaurant,
-      desde: restaurant.horario.desde,
-      hasta: restaurant.horario.hasta,
-    });
-  };
-  const handleCloseModalRestaurant = () => {
-    setShowModalRestaurant(false);
-  };
-
-  /* Backend */
-  const url = import.meta.env.VITE_API;
-  const [restaurant, setRestaurant] = useState();
-  const [fechasND, setfechasND] = useState([]);
-
-  const [actualizador, setActualizador] = useState(false);
-  const actualizar = () => {
-    setActualizador(!actualizador);
-  };
-
-  //Axios para traer valores del Restaurante
-  useEffect(() => {
-    axios
-      .get(`${url}/restaurant/`, useToken)
-      .then(({ data }) => {
-        data[0] = {
-          ...data[0],
-          horario: {
-            desde: numberToHour(data[0].horario.desde),
-            hasta: numberToHour(data[0].horario.hasta),
-          },
-        };
-        setRestaurant(data[0]);
-      })
-      .catch((error) => console.log(error));
-    axios
-      .get(`${url}/fechasnd/`, useToken)
-      .then(({ data }) => {
-        setfechasND(data);
-      })
-      .catch((error) => console.log(error));
-  }, [formState._id]);
-  /* FIN Backend */
-
   //Funcion para setear los valores a los input
 
   const establecerDatos = async () => {
@@ -562,6 +561,7 @@ export const AdministrarRestaurant = ({ userToken }) => {
                     type="number"
                     id="CantidadMaximaComensales"
                     placeholder={`${t("Ejemplo")}: 1`}
+                    min={1}
                     {...formik.getFieldProps("CantidadMaximaComensales")}
                     className={clsx(
                       "form-control",
@@ -640,6 +640,7 @@ export const AdministrarRestaurant = ({ userToken }) => {
                     type="number"
                     id="CantidadMaximaDeReservas"
                     placeholder={t("EligeUnaCantidadMaxima")}
+                    min={1}
                     {...formik.getFieldProps("CantidadMaximaDeReservas")}
                     className={clsx(
                       "form-control",
@@ -670,6 +671,7 @@ export const AdministrarRestaurant = ({ userToken }) => {
                     type="number"
                     id="TiempoEntreTurnos"
                     placeholder={t("EligeTiempoMaximo")}
+                    min={1}
                     {...formik.getFieldProps("TiempoEntreTurnos")}
                     className={clsx(
                       "form-control",

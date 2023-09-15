@@ -227,7 +227,6 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
   };
 
   //Regex para validar
-  const valoresMenores1 = /^[1-9]\d*$/; // Asegura que el número sea un entero positivo mayor que cero
 
   //Esquema de validación
   const esquemaReserva = Yup.object().shape({
@@ -235,9 +234,10 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
 
     Hora: Yup.string().required("La hora es requerida"),
 
-    CantidadDeComensales: Yup.string()
-      .matches(valoresMenores1,"No se permiten valores menores a 1")
-      .required("La cantidad de comensales es requerida"),
+    CantidadDeComensales: Yup.number()
+      .required("La cantidad de comensales es requerida")
+      .min(1,"No se permiten valores menores a 1")
+      .max(horariosDisponibles.maximoComensales, "La cantidad ingresada supera a la cantidad de comensales"),
 
     FueUsada: Yup.string().required("Este campo es requerido"),
   });
@@ -274,7 +274,9 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
         comensales : values.CantidadDeComensales,
         fueUsada : values.FueUsada,
         _id : formState._id,
-        comensalesInicial: formState.comensales}, useToken)
+        comensalesInicial: formState.comensales,
+        traerHorasDisponibles,
+        maximoComensales : horariosDisponibles.maximoComensales}, useToken)
         
       .then(({ data }) => {
         setShowModalEdit(false);
@@ -608,6 +610,8 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
               <Form.Control
                 type="number"
                 placeholder={`${t("Ejemplo")}: 1`}
+                min={1}
+                max={horariosDisponibles.maximoComensales}
                 id="CantidadDeComensales"
                 {...formik.getFieldProps("CantidadDeComensales")}
                 className={clsx(

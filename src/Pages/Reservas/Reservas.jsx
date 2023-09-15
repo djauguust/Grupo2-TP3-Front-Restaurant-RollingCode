@@ -121,9 +121,8 @@ const Reservas = () => {
 
     People: Yup.number()
       .required("La cantidad de personas es requerida")
-      //.max(filterPeople[0],`Quedan disponibles ${filterPeople[0]} lugares en este horario`)
-
-      .min(1, "Debes elegir al menos 1 persona"),
+      .min(1, "Debes elegir al menos 1 persona")
+      .max(horariosDisponibles.maximoComensales, "La cantidad ingresada supera a la cantidad de comensales"),
   });
 
   //Initial Values
@@ -196,7 +195,8 @@ const Reservas = () => {
               hora: Reserva.Hora,
               comensales: Reserva.CantidadDePersonas,
               usuario: Token.id,
-              comensalesInicial : 0
+              comensalesInicial : 0,
+              maximoComensales : horariosDisponibles.maximoComensales
             },
             {
               headers: {
@@ -404,6 +404,7 @@ const Reservas = () => {
                       disabled={!diseablePeople || !time}
                       type="number"
                       min={1}
+                      max={horariosDisponibles.maximoComensales}
                       value={formik.values.People}
                       className={clsx(
                         "form-control input-reservation",
