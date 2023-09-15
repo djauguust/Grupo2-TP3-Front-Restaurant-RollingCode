@@ -264,14 +264,18 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
       //Para formatear la hora a un valor Hora/Minutos
       const horaFormateada = format(values.Hora, "HH:mm", {
         locale: es,
-      });
+    });
+
+    
       axios
       .put(`${url}/reservas/${formState._id}`, {fecha : fechaFormateada,
         hora : horaFormateada,
         date : formState.date,
         comensales : values.CantidadDeComensales,
         fueUsada : values.FueUsada,
-        _id : formState._id}, useToken)
+        _id : formState._id,
+        comensalesInicial: formState.comensales}, useToken)
+        
       .then(({ data }) => {
         setShowModalEdit(false);
         Swal.fire(

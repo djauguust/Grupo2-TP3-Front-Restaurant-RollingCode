@@ -196,6 +196,7 @@ const Reservas = () => {
               hora: Reserva.Hora,
               comensales: Reserva.CantidadDePersonas,
               usuario: Token.id,
+              comensalesInicial : 0
             },
             {
               headers: {

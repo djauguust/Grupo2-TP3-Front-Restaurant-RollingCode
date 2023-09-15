@@ -98,6 +98,7 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
         fecha: fechaFormateada,
         hora: horaFormateada,
         comensales: values.CantidadDePersonas,
+        comensalesInicial : selectedReservaId.comensales
       };
 
       //Alert para preguntar si el usuario esta seguro
