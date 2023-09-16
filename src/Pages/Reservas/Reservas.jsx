@@ -1,20 +1,18 @@
-import React, { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
+import Image from "react-bootstrap/Image";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import clsx from "clsx";
-import DatePicker from "react-datepicker";
-import { addMinutes, format, parse, setHours, setMinutes, subMinutes } from "date-fns";
-import es from "date-fns/locale/es";
-import "react-datepicker/dist/react-datepicker.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "../../styles/reserva.css";
-import Image from "react-bootstrap/Image";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { UsuariosContext } from "../../context/UserContext";
+import DatePicker from "react-datepicker";
+import { addMinutes, format, parse, subMinutes } from "date-fns";
+import es from "date-fns/locale/es";
 import { useTranslation } from "react-i18next";
+import { UsuariosContext } from "../../context/UserContext";
 import { ReservasContexto } from "../../context/ReservasContexto";
+import "../../styles/reserva.css";
 
 const Reservas = () => {
   const { t } = useTranslation();
@@ -25,13 +23,11 @@ const Reservas = () => {
   const {
     traerFechasNoDisponibles,
     fechasNoDisponibles,
-    setFechasNoDisponibles,
     traerHorasDisponibles,
-    horariosDisponibles
+    horariosDisponibles,
   } = useContext(ReservasContexto);
 
   const TokenPuro = localStorage.getItem("user");
-  
 
   //Estado de fecha seleccionada
   const [dates, setDates] = useState(null);
@@ -43,26 +39,6 @@ const Reservas = () => {
   //Estado para deshabilitar inputs
   const [diseablePeople, setDiseablePeople] = useState(false);
 
-  //Estado para filtrar horarios disponibles
-  const [filterHour, setFilterHour] = useState([]);
-
-  //Estado para filtrar cant de comensales dispnibles
-  const [filterPeople, setFilterPeople] = useState([]);
-
-  //Get para solicitar si una fecha esta disponible o no
-  useEffect(() => {
-    const fetchData = async () => {
-      if (dates) {
-        try {
-          const respone = await axios.get(`${Url}/${dates}`);
-          setFilterHour(respone.data);
-        } catch (error) {
-          console.error("Error al cargar datos:", error);
-        }
-      }
-    };
-  }, [dates]);
-
   //useEffect para traer las fechas no disponibles
   useEffect(() => {
     traerFechasNoDisponibles();
@@ -70,34 +46,20 @@ const Reservas = () => {
 
   //useEffect para traer el horario disponible
   useEffect(() => {
-    traerHorasDisponibles()
-  },[])
-  
+    traerHorasDisponibles();
+  }, []);
+
   //Guardo la hora minima que seria en la que abrimos el local mas 30 minutos
-  const minTime = addMinutes(parse(horariosDisponibles.desde, `HH:mm`, new Date()),30)
+  const minTime = addMinutes(
+    parse(horariosDisponibles.desde, `HH:mm`, new Date()),
+    30
+  );
   //Guardo la hora maxima que sera en la que cerramos el local menos 30 minutos
-  const maxTime = subMinutes(parse(horariosDisponibles.hasta, `HH:mm`, new Date()),30)
+  const maxTime = subMinutes(
+    parse(horariosDisponibles.hasta, `HH:mm`, new Date()),
+    30
+  );
 
-  //Get para solicitar la cantidad de comensales disponibles
-  useEffect(() => {
-    const fetchData = async () => {
-      if (time) {
-        try {
-          const response = await axios.get(`${Url}/reservas/${dates}/${time}`, {
-            headers: {
-              "auth-token": TokenPuro.replace(/^"(.*)"$/, "$1"),
-            },
-          });
-          // const response = await axios.get(`http://localhost:3000/reservas`);
-          setFilterPeople(response.data);
-        } catch (error) {
-          console.error("Error al cargar datos:", error);
-        }
-      }
-    };
-
-    fetchData();
-  }, [time]);
   //Funcion para resetear valores de inputs cuando cambio la fecha
   const resetInputsFromDate = (date) => {
     setTime(null);
@@ -122,7 +84,10 @@ const Reservas = () => {
     People: Yup.number()
       .required("La cantidad de personas es requerida")
       .min(1, "Debes elegir al menos 1 persona")
-      .max(horariosDisponibles.maximoComensales, "La cantidad ingresada supera a la cantidad de comensales"),
+      .max(
+        horariosDisponibles.maximoComensales,
+        "La cantidad ingresada supera a la cantidad de comensales"
+      ),
   });
 
   //Initial Values
@@ -167,11 +132,7 @@ const Reservas = () => {
         }
 
         if (userReservation.length >= 2) {
-          Swal.fire(
-            "Error",
-            t("UsuarioRealizoDosReservas"),
-            "error"
-          );
+          Swal.fire("Error", t("UsuarioRealizoDosReservas"), "error");
           return;
         }
 
@@ -185,7 +146,7 @@ const Reservas = () => {
           confirmButtonColor: "#B08D59",
           cancelButtonColor: "#d33",
           confirmButtonText: t("SiEstoySeguro"),
-          cancelButtonText: t("NoMejorNo")
+          cancelButtonText: t("NoMejorNo"),
         });
         //Post a db
         if (result.isConfirmed) {
@@ -196,8 +157,8 @@ const Reservas = () => {
               hora: Reserva.Hora,
               comensales: Reserva.CantidadDePersonas,
               usuario: Token.id,
-              comensalesInicial : 0,
-              maximoComensales : horariosDisponibles.maximoComensales
+              comensalesInicial: 0,
+              maximoComensales: horariosDisponibles.maximoComensales,
             },
             {
               headers: {
@@ -206,19 +167,11 @@ const Reservas = () => {
             }
           );
 
-          Swal.fire(
-            t("ReservaGuardada"),
-            t("ReservaExitosa"),
-            "success"
-          );
+          Swal.fire(t("ReservaGuardada"), t("ReservaExitosa"), "success");
 
           resetForm();
         } else {
-          Swal.fire(
-            t("ReservaCancelada"),
-            t("ReservaNoGuardada"),
-            "info"
-          );
+          Swal.fire(t("ReservaCancelada"), t("ReservaNoGuardada"), "info");
           resetForm();
         }
       } catch (error) {
@@ -240,8 +193,6 @@ const Reservas = () => {
       locale: es,
     });
   };
-
-  //Funcion para que los domingos esten deshabilitados
 
   //Funcion para que el usuario no pueda elegir fechas de dias anteriores o del mismo dia
   const filterMinDay = () => {
@@ -265,10 +216,10 @@ const Reservas = () => {
 
   //Funcion para que solo se vean las horas que son validas
   let handleColor = (time) => {
-    if(time >= minTime && time <= maxTime) {
-      return ""
+    if (time >= minTime && time <= maxTime) {
+      return "";
     } else {
-      return "d-none"
+      return "d-none";
     }
   };
 
@@ -363,11 +314,8 @@ const Reservas = () => {
                       timeIntervals={30}
                       timeCaption="Time"
                       dateFormat="HH:mm"
-                      //filterTime={filterTime}
                       minTime={minTime}
                       maxTime={maxTime}
-                      //excludeTimes={filterHour.map((hour) => new Date(`2000-01-01 ${hour}`))}
-                      // instancio cada elemento de mi array para setearle un formato date
                       placeholderText={t("eligeHora")}
                       timeClassName={handleColor}
                       className={clsx(

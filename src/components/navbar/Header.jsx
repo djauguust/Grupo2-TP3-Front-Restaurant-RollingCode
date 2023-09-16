@@ -1,24 +1,17 @@
-import React from "react";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import "./Header.css";
+import { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { UsuariosContext } from "../../context/UserContext";
-import { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Offcanvas from "react-bootstrap/Offcanvas";
-import Dropdown from "react-bootstrap/Dropdown";
+import { Nav, Navbar, Button, Offcanvas, Dropdown } from "react-bootstrap";
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
-import { useEffect } from "react";
+import { UsuariosContext } from "../../context/UserContext";
 import { NavbarContext } from "../../context/NavbarContext";
+import "./Header.css";
 
 const NavBar = () => {
   const { logout, traerUnUsuario, usuario, Token, setUsuario } =
     useContext(UsuariosContext);
 
-  const { theme, handleSwitch, toast } = useContext(NavbarContext);
+  const { theme, handleSwitch } = useContext(NavbarContext);
 
   const navigate = useNavigate();
 
@@ -86,7 +79,6 @@ const NavBar = () => {
               {t("reserva")}
             </Nav.Link>
             <div className="nav-link">
-
               <Dropdown className="drop-idioma">
                 <Dropdown.Toggle
                   className="boton-izq-custom-idioma"
@@ -124,7 +116,6 @@ const NavBar = () => {
                 </Dropdown.Menu>
               </Dropdown>
             </div>
-            
           </Nav>
           <Nav
             style={{ display: "block", position: "relative" }}
@@ -165,8 +156,7 @@ const NavBar = () => {
                       height="200px"
                     />
                     <p>
-                      {t("nombre")}:
-                      {``}
+                      {t("nombre")}:{``}
                       {`${usuario.nombre} ${usuario.apellido}`}
                     </p>
                     <Button
@@ -298,16 +288,6 @@ const NavBar = () => {
               {t("ubicacion")}
             </Nav.Link>
           </Nav>
-          {/* <Form.Check
-            type="switch"
-            id="custom-switch"
-            label=""
-            onChange={handleSwitch}
-            className="boton-switch"
-            variant="dark"
-            custom // Agregar esta clase para habilitar los estilos personalizados
-          />  */}
-
           {/* Nuevo toggle modo dia/noche */}
 
           <label role="button" htmlFor="checkbox" className="switch">

@@ -1,22 +1,24 @@
-/* Resolución para Pantallas de Celulares */  
+/* Resolución para Pantallas de Celulares */
 @media (max-width: 767px) {
-    .textoEmailFooter{
+    .textoEmailFooter {
         font-size: 17px;
-    }    
+    }
 }
 
 .footerclaro {
     background-color: #F0E5D8;
-   
+
 }
+
 .footeroscuro {
     background-color: #090909;
-   
+
 }
-.img-custom{
+
+.img-custom {
     object-fit: contain;
 }
 
-.textoEmailFooter{
+.textoEmailFooter {
     margin: 0 !important;
 }

@@ -1,26 +1,16 @@
 import React, { useEffect, useState, useContext } from "react";
-import {
-  Alert,
-  Button,
-  Col,
-  Container,
-  Form,
-  Modal,
-  Row,
-  Table,
-} from "react-bootstrap";
-import { useForm } from "./hooks/useForm";
+import {Alert,Button,Col,Container,Form,Modal,Row,Table,} from "react-bootstrap";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import clsx from "clsx";
-import { NavbarContext } from "../../context/NavbarContext";
-import { useTranslation } from "react-i18next";
 import DatePicker from "react-datepicker";
-import es from "date-fns/locale/es";
 import { setHours, setMinutes } from "date-fns";
-
+import es from "date-fns/locale/es";
+import { useTranslation } from "react-i18next";
+import { useForm } from "./hooks/useForm";
+import { NavbarContext } from "../../context/NavbarContext";
 
 function despuesDe(obj, value) {
   try {
@@ -63,10 +53,9 @@ export const AdministrarRestaurant = ({ userToken }) => {
   const { formState, setFormState, onInputChange, onResetForm } =
     useForm(initialForm);
 
-    
-    const handleDelete = (id) => {
-      Swal.fire({
-        title: t("EliminarFechaNoDisponible"),
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: t("EliminarFechaNoDisponible"),
       text: t("EliminarSinProblema"),
       icon: "warning",
       showCancelButton: true,
@@ -85,7 +74,7 @@ export const AdministrarRestaurant = ({ userToken }) => {
       }
     });
   };
-  
+
   const [ButtonGuardarRestaurant, setButtonGuardarRestaurant] = useState(false);
   const [ShowModalRestaurant, setShowModalRestaurant] = useState(false);
   const handleRestaurant = () => {
@@ -116,27 +105,27 @@ export const AdministrarRestaurant = ({ userToken }) => {
   //Axios para traer valores del Restaurante
   useEffect(() => {
     axios
-    .get(`${url}/restaurant/`, useToken)
-    .then(({ data }) => {
-      data[0] = {
-        ...data[0],
-        horario: {
-          desde: numberToHour(data[0].horario.desde),
-          hasta: numberToHour(data[0].horario.hasta),
-        },
-      };
-      setRestaurant(data[0]);
-    })
-    .catch((error) => console.log(error));
+      .get(`${url}/restaurant/`, useToken)
+      .then(({ data }) => {
+        data[0] = {
+          ...data[0],
+          horario: {
+            desde: numberToHour(data[0].horario.desde),
+            hasta: numberToHour(data[0].horario.hasta),
+          },
+        };
+        setRestaurant(data[0]);
+      })
+      .catch((error) => console.log(error));
     axios
-    .get(`${url}/fechasnd/`, useToken)
-    .then(({ data }) => {
-      setfechasND(data);
-    })
-    .catch((error) => console.log(error));
+      .get(`${url}/fechasnd/`, useToken)
+      .then(({ data }) => {
+        setfechasND(data);
+      })
+      .catch((error) => console.log(error));
   }, [formState._id]);
   /* FIN Backend */
-  
+
   //Expresiones para validar
   const soloLetras = /^[a-zA-Z ']+$/;
 
@@ -404,21 +393,21 @@ export const AdministrarRestaurant = ({ userToken }) => {
             <Form.Label>{t("horariosRestaurant")}:</Form.Label>
             <Row>
               <Col>
-                  <DatePicker
-                    selected={formik.values.HorarioRestauranteDesde}
-                    disabled
-                    dateFormat="HH:mm"
-                    className="form-control"
-                  />
+                <DatePicker
+                  selected={formik.values.HorarioRestauranteDesde}
+                  disabled
+                  dateFormat="HH:mm"
+                  className="form-control"
+                />
               </Col>
               a
               <Col>
-              <DatePicker
-                    selected={formik.values.HorarioRestauranteHasta}
-                    disabled
-                    dateFormat="HH:mm"
-                    className="form-control"
-                  />
+                <DatePicker
+                  selected={formik.values.HorarioRestauranteHasta}
+                  disabled
+                  dateFormat="HH:mm"
+                  className="form-control"
+                />
               </Col>
             </Row>
           </Form.Group>
@@ -598,9 +587,11 @@ export const AdministrarRestaurant = ({ userToken }) => {
               <Form.Label>{t("horariosRestaurant")}:</Form.Label>
               <Row>
                 <Col>
-                <DatePicker
+                  <DatePicker
                     selected={formik.values.HorarioRestauranteDesde}
-                    onChange={(hora) => formik.setFieldValue("HorarioRestauranteDesde", hora)}
+                    onChange={(hora) =>
+                      formik.setFieldValue("HorarioRestauranteDesde", hora)
+                    }
                     showTimeSelect
                     showTimeSelectOnly
                     timeIntervals={30}
@@ -613,9 +604,11 @@ export const AdministrarRestaurant = ({ userToken }) => {
                 </Col>
                 a
                 <Col>
-                <DatePicker
+                  <DatePicker
                     selected={formik.values.HorarioRestauranteHasta}
-                    onChange={(hora) => formik.setFieldValue("HorarioRestauranteHasta", hora)}
+                    onChange={(hora) =>
+                      formik.setFieldValue("HorarioRestauranteHasta", hora)
+                    }
                     showTimeSelect
                     showTimeSelectOnly
                     timeIntervals={30}
@@ -631,9 +624,7 @@ export const AdministrarRestaurant = ({ userToken }) => {
             <Form.Group className="mb-3">
               <Row>
                 <Col>
-                  <Form.Label>
-                    {t("cantidadMaxima")}:
-                  </Form.Label>
+                  <Form.Label>{t("cantidadMaxima")}:</Form.Label>
                 </Col>
                 <Col>
                   <Form.Control
@@ -662,9 +653,7 @@ export const AdministrarRestaurant = ({ userToken }) => {
             <Form.Group className="mb-3">
               <Row>
                 <Col>
-                  <Form.Label>
-                    {t("tiempoMaximo")}
-                  </Form.Label>
+                  <Form.Label>{t("tiempoMaximo")}</Form.Label>
                 </Col>
                 <Col>
                   <Form.Control
@@ -704,9 +693,7 @@ export const AdministrarRestaurant = ({ userToken }) => {
             </Button>
             <Button
               variant="sucess"
-              //onClick={handleSubmit}
               disabled={ButtonGuardarRestaurant}
-              //Cuando ya se pase el contenido de handleSubmit al formik descomente el type y comente la funcion onClick
               type="sumbit"
             >
               {t("Guardar")}

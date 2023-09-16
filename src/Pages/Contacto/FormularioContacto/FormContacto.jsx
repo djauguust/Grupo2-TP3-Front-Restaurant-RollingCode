@@ -1,11 +1,10 @@
-import { Form } from "react-bootstrap";
-import { Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import clsx from "clsx";
+import axios from "axios";
 import { useTranslation } from "react-i18next";
 import Swal from "sweetalert2";
-import axios from "axios";
 
 const Formulario = () => {
   const { t } = useTranslation();
@@ -27,8 +26,8 @@ const Formulario = () => {
       .trim(),
     mensaje: Yup.string()
       .required("Debe introducir el motivo de contacto")
-      .min(15, "Mínimo 15 caracteres")
-      .max(1000, "Máximo 1000 caracteres")
+      .min(50, "Mínimo 50 caracteres")
+      .max(250, "Máximo 250 caracteres")
       .trim(),
   });
 
@@ -62,11 +61,7 @@ const Formulario = () => {
           });
         } catch (error) {}
         if (result.isConfirmed) {
-          Swal.fire(
-            t("MensajeEnviado"),
-            t("MensajeExitoso"),
-            "success"
-          );
+          Swal.fire(t("MensajeEnviado"), t("MensajeExitoso"), "success");
         }
       });
     },
@@ -84,7 +79,6 @@ const Formulario = () => {
             required
             minLength={8}
             maxLength={35}
-            //formik
             id="nombre"
             {...formik.getFieldProps("nombre")}
             className={clsx(
@@ -112,7 +106,6 @@ const Formulario = () => {
             required
             minLength={4}
             maxLength={25}
-            //formik
             id="email"
             {...formik.getFieldProps("email")}
             className={clsx(
@@ -140,8 +133,7 @@ const Formulario = () => {
             placeholder={t("motivo")}
             required
             minLength={50}
-            maxLength={1000}
-            //formik
+            maxLength={250}
             id="mensaje"
             {...formik.getFieldProps("mensaje")}
             className={clsx(

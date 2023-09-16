@@ -1,36 +1,17 @@
-import React, { useEffect, useState, useContext } from "react";
-import {
-  Alert,
-  Badge,
-  Button,
-  Col,
-  Container,
-  Form,
-  Modal,
-  Row,
-  Table,
-} from "react-bootstrap";
-import { FormSearch } from "./components/FormSearch";
-import { useForm } from "./hooks/useForm";
+import { useEffect, useState, useContext } from "react";
+import {Alert,Badge,Button,Col,Container,Form,Modal,Row,Table,} from "react-bootstrap";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { NavbarContext } from "../../context/NavbarContext";
 import { useTranslation } from "react-i18next";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import clsx from "clsx";
 import DatePicker from "react-datepicker";
+import {addMinutes,format,parse,parseISO,setHours,setMinutes,subMinutes,} from "date-fns";
 import es from "date-fns/locale/es";
 import { ReservasContexto } from "../../context/ReservasContexto";
-import {
-  addMinutes,
-  format,
-  parse,
-  parseISO,
-  setHours,
-  setMinutes,
-  subMinutes,
-} from "date-fns";
+import { NavbarContext } from "../../context/NavbarContext";
+import { useForm } from "./hooks/useForm";
 
 export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
   const { theme } = useContext(NavbarContext);
@@ -74,7 +55,7 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
     fueUsada: false,
     _id: "",
   };
-  const { formState, setFormState, onInputChange } = useForm(initialForm);
+  const { formState, setFormState } = useForm(initialForm);
 
   /* UseEffect que busque reservas cada vez que cambia formState.date */
   const [reservaToShow, setReservaToShow] = useState([]);
@@ -208,8 +189,6 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
 
   /* EDITAR RESERVA */
   const [ShowModalEdit, setShowModalEdit] = useState(false);
-  const [errores, setErrores] = useState([]);
-  const [ButtonGuardarReserva, setButtonGuardarReserva] = useState(false);
   const handleCloseModal = () => {
     setShowModalEdit(false);
   };
@@ -226,8 +205,6 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
     setFormState(aux);
   };
 
-  //Regex para validar
-
   //Esquema de validación
   const esquemaReserva = Yup.object().shape({
     Fecha: Yup.date().required("La fecha es requerida"),
@@ -236,8 +213,11 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
 
     CantidadDeComensales: Yup.number()
       .required("La cantidad de comensales es requerida")
-      .min(1,"No se permiten valores menores a 1")
-      .max(horariosDisponibles.maximoComensales, "La cantidad ingresada supera a la cantidad de comensales"),
+      .min(1, "No se permiten valores menores a 1")
+      .max(
+        horariosDisponibles.maximoComensales,
+        "La cantidad ingresada supera a la cantidad de comensales"
+      ),
 
     FueUsada: Yup.string().required("Este campo es requerido"),
   });
@@ -260,46 +240,50 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
       const fechaFormateada = format(values.Fecha, "yyyy-MM-dd", {
         locale: es,
       });
-      
+
       //Para formatear la hora a un valor Hora/Minutos
       const horaFormateada = format(values.Hora, "HH:mm", {
         locale: es,
-    });
-
-    
-      axios
-      .put(`${url}/reservas/${formState._id}`, {fecha : fechaFormateada,
-        hora : horaFormateada,
-        date : formState.date,
-        comensales : values.CantidadDeComensales,
-        fueUsada : values.FueUsada,
-        _id : formState._id,
-        comensalesInicial: formState.comensales,
-        traerHorasDisponibles,
-        maximoComensales : horariosDisponibles.maximoComensales}, useToken)
-        
-      .then(({ data }) => {
-        setShowModalEdit(false);
-        Swal.fire(
-          t("ReservaEditada"),
-          t("ReservaEditadaExitosamente"),
-          "success"
-        ).then(async (result) => {
-          actualizar();
-        });
-      })
-      .catch(({ response }) => {
-        setShowModalEdit(false);
-        Swal.fire(
-          t("ErrorServidor"),
-          `Error: ${response.data.message}`,
-          "warning"
-        ).then(async (result) => {
-          setFormState({ date: formState.fecha });
-          setButtonGuardarReserva(false);
-          actualizar();
-        });
       });
+
+      axios
+        .put(
+          `${url}/reservas/${formState._id}`,
+          {
+            fecha: fechaFormateada,
+            hora: horaFormateada,
+            date: formState.date,
+            comensales: values.CantidadDeComensales,
+            fueUsada: values.FueUsada,
+            _id: formState._id,
+            comensalesInicial: formState.comensales,
+            traerHorasDisponibles,
+            maximoComensales: horariosDisponibles.maximoComensales,
+          },
+          useToken
+        )
+
+        .then(({ data }) => {
+          setShowModalEdit(false);
+          Swal.fire(
+            t("ReservaEditada"),
+            t("ReservaEditadaExitosamente"),
+            "success"
+          ).then(async (result) => {
+            actualizar();
+          });
+        })
+        .catch(({ response }) => {
+          setShowModalEdit(false);
+          Swal.fire(
+            t("ErrorServidor"),
+            `Error: ${response.data.message}`,
+            "warning"
+          ).then(async (result) => {
+            setFormState({ date: formState.fecha });
+            actualizar();
+          });
+        });
     },
   });
 
@@ -458,18 +442,22 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
                 </h2>
               </Col>
               <Col>
-              <DatePicker
-                    selected={parsearFecha(formState.date)}
-                    onChange={((date) => setFormState({...formState, "date" : format(date, "yyyy-MM-dd", {
-                      locale: es,
-                    })}))}
-                    closeOnScroll={true}
-                    locale={es}
-                    dateFormat="yyyy/MM/dd"
-                    placeholderText={t("eligeFecha")}
-                    className="form-control"
-                    
-                  />
+                <DatePicker
+                  selected={parsearFecha(formState.date)}
+                  onChange={(date) =>
+                    setFormState({
+                      ...formState,
+                      date: format(date, "yyyy-MM-dd", {
+                        locale: es,
+                      }),
+                    })
+                  }
+                  closeOnScroll={true}
+                  locale={es}
+                  dateFormat="yyyy/MM/dd"
+                  placeholderText={t("eligeFecha")}
+                  className="form-control"
+                />
               </Col>
             </Row>
             {reservaToShow.length == 0 ? (
@@ -598,7 +586,6 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
                     minTime={minTime}
                     maxTime={maxTime}
                     timeClassName={handleColor}
-                    //filterTime={filterTime}
                     placeholderText={t("eligeHora")}
                     className={clsx(
                       "form-control",
@@ -666,12 +653,20 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
                 </Col>
               </Row>
             </Form.Group>
-            {errores.length != 0 && (
-              <Alert variant="warning">
-                {errores.map((f) => (
-                  <p key={f.index}>{f}</p>
-                ))}
-              </Alert>
+            {formik.touched.Fecha && formik.errors.Fecha && (
+              <Alert variant="warning">{formik.errors.Fecha}</Alert>
+            )}
+            {formik.touched.Hora && formik.errors.Hora && (
+              <Alert variant="warning">{formik.errors.Hora}</Alert>
+            )}
+            {formik.touched.CantidadDeComensales &&
+              formik.errors.CantidadDeComensales && (
+                <Alert variant="warning">
+                  {formik.errors.CantidadDeComensales}
+                </Alert>
+              )}
+            {formik.touched.FueUsada && formik.errors.FueUsada && (
+              <Alert variant="warning">{formik.errors.FueUsada}</Alert>
             )}
           </Modal.Body>
           <Modal.Footer className={`custom-${theme}`}>

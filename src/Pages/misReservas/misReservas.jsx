@@ -1,21 +1,15 @@
 import { useContext, useEffect, useState } from "react";
-import { Container, Row } from "react-bootstrap";
-import { ReservasContexto } from "../../context/ReservasContexto";
-import "../../styles/misReservas.css";
+import { Row } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import ContenedorReservas from "./ContenedorReservas/contenedorReservas";
 import ModalReservas from "./ModalReservas/modalReservas";
-import { UsuariosContext } from "../../context/UserContext";
-import { useTranslation } from "react-i18next";
+import { ReservasContexto } from "../../context/ReservasContexto";
+import "../../styles/misReservas.css";
 
 const MisReservas = () => {
   //Traigo todo esto del context
-  const {
-    TraerUnaReserva,
-    Reserva,
-    selectedReservaId,
-    setSelectedReservaId,
-    Reservas,
-  } = useContext(ReservasContexto);
+  const { TraerUnaReserva, Reserva, selectedReservaId, setSelectedReservaId } =
+    useContext(ReservasContexto);
 
   const { t } = useTranslation();
 

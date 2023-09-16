@@ -1,27 +1,21 @@
 import { useContext, useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-import { ReservasContexto } from "../../../context/ReservasContexto";
-import { format, getDay, parseISO, setHours, setMinutes } from "date-fns";
 import DatePicker from "react-datepicker";
+import es from "date-fns/locale/es";
+import { format, getDay, parseISO, setHours, setMinutes } from "date-fns";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import clsx from "clsx";
-import es from "date-fns/locale/es";
-import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import Swal from "sweetalert2/dist/sweetalert2.js";
-import { NavbarContext } from "../../../context/NavbarContext";
 import { useTranslation } from "react-i18next";
+import { NavbarContext } from "../../../context/NavbarContext";
+import { ReservasContexto } from "../../../context/ReservasContexto";
 
 const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
   const { theme } = useContext(NavbarContext);
-  const {
-    traerFechasNoDisponibles,
-    fechasNoDisponibles,
-    setFechasNoDisponibles,
-    traerHorasDisponibles,
-    horariosDisponibles
-  } = useContext(ReservasContexto);
+  const { traerFechasNoDisponibles, fechasNoDisponibles, horariosDisponibles } =
+    useContext(ReservasContexto);
   const TokenPuro = localStorage.getItem("user");
   const { t } = useTranslation();
 
@@ -69,7 +63,10 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
     CantidadDePersonas: Yup.number()
       .required("La cantidad de personas es requerida")
       .min(1, "Debes elegir al menos 1 persona")
-      .max(horariosDisponibles.maximoComensales, "La cantidad ingresada supera a la cantidad de comensales"),
+      .max(
+        horariosDisponibles.maximoComensales,
+        "La cantidad ingresada supera a la cantidad de comensales"
+      ),
   });
 
   //Valores iniciales
@@ -101,8 +98,8 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
         fecha: fechaFormateada,
         hora: horaFormateada,
         comensales: values.CantidadDePersonas,
-        comensalesInicial : selectedReservaId.comensales,
-        maximoComensales : horariosDisponibles.maximoComensales
+        comensalesInicial: selectedReservaId.comensales,
+        maximoComensales: horariosDisponibles.maximoComensales,
       };
 
       //Alert para preguntar si el usuario esta seguro
@@ -168,12 +165,6 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
   useEffect(() => {
     EstablecerDatos();
   }, [selectedReservaId]);
-
-  //Funcion para que los domingos esten deshabilitados
-  const isWeekday = (date) => {
-    const day = getDay(date);
-    return day !== 0;
-  };
 
   //Funcion para que el usuario no pueda elegir fechas de dias anteriores o del mismo dia
   const filterMinDay = () => {

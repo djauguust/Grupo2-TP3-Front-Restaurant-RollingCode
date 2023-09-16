@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Button, Col, Stack } from "react-bootstrap";
-import { ReservasContexto } from "../../../context/ReservasContexto";
 import axios from "axios";
 import Swal from "sweetalert2/dist/sweetalert2.js";
-import { NavbarContext } from "../../../context/NavbarContext";
 import { useTranslation } from "react-i18next";
+import { NavbarContext } from "../../../context/NavbarContext";
+import { ReservasContexto } from "../../../context/ReservasContexto";
 
 const contenedorReservas = ({ onShowModal, Reserva }) => {
   const url = import.meta.env.VITE_API;
@@ -75,8 +75,12 @@ const contenedorReservas = ({ onShowModal, Reserva }) => {
                 {`${t("cantidadComensales")}: ${Reserva.comensales}`}
               </h4>
               <div className="mt-2 d-flex justify-content-around">
-                <Button onClick={clickEditar} className="me-1">{t("editar")}</Button>
-                <Button onClick={EliminarDatos} className="ms-1">{t("borrar")}</Button>
+                <Button onClick={clickEditar} className="me-1">
+                  {t("editar")}
+                </Button>
+                <Button onClick={EliminarDatos} className="ms-1">
+                  {t("borrar")}
+                </Button>
               </div>
             </div>
           </Stack>

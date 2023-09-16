@@ -1,6 +1,5 @@
-import React from "react";
-import "../styles/ButtonDefault.css";
 import { Link } from "react-router-dom";
+import "../styles/ButtonDefault.css";
 
 function ButtonDefault({ namebtn, TipoBoton, funcion, to = null, Funcion }) {
   return (

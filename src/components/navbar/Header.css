@@ -5,16 +5,19 @@
   z-index: 100 !important;
   background-color: white;
 }
+
 .oscuro {
   height: 110px;
   z-index: 100 !important;
   background-color: #191919;
 }
+
 .oscuro .botones {
   border-bottom: 3px solid transparent;
   color: #b08d59;
   text-align: center;
 }
+
 .claro .botones {
   border-bottom: 3px solid transparent;
   color: #191919;
@@ -36,18 +39,15 @@
   text-align: center;
   display: flex;
   align-items: center;
-  /* padding: 3px; */
 }
+
 .oscuro .boton-reserva {
   background-color: #f0e5d8;
   color: #191919;
   text-align: center;
-  display:flex;
+  display: flex;
   align-items: center;
-  /* padding: 3px; */
 }
-
-
 
 .claro .boton-reserva:hover {
   background-color: #b08d59;
@@ -72,12 +72,15 @@
   .custom-navbar .botones:hover {
     border-bottom: none;
   }
+
   .custom-navbar .botones {
     border-bottom: 3px solid white;
   }
+
   .claro .collapse-custom {
     background-color: white;
   }
+
   .oscuro .collapse-custom {
     background-color: #191919;
   }
@@ -85,7 +88,7 @@
   .claro .boton-reserva {
     background-color: #191919;
     color: white;
-    position: center; 
+    position: center;
   }
 
   .claro .boton-reserva {
@@ -93,14 +96,15 @@
     color: white;
     text-align: center;
     display: inline-block;
-    padding: 3px; 
+    padding: 3px;
   }
+
   .oscuro .boton-reserva {
     background-color: #f0e5d8;
     color: #191919;
     text-align: center;
     display: inline-block;
-    padding: 3px; 
+    padding: 3px;
   }
 
 }
@@ -110,12 +114,14 @@
     width: 180px;
   }
 }
+
 @media (max-width: 370px) {
   .logo-custom {
     width: 150px;
     object-fit: contain;
   }
 }
+
 @media (max-width: 1000px) {
   .navbar-toggler {
     left: -10px;
@@ -123,8 +129,6 @@
   }
 }
 
-
-  
 .boton-izq-custom:hover {
   transform: scale(1.04);
 }
@@ -134,19 +138,18 @@
   text-align: center;
   color: black;
 }
+
 .boton-perfil-izq-custom:hover {
   background-color: black;
   color: white;
 }
 
-
- #custom-switch {
+#custom-switch {
   width: 80px;
   height: 27px;
   left: 10vh;
   position: relative;
- }
-
+}
 
 .form-switch .form-check-input:focus {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23000' class='bi bi-brightness-high' viewBox='0 0 16 16'%3E%3Cpath d='M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z'/%3E%3C/svg%3E");
@@ -169,12 +172,10 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23000' class='bi bi-brightness-high' viewBox='0 0 16 16'%3E%3Cpath d='M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z'/%3E%3C/svg%3E");
 }
 
-
 .boton-ubicacion-izq-custom:hover {
   transform: scale(1.04);
   color: #e2b111;
-  }
-
+}
 
 .boton-login-izq-custom {
   top: -20px;
@@ -182,179 +183,179 @@
   left: -110%;
 }
 
-.boton-ubicacion-izq-custom{
+.boton-ubicacion-izq-custom {
   position: relative;
   top: -57px;
   left: -15%;
 }
 
-.oscuro .boton-ubicacion-izq-custom:visited{
+.oscuro .boton-ubicacion-izq-custom:visited {
   color: wheat;
 }
 
 .boton-login-izq-custom:hover {
-transform: scale(1.04);
-color: #e2b111;
+  transform: scale(1.04);
+  color: #e2b111;
 }
 
 .boton-izq-custom:hover {
   transform: scale(1.04);
   color: #e2b111;
-  }
+}
 
 .oscuro .boton-login-izq-custom {
-color: wheat;
+  color: wheat;
 }
-
 
 @media (max-width: 390px) {
-.boton-ubicacion-izq-custom {
-left: 17vh;
-bottom: 40px;
-position: relative;
-}  
+  .boton-ubicacion-izq-custom {
+    left: 17vh;
+    bottom: 40px;
+    position: relative;
+  }
 
-
-
-
-.switch {
-	position: relative;
-	display: inline-block;
-	width: 80px;
-	height: 35px;
-  left: 19vh;
-	/* border: 2px solid #e7c03d; */
-  border: 2px solid #191919;
-	border-radius: 30px;
-	cursor: pointer;
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 80px;
+    height: 35px;
+    left: 19vh;
+    /* border: 2px solid #e7c03d; */
+    border: 2px solid #191919;
+    border-radius: 30px;
+    cursor: pointer;
+  }
 }
-
-
-
-}
-
 
 .navbar-toggler-icon {
   background-color: wheat;
   padding: 0;
 }
+
 .navbar-toggler.collapsed {
   background-color: wheat;
 }
 
-.navbar-toggler:not(.collapsed){
+.navbar-toggler:not(.collapsed) {
   background-color: wheat
 }
 
-.modal-cuentaoscuro{
+.modal-cuentaoscuro {
   background-color: #191919;
   color: white;
 }
 
-.modal-cuentaclaro{
+.modal-cuentaclaro {
   background-color: white;
 }
 
-
 #checkbox {
-	display: none;
+  display: none;
 }
+
 .switch {
-	position: relative;
-	display: inline-block;
-	width: 80px;
-	height: 35px;
+  position: relative;
+  display: inline-block;
+  width: 80px;
+  height: 35px;
   left: -90px;
-	/* border: 2px solid #e7c03d; */
+  /* border: 2px solid #e7c03d; */
   border: 2px solid #191919;
-	border-radius: 30px;
-	cursor: pointer;
+  border-radius: 30px;
+  cursor: pointer;
 }
 
 .oscuro .switch {
-border: #191919;
-border: 2px solid #e7c03d;
+  border: #191919;
+  border: 2px solid #e7c03d;
 }
-.switch > * {
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
+
+.switch>* {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
+
 .switch__ball {
-	left: 1px;
-	z-index: 10;
-	display: inline-block;
-	width: 25px;
-	height: 25px;
-	background-color: #191919;
-	border-radius: 50%;
-	transition: transform 0.5s cubic-bezier(0.52, -0.4, 0.27, 1.55);
+  left: 1px;
+  z-index: 10;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  background-color: #191919;
+  border-radius: 50%;
+  transition: transform 0.5s cubic-bezier(0.52, -0.4, 0.27, 1.55);
 }
 
 .oscuro .switch__ball {
-background-color: #dab276;
+  background-color: #dab276;
 }
+
 .switch__sun {
   font-size: 24px;
-	left: 3px;
+  left: 3px;
   color: #b08d59;
-  
+
 }
+
 .switch__moon {
   font-size: 25px;
-	right: 1px;
-}
-#checkbox:checked + .switch__ball {
-	transform: translate(49px, -50%);
+  right: 1px;
 }
 
-.navbar-nav{
-  font-size: small!important;
+#checkbox:checked+.switch__ball {
+  transform: translate(49px, -50%);
 }
 
-@media (max-width: 1090px) and (min-width: 990px){
-  .boton-ubicacion-izq-custom{
+.navbar-nav {
+  font-size: small !important;
+}
+
+@media (max-width: 1090px) and (min-width: 990px) {
+  .boton-ubicacion-izq-custom {
     left: 80px;
   }
-  .boton-login-izq-custom{
+
+  .boton-login-izq-custom {
     left: 80px;
     top: 30px;
   }
-  .logo-custom{
+
+  .logo-custom {
     width: 150px;
     object-fit: contain;
   }
 }
 
-@media (max-width: 990px){
-  .boton-ubicacion-izq-custom{
+@media (max-width: 990px) {
+  .boton-ubicacion-izq-custom {
     left: 100px;
     position: static;
     text-align: center;
   }
-  .drop-idioma{
+
+  .drop-idioma {
     text-align: center;
   }
-  .boton-login-izq-custom{
+
+  .boton-login-izq-custom {
     left: 125px;
     top: 10px;
     position: static;
     text-align: center;
   }
-  .switch{
+
+  .switch {
     left: 40vw;
   }
 }
 
-@media (max-width: 990px) and (min-width: 415px){
-  .switch{
-    left:45vw
+@media (max-width: 990px) and (min-width: 415px) {
+  .switch {
+    left: 45vw
   }
 }
 
-.color-info-oscuro{
+.color-info-oscuro {
   color: white;
 }
-
-
-

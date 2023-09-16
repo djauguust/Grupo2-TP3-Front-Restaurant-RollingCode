@@ -1,6 +1,4 @@
-import { useContext, useEffect, useState } from "react";
-import "../../styles/InicioSesion.css";
-import ButtonDefault from "../../components/ButtonDefault";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Container, Form } from "react-bootstrap";
 import { useFormik } from "formik";
@@ -8,9 +6,10 @@ import * as Yup from "yup";
 import clsx from "clsx";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { UsuariosContext } from "../../context/UserContext";
 import { toast } from "react-hot-toast";
 import { useTranslation } from "react-i18next";
+import ButtonDefault from "../../components/ButtonDefault";
+import "../../styles/InicioSesion.css";
 
 function InicioSesion() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -165,7 +164,7 @@ function InicioSesion() {
                   src="https://live.staticflickr.com/65535/53171369387_6ff310ac34_o.png"
                   alt="Imagen"
                   className="contraseña-icono"
-                  />
+                />
                 <Form.Control
                   type="password"
                   placeholder={`${t("Ejemplo")}: Lucas1234`}

@@ -1,9 +1,7 @@
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import "./Footer.css";
+import { Container, Col, Row } from "react-bootstrap";
 import { useContext } from "react";
 import { NavbarContext } from "../../context/NavbarContext";
+import "./Footer.css";
 
 const Footer = () => {
   const { theme } = useContext(NavbarContext);

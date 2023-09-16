@@ -1,15 +1,15 @@
-import React, { useContext, useRef } from "react";
+import { useContext, useRef } from "react";
 import { Container, Stack, Form } from "react-bootstrap";
-import "../../../styles/configurar-cuenta.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import clsx from "clsx";
 import Swal from "sweetalert2";
-import { UsuariosContext } from "../../../context/UserContext";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
-import ButtonDefault from "../../../components/ButtonDefault";
 import toast from "react-hot-toast";
+import { UsuariosContext } from "../../../context/UserContext";
+import ButtonDefault from "../../../components/ButtonDefault";
+import "../../../styles/configurar-cuenta.css";
 
 const configurarContraseña = () => {
   const { t } = useTranslation();

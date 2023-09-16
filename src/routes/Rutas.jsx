@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { Route, Routes } from "react-router";
+import { UsuariosContext } from "../context/UserContext";
 import PaginaPrincipal from "../Pages/PaginaPrincipal/PaginaPrincipal";
 import ACercaDeNosotros from "../Pages/a-cerca-de-nosotros/ACercaDeNosotros";
 import Contacto from "../Pages/Contacto/Contacto";
@@ -10,8 +11,7 @@ import Registro from "../Pages/Registro/Registro";
 import Error404 from "../pages/Error404/Error404";
 import { Administracion } from "../Pages/Administración/Administracion";
 import DatosCuenta from "../Pages/Cuenta/Datos-Cuenta/datos-cuenta";
-import MisReservas from "../Pages/misReservas/misReservas"
-import { UsuariosContext } from "../context/UserContext";
+import MisReservas from "../Pages/misReservas/misReservas";
 
 const Rutas = () => {
   const { Token } = useContext(UsuariosContext);

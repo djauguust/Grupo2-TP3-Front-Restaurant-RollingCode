@@ -1,10 +1,10 @@
 /* ADMINISTRACIÓN */
 
-.bi{
+.bi {
   font-size: initial;
 }
 
-.textoBotonUsuario{
+.textoBotonUsuario {
   font-size: 3vh;
 }
 
@@ -21,6 +21,7 @@
 .color-elegido:hover {
   color: black;
 }
+
 .color-elegido:visited {
   color: black;
 }
@@ -29,17 +30,6 @@
   background-color: #333;
   color: white;
 }
-
-/* .me-3 {
-  height: 55px;
-  width: 130px;
-} */
-
-/* .btn-trash {
-  height: 55px;
-  width: 138px;
-  margin-bottom: 8px;
-} */
 
 .btn-visto {
   background-color: #ffeba7;
@@ -67,7 +57,3 @@
 .letra-custom {
   font-size: medium;
 }
-
-/* .modificar-usuario-custom {
-  margin-top: 10px;
-} */

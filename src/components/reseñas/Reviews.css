@@ -28,11 +28,11 @@
 }
 
 
-.contenedor .carta:hover{
+.contenedor .carta:hover {
     height: 435px;
 }
 
-.contenedor .carta .imgBx{
+.contenedor .carta .imgBx {
     position: relative;
     width: 260px;
     height: 260px;
@@ -49,7 +49,7 @@
     width: 100%;
 }
 
-.contenedor .carta .content{
+.contenedor .carta .content {
     position: relative;
     margin-top: -120px;
     padding: 10px 15px;
@@ -60,7 +60,7 @@
     transition: 0.3s ease-in-out;
 }
 
-.contenedor .carta:hover .content{
+.contenedor .carta:hover .content {
     visibility: visible;
     opacity: 1;
     margin-top: -70px;
@@ -69,12 +69,12 @@
 
 .titulo {
     text-align: center;
-    color: #B08D59!important;
-    font-size: xx-large!important;
+    color: #B08D59 !important;
+    font-size: xx-large !important;
 }
 
 @media (max-width: 390px) {
-    .contenedor .carta:hover .content{
+    .contenedor .carta:hover .content {
         visibility: visible;
         opacity: 1;
         margin-top: -35px;
@@ -82,12 +82,12 @@
     }
 }
 
-.nombre-cocinero{
-    font-size: medium!important;
+.nombre-cocinero {
+    font-size: medium !important;
     color: black;
 }
 
-.texto-reseña{
+.texto-reseña {
     font-size: medium;
     margin-top: 10px;
 }

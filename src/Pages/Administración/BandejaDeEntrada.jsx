@@ -1,18 +1,17 @@
-import axios from "axios";
-import "../../styles/administracion.css";
 import React, { useEffect, useState } from "react";
 import { Badge, Button, Container, Modal, Table } from "react-bootstrap";
+import axios from "axios";
 import Swal from "sweetalert2";
+import { useTranslation } from "react-i18next";
 import { NavbarContext } from "../../context/NavbarContext";
 import { useContext } from "react";
-import { useTranslation } from "react-i18next";
+import "../../styles/administracion.css";
 
 export const BandejaDeEntrada = ({ userToken }) => {
   const { theme } = useContext(NavbarContext);
 
   const useToken = { headers: { "auth-token": userToken } };
   const { t } = useTranslation();
-
 
   const newTheme =
     theme === "claro" ? "light" : theme === "oscuro" ? "dark" : theme;
@@ -36,7 +35,7 @@ export const BandejaDeEntrada = ({ userToken }) => {
 
   useEffect(() => {
     axios
-      .get(`${url}/mensajes/`,useToken)
+      .get(`${url}/mensajes/`, useToken)
       .then(({ data }) => {
         setMensajesBackend(data);
       })
@@ -58,7 +57,7 @@ export const BandejaDeEntrada = ({ userToken }) => {
       if (result.isConfirmed) {
         let aux = { leido: true };
         axios
-          .put(`${url}/mensajes/${mensaje._id}`, aux,useToken)
+          .put(`${url}/mensajes/${mensaje._id}`, aux, useToken)
           .then(({ data }) => {
             actualizar();
           })
@@ -78,7 +77,7 @@ export const BandejaDeEntrada = ({ userToken }) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${url}/mensajes/${mensaje._id}`,useToken)
+          .delete(`${url}/mensajes/${mensaje._id}`, useToken)
           .then(({ data }) => {
             actualizar();
           })
@@ -213,7 +212,7 @@ export const BandejaDeEntrada = ({ userToken }) => {
         </Modal.Body>
         <Modal.Footer className={`custom-${theme}`}>
           <Button variant="secondary" onClick={handleCloseModal}>
-           {t("close")}
+            {t("close")}
           </Button>
         </Modal.Footer>
       </Modal>

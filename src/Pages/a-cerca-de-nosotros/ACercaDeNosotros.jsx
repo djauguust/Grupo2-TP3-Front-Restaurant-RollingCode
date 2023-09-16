@@ -1,12 +1,6 @@
-import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import Card from "react-bootstrap/Card";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Image from "react-bootstrap/Image";
-import "../../styles/aCercaDeNosotros.css";
 import { useTranslation } from "react-i18next";
+import { Container, Image, Col, Row, Card } from "react-bootstrap";
+import "../../styles/aCercaDeNosotros.css";
 
 const ACercaDeNosotros = () => {
   const { t } = useTranslation();

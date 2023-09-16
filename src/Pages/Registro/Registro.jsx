@@ -1,5 +1,3 @@
-import "../../styles/InicioSesion.css";
-import ButtonDefault from "../../components/ButtonDefault";
 import { Link, useNavigate } from "react-router-dom";
 import { Container, Form } from "react-bootstrap";
 import { useFormik } from "formik";
@@ -9,12 +7,13 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
+import ButtonDefault from "../../components/ButtonDefault";
+import "../../styles/InicioSesion.css";
 
 function Registro() {
   const url = import.meta.env.VITE_API;
   const navigate = useNavigate();
   const { t } = useTranslation();
-
 
   //Expresiones para validar
   const soloLetras = /^[a-zA-Z ]+$/;
@@ -196,9 +195,7 @@ function Registro() {
               </Form.Group>
 
               <Form.Group className="contenedorForm">
-                <Form.Label className="label-color">
-                  {t("email")}
-                </Form.Label>
+                <Form.Label className="label-color">{t("email")}</Form.Label>
                 <div className="input-group">
                   <img
                     src="https://live.staticflickr.com/65535/53171958241_c5697c9a28_o.png"
@@ -230,7 +227,9 @@ function Registro() {
                 )}
               </Form.Group>
               <Form.Group className="contenedorForm">
-                <Form.Label className="label-color">{t("Contraseña")} </Form.Label>
+                <Form.Label className="label-color">
+                  {t("Contraseña")}{" "}
+                </Form.Label>
                 <div className="input-group">
                   <img
                     src="https://live.staticflickr.com/65535/53171369387_6ff310ac34_o.png"

@@ -12,16 +12,16 @@ import {
   Row,
   Table,
 } from "react-bootstrap";
-import "../../styles/administracion.css";
-import { FormSearch } from "./components/FormSearch";
-import { useForm } from "./hooks/useForm";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import clsx from "clsx";
-import { NavbarContext } from "../../context/NavbarContext";
+import { useForm } from "./hooks/useForm";
 import { useTranslation } from "react-i18next";
+import { FormSearch } from "./components/FormSearch";
+import { NavbarContext } from "../../context/NavbarContext";
+import "../../styles/administracion.css";
 
 export const AdministrarUsuarios = ({ userToken }) => {
   const { theme } = useContext(NavbarContext);
@@ -205,7 +205,6 @@ export const AdministrarUsuarios = ({ userToken }) => {
 
   const handleEdit = (user) => {
     setButtonGuardarUsuario(false);
-    setErrores([]);
     let aux = {
       apellido: user.apellido,
       nombre: user.nombre,
@@ -297,27 +296,6 @@ export const AdministrarUsuarios = ({ userToken }) => {
   const [ButtonGuardarUsuario, setButtonGuardarUsuario] = useState(false);
   const handleCloseModal = () => {
     setShowModalEdit(false);
-  };
-
-  const [errores, setErrores] = useState([]);
-  const validarForm = (form) => {
-    let array = [];
-    const patron = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-
-    if (formState.nombre.length < 2) {
-      array = [...array, "El nombre debe ser mas largo"];
-    }
-    if (formState.apellido.length < 2) {
-      array = [...array, "El apellido debe ser mas largo"];
-    }
-    if (formState.email.length == 0) {
-      array = [...array, "El campo e-mail no debe estar vacío"];
-    }
-    if (!patron.test(formState.email)) {
-      array = [...array, "El campo e-mail debe contener un e-mail"];
-    }
-    setErrores(array);
-    return array.length == 0;
   };
 
   /* FIN Editar usuarios */
@@ -606,13 +584,6 @@ export const AdministrarUsuarios = ({ userToken }) => {
                 </Col>
               </Row>
             </Form.Group>
-            {/*errores.length != 0 && (
-            <Alert variant="warning">
-              {errores.map((f) => (
-                <p key={f.index}>{f}</p>
-                ))}
-            </Alert>
-          )*/}
             {formik.touched.Nombre && formik.errors.Nombre && (
               <Alert variant="warning">{formik.errors.Nombre}</Alert>
             )}
@@ -635,7 +606,6 @@ export const AdministrarUsuarios = ({ userToken }) => {
             </Button>
             <Button
               variant="sucess"
-              //onClick={handleSubmit}
               disabled={ButtonGuardarUsuario}
               type="sumbit"
             >
