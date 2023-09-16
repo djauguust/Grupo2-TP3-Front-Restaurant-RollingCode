@@ -107,14 +107,14 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
 
       //Alert para preguntar si el usuario esta seguro
       Swal.fire({
-        title: "Seguro de que realizo todos los cambios?",
-        text: "No se preocupe si se equivoco, los datos los puede cambiar nuevamente",
+        title: t("IngresasteDatosCorrectamente"),
+        text: t("CambiosRevertir"),
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Si, estoy seguro!",
-        cancelButtonText: "No",
+        confirmButtonText: t("SiEstoySeguro"),
+        cancelButtonText: t("NoMejorNo"),
       }).then((result) => {
         if (result.isConfirmed) {
           const Url = `${url}/reservas/${selectedReservaId._id}`;
@@ -128,13 +128,13 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
             .then((Response) => {
               onCloseModal();
               TraerUnaReserva();
+              Swal.fire(
+                t("ReservaEditada"),
+                t("ReservaEditadaExitosamente"),
+                "success"
+              );
             })
             .catch((error) => {});
-          Swal.fire(
-            "Reserva actualizada con éxito!",
-            "La reserva se realizo exitosamente.",
-            "success"
-          );
         }
       });
     },

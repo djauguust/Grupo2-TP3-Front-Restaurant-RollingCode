@@ -75,14 +75,14 @@ const configurarCuenta = () => {
       try {
         //Alert de sweetalert para confirmar
         Swal.fire({
-          title: "Realizaste todos los cambios?",
-          text: "No te Preocupes puedes realizar los cambios que desees luego",
+          title: t("IngresasteDatosCorrectamente"),
+          text: t("CambiosRevertir"),
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
-          confirmButtonText: "Si estoy seguro",
-          cancelButtonText: "Cancelar",
+          confirmButtonText: t("SiEstoySeguro"),
+          cancelButtonText: t("NoMejorNo"),
         }).then(async (result) => {
           if (result.isConfirmed) {
             //Guarda los valores del formulario
@@ -102,7 +102,7 @@ const configurarCuenta = () => {
                   },
                 }
               );
-              toast.success("Datos actualizados con exito", {
+              toast.success(t("DatosActualizadosExito"), {
                 style: {
                   border: "1px solid #B08D59",
                   color: "#B08D59",

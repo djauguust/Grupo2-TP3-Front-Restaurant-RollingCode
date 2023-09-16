@@ -109,22 +109,22 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
 
   const handleDelete = (reserva) => {
     Swal.fire({
-      title: "¿Realmente deseas eliminar la reserva?",
-      text: "Este cambio es irreversible y no se le notificará al cliente de tu decisión",
+      title: t("EliminarReserva"),
+      text: t("CambiosNoRevertir"),
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Si",
-      cancelButtonText: "No",
+      confirmButtonText: t("SiEstoySeguro"),
+      cancelButtonText: t("NoMejorNo"),
     }).then(async (result) => {
       if (result.isConfirmed) {
         axios
           .delete(`${url}/reservas/${reserva._id}`, useToken)
           .then(({ data }) => {
             Swal.fire(
-              "Eliminación exitosa",
-              "Reserva liberada para nuevos usuarios",
+              t("ReservaEliminadaExitosamente"),
+              t("EliminacionExitosa"),
               "success"
             ).then(async (result) => {
               actualizar();
@@ -140,14 +140,14 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
 
   const handleConfirm = (reserva) => {
     Swal.fire({
-      title: "¿Confirmar Reserva?",
-      text: "Verificar que la cantidad de personas son al menos la mitad de lo indicada en la reserva",
+      title: t("ConfirmarReserva"),
+      text: t("CambiosRevertir"),
       icon: "question",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Si",
-      cancelButtonText: "No",
+      confirmButtonText: t("SiEstoySeguro"),
+      cancelButtonText: t("NoMejorNo"),
     }).then(async (result) => {
       if (result.isConfirmed) {
         axios
@@ -157,7 +157,7 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
             useToken
           )
           .then(({ data }) => {
-            Swal.fire("Reserva marcada como usada", "", "success").then(
+            Swal.fire(t("ReservaUsadaExitosa"), "", "success").then(
               async (result) => {
                 actualizar();
               }
@@ -165,7 +165,7 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
           })
           .catch(({ response }) => {
             Swal.fire(
-              "Error con servidor",
+              t("ErrorServidor"),
               `Error: ${response.data.message}`,
               "warning"
             ).then(async (result) => {
@@ -281,8 +281,8 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
       .then(({ data }) => {
         setShowModalEdit(false);
         Swal.fire(
-          "Reserva modificada con éxito",
-          "La reserva fue modificada pero el usuario no fue notificado de esto.",
+          t("ReservaEditada"),
+          t("ReservaEditadaExitosamente"),
           "success"
         ).then(async (result) => {
           actualizar();
@@ -291,7 +291,7 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
       .catch(({ response }) => {
         setShowModalEdit(false);
         Swal.fire(
-          "Error con servidor",
+          t("ErrorServidor"),
           `Error: ${response.data.message}`,
           "warning"
         ).then(async (result) => {

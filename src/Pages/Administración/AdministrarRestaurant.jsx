@@ -66,14 +66,14 @@ export const AdministrarRestaurant = ({ userToken }) => {
     
     const handleDelete = (id) => {
       Swal.fire({
-        title: "¿Realmente deseas eliminar la fecha no disponible?",
-      text: "Para deshacer este cambio deberás clickear en el botón 'Agregar fecha no disponible'",
+        title: t("EliminarFechaNoDisponible"),
+      text: t("EliminarSinProblema"),
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Si",
-      cancelButtonText: "No",
+      confirmButtonText: t("SiEstoySeguro"),
+      cancelButtonText: t("NoMejorNo"),
     }).then(async (result) => {
       if (result.isConfirmed) {
         axios
@@ -182,14 +182,14 @@ export const AdministrarRestaurant = ({ userToken }) => {
     validateOnBlur: true,
     onSubmit: (values) => {
       Swal.fire({
-        title: "Esta seguro que desea actualizar los datos del restaurante?",
-        text: "Los cambios los puede editar luego",
+        title: t("ActualizarDatosRestaurante"),
+        text: t("CambiosRevertir"),
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Si, estoy seguro!",
-        cancelButtonText: "No, mejor no",
+        confirmButtonText: t("SiEstoySeguro"),
+        cancelButtonText: t("NoMejorNo"),
       }).then((result) => {
         if (result.isConfirmed) {
           let init = values.HorarioRestauranteDesde.split(":");
@@ -212,8 +212,8 @@ export const AdministrarRestaurant = ({ userToken }) => {
             .then(({ data }) => {
               setShowModalRestaurant(false);
               Swal.fire(
-                "Restaurant modificado con éxito",
-                "Tus modificaciones ya fueron integradas exitosamente",
+                t("RestauranteEditadoExito"),
+                t("RestauranteCambiosGuardados"),
                 "success"
               ).then(async (result) => {
                 actualizar();
@@ -222,7 +222,7 @@ export const AdministrarRestaurant = ({ userToken }) => {
             .catch(({ response }) => {
               setShowModalRestaurant(false);
               Swal.fire(
-                "Error con servidor",
+                t("ErrorServidor"),
                 `Error: ${response}`,
                 "warning"
               ).then(async (result) => {
@@ -289,14 +289,14 @@ export const AdministrarRestaurant = ({ userToken }) => {
 
   const handleSubmitModal = () => {
     Swal.fire({
-      title: "Esta seguro que desea crear la fehcha no disponible?",
-      text: "La fecha la puede eliminar luego",
+      title: t("CrearFechaNoDisponible"),
+      text: t("EliminarLuego"),
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Si, estoy seguro!",
-      cancelButtonText: "No, mejor no",
+      confirmButtonText: t("SiEstoySeguro"),
+      cancelButtonText: t("NoMejorNo"),
     }).then((result) => {
       if (result.isConfirmed) {
         setShowAlert(false);

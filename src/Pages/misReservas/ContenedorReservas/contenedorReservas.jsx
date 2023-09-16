@@ -33,14 +33,14 @@ const contenedorReservas = ({ onShowModal, Reserva }) => {
 
   const EliminarDatos = () => {
     Swal.fire({
-      title: "Estas seguro de que deseas eliminar esta reserva??",
-      text: "Una vez eliminada la reserva no puede ser recuperada",
+      title: t("EliminarReserva"),
+      text: t("EliminarAlgo"),
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Si, estoy seguro!",
-      cancelButtonText: "No",
+      confirmButtonText: t("SiEstoySeguro"),
+      cancelButtonText: t("NoMejorNo"),
     }).then((result) => {
       if (result.isConfirmed) {
         axios.delete(`${url}/reservas/${Reserva._id}`, {
@@ -50,8 +50,8 @@ const contenedorReservas = ({ onShowModal, Reserva }) => {
         });
         setValorExterno(true);
         Swal.fire(
-          "Reserva eliminada con exito!",
-          "Su reserva fue eliminada exitosamente.",
+          t("ReservaEliminadaExitosamente"),
+          t("EliminacionExitosa"),
           "success"
         );
       }

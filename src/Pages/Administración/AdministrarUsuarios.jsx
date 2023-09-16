@@ -110,14 +110,14 @@ export const AdministrarUsuarios = ({ userToken }) => {
     validateOnBlur: true,
     onSubmit: (values) => {
       Swal.fire({
-        title: "Esta seguro que desea editar el usuario?",
-        text: "Los cambios los puede editar luego",
+        title: t(" SeguroEditarUsuario"),
+        text: t("CambiosRevertir"),
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Si, estoy seguro!",
-        cancelButtonText: "No, mejor no",
+        confirmButtonText: t("SiEstoySeguro"),
+        cancelButtonText: t("NoMejorNo"),
       }).then((result) => {
         if (result.isConfirmed) {
           axios
@@ -137,8 +137,8 @@ export const AdministrarUsuarios = ({ userToken }) => {
             .then(({ data }) => {
               setShowModalEdit(false);
               Swal.fire(
-                "Usuario modificado con éxito",
-                "Tus modificaciones ya fueron integradas exitosamente",
+                t("UsuarioModificadoExito"),
+                t("ModificacionesRealizadas"),
                 "success"
               ).then(async (result) => {
                 actualizar();
@@ -147,7 +147,7 @@ export const AdministrarUsuarios = ({ userToken }) => {
             .catch(({ response }) => {
               setShowModalRestaurant(false);
               Swal.fire(
-                "Error con servidor",
+                t("ErrorServidor"),
                 `Error: ${response}`,
                 "warning"
               ).then(async (result) => {
@@ -177,22 +177,22 @@ export const AdministrarUsuarios = ({ userToken }) => {
   /* handle */
   const handleDelete = (user) => {
     Swal.fire({
-      title: `¿Realmente deseas eliminar el usuario ${user.nombre} ${user.apellido}?`,
-      text: "Este cambio es irreversible y el email quedará librado para crear un usuario nuevo",
+      title: t("EliminarUsuario"),
+      text: t("EliminarAlgo"),
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Si",
-      cancelButtonText: "No",
+      confirmButtonText: t("SiEstoySeguro"),
+      cancelButtonText: t("NoMejorNo"),
     }).then(async (result) => {
       if (result.isConfirmed) {
         axios
           .delete(`${url}/usuarios/${user._id}`, useToken)
           .then(({ data }) => {
             Swal.fire(
-              "Eliminación exitosa",
-              "E-mail liberado para crear nuevo usuario",
+              t("EliminarUsuarioExito"),
+              t("EliminacionExitosa"),
               "success"
             ).then(async (result) => {
               actualizar();

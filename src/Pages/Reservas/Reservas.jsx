@@ -169,7 +169,7 @@ const Reservas = () => {
         if (userReservation.length >= 2) {
           Swal.fire(
             "Error",
-            "El usuario ya ha realizado dos reservas.",
+            t("UsuarioRealizoDosReservas"),
             "error"
           );
           return;
@@ -177,14 +177,15 @@ const Reservas = () => {
 
         //Swal fire para confirmacion de reserva
         const result = await Swal.fire({
-          title: "Estás por realizar una reserva",
-          text: "¿Estás seguro?",
+          title: t("EstasPorRealizarUnaReserva"),
+          text: t("EstasSeguro"),
           icon: "warning",
           position: "top",
           showCancelButton: true,
           confirmButtonColor: "#B08D59",
           cancelButtonColor: "#d33",
-          confirmButtonText: "Sí, guardar mi reserva!",
+          confirmButtonText: t("SiEstoySeguro"),
+          cancelButtonText: t("NoMejorNo")
         });
         //Post a db
         if (result.isConfirmed) {
@@ -206,22 +207,22 @@ const Reservas = () => {
           );
 
           Swal.fire(
-            "Reserva Guardada",
-            "Tu reserva ha sido guardada exitosamente.",
+            t("ReservaGuardada"),
+            t("ReservaExitosa"),
             "success"
           );
 
           resetForm();
         } else {
           Swal.fire(
-            "Reserva Cancelada",
-            "Tu reserva no ha sido guardada.",
+            t("ReservaCancelada"),
+            t("ReservaNoGuardada"),
             "info"
           );
           resetForm();
         }
       } catch (error) {
-        Swal.fire("Error", "Hubo un problema al guardar la reserva.", "error");
+        Swal.fire("Error", "Hubo un problema al guardar la reserva.", error);
       }
     },
   });

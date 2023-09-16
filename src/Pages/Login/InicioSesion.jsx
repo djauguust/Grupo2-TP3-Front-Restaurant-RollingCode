@@ -24,7 +24,7 @@ function InicioSesion() {
 
   useEffect(() => {
     if (isLoggedIn === true) {
-      toast.success("Usuario logueado con exito", {
+      toast.success(t("UsuarioLogueadoExitosamente"), {
         style: {
           border: "1px solid #B08D59",
           color: "#B08D59",
@@ -93,7 +93,7 @@ function InicioSesion() {
         localStorage.setItem("user", JSON.stringify(jwtToken));
       } catch (error) {
         // Si la petición falla
-        Swal.fire("No se pudo loguear el usuario", " ", "warning");
+        Swal.fire(t("ErrorLoguear"), " ", "warning");
         setUsuarioLogueadoError(true);
         // Muestra los detalles del error en la consola
       }

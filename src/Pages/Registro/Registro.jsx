@@ -73,14 +73,14 @@ function Registro() {
       try {
         //Alert de sweetalert para confirmar
         Swal.fire({
-          title: "Ingresaste los datos correctamente?",
-          text: "Si revisaste todos los valores, y los ingresaste correctamente sigue adelante",
+          title: t("IngresasteDatosCorrectamente"),
+          text: t("CambiosRevertir"),
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
-          confirmButtonText: "Si, esta todo bien",
-          cancelButtonText: "No, quiero cambiar algo",
+          confirmButtonText: t("SiEstoySeguro"),
+          cancelButtonText: t("NoMejorNo"),
         }).then(async (result) => {
           if (result.isConfirmed) {
             //Guarda los valores del formulario
@@ -107,7 +107,7 @@ function Registro() {
                 navigate("/Login");
               })
               .catch((error) => {
-                Swal.fire("No se pudo crear el usuario", " ", "warning");
+                Swal.fire(t("NoSePudoCrearUsuario"), " ", "warning");
               });
           }
         });

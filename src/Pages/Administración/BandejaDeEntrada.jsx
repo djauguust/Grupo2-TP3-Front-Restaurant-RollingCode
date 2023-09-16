@@ -47,13 +47,13 @@ export const BandejaDeEntrada = ({ userToken }) => {
   /* Handle confirm and delete */
   const handleConfirm = (mensaje) => {
     Swal.fire({
-      title: "¿Marcar el mensaje como leído?",
+      title: t("MarcarMensajeLeido"),
       icon: "question",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Si",
-      cancelButtonText: "No",
+      confirmButtonText: t("SiEstoySeguro"),
+      cancelButtonText: t("NoMejorNo"),
     }).then(async (result) => {
       if (result.isConfirmed) {
         let aux = { leido: true };
@@ -68,13 +68,13 @@ export const BandejaDeEntrada = ({ userToken }) => {
   };
   const handleDelete = (mensaje) => {
     Swal.fire({
-      title: "¿Eliminar mensaje?",
+      title: t("EliminarMensaje"),
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Si",
-      cancelButtonText: "No",
+      confirmButtonText: t("SiEstoySeguro"),
+      cancelButtonText: t("NoMejorNo"),
     }).then(async (result) => {
       if (result.isConfirmed) {
         axios

@@ -45,14 +45,14 @@ const Formulario = () => {
     validateOnBlur: true,
     onSubmit: (values) => {
       Swal.fire({
-        title: "Ya escribio todo el mensaje?",
-        text: "Los cambios no los podra revertir luego!",
+        title: t("EscribioElMensaje"),
+        text: t("CambiosNoRevertir"),
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Si, estoy seguro!",
-        cancelButtonText: "No, mejor no!",
+        confirmButtonText: t("SiEstoySeguro"),
+        cancelButtonText: t("NoMejorNo"),
       }).then(async (result) => {
         try {
           const res = await axios.post(`${url}/mensajes`, {
@@ -63,8 +63,8 @@ const Formulario = () => {
         } catch (error) {}
         if (result.isConfirmed) {
           Swal.fire(
-            "Mensaje enviado!",
-            "El mensaje escrito fue enviado exitosamente.",
+            t("MensajeEnviado"),
+            t("MensajeExitoso"),
             "success"
           );
         }
