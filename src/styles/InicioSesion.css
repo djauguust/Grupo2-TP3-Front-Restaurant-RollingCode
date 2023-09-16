@@ -1,11 +1,143 @@
-/* Resolución para Pantallas de Tablet */
-@media (min-width: 912px) and (max-width: 1368px) {
-  .contenedorForm {
-    width: 41vh;
-    margin-left: 18px;
-  }
+.TituloInicioSesion {
+  font-weight: 700;
+  color: #fff;
+  font-size: 30px;
+}
 
-  .background-image {
+.contenedorForm {
+  width: 43vh;
+  margin-left: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/*Estilo para texto error en login*/
+.text-danger {
+  max-width: 38vh;
+}
+
+.background-image {
+  margin-top: 12vh;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(https://live.staticflickr.com/65535/53172389435_94098f58dd_o.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -1;
+}
+
+.ubicarCarta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Carta {
+  width: 54vh;
+  background-image: url(https://live.staticflickr.com/65535/53172442338_46fd0a0db4_o.jpg);
+  background-position: bottom center;
+  border-radius: 26px;
+  background-size: cover;
+  padding: 0 35px;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+}
+
+.Carta::before {
+  background-color: rgba(0, 0, 0, 2);
+}
+
+.center {
+  padding: 0 35px;
+}
+
+.logo {
+  width: 260px;
+  height: 260px;
+  margin: 0 auto 1vh;
+  filter: opacity(1.9);
+  display: block;
+}
+
+.link {
+  color: #c4c3ca;
+  text-decoration: none;
+
+}
+
+.link:hover {
+  color: #ffeba7;
+}
+
+.usuario-icono {
+  width: 40px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.correo-icono {
+  width: 40px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.contraseña-icono {
+  width: 40px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.btn-btn-light {
+  width: 1px;
+}
+
+.btn-btn-light:hover {
+  background-color: #ffeba7;
+}
+
+.btn-btn-light:hover i {
+  color: white;
+}
+
+.bi {
+  font-size: large;
+}
+
+.text-after-input {
+  color: #fff;
+}
+
+.label-color {
+  color: #ffffff;
+}
+
+.Contenedor-Error {
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Fondo con opacidad */
+  width: fit-content;
+  padding: 1vh;
+  position: relative;
+  width: 27vh;
+  height: 4vh;
+  top: -8vh;
+  left: 24px;
+  background-color: #dfd5ce;
+}
+
+.Contenedor-Error2 {
+  position: relative;
+  width: 27vh;
+  height: 4vh;
+  top: -8vh;
+  left: 24px;
+  background-color: #dfd5ce;
+}
+
+@media (max-width: 414px) {
+  .Carta {
     width: 100%;
   }
 
@@ -14,187 +146,33 @@
   }
 
   .contenedorForm {
-    width: 43vh;
+    width: 100%;
+    margin-left: 1px;
     margin-left: 18px;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  /*Estilo para texto error en login*/
-  .text-danger {
-    max-width: 38vh;
-  }
-
-
-  .background-image {
-    margin-top: 12vh;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url(https://live.staticflickr.com/65535/53172389435_94098f58dd_o.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    z-index: -1;
-
-  }
-
   .ubicarCarta {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
+  }
+}
+
+/* Resolución para Pantallas de Tablet */
+@media (min-width: 912px) and (max-width: 1368px) {
+  .contenedorForm {
+    width: 41vh;
+    margin-left: 18px;
+  }
+}
+
+@media (max-width: 280px) {
+  .contenedorForm {
+    max-width: 35vh;
   }
 
   .Carta {
-    width: 54vh;
-    background-image: url(https://live.staticflickr.com/65535/53172442338_46fd0a0db4_o.jpg);
-    background-position: bottom center;
-    border-radius: 26px;
-    background-size: cover;
-    padding: 0 35px;
-    margin-top: 5vh;
-    margin-bottom: 5vh;
+    padding: 0;
   }
-
-  .Carta::before {
-    background-color: rgba(0, 0, 0, 2);
-  }
-
-
-  .center {
-    padding: 0 35px;
-  }
-
-
-  .TituloInicioSesion {
-    font-weight: 700;
-    color: #fff;
-    font-size: 30px;
-  }
-
-  .logo {
-    width: 260px;
-    height: 260px;
-    margin: 0 auto 1vh;
-    filter: opacity(1.9);
-    display: block;
-  }
-
-  h6 span {
-    padding: 0 20px;
-    text-transform: uppercase;
-    font-weight: 700;
-    color: #fff;
-  }
-
-
-  .link {
-    color: #c4c3ca;
-    text-decoration: none;
-
-  }
-
-  .link:hover {
-    color: #ffeba7;
-  }
-
-
-
-  .usuario-icono {
-    width: 40px;
-    height: auto;
-    margin-right: 10px;
-  }
-
-  .correo-icono {
-    width: 40px;
-    height: auto;
-    margin-right: 10px;
-  }
-
-  .contraseña-icono {
-    width: 40px;
-    height: auto;
-    margin-right: 10px;
-  }
-
-  .btn-btn-light {
-    width: 1px;
-  }
-
-  .btn-btn-light:hover {
-    background-color: #ffeba7;
-  }
-
-  .btn-btn-light:hover i {
-    color: white;
-  }
-
-
-  .bi {
-    font-size: large;
-  }
-
-
-
-  .text-after-input {
-    color: #fff;
-  }
-
-  .label-color {
-    color: #ffffff;
-  }
-
-  .Contenedor-Error {
-    background-color: rgba(0, 0, 0, 0.5);
-    /* Fondo con opacidad */
-    width: fit-content;
-    padding: 1vh;
-
-  }
-
-  .Contenedor-Error {
-    position: relative;
-    width: 27vh;
-    height: 4vh;
-    top: -8vh;
-    left: 24px;
-    background-color: #dfd5ce;
-
-
-
-  }
-
-  .Contenedor-Error2 {
-    position: relative;
-    width: 27vh;
-    height: 4vh;
-    top: -8vh;
-    left: 24px;
-    background-color: #dfd5ce;
-
-
-
-  }
-
-  @media (max-width: 414px) {
-    .ubicarCarta {
-      width: 100%;
-    }
-
-    .Carta {
-      width: 100%;
-    }
-
-    .contenedorForm {
-      width: 100%;
-      margin-left: 1px;
-    }
-
-    .background-image {
-      width: 100%;
-    }
-  }
-
 }
