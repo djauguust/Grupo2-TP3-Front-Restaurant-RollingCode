@@ -103,3 +103,25 @@
 .Contenedor-Cuerpo{
     margin-left: 5vh;
 }
+
+.boton-seleccionado{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #B08D59;
+    height: 40px;
+    background-color: #F0E5D8;
+    border-right: 1vh solid #B08D59;
+    transition: 0.5s;
+}
+
+.boton-desSeleccionado{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+
+    height: 40px;
+    transition: 0.5s;
+}
