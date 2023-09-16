@@ -167,6 +167,7 @@
   }
 }
 
+/*Resolución para Celulares Fold*/
 @media (max-width: 280px) {
   .contenedorForm {
     max-width: 35vh;

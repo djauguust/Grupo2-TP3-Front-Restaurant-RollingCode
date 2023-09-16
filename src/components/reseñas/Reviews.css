@@ -91,3 +91,11 @@
     font-size: medium;
     margin-top: 10px;
 }
+
+/*Resolución para Celulares Fold*/
+@media (max-width: 280px) {
+    .contenedor .carta {
+        padding: 20px 10px;
+    }
+    
+  }
