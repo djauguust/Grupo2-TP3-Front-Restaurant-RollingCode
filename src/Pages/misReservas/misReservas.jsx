@@ -17,7 +17,6 @@ const MisReservas = () => {
 
   useEffect(() => {
     TraerUnaReserva();
-    console.log("Probando");
   }, []);
   //Funcion para el modal
   const [showModal, setShowModal] = useState(false);

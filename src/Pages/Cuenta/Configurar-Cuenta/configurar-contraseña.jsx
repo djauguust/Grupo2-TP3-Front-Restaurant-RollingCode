@@ -101,7 +101,6 @@ const configurarContraseña = () => {
                   },
                 }
               );
-              console.log(respuesta.data);
               toast.success(t("DatosActualizadosExito"), {
                 style: {
                   border: "1px solid #B08D59",

@@ -28,8 +28,6 @@ const UserContext = ({ children }) => {
     }
   }, [localStorage.getItem("user")]);
 
-  //console.log(TokenPuro);
-
   const url = import.meta.env.VITE_API;
 
   const getUsuarios = async () => {
