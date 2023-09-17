@@ -210,6 +210,7 @@ i18n.use(initReactI18next).init({
         EliminarUsuarioExito: "Successful deletion",
         MarcarMensajeLeido: "Mark the message as read?",
         EliminarMensaje: "Delete message?",
+        "¡Capacidad del restaurante insuficiente!, cantidad disponible =" : "Insufficient restaurant capacity!, available quantity =",
       },
     },
     es: {
@@ -418,6 +419,8 @@ i18n.use(initReactI18next).init({
         EliminarUsuarioExito: "Eliminación exitosa",
         MarcarMensajeLeido: "¿Marcar el mensaje como leído?",
         EliminarMensaje: "¿Eliminar mensaje?",
+        "¡Capacidad del restaurante insuficiente!, cantidad disponible =" : "¡Capacidad del restaurante insuficiente!, cantidad disponible =", 
+        NoHizoNingunaReserva : "Usted no realizo ninguna reserva"
       },
     },
   },

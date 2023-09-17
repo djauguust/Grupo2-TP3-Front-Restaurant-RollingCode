@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { NavbarContext } from "../../../context/NavbarContext";
 import { ReservasContexto } from "../../../context/ReservasContexto";
 
-const contenedorReservas = ({ onShowModal, Reserva }) => {
+const contenedorReservas = ({ onShowModal, UnaReserva }) => {
   const url = import.meta.env.VITE_API;
   const { t } = useTranslation();
 
@@ -19,13 +19,12 @@ const contenedorReservas = ({ onShowModal, Reserva }) => {
 
   const [valorExtero, setValorExterno] = useState(false);
 
-  const { TraerUnaReserva } = useContext(ReservasContexto);
+  const { TraerUnaReserva, setReserva, Reserva } = useContext(ReservasContexto);
 
   //Sirve para parasr el id al modal
   const clickEditar = () => {
-    onShowModal(Reserva);
+    onShowModal(UnaReserva);
   };
-
   useEffect(() => {
     TraerUnaReserva();
     setValorExterno(false);
@@ -43,12 +42,15 @@ const contenedorReservas = ({ onShowModal, Reserva }) => {
       cancelButtonText: t("NoMejorNo"),
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`${url}/reservas/${Reserva._id}`, {
+        axios.delete(`${url}/reservas/${UnaReserva._id}`, {
           headers: {
             "auth-token": TokenPuro.replace(/^"(.*)"$/, "$1"),
           },
         });
         setValorExterno(true);
+        {
+          Reserva.length === 1 && setReserva("");
+        }
         Swal.fire(
           t("ReservaEliminadaExitosamente"),
           t("EliminacionExitosa"),
@@ -66,13 +68,13 @@ const contenedorReservas = ({ onShowModal, Reserva }) => {
           <Stack gap={3}>
             <div className="Contenedor-Fecha">
               <h3 className="TituloReservaParaDia">
-                {`${t("reservasDia")} ${Reserva.fecha}`}
+                {`${t("reservasDia")} ${UnaReserva.fecha}`}
               </h3>
             </div>
             <div className="text-center">
-              <h4>{`${t("hora")}: ${Reserva.hora}`}</h4>
+              <h4>{`${t("hora")}: ${UnaReserva.hora}`}</h4>
               <h4 className="Contenedor-Cantidad-Personas">
-                {`${t("cantidadComensales")}: ${Reserva.comensales}`}
+                {`${t("cantidadComensales")}: ${UnaReserva.comensales}`}
               </h4>
               <div className="mt-2 d-flex justify-content-around">
                 <Button onClick={clickEditar} className="me-1">

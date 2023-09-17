@@ -277,7 +277,7 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
           setShowModalEdit(false);
           Swal.fire(
             t("ErrorServidor"),
-            `Error: ${response.data.message}`,
+            `Error: ${t(response.data.message)} ${response.data.cantidadDisponible} `,
             "warning"
           ).then(async (result) => {
             setFormState({ date: formState.fecha });

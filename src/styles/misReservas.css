@@ -21,7 +21,6 @@
     .Contenedor-Reservas {
         margin-top: 4vh;
         width: auto !important;
-
     }
 
     .ColMisReservas {
@@ -32,6 +31,13 @@
         width: min-content;
     }
 }
+
+/*Resolución para Celulares Fold*/
+@media (max-width: 280px) {
+    .Contenedor-Reservas {
+        padding: 2vh !important;
+    }
+  }
 
 /*Resolución para Pantallas de Celulares Fold*/
 @media (max-width: 600px) {

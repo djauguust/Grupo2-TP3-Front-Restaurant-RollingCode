@@ -17,8 +17,8 @@ const MisReservas = () => {
 
   useEffect(() => {
     TraerUnaReserva();
+    console.log("Probando");
   }, []);
-
   //Funcion para el modal
   const [showModal, setShowModal] = useState(false);
 
@@ -42,17 +42,25 @@ const MisReservas = () => {
         </div>
         <article className="Ubicar-Contenedor-Reservas">
           <div className="d-flex justify-content-center">
-            <Row className="rowDeMisReservas">
               {/*Map para que recorra el id y me muestre las reservas*/}
-              {Reserva &&
-                Reserva.map((Reserva) => (
+              {Reserva ? (
+            <Row className="rowDeMisReservas">
+                {Reserva.map((Reserva) => (
                   <ContenedorReservas
                     onShowModal={handleShowModal}
                     key={Reserva._id}
-                    Reserva={Reserva}
+                    UnaReserva={Reserva}
                   />
                 ))}
             </Row>
+                
+                ):(
+                  <div className="text-center">
+
+                    <h2>{t("NoHizoNingunaReserva")}</h2>
+                  </div>
+                )}
+            
             {/*Modal*/}
             <ModalReservas
               showModal={showModal}

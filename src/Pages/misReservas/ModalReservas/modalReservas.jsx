@@ -131,7 +131,9 @@ const modalReservas = ({ showModal, onCloseModal, selectedReservaId }) => {
                 "success"
               );
             })
-            .catch((error) => {});
+            .catch((error) => {
+              Swal.fire("Error", `${t(error.response.data.message)} ${error.response.data.cantidadDisponible}` );
+            });
         }
       });
     },

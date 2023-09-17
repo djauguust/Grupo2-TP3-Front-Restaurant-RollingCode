@@ -106,6 +106,7 @@ export const ReservasProvider = ({ children }) => {
     setSelectedReservaId,
     TraerUnaReserva,
     Reserva,
+    setReserva,
     traerFechasNoDisponibles,
     fechasNoDisponibles,
     setFechasNoDisponibles,

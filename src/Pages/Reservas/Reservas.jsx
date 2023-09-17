@@ -175,7 +175,7 @@ const Reservas = () => {
           resetForm();
         }
       } catch (error) {
-        Swal.fire("Error", "Hubo un problema al guardar la reserva.", error);
+        Swal.fire("Error", `${t(error.response.data.message)} ${error.response.data.cantidadDisponible}` );
       }
     },
   });
