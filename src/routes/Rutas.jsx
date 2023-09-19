@@ -25,7 +25,6 @@ const Rutas = () => {
         <Route path="/galeria" element={<Galeria />} />
         <Route path="/login" element={<InicioSesion />} />
         <Route path="/registro" element={<Registro />} />
-        <Route path="*" element={<Error404 />} />
         <Route path="/contacto" element={<Contacto />} />
         {!Token && <Route path="/reservas" element={<InicioSesion />} />}
         {Token && ( // Si Token existe
@@ -40,6 +39,7 @@ const Rutas = () => {
             )}
           </>
         )}
+        <Route path="*" element={<Error404 />} />
       </Routes>
     </>
   );
