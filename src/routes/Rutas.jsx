@@ -8,7 +8,7 @@ import Reservas from "../Pages/Reservas/Reservas";
 import Galeria from "../components/galeria/Galeria";
 import InicioSesion from "../Pages/Login/InicioSesion";
 import Registro from "../Pages/Registro/Registro";
-import Error404 from "../pages/Error404/Error404";
+import Error404 from "../Pages/Error404/ErrorCuatrosCientosCuatro";
 import { Administracion } from "../Pages/Administración/Administracion";
 import DatosCuenta from "../Pages/Cuenta/Datos-Cuenta/datos-cuenta";
 import MisReservas from "../Pages/misReservas/misReservas";

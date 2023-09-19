@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import ButtonDefault from "../../components/ButtonDefault";
 import "../../styles/Error404.css";
 
-const Error404 = () => {
+const ErrorCuatrosCientosCuatro = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -37,4 +37,4 @@ const Error404 = () => {
   );
 };
 
-export default Error404;
+export default ErrorCuatrosCientosCuatro;

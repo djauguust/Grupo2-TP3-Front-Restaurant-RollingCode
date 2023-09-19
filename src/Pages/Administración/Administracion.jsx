@@ -6,7 +6,7 @@ import { AdministrarRestaurant } from "./AdministrarRestaurant";
 import { BandejaDeEntrada } from "./BandejaDeEntrada";
 import { AdministrarUsuarios } from "./AdministrarUsuarios";
 import { AdministrarReservas } from "./AdministrarReservas";
-import Error404 from "../Error404/Error404";
+import Error404 from "../Error404/ErrorCuatrosCientosCuatro";
 import "../../styles/administracion.css";
 
 export const Administracion = () => {
