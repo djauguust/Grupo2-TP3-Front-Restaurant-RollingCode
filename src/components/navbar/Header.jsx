@@ -75,7 +75,11 @@ const NavBar = () => {
             <Nav.Link as={Link} to="/contacto" className=" m-2 botones">
               {t("contacto")}
             </Nav.Link>
-            <Nav.Link as={Link} to="/reservas" className=" m-2 boton-reserva">
+            <Nav.Link
+              as={Link}
+              to={Token ? "/reservas" : "/login"}
+              className=" m-2 boton-reserva"
+            >
               {t("reserva")}
             </Nav.Link>
             <div className="nav-link">
