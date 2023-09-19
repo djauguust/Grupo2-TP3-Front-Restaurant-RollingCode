@@ -1,0 +1,78 @@
+.ContenedorInfo {
+    width: 65%;
+    margin: 0 auto;
+}
+
+.titulo-custom {
+    color: #B08D59;
+    font-weight: bolder;
+}
+
+.info-custom {
+    background-image: url("https://live.staticflickr.com/65535/53172442433_a3ff0ebff1_o.jpg");
+    background-size: cover;
+    height: 600px;
+    display: flex;
+    align-items: center;
+}
+
+.cartel-customclaro {
+    height: 500px;
+    width: 500px;
+    background-color: rgba(255, 255, 255, 0.9);
+    margin-left: 100px;
+    text-align: center;
+}
+
+.cartel-customoscuro {
+    height: 500px;
+    width: 500px;
+    background-color: rgba(0, 0, 0, 0.9);
+    margin-left: 100px;
+    text-align: center;
+    color: white;
+}
+
+.info-dorado {
+    color: #B08D59;
+    font-weight: bolder;
+}
+
+.info-negra {
+    font-weight: bolder;
+}
+
+.cartel-customoscuro .boton-reserva-custom {
+    background-color: #F0E5D8;
+    color: black;
+    display: inline-block;
+    border: 8px solid #F0E5D8;
+    margin-top: 15px;
+    text-decoration: none;
+}
+
+.cartel-customclaro .boton-reserva-custom {
+    background-color: black;
+    color: white;
+    display: inline-block;
+    border: 8px solid black;
+    margin-top: 15px;
+    text-decoration: none;
+}
+
+.boton-reserva-custom:hover {
+    background-color: #B08D59;
+    border: 8px solid #B08D59;
+
+}
+
+
+@media (max-width: 1000px) {
+    .cartel-customclaro {
+        margin: 0 auto;
+    }
+
+    .cartel-customoscuro {
+        margin: 0 auto;
+    }
+}

@@ -1,0 +1,59 @@
+/* ADMINISTRACIÓN */
+
+.bi {
+  font-size: initial;
+}
+
+.textoBotonUsuario {
+  font-size: 3vh;
+}
+
+.about-title {
+  margin-top: 150px;
+  text-align: center;
+}
+
+.color-elegido {
+  color: #b08d59;
+  font-weight: bold;
+}
+
+.color-elegido:hover {
+  color: black;
+}
+
+.color-elegido:visited {
+  color: black;
+}
+
+.dark-mode-table {
+  background-color: #333;
+  color: white;
+}
+
+.btn-visto {
+  background-color: #ffeba7;
+  width: 60px;
+  height: 40px;
+  margin-left: 40px;
+}
+
+.btn-borrar {
+  width: 60px;
+  height: 40px;
+  margin-top: 5px;
+  margin-left: 40px;
+}
+
+.swal2-container {
+  z-index: 99999;
+}
+
+.custom-oscuro {
+  background-color: #191919;
+  color: white;
+}
+
+.letra-custom {
+  font-size: medium;
+}

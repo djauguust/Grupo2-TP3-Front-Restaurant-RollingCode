@@ -1,0 +1,85 @@
+/* Resolución para Pantallas de Ordenador */
+
+@media (min-width: 913px) {
+    .tituloError404 {
+        font-size: 12vh !important;
+    }
+
+    .textoError404 {
+        font-size: 4vh !important;
+    }
+
+    .Imagen-Fondo {
+        height: 80vh;
+        background-size: 40%;
+        background-repeat: no-repeat;
+    }
+
+    .Cuerpo-Error {
+        padding: 0 20vh 0 20vh;
+    }
+}
+
+/* Resolución para Pantallas de Celulares */
+
+@media (max-width: 767px) {
+    .tituloError404 {
+        font-size: 6vh !important;
+    }
+
+    .textoError404 {
+        font-size: 3vh !important;
+    }
+
+    .Imagen-Fondo {
+        height: 90vh;
+        background-size: 150%;
+        background-repeat: no-repeat;
+    }
+
+    .Cuerpo-Error {
+        padding: 0 5vh 0 5vh;
+    }
+}
+
+/* Resolución para Pantallas de Tablet */
+
+@media (min-width: 768px) and (max-width: 912px) {
+    .tituloError404 {
+        font-size: 7vh !important;
+    }
+
+    .textoError404 {
+        font-size: 4vh !important;
+    }
+
+    .Imagen-Fondo {
+        height: 90vh;
+        background-size: 120%;
+        background-repeat: no-repeat;
+    }
+
+    .Cuerpo-Error {
+        padding: 0 7vh 0 7vh;
+    }
+}
+
+.tituloError404,
+.textoError404 {
+    color: #F1F1F1;
+}
+
+.Imagen-Fondo {
+    background-image: url(https://live.staticflickr.com/65535/53172161469_0b5e0fab22_o.png);
+    /* Ruta a tu imagen de fondo */
+    background-position: center;
+    margin-top: 22vh;
+}
+
+.Fondo-Oscuro {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Color de fondo semitransparente */
+}

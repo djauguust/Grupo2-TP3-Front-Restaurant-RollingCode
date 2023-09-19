@@ -1,0 +1,75 @@
+/* Resolución para Pantallas de Ordenador */
+@media (min-width: 913px) {}
+
+/* Resolución para Pantallas de Tablet */
+@media (min-width: 768px) and (max-width: 912px) {
+    .rowDeMisReservas {
+        display: block !important;
+    }
+
+    .Contenedor-Reservas {
+        margin-top: 3vh;
+    }
+}
+
+/* Resolución para Pantallas de Celulares */
+@media (max-width: 767px) {
+    .TituloReservaParaDia {
+        text-align: center;
+    }
+
+    .Contenedor-Reservas {
+        margin-top: 4vh;
+        width: auto !important;
+    }
+
+    .ColMisReservas {
+        padding: 0 !important;
+    }
+
+    .rowDeMisReservas {
+        width: min-content;
+    }
+}
+
+/*Resolución para Celulares Fold*/
+@media (max-width: 280px) {
+    .Contenedor-Reservas {
+        padding: 2vh !important;
+    }
+  }
+
+/*Resolución para Pantallas de Celulares Fold*/
+@media (max-width: 600px) {
+    .Contenedor-Cantidad-Personas {
+        font-size: 2.98vh !important;
+    }
+}
+
+.Contenedor-Reservas {
+    background-color: #F1F1F1;
+    padding: 3vh;
+    box-shadow: 2px 2px 4px 5px rgba(0, 0, 0, 0.2);
+    width: max-content;
+
+}
+
+.Contenedor-Fecha {
+    border-bottom: solid 1px black;
+}
+
+.Ubicar-Contenedor-Reservas {
+    min-height: 50vh;
+}
+
+.modal-backdrop {
+    z-index: 1 !important;
+}
+
+.custom-dark {
+    background-color: #191919;
+}
+
+.contenedorMisReservas {
+    margin-top: 17vh;
+}
