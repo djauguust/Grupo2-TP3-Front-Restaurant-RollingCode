@@ -34,7 +34,8 @@ Tambien esta disponible el modo oscuro y el idioma en Ingles.
 
 -  ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white) ![Babel](https://img.shields.io/badge/Babel-F9DC3e?style=for-the-badge&logo=babel&logoColor=black)
 
-### Link Deploy: [Gusteaus](https://gusteaus-restaurant.netlify.app/ "deployGusteaus")
+### Link Deploy: 
+[Gusteaus](https://gusteaus-restaurant.netlify.app/ "deployGusteaus")
 
 
 ### Integrantes:
