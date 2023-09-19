@@ -167,6 +167,7 @@ const NavBar = () => {
                       variant="success"
                       onClick={() => {
                         navigate("/mis-reservas");
+                        handleClose();
                       }}
                     >
                       <svg
@@ -188,6 +189,7 @@ const NavBar = () => {
                       variant="info"
                       onClick={() => {
                         navigate("/configurar-cuenta");
+                        handleClose();
                       }}
                     >
                       <svg
@@ -204,7 +206,12 @@ const NavBar = () => {
                     </Button>{" "}
                     <br></br>
                     <br></br>
-                    <Button variant="danger" onClick={logout}>
+                    <Button
+                      variant="danger"
+                      onClick={() => {
+                        logout(), handleClose();
+                      }}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="16"
@@ -231,6 +238,7 @@ const NavBar = () => {
                         variant="info"
                         onClick={() => {
                           navigate("/administrador");
+                          handleClose();
                         }}
                       >
                         <svg
