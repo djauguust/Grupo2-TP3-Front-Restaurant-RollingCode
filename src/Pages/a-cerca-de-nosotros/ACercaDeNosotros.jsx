@@ -31,10 +31,10 @@ const ACercaDeNosotros = () => {
                       <a href="http://github.com/djauguust" target="blank">
                         <i className="bi bi-github m-2"></i>
                       </a>
-                      <a href="">
+                      <a href="https://www.linkedin.com/in/augusto-brito-13aa6a284" target="blank">
                         <i className="bi bi-linkedin m-2"></i>
                       </a>
-                      <a href="">
+                      <a href="http://instagram.com/august.ok" target="blank">
                         <i className="bi bi-instagram m-2"></i>
                       </a>
                     </div>
