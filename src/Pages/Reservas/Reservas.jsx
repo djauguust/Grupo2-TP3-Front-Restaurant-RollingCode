@@ -231,7 +231,7 @@ const Reservas = () => {
             <Row className="d-flex justify-content-between align-items-center pb-3">
               <Col>
                 <Image
-                  src="https://trello.com/1/cards/64b73c636625809102489870/attachments/64e189b71cf6c64059cf2edc/previews/64e189b81cf6c64059cf2ef8/download/Texto_del_p%C3%A1rrafo__2_-removebg-preview_%281%29.png"
+                  src="https://live.staticflickr.com/65535/53172154974_d7af7b89f9_o.png"
                   rounded
                   width={80}
                   height={80}
