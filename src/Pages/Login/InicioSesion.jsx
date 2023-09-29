@@ -123,11 +123,11 @@ function InicioSesion() {
               <Form.Label className="label-color">
                 {t("IngresaCorreo")}
               </Form.Label>
-              <div className="input-group">
+              <div className="input-group pe-4">
                 <img
                   src="https://live.staticflickr.com/65535/53171958241_c5697c9a28_o.png"
                   alt="Imagen"
-                  className="correo-icono"
+                  className="correo-icono d-sm-block d-none"
                 />
                 <Form.Control
                   type="text"
@@ -159,11 +159,11 @@ function InicioSesion() {
               <Form.Label className="label-color">
                 {t("IngresaContraseña")}
               </Form.Label>
-              <div className="input-group">
+              <div className="input-group pe-4">
                 <img
                   src="https://live.staticflickr.com/65535/53171369387_6ff310ac34_o.png"
                   alt="Imagen"
-                  className="contraseña-icono"
+                  className="contraseña-icono d-sm-block d-none "
                 />
                 <Form.Control
                   type="password"
