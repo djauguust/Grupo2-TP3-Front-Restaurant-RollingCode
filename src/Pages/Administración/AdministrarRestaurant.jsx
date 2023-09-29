@@ -6,7 +6,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import clsx from "clsx";
 import DatePicker from "react-datepicker";
-import { setHours, setMinutes } from "date-fns";
+import { format, setHours, setMinutes } from "date-fns";
 import es from "date-fns/locale/es";
 import { useTranslation } from "react-i18next";
 import { useForm } from "./hooks/useForm";
@@ -180,9 +180,15 @@ export const AdministrarRestaurant = ({ userToken }) => {
         confirmButtonText: t("SiEstoySeguro"),
         cancelButtonText: t("NoMejorNo"),
       }).then((result) => {
+
         if (result.isConfirmed) {
-          let init = values.HorarioRestauranteDesde.split(":");
-          let fin = values.HorarioRestauranteHasta.split(":");
+           //Para formatear las horas a un valor Hora/Minutos
+      const HorarioRestauranteDesde = format(values.HorarioRestauranteDesde, "HH:mm", {
+        locale: es,
+      });
+      const HorarioRestauranteHasta = format(values.HorarioRestauranteHasta, "HH:mm", {
+        locale: es,
+      });
           axios
             .put(
               `${url}/restaurant/`,
@@ -190,8 +196,8 @@ export const AdministrarRestaurant = ({ userToken }) => {
                 nombre: values.Nombre,
                 maximoComensales: values.CantidadMaximaComensales,
                 horario: {
-                  desde: parseInt(`${init[0]}${init[1]}`),
-                  hasta: parseInt(`${fin[0]}${fin[1]}`),
+                  desde: parseInt(HorarioRestauranteDesde.replace(":", "")),
+                  hasta: parseInt(HorarioRestauranteHasta.replace(":", "")),
                 },
                 reservasMaxima: values.CantidadMaximaDeReservas,
                 tiempoMaximoReserva: values.TiempoEntreTurnos,
