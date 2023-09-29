@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import { UsuariosContext } from "../../context/UserContext";
 import { ReservasContexto } from "../../context/ReservasContexto";
 import "../../styles/reserva.css";
+import toast from "react-hot-toast";
 
 const Reservas = () => {
   const { t } = useTranslation();
@@ -128,7 +129,16 @@ const Reservas = () => {
           );
           userReservation = reservationByUser.data;
         } catch (error) {
-          console.log(error);
+          toast.error(error.response.data.message, {
+            style: {
+              border: "1px solid #B08D59",
+              color: "#B08D59",
+            },
+            iconTheme: {
+              primary: "#B08D59",
+              secondary: "#FFFAEE",
+            },
+          })
         }
 
         if (userReservation.length >= 2) {

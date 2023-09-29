@@ -11,6 +11,7 @@ import es from "date-fns/locale/es";
 import { useTranslation } from "react-i18next";
 import { useForm } from "./hooks/useForm";
 import { NavbarContext } from "../../context/NavbarContext";
+import toast from "react-hot-toast";
 
 function despuesDe(obj, value) {
   try {
@@ -70,7 +71,16 @@ export const AdministrarRestaurant = ({ userToken }) => {
           .then(({ data }) => {
             actualizar();
           })
-          .catch((error) => console.log(error));
+          .catch((error) => toast.error(error.response.data.message, {
+            style: {
+              border: "1px solid #B08D59",
+              color: "#B08D59",
+            },
+            iconTheme: {
+              primary: "#B08D59",
+              secondary: "#FFFAEE",
+            },
+          }));
       }
     });
   };
@@ -116,13 +126,31 @@ export const AdministrarRestaurant = ({ userToken }) => {
         };
         setRestaurant(data[0]);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => toast.error(error.response.data.message, {
+        style: {
+          border: "1px solid #B08D59",
+          color: "#B08D59",
+        },
+        iconTheme: {
+          primary: "#B08D59",
+          secondary: "#FFFAEE",
+        },
+      }));
     axios
       .get(`${url}/fechasnd/`, useToken)
       .then(({ data }) => {
         setfechasND(data);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => toast.error(error.response.data.message, {
+        style: {
+          border: "1px solid #B08D59",
+          color: "#B08D59",
+        },
+        iconTheme: {
+          primary: "#B08D59",
+          secondary: "#FFFAEE",
+        },
+      }));
   }, [formState._id]);
   /* FIN Backend */
 

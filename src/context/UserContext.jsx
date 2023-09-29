@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router";
+import toast from "react-hot-toast";
 
 export const UsuariosContext = createContext(null);
 
@@ -39,7 +40,16 @@ const UserContext = ({ children }) => {
       });
       setUsuarios(response.data);
     } catch (error) {
-      console.log(error);
+      toast.error(error.response.data.message, {
+        style: {
+          border: "1px solid #B08D59",
+          color: "#B08D59",
+        },
+        iconTheme: {
+          primary: "#B08D59",
+          secondary: "#FFFAEE",
+        },
+      })
     }
   };
 
@@ -53,7 +63,16 @@ const UserContext = ({ children }) => {
       });
       setUsuario(respuesta.data);
     } catch (error) {
-      console.log(error);
+      toast.error(error.response.data.message, {
+        style: {
+          border: "1px solid #B08D59",
+          color: "#B08D59",
+        },
+        iconTheme: {
+          primary: "#B08D59",
+          secondary: "#FFFAEE",
+        },
+      })
     }
   };
 

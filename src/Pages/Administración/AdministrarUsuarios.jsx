@@ -22,6 +22,7 @@ import { useTranslation } from "react-i18next";
 import { FormSearch } from "./components/FormSearch";
 import { NavbarContext } from "../../context/NavbarContext";
 import "../../styles/administracion.css";
+import toast from "react-hot-toast";
 
 export const AdministrarUsuarios = ({ userToken }) => {
   const { theme } = useContext(NavbarContext);
@@ -198,7 +199,16 @@ export const AdministrarUsuarios = ({ userToken }) => {
               actualizar();
             });
           })
-          .catch((error) => console.log(error));
+          .catch((error) => toast.error(error.response.data.message, {
+            style: {
+              border: "1px solid #B08D59",
+              color: "#B08D59",
+            },
+            iconTheme: {
+              primary: "#B08D59",
+              secondary: "#FFFAEE",
+            },
+          }));
       }
     });
   };
@@ -235,7 +245,16 @@ export const AdministrarUsuarios = ({ userToken }) => {
         setUsuarios(data);
         setUserFiltered(data);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => toast.error(error.response.data.message, {
+        style: {
+          border: "1px solid #B08D59",
+          color: "#B08D59",
+        },
+        iconTheme: {
+          primary: "#B08D59",
+          secondary: "#FFFAEE",
+        },
+      }));
   }, [actualizador]);
   /* FIN Backend */
   /* FIN AXIOS */
@@ -332,7 +351,16 @@ export const AdministrarUsuarios = ({ userToken }) => {
         .then(({ data }) => {
           setReservasByUser(data);
         })
-        .catch((error) => console.log(error));
+        .catch((error) => toast.error(error.response.data.message, {
+          style: {
+            border: "1px solid #B08D59",
+            color: "#B08D59",
+          },
+          iconTheme: {
+            primary: "#B08D59",
+            secondary: "#FFFAEE",
+          },
+        }));
     } else {
       setReservasByUser(null);
     }

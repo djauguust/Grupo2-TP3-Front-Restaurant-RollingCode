@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { UsuariosContext } from "./UserContext";
+import toast from "react-hot-toast";
 
 export const ReservasContexto = createContext();
 
@@ -34,7 +35,16 @@ export const ReservasProvider = ({ children }) => {
       const reserva = await res.data;
       setReserva(reserva);
     } catch (error) {
-      console.log(error);
+      toast.error(error.response.data.message, {
+        style: {
+          border: "1px solid #B08D59",
+          color: "#B08D59",
+        },
+        iconTheme: {
+          primary: "#B08D59",
+          secondary: "#FFFAEE",
+        },
+      })
     }
   };
 
@@ -55,7 +65,16 @@ export const ReservasProvider = ({ children }) => {
         })
       );
     } catch (error) {
-      console.log(error);
+      toast.error(error.response.data.message, {
+        style: {
+          border: "1px solid #B08D59",
+          color: "#B08D59",
+        },
+        iconTheme: {
+          primary: "#B08D59",
+          secondary: "#FFFAEE",
+        },
+      })
     }
   };
 
@@ -94,7 +113,16 @@ export const ReservasProvider = ({ children }) => {
         maximoComensales: maximoComensales,
       });
     } catch (error) {
-      console.log(error);
+      toast.error(error.response.data.message, {
+        style: {
+          border: "1px solid #B08D59",
+          color: "#B08D59",
+        },
+        iconTheme: {
+          primary: "#B08D59",
+          secondary: "#FFFAEE",
+        },
+      })
     }
   };
 

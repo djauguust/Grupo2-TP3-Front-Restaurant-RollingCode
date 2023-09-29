@@ -5,11 +5,15 @@ import clsx from "clsx";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 const Formulario = () => {
   const { t } = useTranslation();
 
   const url = import.meta.env.VITE_API;
+
+  //Regex
+  const soloLetras = /^[a-zA-Z ]+$/;
 
   // Esquema
   const SingUpSchema = Yup.object().shape({
@@ -17,6 +21,7 @@ const Formulario = () => {
       .required("Debe introducir su nombre")
       .min(8, "Minimo 8 caracteres")
       .max(35, "Máximo 35 caracteres")
+      .matches(soloLetras,"Solo son validos letras")
       .trim(),
     email: Yup.string()
       .email("El formato ingresado no es válido")
@@ -59,7 +64,16 @@ const Formulario = () => {
             email: values.email,
             mensaje: values.mensaje,
           });
-        } catch (error) {}
+        } catch (error) {toast.error(error.response.data.message, {
+          style: {
+            border: "1px solid #B08D59",
+            color: "#B08D59",
+          },
+          iconTheme: {
+            primary: "#B08D59",
+            secondary: "#FFFAEE",
+          },
+        })}
         if (result.isConfirmed) {
           Swal.fire(t("MensajeEnviado"), t("MensajeExitoso"), "success");
         }

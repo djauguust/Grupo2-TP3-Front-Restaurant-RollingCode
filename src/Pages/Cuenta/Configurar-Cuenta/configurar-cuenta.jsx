@@ -118,7 +118,16 @@ const configurarCuenta = () => {
               setMostrarContraseña(false);
               traerUnUsuario();
             } catch (error) {
-              console.log(error);
+              toast.error(error.response.data.message, {
+                style: {
+                  border: "1px solid #B08D59",
+                  color: "#B08D59",
+                },
+                iconTheme: {
+                  primary: "#B08D59",
+                  secondary: "#FFFAEE",
+                },
+              })
             }
           }
         });

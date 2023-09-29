@@ -12,6 +12,7 @@ import es from "date-fns/locale/es";
 import { ReservasContexto } from "../../context/ReservasContexto";
 import { NavbarContext } from "../../context/NavbarContext";
 import { useForm } from "./hooks/useForm";
+import toast from "react-hot-toast";
 
 export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
   const { theme } = useContext(NavbarContext);
@@ -74,7 +75,16 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
       .then(({ data }) => {
         setReservaToShow(data);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => toast.error(error.response.data.message, {
+        style: {
+          border: "1px solid #B08D59",
+          color: "#B08D59",
+        },
+        iconTheme: {
+          primary: "#B08D59",
+          secondary: "#FFFAEE",
+        },
+      }));
   }, [formState.date, actualizador]);
 
   useEffect(() => {
@@ -83,7 +93,16 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
       .then(({ data }) => {
         setReservasToday(data);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => toast.error(error.response.data.message, {
+        style: {
+          border: "1px solid #B08D59",
+          color: "#B08D59",
+        },
+        iconTheme: {
+          primary: "#B08D59",
+          secondary: "#FFFAEE",
+        },
+      }));
   }, [actualizador]);
 
   /* FIN Backend */
@@ -112,7 +131,16 @@ export const AdministrarReservas = ({ isDoorman = false, userToken }) => {
             });
           })
           .catch((error) => {
-            console.log(error);
+            toast.error(error.response.data.message, {
+              style: {
+                border: "1px solid #B08D59",
+                color: "#B08D59",
+              },
+              iconTheme: {
+                primary: "#B08D59",
+                secondary: "#FFFAEE",
+              },
+            })
             actualizar();
           });
       }

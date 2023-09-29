@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { NavbarContext } from "../../context/NavbarContext";
 import { useContext } from "react";
 import "../../styles/administracion.css";
+import toast from "react-hot-toast";
 
 export const BandejaDeEntrada = ({ userToken }) => {
   const { theme } = useContext(NavbarContext);
@@ -39,7 +40,16 @@ export const BandejaDeEntrada = ({ userToken }) => {
       .then(({ data }) => {
         setMensajesBackend(data);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => toast.error(error.response.data.message, {
+        style: {
+          border: "1px solid #B08D59",
+          color: "#B08D59",
+        },
+        iconTheme: {
+          primary: "#B08D59",
+          secondary: "#FFFAEE",
+        },
+      }));
   }, [actualizador]);
   /* FIN Backend */
 
@@ -61,7 +71,16 @@ export const BandejaDeEntrada = ({ userToken }) => {
           .then(({ data }) => {
             actualizar();
           })
-          .catch((error) => console.log(error));
+          .catch((error) => toast.error(error.response.data.message, {
+            style: {
+              border: "1px solid #B08D59",
+              color: "#B08D59",
+            },
+            iconTheme: {
+              primary: "#B08D59",
+              secondary: "#FFFAEE",
+            },
+          }));
       }
     });
   };
@@ -81,7 +100,16 @@ export const BandejaDeEntrada = ({ userToken }) => {
           .then(({ data }) => {
             actualizar();
           })
-          .catch((error) => console.log(error));
+          .catch((error) => toast.error(error.response.data.message, {
+            style: {
+              border: "1px solid #B08D59",
+              color: "#B08D59",
+            },
+            iconTheme: {
+              primary: "#B08D59",
+              secondary: "#FFFAEE",
+            },
+          }));
       }
     });
   };
