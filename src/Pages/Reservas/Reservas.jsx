@@ -242,6 +242,7 @@ const Reservas = () => {
               <Col>
                 <Image
                   src="https://live.staticflickr.com/65535/53172154974_d7af7b89f9_o.png"
+                  alt="Logo del Restaurante"
                   rounded
                   width={80}
                   height={80}
